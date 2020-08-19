@@ -2,7 +2,7 @@ apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
   name: dolly
-  namespace: u2
+  namespace: dolly
   labels:
     team: registre
 spec:
@@ -14,8 +14,8 @@ spec:
     application:
       enabled: true
   ingresses:
-    - https://dolly-u2.nais.preprod.local
-    - https://dolly-u2.dev.nais.io
+    - https://dolly-team.nais.preprod.local
+    - https://dolly-team.dev.nais.io
   liveness:
     path: /internal/isAlive
     initialDelay: 20

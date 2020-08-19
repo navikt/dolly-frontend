@@ -3,3 +3,23 @@ server.port: 8020
 #dolly.url: http://localhost:8020/api/v1
 
 fagsystem.tpsf.url: https://tps-forvalteren-u2.nais.preprod.local
+dolly.url: https://dolly-backend-t2.nais.preprod.local
+dolly.web.security.cors.origins: http://localhost:3000,http://localhost:8020,http://localhost:8080,http://localhost:8050,https://tps-forvalteren-u2.nais.preprod.local
+fagsystem.arena.url: https://arena-forvalteren.nais.preprod.local
+fagsystem.brregstub.url: https://brreg-stub.nais.preprod.local
+fagsystem.hodejegeren.url: https://testnorge-hodejegeren.nais.preprod.local
+fagsystem.inntektstub.url: https://inntektstub.nais.preprod.local
+fagsystem.instdata.url: https://testnorge-inst.nais.preprod.local
+fagsystem.krrstub.url: https://krr-stub.nais.preprod.local
+fagsystem.pdlperson.url: https://pdl-api.nais.preprod.local
+fagsystem.pensjonforvalter.url: https://pensjon-testdata-facade.nais.preprod.local
+fagsystem.sigrunstub.url: https://sigrun-skd-stub.nais.preprod.local
+fagsystem.statiskedataforvalter.url: https://testnorge-statisk-data-forvalter.nais.preprod.local
+fagsystem.udistub.url: https://udi-stub.nais.preprod.local
+fagsystem.aareg.url: https://testnorge-aareg-u2.nais.preprod.local
+freg.security.oidc.idp.openAm.clientId: dolly-local-localhost
+freg.security.oidc.idp.openAm.clientSecret: Fitnesse123
+freg.security.oidc.idp.openAm.hostUrl: https://isso-t.adeo.no:443/isso
+freg.security.oidc.idp.openAm.issuerUrl: https://isso-t.adeo.no:443/isso/oauth2
+freg.security.oidc.idp.openAm.jwksUrl: https://isso-t.adeo.no:443/isso/oauth2/connect/jwk_uri
+security.frame.disable.localhost: false

@@ -14,13 +14,11 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import lombok.RequiredArgsConstructor;
-import no.nav.freg.security.oidc.auth.common.OidcTokenAuthentication;
 
 @Service
 @RequiredArgsConstructor
@@ -37,8 +35,7 @@ public class ProxyService {
             HttpHeaders headers,
             String requestUrl) {
 
-        OidcTokenAuthentication auth = (OidcTokenAuthentication) SecurityContextHolder.getContext().getAuthentication();
-        headers.add(HttpHeaders.AUTHORIZATION, "Bearer " + auth.getIdToken());
+       // headers.add(HttpHeaders.AUTHORIZATION, "Bearer " + auth.getIdToken());
 
         if (headers.get(NAV_CALL_ID) == null) {
             headers.add(NAV_CALL_ID, String.valueOf(UUID.randomUUID()));

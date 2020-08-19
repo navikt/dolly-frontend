@@ -63,14 +63,17 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-oauth2-client</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
             <version>${jsoup.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>no.nav.freg</groupId>
-            <artifactId>freg-security-oidc</artifactId>
-            <version>${freg-security-oidc.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>

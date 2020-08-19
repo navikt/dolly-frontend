@@ -1,8 +1,6 @@
-name: Deploy u2
+name: Deploy to namespace dolly
 
-on:
-  push:
-    branches: master
+on: [push]
 
 env:
   IMAGE: docker.pkg.github.com/${{ github.repository }}/dolly-frontend:${{ github.sha }}
@@ -45,4 +43,4 @@ jobs:
         env:
           APIKEY: ${{ secrets.API_KEY }}
           CLUSTER: dev-fss
-          RESOURCE: nais-u2.yaml
+          RESOURCE: nais-dolly.yaml

@@ -1,26 +1,2 @@
 server:
   use-forward-headers: true
-
-app:
-  name: dolly
-  securedPath: /**
-  ignoredPaths: /internal/**
-
-freg:
-  security.oidc:
-    idp:
-      openAm:
-        loginUrl: ${freg.security.oidc.idp.openAm.hostUrl}/oauth2/authorize
-        authorizationUrl: ${freg.security.oidc.idp.openAm.hostUrl}/oauth2/access_token
-    auth:
-      securedPath: ${app.securedPath}
-      ignoredPaths: ${app.ignoredPaths}
-      codeFlow:
-        enabled: true
-        login-path: /dolly/login
-      idToken:
-        refresh-on-seconds-left: 300
-        cookie-enabled: true
-        header-enabled: false
-        validation:
-          type: refreshing
