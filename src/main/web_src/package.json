@@ -17,7 +17,6 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
-		"@types/classnames": "^2.2.10",
 		"axios": "^0.19.2",
 		"classnames": "^2.2.6",
 		"connected-react-router": "^6.8.0",
@@ -83,7 +82,7 @@
 		"uuid": "^7.0.3",
 		"webpack-merge": "^4.2.2",
 		"whatwg-fetch": "^3.4.0",
-		"yup": "^0.27.0"
+		"yup": "^0.29.3"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.11.4",
@@ -93,11 +92,12 @@
 		"@babel/preset-env": "^7.11.0",
 		"@babel/preset-react": "^7.10.4",
 		"@babel/preset-typescript": "^7.10.4",
+		"@types/classnames": "^2.2.10",
 		"@types/lodash": "^4.14.159",
 		"@types/react": "^16.9.46",
 		"@types/react-dom": "^16.9.8",
 		"@types/react-router-dom": "^5.1.5",
-		"@types/yup": "^0.26.37",
+		"@types/yup": "^0.29.6",
 		"@typescript-eslint/eslint-plugin": "^2.34.0",
 		"@typescript-eslint/parser": "^2.34.0",
 		"babel-eslint": "^10.1.0",
