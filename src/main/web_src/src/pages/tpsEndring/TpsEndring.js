@@ -2,6 +2,7 @@ import React, { PureComponent, Fragment } from 'react'
 import SendFoedselsmelding from './SendFoedselsmelding'
 import SendDoedsmelding from './SendDoedsmelding'
 import './TpsEndring.less'
+import { AlertStripeInfo } from 'nav-frontend-alertstriper'
 
 export default class TPSEndring extends PureComponent {
 	render() {
@@ -10,10 +11,10 @@ export default class TPSEndring extends PureComponent {
 		return (
 			<Fragment>
 				<h1>Send Endringsmelding</h1>
-				<p>
-					(Denne siden kommer til å bli fjernet. Kontakt oss på {dollySlack} hvis dette er et
-					problem for deg.)
-				</p>
+				<AlertStripeInfo type="advarsel" className="tps-advarsel">
+					Denne siden kommer til å bli fjernet. Kontakt oss på {dollySlack} hvis dette er et
+					problem.
+				</AlertStripeInfo>
 				<SendFoedselsmelding />
 				<SendDoedsmelding />
 			</Fragment>
