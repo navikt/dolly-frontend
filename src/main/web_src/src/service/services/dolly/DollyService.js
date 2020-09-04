@@ -145,11 +145,11 @@ export default {
 	},
 
 	//* Joark
-	getDokarkivMetadata(journalpostId, miljoe) {
-		return Request.get(Endpoints.dokarkivMetadata(journalpostId, miljoe))
+	getInntektsmeldingDokumentinfo(journalpostId, dokumentinfoId, miljoe) {
+		return Request.get(Endpoints.inntektsmeldingDokumentinfo(journalpostId, dokumentinfoId, miljoe))
 	},
 
-	getDokarkivDokument(journalpostId, dokumentinfoId, miljoe) {
-		return Request.get(Endpoints.dokarkivDokument(journalpostId, dokumentinfoId, miljoe))
+	getDokarkivDokumentinfo(journalpostId, miljoe) {
+		return Request.get(Endpoints.dokarkivDokumentinfo(journalpostId, miljoe))
 	}
 }
