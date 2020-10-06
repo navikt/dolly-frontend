@@ -21,7 +21,7 @@ public class TilbakemeldingConsumer {
     private final TokenService tokenService;
 
     public TilbakemeldingConsumer(
-            @Value("${testnorge-tilbakemelding-api.baseUrl}") String baseUrl,
+            @Value("${consumers.testnorge-tilbakemelding-api.baseUrl}") String baseUrl,
             RemoteApplicationsProperties properties,
             TokenService tokenService
     ) {
