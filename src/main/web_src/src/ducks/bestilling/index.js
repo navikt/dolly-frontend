@@ -35,8 +35,6 @@ export default handleActions(
 )
 
 const trackBestilling = values => {
-	console.log(Object.keys(values))
-
 	const _uuid = uuid()
 	Object.keys(values)
 		.filter(key => rootPaths.find(value => value === key))
