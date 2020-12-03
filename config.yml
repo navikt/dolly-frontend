@@ -53,7 +53,7 @@ spec:
     - name: DOLLY_BACKEND_HOST
       value: https://dolly-backend.dev.adeo.no
     - name: TESTNORGE_PROFIL_API_HOST
-      value: https://testnorge-profil-api.dev.adeo.no
+      value: https://testnorge-profil-api.dev.intern.nav.no
   vault:
     enabled: true
     paths:
