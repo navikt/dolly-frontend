@@ -31,64 +31,29 @@ type Fullmektig = {
 }
 
 export const Visning = ({ data }: Data) => {
-																							const fullmektig = data.fullmektig
+	const fullmektig = data.fullmektig
 
-																							return (
-																								<>
-																									<div className="person-visning_content">
-																										<ErrorBoundary>
-																											<TitleValue
-																												title="Områder"
-																												value={Formatters.arrayToString(
-																													data.omraader
-																												)}
-																											/>
-																											<TitleValue
-																												title="Kilde"
-																												value={data.kilde}
-																											/>
-																											<TitleValue
-																												title="Gyldig fra og med"
-																												value={Formatters.formatDate(
-																													data.gyldigFom
-																												)}
-																											/>
-																											<TitleValue
-																												title="Gyldig til og med"
-																												value={Formatters.formatDate(
-																													data.gyldigTom
-																												)}
-																											/>
-																										</ErrorBoundary>
-																									</div>
-																									<h4 style={{ marginTop: '0px' }}>Fullmektig</h4>
-																									<div className="person-visning_content">
-																										<TitleValue
-																											title={fullmektig.identtype}
-																											value={fullmektig.ident}
-																										/>
-																										<TitleValue
-																											title="Fornavn"
-																											value={fullmektig.fornavn}
-																										/>
-																										<TitleValue
-																											title="Mellomnavn"
-																											value={fullmektig.mellomnavn}
-																										/>
-																										<TitleValue
-																											title="Etternavn"
-																											value={fullmektig.etternavn}
-																										/>
-																										<TitleValue
-																											title="Kjønn"
-																											value={Formatters.kjonnToString(
-																												fullmektig.kjonn
-																											)}
-																										/>
-																									</div>
-																								</>
-																							)
-																						}
+	return (
+		<>
+			<div className="person-visning_content">
+				<ErrorBoundary>
+					<TitleValue title="Områder" value={Formatters.arrayToString(data.omraader)} />
+					<TitleValue title="Kilde" value={data.kilde} />
+					<TitleValue title="Gyldig fra og med" value={Formatters.formatDate(data.gyldigFom)} />
+					<TitleValue title="Gyldig til og med" value={Formatters.formatDate(data.gyldigTom)} />
+				</ErrorBoundary>
+			</div>
+			<h4 style={{ marginTop: '0px' }}>Fullmektig</h4>
+			<div className="person-visning_content">
+				<TitleValue title={fullmektig.identtype} value={fullmektig.ident} />
+				<TitleValue title="Fornavn" value={fullmektig.fornavn} />
+				<TitleValue title="Mellomnavn" value={fullmektig.mellomnavn} />
+				<TitleValue title="Etternavn" value={fullmektig.etternavn} />
+				<TitleValue title="Kjønn" value={Formatters.kjonnToString(fullmektig.kjonn)} />
+			</div>
+		</>
+	)
+}
 
 export const Fullmakt = ({ data }: DataListe) => {
 	if (!data || data.length < 1) return null
