@@ -25,17 +25,17 @@ export default ({ name, label, afterChange }: HelsepersonellSelect) => {
 		<ErrorBoundary>
 			<LoadableComponent
 				onFetch={() =>
-					SelectOptionsOppslag.hentHelsepersonell().then(response =>
-						response.helsepersonell.map((helsepersonell: Option) => ({
+					SelectOptionsOppslag.hentHelsepersonell().then(response => {
+						return response.helsepersonell.map((helsepersonell: Option) => ({
 							value: helsepersonell.fnr,
-							label: `${helsepersonell.fnr} - ${helsepersonell.fornavn} ${helsepersonell.mellomnavn} ${helsepersonell.etternavn}`,
+							label: `${helsepersonell.fnr} - ${helsepersonell.fornavn} ${helsepersonell.mellomnavn} ${helsepersonell.etternavn} - `,
 							fnr: helsepersonell.fnr,
 							fornavn: helsepersonell.fornavn,
 							mellomnavn: helsepersonell.mellomnavn,
 							etternavn: helsepersonell.etternavn,
 							hprId: helsepersonell.hprId
 						}))
-					)
+					})
 				}
 				render={(data: Array<Option>, feilmelding: Feilmelding) => (
 					<FormikSelect
