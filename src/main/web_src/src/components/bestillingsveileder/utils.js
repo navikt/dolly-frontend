@@ -1,6 +1,6 @@
 import _has from 'lodash/has'
 
-export const rootPaths = [
+const rootPaths = [
 	'tpsf',
 	'pdlforvalter',
 	'aareg',

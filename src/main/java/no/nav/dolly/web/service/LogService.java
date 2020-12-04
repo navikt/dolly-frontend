@@ -21,9 +21,6 @@ public class LogService {
         MDC.clear();
         MDC.setContextMap(event.toPropertyMap());
         switch (event.getLevel()) {
-            case TRACE:
-                log.trace(event.getMessage());
-                break;
             case INFO:
                 log.info(event.getMessage());
                 break;

@@ -29,8 +29,4 @@
     <logger name="no.nav.dolly.web.logging.LogRequestInterceptor">
         <level value="TRACE"/>
     </logger>
-    <logger name="no.nav.dolly.web.service.LogService">
-        <level value="TRACE"/>
-    </logger>
-
 </configuration>

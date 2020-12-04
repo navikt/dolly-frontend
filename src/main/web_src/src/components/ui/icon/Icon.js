@@ -21,7 +21,6 @@ import Family from '~/assets/icons/nav-ikoner/line/SVG/11-users/account-group-5.
 import Group1 from '~/assets/icons/nav-ikoner/line/SVG/11-users/account-group-1.svg'
 import Group2 from '~/assets/icons/nav-ikoner/line/SVG/11-users/account-group-2.svg'
 import IdCardDouble from '~/assets/icons/nav-ikoner/line/SVG/11-users/id-card-double.svg'
-import AccountFind from '~/assets/icons/nav-ikoner/line/SVG/11-users/account-find-2.svg'
 import NewFileTable from '~/assets/icons/nav-ikoner/line/SVG/17-files/file-table.svg'
 import FileChecklist from '~/assets/icons/nav-ikoner/line/SVG/17-files/file-checklist.svg'
 import FileChecklistLight from '~/assets/icons/nav-ikoner/line/SVG/17-files/file-checklistLight.svg'
@@ -139,8 +138,7 @@ export const icons = {
 	dokarkiv: Files,
 	copy: Copy,
 	sykdom: Plaster,
-	vergemaal: Group2,
-	visTpsData: AccountFind
+	vergemaal: Group2
 }
 
 const px = v => `${v}px`
