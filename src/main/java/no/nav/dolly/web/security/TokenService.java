@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class TokenService {
     final OnBehalfOfGenerateAccessTokenService behalfOfGenerateAccessTokenService;
 
-    public AccessToken getAccessToken(AccessScopes scope) {
-        return behalfOfGenerateAccessTokenService.generateToken(scope);
+    public AccessToken getAccessToken(AccessScopes accessToken) {
+        return behalfOfGenerateAccessTokenService.generateToken(accessToken);
     }
 }
