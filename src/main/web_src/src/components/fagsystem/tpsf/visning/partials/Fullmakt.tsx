@@ -1,9 +1,9 @@
 import React from 'react'
 import SubOverskrift from '~/components/ui/subOverskrift/SubOverskrift'
-import { TitleValue } from '~/components/ui/titleValue/TitleValue'
+import {TitleValue} from '~/components/ui/titleValue/TitleValue'
 import Formatters from '~/utils/DataFormatter'
-import { Historikk } from '~/components/ui/historikk/Historikk'
-import { ErrorBoundary } from '~/components/ui/appError/ErrorBoundary'
+import {Historikk} from '~/components/ui/historikk/Historikk'
+import {ErrorBoundary} from '~/components/ui/appError/ErrorBoundary'
 
 type Data = {
 	data: FullmaktData
@@ -18,10 +18,10 @@ type FullmaktData = {
 	gyldigTom: Date
 	kilde: string
 	omraader: []
-	fullmakt: Fullmakt
+	fullmektig: Fullmektig
 }
 
-type Fullmakt = {
+type Fullmektig = {
 	fornavn: string
 	mellomnavn?: string
 	etternavn: string
@@ -31,29 +31,64 @@ type Fullmakt = {
 }
 
 export const Visning = ({ data }: Data) => {
-	const fullmektig = data.fullmakt
+																							const fullmektig = data.fullmektig
 
-	return (
-		<>
-			<div className="person-visning_content">
-				<ErrorBoundary>
-					<TitleValue title="Områder" value={Formatters.arrayToString(data.omraader)} />
-					<TitleValue title="Kilde" value={data.kilde} />
-					<TitleValue title="Gyldig fra og med" value={Formatters.formatDate(data.gyldigFom)} />
-					<TitleValue title="Gyldig til og med" value={Formatters.formatDate(data.gyldigTom)} />
-				</ErrorBoundary>
-			</div>
-			<h4 style={{ marginTop: '0px' }}>Fullmektig</h4>
-			<div className="person-visning_content">
-				<TitleValue title={fullmektig.identtype} value={fullmektig.ident} />
-				<TitleValue title="Fornavn" value={fullmektig.fornavn} />
-				<TitleValue title="Mellomnavn" value={fullmektig.mellomnavn} />
-				<TitleValue title="Etternavn" value={fullmektig.etternavn} />
-				<TitleValue title="Kjønn" value={Formatters.kjonnToString(fullmektig.kjonn)} />
-			</div>
-		</>
-	)
-}
+																							return (
+																								<>
+																									<div className="person-visning_content">
+																										<ErrorBoundary>
+																											<TitleValue
+																												title="Områder"
+																												value={Formatters.arrayToString(
+																													data.omraader
+																												)}
+																											/>
+																											<TitleValue
+																												title="Kilde"
+																												value={data.kilde}
+																											/>
+																											<TitleValue
+																												title="Gyldig fra og med"
+																												value={Formatters.formatDate(
+																													data.gyldigFom
+																												)}
+																											/>
+																											<TitleValue
+																												title="Gyldig til og med"
+																												value={Formatters.formatDate(
+																													data.gyldigTom
+																												)}
+																											/>
+																										</ErrorBoundary>
+																									</div>
+																									<h4 style={{ marginTop: '0px' }}>Fullmektig</h4>
+																									<div className="person-visning_content">
+																										<TitleValue
+																											title={fullmektig.identtype}
+																											value={fullmektig.ident}
+																										/>
+																										<TitleValue
+																											title="Fornavn"
+																											value={fullmektig.fornavn}
+																										/>
+																										<TitleValue
+																											title="Mellomnavn"
+																											value={fullmektig.mellomnavn}
+																										/>
+																										<TitleValue
+																											title="Etternavn"
+																											value={fullmektig.etternavn}
+																										/>
+																										<TitleValue
+																											title="Kjønn"
+																											value={Formatters.kjonnToString(
+																												fullmektig.kjonn
+																											)}
+																										/>
+																									</div>
+																								</>
+																							)
+																						}
 
 export const Fullmakt = ({ data }: DataListe) => {
 	if (!data || data.length < 1) return null
