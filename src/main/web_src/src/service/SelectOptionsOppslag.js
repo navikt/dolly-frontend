@@ -139,8 +139,8 @@ SelectOptionsOppslag.formatOptions = (type, data) => {
 		const koder = temaOmraader.koder ? temaOmraader.koder : temaOmraader
 		const options = []
 		koder.length > 0 &&
-			koder.forEach(data => {
-				options.push({ value: data.value, label: data.label })
+			koder.forEach(kode => {
+				options.push({ value: kode.value, label: kode.label })
 			})
 		return options
 	}
