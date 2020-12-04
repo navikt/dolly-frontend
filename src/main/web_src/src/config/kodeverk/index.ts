@@ -14,6 +14,10 @@ export enum VergemaalKodeverk {
 	Vergetype = 'Vergemål_Vergetype'
 }
 
+export enum FullmaktKodeverk {
+	Omraader = 'Tema'
+}
+
 export enum AdresseKodeverk {
 	Postnummer = 'Postnummer',
 	PostnummerUtenPostboks = 'Postnummer vegadresser',

@@ -4,7 +4,6 @@ import { TitleValue } from '~/components/ui/titleValue/TitleValue'
 import Formatters from '~/utils/DataFormatter'
 import { Historikk } from '~/components/ui/historikk/Historikk'
 import { ErrorBoundary } from '~/components/ui/appError/ErrorBoundary'
-import { FullmaktKodeverk } from '~/config/kodeverk'
 
 type Data = {
 	data: FullmaktData
