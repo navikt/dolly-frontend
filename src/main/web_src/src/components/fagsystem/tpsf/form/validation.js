@@ -31,6 +31,13 @@ const boadresse = Yup.object({
 			)
 		)
 	),
+	bolignr: Yup.string()
+		.matches(
+			/^[HULK]\d{4}$/,
+			'Bruksenhetsnummer består av bokstaven H, L, U eller K etterfulgt av 4 sifre'
+		)
+		.transform((i, j) => (j === '' ? null : i))
+		.nullable(),
 	adressetype: requiredString,
 	gardsnr: Yup.mixed().when('adressetype', {
 		is: 'MATR',
@@ -411,6 +418,14 @@ export const validation = {
 					)
 				})
 			).nullable(),
+			vergemaal: ifPresent(
+				'$tpsf.vergemaal',
+				Yup.object({
+					embete: requiredString.nullable(),
+					sakType: requiredString.nullable(),
+					vedtakDato: requiredDate
+				})
+			),
 			boadresse: ifPresent('$tpsf.boadresse', boadresse),
 			adresseNrInfo: ifPresent('$tpsf.adresseNrInfo', adresseNrInfo),
 			midlertidigAdresse: ifPresent('$tpsf.midlertidigAdresse', midlertidigAdresse),

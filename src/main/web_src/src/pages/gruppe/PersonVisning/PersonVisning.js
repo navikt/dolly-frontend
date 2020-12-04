@@ -2,6 +2,7 @@ import React from 'react'
 import { useMount } from 'react-use'
 import Button from '~/components/ui/button/Button'
 import { TidligereBestillinger } from './TidligereBestillinger/TidligereBestillinger'
+import { PersonMiljoeinfo } from './PersonMiljoeinfo/PersonMiljoeinfo'
 import {
 	KrrVisning,
 	PdlfVisning,
@@ -40,6 +41,22 @@ export const PersonVisning = ({
 
 	return (
 		<div className="person-visning">
+			<div className="person-visning_actions">
+				{!iLaastGruppe && (
+					<Button onClick={() => leggTilPaaPerson(data)} kind="add-circle">
+						LEGG TIL/ENDRE
+					</Button>
+				)}
+				{!iLaastGruppe && (
+					<LeggTilRelasjonModal environments={bestilling.environments} personInfo={data.tpsf} />
+				)}
+				<BestillingSammendragModal bestilling={bestilling} />
+				{!iLaastGruppe && (
+					<SlettButton action={slettPerson} loading={loading.slettPerson}>
+						Er du sikker på at du vil slette denne personen?
+					</SlettButton>
+				)}
+			</div>
 			<TpsfVisning data={TpsfVisning.filterValues(data.tpsf, bestillingsListe)} />
 			<PdlfVisning data={data.pdlforvalter} loading={loading.pdlforvalter} />
 			<AaregVisning liste={data.aareg} loading={loading.aareg} />
@@ -64,24 +81,9 @@ export const PersonVisning = ({
 				loading={loading.udistub}
 			/>
 			<DokarkivVisning ident={ident.ident} />
+			<PersonMiljoeinfo ident={ident.ident} miljoe={bestilling.environments} />
 			<TidligereBestillinger ids={ident.bestillingId} />
 			<BeskrivelseConnector ident={ident} iLaastGruppe={iLaastGruppe} />
-			<div className="person-visning_actions">
-				{!iLaastGruppe && (
-					<Button onClick={() => leggTilPaaPerson(data)} kind="add-circle">
-						LEGG TIL/ENDRE
-					</Button>
-				)}
-				{!iLaastGruppe && (
-					<LeggTilRelasjonModal environments={bestilling.environments} personInfo={data.tpsf} />
-				)}
-				<BestillingSammendragModal bestilling={bestilling} />
-				{!iLaastGruppe && (
-					<SlettButton action={slettPerson} loading={loading.slettPerson}>
-						Er du sikker på at du vil slette denne personen?
-					</SlettButton>
-				)}
-			</div>
 		</div>
 	)
 }

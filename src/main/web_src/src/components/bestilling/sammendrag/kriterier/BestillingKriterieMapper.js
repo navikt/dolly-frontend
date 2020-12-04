@@ -8,7 +8,8 @@ import {
 	AdresseKodeverk,
 	ArbeidKodeverk,
 	PersoninformasjonKodeverk,
-	SigrunKodeverk
+	SigrunKodeverk,
+	VergemaalKodeverk
 } from '~/config/kodeverk'
 
 // TODO: Flytte til selector?
@@ -90,6 +91,7 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 			adresseNrInfo,
 			identHistorikk,
 			relasjoner,
+			vergemaal,
 			...persondetaljer
 		} = bestillingData.tpsf
 
@@ -113,6 +115,7 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 							`${Formatters.showLabel('adresseNrType', adresseNrInfo.nummertype)}`,
 							adresseNrInfo.nummer ? adresseNrInfo.nummer : 'Tilfeldig'
 						),
+						obj('Bruksenhetsnummer', boadresse.bolignr),
 						obj('Flyttedato', Formatters.formatDate(boadresse.flyttedato))
 					]
 				}
@@ -134,6 +137,7 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 						obj('Undernummer', boadresse.undernr),
 						obj('Postnummer', boadresse.postnr),
 						obj('Kommunenummer', boadresse.kommunenr),
+						obj('Bruksenhetsnummer', boadresse.bolignr),
 						obj('Flyttedato', Formatters.formatDate(boadresse.flyttedato))
 					]
 				}
@@ -343,6 +347,21 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 
 				data.push(barn)
 			}
+		}
+
+		if (vergemaal) {
+			const vergemaalKriterier = {
+				header: 'Vergemål',
+				items: [
+					obj('Fylkesmannsembete', vergemaal.embete, VergemaalKodeverk.Fylkesmannsembeter),
+					obj('Sakstype', vergemaal.sakType, VergemaalKodeverk.Sakstype),
+					obj('Mandattype', vergemaal.mandatType, VergemaalKodeverk.Mandattype),
+					obj('Vedtaksdato', Formatters.formatDate(vergemaal.vedtakDato)),
+					obj('Verges identtype', vergemaal.identType),
+					obj('Verge har mellomnavn', Formatters.oversettBoolean(vergemaal.harMellomnavn))
+				]
+			}
+			data.push(vergemaalKriterier)
 		}
 	}
 
