@@ -4,7 +4,7 @@ import { FormikSelect } from '~/components/ui/form/inputs/select/Select'
 import { FormikDatepicker } from '~/components/ui/form/inputs/datepicker/Datepicker'
 import { SelectOptionsManager as Options } from '~/service/SelectOptions'
 import { FormikTextInput } from '~/components/ui/form/inputs/textInput/TextInput'
-import { SelectOptionsOppslag } from '~/service/SelectOptionsOppslag'
+import { FullmaktKodeverk } from '~/config/kodeverk'
 
 export const Fullmakt = () => {
 	const paths = {
@@ -23,7 +23,7 @@ export const Fullmakt = () => {
 				<FormikSelect
 					name="tpsf.fullmakt.omraader"
 					label="Områder"
-					options={SelectOptionsOppslag.hentTemaOmraader()}
+					kodeverk={FullmaktKodeverk.tema}
 					size="xlarge"
 					optionHeight={50}
 					isMulti={true}

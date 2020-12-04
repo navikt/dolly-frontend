@@ -3,7 +3,6 @@ import { BrregstubApi, DollyApi, KrrApi } from '~/service/Api'
 import config from '~/config'
 import Api from '~/api'
 import _isNil from 'lodash/isNil'
-import { FullmaktKodeverk } from '~/config/kodeverk'
 
 const uri = `${config.services.dollyBackend}`
 
@@ -11,14 +10,6 @@ export const SelectOptionsOppslag = {
 	hentOrgnr: () => Api.fetchJson(`${uri}/orgnummer`, { method: 'GET' }),
 
 	hentHelsepersonell: () => Api.fetchJson(`${uri}/helsepersonell`, 'GET'),
-
-	hentTemaOmraader: () => {
-		const omraader = useAsync(async () => {
-			const response = await DollyApi.getKodeverkByNavn(FullmaktKodeverk.Omraader)
-			return response
-		}, [DollyApi.getKodeverkByNavn])
-		return SelectOptionsOppslag.formatOptions('temaOmraader', omraader)
-	},
 
 	hentKrrLeverandoerer: () => {
 		const sdpLeverandoerer = useAsync(async () => {
@@ -133,15 +124,6 @@ SelectOptionsOppslag.formatOptions = (type, data) => {
 			data = leverandoer[1]
 			options.push({ value: parseInt(data.id), label: data.navn })
 		})
-		return options
-	} else if (type === 'temaOmraader') {
-		const temaOmraader = data.value && data.value.data ? data.value.data : []
-		const koder = temaOmraader.koder ? temaOmraader.koder : temaOmraader
-		const options = []
-		koder.length > 0 &&
-			koder.forEach(kode => {
-				options.push({ value: kode.value, label: kode.label })
-			})
 		return options
 	}
 }

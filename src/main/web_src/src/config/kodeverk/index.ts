@@ -15,7 +15,7 @@ export enum VergemaalKodeverk {
 }
 
 export enum FullmaktKodeverk {
-	Omraader = 'Tema'
+	tema = 'Tema'
 }
 
 export enum AdresseKodeverk {
