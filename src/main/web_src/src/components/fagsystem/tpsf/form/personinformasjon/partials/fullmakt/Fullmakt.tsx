@@ -26,6 +26,7 @@ export const Fullmakt = () => {
 					kodeverk={FullmaktKodeverk.tema}
 					size="xlarge"
 					isMulti={true}
+					isClearable={false}
 					fastfield={false}
 				/>
 				<FormikDatepicker name="tpsf.fullmakt.gyldigFom" label="Gyldig fra og med" />
