@@ -1,9 +1,9 @@
 import React from 'react'
 import SubOverskrift from '~/components/ui/subOverskrift/SubOverskrift'
-import {TitleValue} from '~/components/ui/titleValue/TitleValue'
+import { TitleValue } from '~/components/ui/titleValue/TitleValue'
 import Formatters from '~/utils/DataFormatter'
-import {Historikk} from '~/components/ui/historikk/Historikk'
-import {ErrorBoundary} from '~/components/ui/appError/ErrorBoundary'
+import { Historikk } from '~/components/ui/historikk/Historikk'
+import { ErrorBoundary } from '~/components/ui/appError/ErrorBoundary'
 
 type Data = {
 	data: FullmaktData
