@@ -2,12 +2,13 @@ package no.nav.dolly.web.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import no.nav.dolly.web.consumers.TilbakemeldingConsumer;
-import no.nav.dolly.web.domain.Level;
-import no.nav.dolly.web.domain.LogEvent;
 import org.apache.logging.log4j.util.Strings;
 import org.slf4j.MDC;
 import org.springframework.stereotype.Service;
+
+import no.nav.dolly.web.consumers.TilbakemeldingConsumer;
+import no.nav.dolly.web.domain.Level;
+import no.nav.dolly.web.domain.LogEvent;
 
 @Slf4j
 @Service
