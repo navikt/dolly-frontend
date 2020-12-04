@@ -19,31 +19,26 @@ export const Fullmakt = () => {
 	return (
 		<Vis attributt={Object.values(paths)} formik>
 			<div className="flexbox--flex-wrap">
-				<FormikTextInput name="tpsf.fullmakt.kilde" label="Kilde" size="xlarge" visHvisAvhuket />
+				<FormikTextInput name="tpsf.fullmakt.kilde" label="Kilde" size="xlarge" />
 				<FormikSelect
 					name="tpsf.fullmakt.omraader"
 					label="Områder"
 					kodeverk={FullmaktKodeverk.tema}
 					size="xlarge"
-					optionHeight={50}
 					isMulti={true}
-					isClearable={true}
 					fastfield={false}
-					visHvisAvhuket
 				/>
-				<FormikDatepicker name="tpsf.fullmakt.gyldigFom" label="Gyldig fra og med" visHvisAvhuket />
-				<FormikDatepicker name="tpsf.fullmakt.gyldigTom" label="Gyldig til og med" visHvisAvhuket />
+				<FormikDatepicker name="tpsf.fullmakt.gyldigFom" label="Gyldig fra og med" />
+				<FormikDatepicker name="tpsf.fullmakt.gyldigTom" label="Gyldig til og med" />
 				<FormikSelect
 					name="tpsf.fullmakt.identType"
 					label="Fullmektig identtype"
 					options={Options('identtype')}
-					visHvisAvhuket
 				/>
 				<FormikSelect
 					name="tpsf.fullmakt.harMellomnavn"
 					label="Fullmektig har mellomnavn"
 					options={Options('boolean')}
-					visHvisAvhuket
 				/>
 			</div>
 		</Vis>
