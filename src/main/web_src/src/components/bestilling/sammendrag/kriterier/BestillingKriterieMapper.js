@@ -92,6 +92,7 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 			identHistorikk,
 			relasjoner,
 			vergemaal,
+			fullmakt,
 			...persondetaljer
 		} = bestillingData.tpsf
 
@@ -362,6 +363,21 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 				]
 			}
 			data.push(vergemaalKriterier)
+		}
+
+		if (fullmakt) {
+			const fullmaktKriterier = {
+				header: 'Fullmakt',
+				items: [
+					obj('Kilde', fullmakt.kilde),
+					obj('Områder', Formatters.arrayToString(fullmakt.omraader)),
+					obj('Gyldig fra og med', Formatters.formatDate(fullmakt.gyldigFom)),
+					obj('Gyldig til og med', Formatters.formatDate(fullmakt.gyldigTom)),
+					obj('Fullmektiges identtype', fullmakt.identType),
+					obj('Fullmektig har mellomnavn', Formatters.oversettBoolean(fullmakt.harMellomnavn))
+				]
+			}
+			data.push(fullmaktKriterier)
 		}
 	}
 
@@ -1096,6 +1112,17 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 		}
 
 		data.push(dokarkiv)
+	}
+
+	const organisasjonKriterier = bestillingData.organisasjon
+
+	if (organisasjonKriterier) {
+		const organisasjon = {
+			header: 'Organisasjonsdetaljer',
+			items: []
+		}
+		// TODO: Lages ferdig sammen med form eller visning av bestilling
+		data.push(organisasjon)
 	}
 
 	const importFraTps = bestillingData.importFraTps
