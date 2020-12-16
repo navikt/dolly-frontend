@@ -1,20 +1,32 @@
 import * as React from 'react'
 import './Enhetstre.less'
+import { Enhet } from '~/components/enhetstre/types'
 
 type EnhetProps = {
-	name: string
+	enhet: Enhet
 	hasChildren: boolean
 	isSelected: boolean
+	onNodeClick: Function
 }
 
 export const Node = (props: EnhetProps) => {
 	if (props.hasChildren) {
 		return (
-			<div className={props.isSelected ? 'rectangle-corner-selected' : 'rectangle-corner'}>
-				{props.name}
+			<div
+				onClick={() => props.onNodeClick(props.enhet)}
+				className={props.isSelected ? 'rectangle-corner-selected' : 'rectangle-corner'}
+			>
+				{props.enhet.name}
 			</div>
 		)
 	} else {
-		return <div className={props.isSelected ? 'rectangle-selected' : 'rectangle'}>{props.name}</div>
+		return (
+			<div
+				onClick={() => props.onNodeClick(props.enhet)}
+				className={props.isSelected ? 'rectangle-selected' : 'rectangle'}
+			>
+				{props.enhet.name}
+			</div>
+		)
 	}
 }

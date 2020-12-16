@@ -6,6 +6,7 @@ import './Enhetstre.less'
 type EnhetstreProps = {
 	enheter: Enhet[]
 	selectedEnhet: number
+	onNodeClick: Function
 	level?: number
 }
 
@@ -26,14 +27,16 @@ export const Enhetstre = (props: EnhetstreProps) => {
 				return (
 					<div key={level + i} className="enheter">
 						<Node
-							name={enhet.name}
+							enhet={enhet}
 							hasChildren={hasChildren(enhet)}
 							isSelected={isSelected(enhet.id, props.selectedEnhet)}
+							onNodeClick={props.onNodeClick}
 						/>
 						{hasChildren(enhet) && (
 							<Enhetstre
 								enheter={enhet.underenheter}
 								selectedEnhet={props.selectedEnhet}
+								onNodeClick={props.onNodeClick}
 								level={props.enheter.length}
 							/>
 						)}
