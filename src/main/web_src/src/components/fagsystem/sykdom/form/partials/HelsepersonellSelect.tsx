@@ -31,7 +31,9 @@ export default ({ name, label, afterChange }: HelsepersonellSelect) => {
 			case 'FT':
 				return 'FYSIOTERAPEUT'
 			case 'TL':
-				return 'TURNUSLEGE'
+				return 'TANNLEGE'
+			case 'MT':
+				return 'MANUELLTERAPEUT'
 			default:
 				return samhandlerType
 		}
