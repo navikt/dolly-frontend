@@ -47,14 +47,15 @@ export default ({ name, label, afterChange }: HelsepersonellSelect) => {
 						response.helsepersonell.map((helsepersonell: Option) => ({
 							value: helsepersonell.fnr,
 							label: `${helsepersonell.fnr} - ${helsepersonell.fornavn} 
-							${helsepersonell.mellomnavn} 
+							${helsepersonell.mellomnavn ? helsepersonell.mellomnavn : ''} 
 							${helsepersonell.etternavn} 
 							(${mapSamhandlerType(helsepersonell.samhandlerType)})`,
 							fnr: helsepersonell.fnr,
 							fornavn: helsepersonell.fornavn,
 							mellomnavn: helsepersonell.mellomnavn,
 							etternavn: helsepersonell.etternavn,
-							hprId: helsepersonell.hprId
+							hprId: helsepersonell.hprId,
+							samhandlerType: mapSamhandlerType(helsepersonell.samhandlerType)
 						}))
 					)
 				}
