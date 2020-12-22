@@ -15,7 +15,7 @@ export const rootPaths = [
 	'brregstub',
 	'dokarkiv',
 	'sykemelding',
-	'organisasjon'
+	'organisasjoner'
 ]
 
 export const harAvhukedeAttributter = values => {

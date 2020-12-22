@@ -9,7 +9,7 @@ import { FormikDollyFieldArray } from '~/components/ui/form/fieldArray/DollyFiel
 import { OrganisasjonKodeverk, AdresseKodeverk } from '~/config/kodeverk'
 
 export const Detaljer = ({ formikBag, path, level, number }) => {
-	const initialValues = _omit(formikBag.values.organisasjon, 'underenheter')
+	const initialValues = _omit(formikBag.values.organisasjoner, 'underenheter')
 	const landForretningsadresse = _get(formikBag, `values.${path}.forretningsadresse.landkode`)
 	const landPostadresse = _get(formikBag, `values.${path}.postadresse.landkode`)
 
@@ -51,7 +51,7 @@ export const Detaljer = ({ formikBag, path, level, number }) => {
 				<FormikTextInput name={`${path}.nettadresse`} label="Internettadresse" size="large" />
 			</Kategori>
 
-			<Kategori title="Forretningsadresse" vis="organisasjon.forretningsadresse">
+			<Kategori title="Forretningsadresse" vis="organisasjoner.forretningsadresse">
 				<FormikSelect
 					name={`${path}.forretningsadresse.landkode`}
 					label="Land"
@@ -81,20 +81,20 @@ export const Detaljer = ({ formikBag, path, level, number }) => {
 				)}
 
 				<FormikTextInput
-					name={`${path}.forretningsadresse.adresselinje[0]`}
+					name={`${path}.forretningsadresse.adresselinjer[0]`}
 					label="Adresselinje 1"
 				/>
 				<FormikTextInput
-					name={`${path}.forretningsadresse.adresselinje[1]`}
+					name={`${path}.forretningsadresse.adresselinjer[1]`}
 					label="Adresselinje 2"
 				/>
 				<FormikTextInput
-					name={`${path}.forretningsadresse.adresselinje[2]`}
+					name={`${path}.forretningsadresse.adresselinjer[2]`}
 					label="Adresselinje 3"
 				/>
 			</Kategori>
 
-			<Kategori title="Postadresse" vis="organisasjon.postadresse">
+			<Kategori title="Postadresse" vis="organisasjoner.postadresse">
 				<FormikSelect
 					name={`${path}.postadresse.landkode`}
 					label="Land"
@@ -121,9 +121,9 @@ export const Detaljer = ({ formikBag, path, level, number }) => {
 				) : (
 					<FormikTextInput name={`${path}.postadresse.poststed`} label="Poststed" />
 				)}
-				<FormikTextInput name={`${path}.postadresse.adresselinje[0]`} label="Adresselinje 1" />
-				<FormikTextInput name={`${path}.postadresse.adresselinje[1]`} label="Adresselinje 2" />
-				<FormikTextInput name={`${path}.postadresse.adresselinje[2]`} label="Adresselinje 3" />
+				<FormikTextInput name={`${path}.postadresse.adresselinjer[0]`} label="Adresselinje 1" />
+				<FormikTextInput name={`${path}.postadresse.adresselinjer[1]`} label="Adresselinje 2" />
+				<FormikTextInput name={`${path}.postadresse.adresselinjer[2]`} label="Adresselinje 3" />
 			</Kategori>
 
 			<FormikDollyFieldArray

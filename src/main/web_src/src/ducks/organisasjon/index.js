@@ -6,7 +6,7 @@ import { onSuccess } from '~/ducks/utils/requestActions'
 
 export const actions = createActions(
 	{
-		getOrganisasjoner: Api.fetchJson
+		getOrganisasjoner: Api.fetch
 		// TODO: Byttes når organisasjonsforvalter er klar
 	},
 	{

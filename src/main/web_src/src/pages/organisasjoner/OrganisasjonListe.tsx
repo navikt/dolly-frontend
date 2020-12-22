@@ -4,17 +4,20 @@ import DollyTable from '~/components/ui/dollyTable/DollyTable'
 import { OrganisasjonItem } from '~/components/ui/icon/IconItem'
 
 export default function OrganisasjonListe({ orgListe }) {
+	if (!orgListe) {
+		return null
+	}
 	const columns = [
 		{
 			text: 'Orgnr.',
 			width: '15',
-			dataField: 'orgnr',
+			dataField: 'organisasjonsnummer',
 			unique: true
 		},
 		{
 			text: 'Navn',
 			width: '40',
-			dataField: 'navn'
+			dataField: 'organisasjonsnavn'
 		},
 		{
 			text: 'Enhetstype',
@@ -24,7 +27,7 @@ export default function OrganisasjonListe({ orgListe }) {
 		{
 			text: 'Bestilling-ID',
 			width: '20',
-			dataField: 'bestillingId'
+			dataField: 'id'
 		},
 		{
 			text: 'Status',
