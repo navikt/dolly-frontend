@@ -6,6 +6,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard'
 import DollyTable from '~/components/ui/dollyTable/DollyTable'
 import { OrganisasjonItem } from '~/components/ui/icon/IconItem'
 import Icon from '~/components/ui/icon/Icon'
+import { Enhetstre } from '~/components/enhetstre'
 
 const ikonTypeMap = {
 	Ferdig: 'feedback-check-circle',
@@ -35,7 +36,7 @@ export default function OrganisasjonListe({ orgListe }) {
 							destroyTooltipOnHide={true}
 							mouseEnterDelay={0}
 							mouseLeaveDelay={0.1}
-							arrowContent={<div className="rc-tooltip-arrow-inner"> </div>}
+							arrowContent={<div className="rc-tooltip-arrow-inner"></div>}
 							align={{
 								offset: ['0', '-10']
 							}}
@@ -83,6 +84,35 @@ export default function OrganisasjonListe({ orgListe }) {
 		}
 	]
 
+	function mapOrganisasjonToEnhetArray(organisasjon: any) {
+		let enheter = []
+		let orgId = 0
+		enheter.push({
+			name: organisasjon.organisasjonsnavn,
+			id: orgId++,
+			underorganisasjoner: organisasjon.underorganisasjoner
+				? organisasjon.underorganisasjoner.map(underorg => {
+						let underEnheter = []
+						underEnheter.push({
+							name: underorg.organisasjonsnavn,
+							id: orgId++,
+							underorganisasjoner: []
+						})
+						return underEnheter
+				  })
+				: []
+		})
+		organisasjon.underenheter &&
+			organisasjon.underenheter.forEach(underenhet => {
+				enheter.push({
+					name: underenhet.organisasjonsnavn,
+					id: orgId++,
+					underorganisasjoner: []
+				})
+			})
+		return enheter
+	}
+
 	return (
 		<ErrorBoundary>
 			<DollyTable
@@ -90,7 +120,11 @@ export default function OrganisasjonListe({ orgListe }) {
 				columns={columns}
 				pagination
 				iconItem={<OrganisasjonItem />}
-				onExpand={null}
+				onExpand={organisasjon => {
+					const enheter = mapOrganisasjonToEnhetArray(organisasjon)
+					console.log(organisasjon)
+					return <Enhetstre enheter={enheter} selectedEnhet={enheter[0]} onNodeClick={null} />
+				}}
 			/>
 		</ErrorBoundary>
 	)
