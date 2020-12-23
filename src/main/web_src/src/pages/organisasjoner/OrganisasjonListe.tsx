@@ -7,11 +7,17 @@ import DollyTable from '~/components/ui/dollyTable/DollyTable'
 import { OrganisasjonItem } from '~/components/ui/icon/IconItem'
 import Icon from '~/components/ui/icon/Icon'
 
+const ikonTypeMap = {
+	Ferdig: 'feedback-check-circle',
+	Avvik: 'report-problem-circle',
+	Feilet: 'report-problem-triangle',
+	Stoppet: 'report-problem-triangle'
+}
+
 export default function OrganisasjonListe({ orgListe }) {
 	if (!orgListe) {
 		return null
 	}
-	console.log(orgListe)
 	const columns = [
 		{
 			text: 'Orgnr.',
@@ -70,7 +76,10 @@ export default function OrganisasjonListe({ orgListe }) {
 		{
 			text: 'Status',
 			width: '10',
-			dataField: 'status'
+			dataField: 'status',
+			formatter(cell) {
+				return <Icon kind={ikonTypeMap[cell]} title={cell} />
+			}
 		}
 	]
 

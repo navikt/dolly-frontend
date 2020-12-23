@@ -72,7 +72,7 @@ export default function Organisasjoner({ history, isFetching, brukerId }: Organi
 		return OrgforvalterApi.getOrganisasjonerInfo(orgNumre).then((orgInfo: OrganisasjonResponse) => {
 			return orgInfo.data.map(orgElement => ({
 				...orgElement,
-				status: 'OK',
+				status: 'Ferdig',
 				bestillingId: getBestillingIdFromOrgnummer(response.data, orgElement.organisasjonsnummer)
 			}))
 		})

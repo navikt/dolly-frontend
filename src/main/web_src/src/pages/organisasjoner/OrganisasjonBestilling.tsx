@@ -2,6 +2,14 @@ import React from 'react'
 import { ErrorBoundary } from '~/components/ui/appError/ErrorBoundary'
 import DollyTable from '~/components/ui/dollyTable/DollyTable'
 import { OrganisasjonItem } from '~/components/ui/icon/IconItem'
+import Icon from '~/components/ui/icon/Icon'
+
+const ikonTypeMap = {
+	Ferdig: 'feedback-check-circle',
+	Avvik: 'report-problem-circle',
+	Feilet: 'report-problem-triangle',
+	Stoppet: 'report-problem-triangle'
+}
 
 export default function OrganisasjonBestilling({ orgListe }) {
 	if (!orgListe) {
@@ -39,7 +47,11 @@ export default function OrganisasjonBestilling({ orgListe }) {
 		{
 			text: 'Status',
 			width: '10',
-			dataField: 'status[0].organisasjonsforvalterStatus'
+			dataField: 'status[0].organisasjonsforvalterStatus',
+			formatter: cell => {
+				const status = cell.toUpperCase().includes('FEIL') ? 'Avvik' : 'Ferdig'
+				return <Icon kind={ikonTypeMap[status]} title={status} />
+			}
 		}
 	]
 
