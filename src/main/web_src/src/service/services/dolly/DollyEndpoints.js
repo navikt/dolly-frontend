@@ -29,8 +29,12 @@ export default class DollyEndpoints {
 		return `${groupBase}?brukerId=${userId}`
 	}
 
-	static orgnummerByUser(userId) {
-		return `${organisasjonBase}/bestilling?brukerId=${userId}`
+	static organisasonStatusByBestillingId(bestillingId) {
+		return `${organisasjonBase}/bestilling?bestillingId=${bestillingId}`
+	}
+
+	static organisasonStatusByUser(userId) {
+		return `${organisasjonBase}/bestillingsstatus?brukerId=${userId}`
 	}
 
 	static gruppeBestilling(gruppeId) {

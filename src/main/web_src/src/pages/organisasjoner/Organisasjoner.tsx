@@ -12,6 +12,7 @@ import { History } from 'history'
 import { useAsync } from 'react-use'
 import { DollyApi, OrgforvalterApi } from '~/service/Api'
 import { ErrorBoundary } from '~/components/ui/appError/ErrorBoundary'
+import OrganisasjonBestilling from '~/pages/organisasjoner/OrganisasjonBestilling'
 
 type Organisasjoner = {
 	history: History
@@ -43,6 +44,7 @@ const VISNING_BESTILLINGER = 'bestillinger'
 
 export default function Organisasjoner({ history, isFetching, brukerId }: Organisasjoner) {
 	const [visning, setVisning] = useState(VISNING_ORGANISASJONER)
+	const [brukerOrganisasjoner, setBrukerorganisasjoner] = useState(null)
 
 	const byttVisning = (event: React.ChangeEvent<any>) => setVisning(event.target.value)
 
@@ -51,23 +53,27 @@ export default function Organisasjoner({ history, isFetching, brukerId }: Organi
 		return 'Søk i organisasjoner'
 	}
 
+	function getBestillingIdFromOrgnummer(organisasjoner, organisasjonsnummer: string) {
+		return organisasjoner
+			.filter(org => org.status[0].organisasjonsnummer === organisasjonsnummer)
+			.map(org => org.id)[0]
+	}
+
 	const organisasjonerInfo = useAsync(async () => {
 		const response = await DollyApi.getOrganisasjonsnummerByUserId(brukerId)
 
-		const brukerOrganisasjoner =
-			response.data &&
-			response.data.map(organisasjon => ({
-				orgnummer: organisasjon.organisasjonsnummer,
-				status: organisasjon.organisasjonsforvalterStatus
-			}))
+		setBrukerorganisasjoner(response.data)
 
 		let orgNumre: string[] = []
-		brukerOrganisasjoner.forEach((org: any) => orgNumre.push(org.orgnummer))
+		response.data.forEach((org: any) => {
+			return orgNumre.push(org.status[0].organisasjonsnummer)
+		})
 
 		return OrgforvalterApi.getOrganisasjonerInfo(orgNumre).then((orgInfo: OrganisasjonResponse) => {
 			return orgInfo.data.map(orgElement => ({
 				...orgElement,
-				status: 'OK'
+				status: 'OK',
+				bestillingId: getBestillingIdFromOrgnummer(response.data, orgElement.organisasjonsnummer)
 			}))
 		})
 	}, [])
@@ -159,7 +165,7 @@ export default function Organisasjoner({ history, isFetching, brukerId }: Organi
 					(isFetching ? (
 						<Loading label="laster bestillinger" panel />
 					) : antallOrg > 0 ? (
-						<OrganisasjonListe orgListe={organisasjonerInfo && organisasjonerInfo.value} />
+						<OrganisasjonBestilling orgListe={brukerOrganisasjoner} />
 					) : (
 						<ContentContainer>
 							<p>

@@ -16,7 +16,7 @@ export default {
 	},
 
 	getOrganisasjonsnummerByUserId(userId) {
-		return Request.get(Endpoints.orgnummerByUser(userId))
+		return Request.get(Endpoints.organisasonStatusByUser(userId))
 	},
 
 	createGruppe(data) {
