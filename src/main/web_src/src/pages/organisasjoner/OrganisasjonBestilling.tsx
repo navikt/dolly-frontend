@@ -3,6 +3,7 @@ import { ErrorBoundary } from '~/components/ui/appError/ErrorBoundary'
 import DollyTable from '~/components/ui/dollyTable/DollyTable'
 import { OrganisasjonItem } from '~/components/ui/icon/IconItem'
 import Icon from '~/components/ui/icon/Icon'
+import OrganisasjonDetaljer from '~/pages/organisasjoner/detaljer/OrganisasjonDetaljer'
 
 const ikonTypeMap = {
 	Ferdig: 'feedback-check-circle',
@@ -15,7 +16,6 @@ export default function OrganisasjonBestilling({ orgListe }) {
 	if (!orgListe) {
 		return null
 	}
-	console.log(orgListe)
 	const columns = [
 		{
 			text: 'ID.',
@@ -68,7 +68,9 @@ export default function OrganisasjonBestilling({ orgListe }) {
 				columns={columns}
 				pagination
 				iconItem={<OrganisasjonItem />}
-				onExpand={null}
+				onExpand={bestilling => {
+					return <OrganisasjonDetaljer bestilling={bestilling} />
+				}}
 			/>
 		</ErrorBoundary>
 	)
