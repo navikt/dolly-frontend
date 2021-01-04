@@ -51,7 +51,7 @@ export const Detaljer = ({ formikBag, path, level, number }) => {
 				<FormikTextInput name={`${path}.nettadresse`} label="Internettadresse" size="large" />
 			</Kategori>
 
-			<Kategori title="Forretningsadresse" vis="organisasjoner.forretningsadresse">
+			<Kategori title="Forretningsadresse" vis="organisasjon.forretningsadresse">
 				<FormikSelect
 					name={`${path}.forretningsadresse.landkode`}
 					label="Land"
@@ -94,7 +94,7 @@ export const Detaljer = ({ formikBag, path, level, number }) => {
 				/>
 			</Kategori>
 
-			<Kategori title="Postadresse" vis="organisasjoner.postadresse">
+			<Kategori title="Postadresse" vis="organisasjon.postadresse">
 				<FormikSelect
 					name={`${path}.postadresse.landkode`}
 					label="Land"

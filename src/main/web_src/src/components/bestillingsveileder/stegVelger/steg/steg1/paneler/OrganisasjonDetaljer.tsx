@@ -42,65 +42,65 @@ OrganisasjonDetaljerPanel.initialValues = ({ set, del, has }: any) => {
 	return {
 		enhetstype: {
 			label: 'Enhetstype',
-			checked: has('organisasjoner.enhetstype'),
-			add: () => set('organisasjoner.enhetstype', ''),
-			remove: () => del('organisasjoner.enhetstype')
+			checked: has('organisasjon.enhetstype'),
+			add: () => set('organisasjon.enhetstype', ''),
+			remove: () => del('organisasjon.enhetstype')
 		},
 		naeringskode: {
 			label: 'Næringskode',
-			checked: has('organisasjoner.naeringskode'),
-			add: () => set('organisasjoner.naeringskode', ''),
-			remove: () => del('organisasjoner.naeringskode')
+			checked: has('organisasjon.naeringskode'),
+			add: () => set('organisasjon.naeringskode', ''),
+			remove: () => del('organisasjon.naeringskode')
 		},
 		formaal: {
 			label: 'Formål',
-			checked: has('organisasjoner.formaal'),
-			add: () => set('organisasjoner.formaal', ''),
-			remove: () => del('organisasjoner.formaal')
+			checked: has('organisasjon.formaal'),
+			add: () => set('organisasjon.formaal', ''),
+			remove: () => del('organisasjon.formaal')
 		},
 		telefon: {
 			label: 'Telefon',
-			checked: has('organisasjoner.telefon'),
-			add: () => set('organisasjoner.telefon', ''),
-			remove: () => del('organisasjoner.telefon')
+			checked: has('organisasjon.telefon'),
+			add: () => set('organisasjon.telefon', ''),
+			remove: () => del('organisasjon.telefon')
 		},
 		epost: {
 			label: 'E-postadresse',
-			checked: has('organisasjoner.epost'),
-			add: () => set('organisasjoner.epost', ''),
-			remove: () => del('organisasjoner.epost')
+			checked: has('organisasjon.epost'),
+			add: () => set('organisasjon.epost', ''),
+			remove: () => del('organisasjon.epost')
 		},
 		nettadresse: {
 			label: 'Internettadresse',
-			checked: has('organisasjoner.nettadresse'),
-			add: () => set('organisasjoner.nettadresse', ''),
-			remove: () => del('organisasjoner.nettadresse')
+			checked: has('organisasjon.nettadresse'),
+			add: () => set('organisasjon.nettadresse', ''),
+			remove: () => del('organisasjon.nettadresse')
 		},
 		forretningsadresse: {
 			label: 'Forretningsadresse',
-			checked: has('organisasjoner.forretningsadresse'),
+			checked: has('organisasjon.forretningsadresse'),
 			add: () =>
-				set('organisasjoner.forretningsadresse', {
+				set('organisasjon.forretningsadresse', {
 					adresselinjer: ['', '', ''],
 					postnr: '',
 					kommunenr: '',
 					landkode: 'NOR',
 					poststed: ''
 				}),
-			remove: () => del('organisasjoner.forretningsadresse')
+			remove: () => del('organisasjon.forretningsadresse')
 		},
 		postadresse: {
 			label: 'Postadresse',
-			checked: has('organisasjoner.postadresse'),
+			checked: has('organisasjon.postadresse'),
 			add: () =>
-				set('organisasjoner.postadresse', {
+				set('organisasjon.postadresse', {
 					adresselinjer: ['', '', ''],
 					postnr: '',
 					kommunenr: '',
 					landkode: 'NOR',
 					poststed: ''
 				}),
-			remove: () => del('organisasjoner.postadresse')
+			remove: () => del('organisasjon.postadresse')
 		}
 	}
 }

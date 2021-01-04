@@ -1,13 +1,13 @@
 export const organisasjonPaths = [
-	'organisasjoner.enhetstype',
-	'organisasjoner.naeringskode',
-	'organisasjoner.formaal'
+	'organisasjon.enhetstype',
+	'organisasjon.naeringskode',
+	'organisasjon.formaal'
 ]
 
 export const kontaktPaths = [
-	'organisasjoner.telefon',
-	'organisasjoner.epost',
-	'organisasjoner.nettadresse'
+	'organisasjon.telefon',
+	'organisasjon.epost',
+	'organisasjon.nettadresse'
 ]
 
-export const adressePaths = ['organisasjoner.forretningsadresse', 'organisasjoner.postadresse']
+export const adressePaths = ['organisasjon.forretningsadresse', 'organisasjon.postadresse']

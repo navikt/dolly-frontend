@@ -11,11 +11,43 @@ export default function FagsystemStatus({ statusrapport }) {
 	const problemCircleFeil = ['InnvandringOpprettingsmelding: STATUS: TIDSAVBRUDD']
 
 	const getIconType = melding =>
-		melding
+		melding && !melding.includes('OK')
 			? problemCircleFeil.includes(melding)
 				? 'report-problem-circle'
 				: 'report-problem-triangle'
 			: 'feedback-check-circle'
+
+	if (statusrapport.organisasjonsnummer) {
+		return (
+			<table className="fagsystemstatus">
+				<thead>
+					<tr>
+						<td>Status</td>
+						<td>Miljø</td>
+					</tr>
+				</thead>
+				<tbody>
+					{statusrapport.melding.split(',').map((fullStatus, idx) => {
+						const [miljo, statuskode] = fullStatus.split(':')
+						return (
+							<tr key={idx}>
+								<td>
+									<div className="flexbox">
+										<Icon size={16} kind={getIconType(statuskode)} />
+										<div>
+											<h5>Organisasjon Forvalter</h5>
+											<ApiFeilmelding feilmelding={statuskode} />
+										</div>
+									</div>
+								</td>
+								<td>{miljo.toUpperCase() || <i>Ikke relevant</i>}</td>
+							</tr>
+						)
+					})}
+				</tbody>
+			</table>
+		)
+	}
 
 	return (
 		<table className="fagsystemstatus">

@@ -19,7 +19,7 @@ export const OrganisasjonForm = ({ formikBag }) => {
 					iconType={'personinformasjon'}
 					startOpen={() => erForste(formikBag.values, detaljerPaths)}
 				>
-					<Detaljer formikBag={formikBag} path="organisasjoner" level={0} />
+					<Detaljer formikBag={formikBag} path="organisasjon" level={0} />
 				</Panel>
 			</Vis>
 			{/* Flere kategorier legges inn her */}
@@ -53,16 +53,16 @@ const adresse = Yup.object({
 
 OrganisasjonForm.validation = {
 	organisasjon: ifPresent(
-		'$organisasjoner',
+		'$organisasjon',
 		Yup.object({
 			enhetstype: requiredString,
-			naeringskode: ifPresent('$organisasjoner.naeringskode', requiredString),
-			formaal: ifPresent('$organisasjoner.formaal', requiredString),
-			telefon: ifPresent('$organisasjoner.telefon', requiredString),
-			epost: ifPresent('$organisasjoner.epost', requiredString),
-			nettadresse: ifPresent('$organisasjoner.nettadresse', requiredString),
-			forretningsadresse: ifPresent('$organisasjoner.forretningsadresse', adresse),
-			postadresse: ifPresent('$organisasjoner.postadresse', adresse)
+			naeringskode: ifPresent('$organisasjon.naeringskode', requiredString),
+			formaal: ifPresent('$organisasjon.formaal', requiredString),
+			telefon: ifPresent('$organisasjon.telefon', requiredString),
+			epost: ifPresent('$organisasjon.epost', requiredString),
+			nettadresse: ifPresent('$organisasjon.nettadresse', requiredString),
+			forretningsadresse: ifPresent('$organisasjon.forretningsadresse', adresse),
+			postadresse: ifPresent('$organisasjon.postadresse', adresse)
 		})
 	)
 }

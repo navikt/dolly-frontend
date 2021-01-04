@@ -4,6 +4,7 @@ import DollyTable from '~/components/ui/dollyTable/DollyTable'
 import { OrganisasjonItem } from '~/components/ui/icon/IconItem'
 import Icon from '~/components/ui/icon/Icon'
 import OrganisasjonDetaljer from '~/pages/organisasjoner/detaljer/OrganisasjonDetaljer'
+import BestillingDetaljer from '~/components/bestilling/detaljer/Detaljer'
 
 const ikonTypeMap = {
 	Ferdig: 'feedback-check-circle',
@@ -69,7 +70,7 @@ export default function OrganisasjonBestilling({ orgListe }) {
 				pagination
 				iconItem={<OrganisasjonItem />}
 				onExpand={bestilling => {
-					return <OrganisasjonDetaljer bestilling={bestilling} />
+					return <BestillingDetaljer bestilling={bestilling} iLaastGruppe={null} />
 				}}
 			/>
 		</ErrorBoundary>
