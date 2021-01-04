@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ErrorBoundary } from '~/components/ui/appError/ErrorBoundary'
 import Tooltip from 'rc-tooltip'
 import 'rc-tooltip/assets/bootstrap.css'
@@ -19,6 +19,9 @@ export default function OrganisasjonListe({ orgListe }) {
 	if (!orgListe) {
 		return null
 	}
+
+	const [selectedId, setSelectedId] = useState(null)
+
 	const columns = [
 		{
 			text: 'Orgnr.',
@@ -95,8 +98,8 @@ export default function OrganisasjonListe({ orgListe }) {
 				onExpand={organisasjon => (
 					<Enhetstre
 						enheter={Array.of(organisasjon)}
-						selectedEnhet={Array.of(organisasjon)[0]}
-						onNodeClick={null}
+						selectedEnhet={selectedId ? selectedId : Array.of(organisasjon)[0].id}
+						onNodeClick={setSelectedId}
 					/>
 				)}
 			/>

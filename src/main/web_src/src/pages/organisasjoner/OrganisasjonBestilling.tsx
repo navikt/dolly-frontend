@@ -31,12 +31,18 @@ export default function OrganisasjonBestilling({ orgListe }) {
 		{
 			text: 'Sist oppdatert',
 			width: '20',
-			dataField: 'sistOppdatert'
+			dataField: 'sistOppdatert',
+			formatter(cell: string): string {
+				return new Date(cell).toLocaleDateString()
+			}
 		},
 		{
 			text: 'Miljø',
 			width: '15',
-			dataField: 'environments'
+			dataField: 'environments',
+			formatter(cell: string) {
+				return cell.toUpperCase().replaceAll(',', ', ')
+			}
 		},
 		{
 			text: 'Orgnr.',
