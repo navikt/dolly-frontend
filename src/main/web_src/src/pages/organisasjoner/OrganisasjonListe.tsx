@@ -84,47 +84,21 @@ export default function OrganisasjonListe({ orgListe }) {
 		}
 	]
 
-	function mapOrganisasjonToEnhetArray(organisasjon: any) {
-		let enheter = []
-		let orgId = 0
-		enheter.push({
-			name: organisasjon.organisasjonsnavn,
-			id: orgId++,
-			underorganisasjoner: organisasjon.underorganisasjoner
-				? organisasjon.underorganisasjoner.map(underorg => {
-						let underEnheter = []
-						underEnheter.push({
-							name: underorg.organisasjonsnavn,
-							id: orgId++,
-							underorganisasjoner: []
-						})
-						return underEnheter
-				  })
-				: []
-		})
-		organisasjon.underenheter &&
-			organisasjon.underenheter.forEach(underenhet => {
-				enheter.push({
-					name: underenhet.organisasjonsnavn,
-					id: orgId++,
-					underorganisasjoner: []
-				})
-			})
-		return enheter
-	}
-
 	return (
 		<ErrorBoundary>
 			<DollyTable
 				data={orgListe}
 				columns={columns}
-				pagination
+				pagination={false}
+				visSide={null}
 				iconItem={<OrganisasjonItem />}
-				onExpand={organisasjon => {
-					const enheter = mapOrganisasjonToEnhetArray(organisasjon)
-					console.log(organisasjon)
-					return <Enhetstre enheter={enheter} selectedEnhet={enheter[0]} onNodeClick={null} />
-				}}
+				onExpand={organisasjon => (
+					<Enhetstre
+						enheter={Array.of(organisasjon)}
+						selectedEnhet={Array.of(organisasjon)[0]}
+						onNodeClick={null}
+					/>
+				)}
 			/>
 		</ErrorBoundary>
 	)
