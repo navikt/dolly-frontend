@@ -9,7 +9,7 @@ import { FormikDollyFieldArray } from '~/components/ui/form/fieldArray/DollyFiel
 import { OrganisasjonKodeverk, AdresseKodeverk } from '~/config/kodeverk'
 
 export const Detaljer = ({ formikBag, path, level, number }) => {
-	const initialValues = _omit(formikBag.values.organisasjoner, 'underenheter')
+	const initialValues = _omit(formikBag.values.organisasjon, 'underenheter')
 	const landForretningsadresse = _get(formikBag, `values.${path}.forretningsadresse.landkode`)
 	const landPostadresse = _get(formikBag, `values.${path}.postadresse.landkode`)
 

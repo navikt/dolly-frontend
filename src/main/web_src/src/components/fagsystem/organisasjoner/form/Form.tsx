@@ -52,7 +52,7 @@ const adresse = Yup.object({
 })
 
 OrganisasjonForm.validation = {
-	organisasjoner: ifPresent(
+	organisasjon: ifPresent(
 		'$organisasjoner',
 		Yup.object({
 			enhetstype: requiredString,

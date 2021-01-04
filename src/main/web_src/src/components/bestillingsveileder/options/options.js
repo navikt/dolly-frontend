@@ -24,14 +24,14 @@ export const BVOptions = ({
 
 	let initialValuesOrganisasjon = {
 		environments: [],
-		organisasjoner: {
+		organisasjon: {
 			enhetstype: ''
 		}
 	}
 
 	let initialValuesStandardOrganisasjon = {
 		environments: [],
-		organisasjoner: {
+		organisasjon: {
 			enhetstype: 'AS',
 			naeringskode: '01.451',
 			forretningsadresse: {

@@ -15,7 +15,7 @@ export const actions = createActions(
 )
 
 const initialState = {
-	organisasjoner: []
+	organisasjon: []
 }
 
 export default handleActions(
@@ -24,7 +24,7 @@ export default handleActions(
 			return initialState
 		},
 		[onSuccess(actions.getOrganisasjoner)](state, action) {
-			state.organisasjoner = action.payload.data
+			state.organisasjon = action.payload.data
 		}
 	},
 	initialState
