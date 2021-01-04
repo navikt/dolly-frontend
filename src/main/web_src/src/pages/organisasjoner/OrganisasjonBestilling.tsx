@@ -3,7 +3,6 @@ import { ErrorBoundary } from '~/components/ui/appError/ErrorBoundary'
 import DollyTable from '~/components/ui/dollyTable/DollyTable'
 import { OrganisasjonItem } from '~/components/ui/icon/IconItem'
 import Icon from '~/components/ui/icon/Icon'
-import OrganisasjonDetaljer from '~/pages/organisasjoner/detaljer/OrganisasjonDetaljer'
 import BestillingDetaljer from '~/components/bestilling/detaljer/Detaljer'
 
 const ikonTypeMap = {
