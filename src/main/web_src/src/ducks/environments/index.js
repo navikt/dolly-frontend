@@ -1,11 +1,11 @@
 import { createActions } from 'redux-actions'
 import { handleActions } from '~/ducks/utils/immerHandleActions'
 import { onSuccess } from '~/ducks/utils/requestActions'
-import MiljoeService from '~/service/services/miljoe/MiljoeService'
+import { MiljoeApi } from '~/service/Api'
 
 export const { getEnvironments } = createActions(
 	{
-		getEnvironments: MiljoeService.getAktiveMiljoer
+		getEnvironments: MiljoeApi.getAktiveMiljoer
 	},
 	{ prefix: 'env' }
 )
