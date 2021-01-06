@@ -1,11 +1,11 @@
-import { TpsfApi } from '~/service/Api'
 import { createActions } from 'redux-actions'
 import { handleActions } from '~/ducks/utils/immerHandleActions'
 import { onSuccess } from '~/ducks/utils/requestActions'
+import MiljoeService from '~/service/services/miljoe/MiljoeService'
 
 export const { getEnvironments } = createActions(
 	{
-		getEnvironments: TpsfApi.getTilgjengligeMiljoer
+		getEnvironments: MiljoeService.getAktiveMiljoer
 	},
 	{ prefix: 'env' }
 )
