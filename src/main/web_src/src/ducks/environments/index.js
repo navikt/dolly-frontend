@@ -17,7 +17,7 @@ const initialState = {
 export default handleActions(
 	{
 		[onSuccess(getEnvironments)](state, action) {
-			state.data = _getEnvironmentsSortedByType(action.payload.data.environments)
+			state.data = _getEnvironmentsSortedByType(action.payload.data)
 		}
 	},
 	initialState
