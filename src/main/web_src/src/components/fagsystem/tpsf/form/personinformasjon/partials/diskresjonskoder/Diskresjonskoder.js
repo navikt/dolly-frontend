@@ -38,7 +38,7 @@ export const Diskresjonskoder = ({ basePath, formikBag }) => {
 					name={paths.spesreg}
 					label="Diskresjonskode"
 					kodeverk={PersoninformasjonKodeverk.Diskresjonskoder}
-					size="large"
+					size="xlarge"
 				/>
 
 				<FormikCheckbox

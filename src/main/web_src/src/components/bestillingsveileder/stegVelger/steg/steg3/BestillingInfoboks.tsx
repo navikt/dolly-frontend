@@ -12,9 +12,9 @@ export const BestillingInfoboks = ({ bestillingsdata }: BestillingInfoboks) => {
 	const harRelasjonMedAdressebeskyttelse = () => {
 		let harAdressebeskyttelse = false
 		if (tpsfInfo.relasjoner) {
-			Object.entries(tpsfInfo.relasjoner).map(relasjon => {
-				relasjon[1].map(person => {
-					if (person.spesreg === 'SPFO' || person.spesreg === 'SPSF') {
+			Object.entries(tpsfInfo.relasjoner).forEach(relasjon => {
+				relasjon[1].forEach(person => {
+					if (person.spesreg === 'SPFO' || person.spesreg === 'SPSF' || person.spesreg === 'SFU') {
 						harAdressebeskyttelse = true
 					}
 				})
@@ -27,6 +27,7 @@ export const BestillingInfoboks = ({ bestillingsdata }: BestillingInfoboks) => {
 		tpsfInfo &&
 		(tpsfInfo.spesreg === 'SPFO' ||
 			tpsfInfo.spesreg === 'SPSF' ||
+			tpsfInfo.spesreg === 'SFU' ||
 			harRelasjonMedAdressebeskyttelse() === true)
 	) {
 		return (
