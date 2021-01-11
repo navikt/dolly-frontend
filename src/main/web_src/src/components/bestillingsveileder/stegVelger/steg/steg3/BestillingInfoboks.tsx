@@ -35,7 +35,9 @@ export const BestillingInfoboks = ({ bestillingsdata }: BestillingInfoboks) => {
 			<AlertStripeInfo style={{ marginTop: 20 }}>
 				Tilgangsstyring basert på diskresjonskode har nattlig oppdatering, slik at riktig tilgang
 				mot miljø kan verifiseres først dagen etter. Ta kontakt med team Dolly i morgen hvis ønsket
-				tilgang mot miljø ikke samsvarer med bestillingen.
+				tilgang mot miljø ikke samsvarer med bestillingen. <br />
+				<br />
+				NB: diskresjonskode 19 (Strengt fortrolig utland) vil bli satt til diskresjonskode 6 i TPS
 			</AlertStripeInfo>
 		)
 	}
