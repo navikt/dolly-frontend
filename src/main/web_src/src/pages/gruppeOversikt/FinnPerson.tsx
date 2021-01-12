@@ -41,6 +41,7 @@ type Respons = {
 
 export default function FinnPerson({ naviger }: FinnPerson) {
 	const [isFinnModalOpen, openFinnModal, closeFinnModal] = useBoolean(false)
+	const [isPdlModalOpen, openPdlModal, closePdlModal] = useBoolean(false)
 	const [redirectToGruppe, setRedirect] = useBoolean()
 
 	const [ident, setIdent] = useState(null)
@@ -94,6 +95,11 @@ export default function FinnPerson({ naviger }: FinnPerson) {
 				<span>Finn testperson</span>
 			</Søkeknapp>
 
+			{/* @ts-ignore */}
+			<Søkeknapp onClick={openPdlModal} style={{ marginTop: '10px' }} kompakt="">
+				<span>Hent fra PDL</span>
+			</Søkeknapp>
+
 			<DollyModal isOpen={isFinnModalOpen} closeModal={handleClose} width="40%" overflow="visible">
 				<h1>Søk etter testperson</h1>
 				<p>
@@ -125,6 +131,37 @@ export default function FinnPerson({ naviger }: FinnPerson) {
 					</NavButton>
 					<NavButton type="hoved" onClick={navigerTilPerson}>
 						Gå til person
+					</NavButton>
+				</div>
+			</DollyModal>
+
+			<DollyModal isOpen={isPdlModalOpen} closeModal={handleClose} width="40%" overflow="visible">
+				<h1>Finn person i PDL og fortsett på denne</h1>
+				<p>Henter en ident fra PDL med tilhørednde info som kan fortsettes på i Dolly</p>
+				{/* @ts-ignore */}
+				<Label name="Ident" label="Ident">
+					<AsyncSelect
+						defaultOptions={false}
+						loadOptions={fetchOptions}
+						onInputChange={handleChange}
+						options={options}
+						onChange={(e: Option) => setIdent(e.value)}
+						cacheOptions={true}
+						label="Person"
+						placeholder="FNR på person som finnes i PDL"
+					/>
+				</Label>
+				{feilmelding && (
+					<div className="error-message" style={{ marginBottom: '10px' }}>
+						{feilmelding}
+					</div>
+				)}
+				<div className="flexbox--all-center" style={{ marginTop: '20px' }}>
+					<NavButton type="standard" onClick={handleClose} style={{ marginRight: '10px' }}>
+						Avbryt
+					</NavButton>
+					<NavButton type="hoved" onClick={navigerTilPerson}>
+						Fortsett på ident
 					</NavButton>
 				</div>
 			</DollyModal>
