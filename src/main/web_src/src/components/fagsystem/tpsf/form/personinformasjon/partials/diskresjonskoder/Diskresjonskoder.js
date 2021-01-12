@@ -7,6 +7,7 @@ import { FormikCheckbox } from '~/components/ui/form/inputs/checbox/Checkbox'
 import { PersoninformasjonKodeverk, AdresseKodeverk } from '~/config/kodeverk'
 
 import './diskresjonskoder.less'
+import Alertstripe from 'nav-frontend-alertstriper'
 
 export const Diskresjonskoder = ({ basePath, formikBag }) => {
 	const [harUfb, setHarUfb] = useState(_get(formikBag.values, `${basePath}.utenFastBopel`))
@@ -34,6 +35,9 @@ export const Diskresjonskoder = ({ basePath, formikBag }) => {
 	return (
 		<Vis attributt={Object.values(paths)}>
 			<div className="spesreg-component">
+				<Alertstripe type="info">
+					Diskresjonskode 19 vil bli omgjort til kode 6 i TPS da kode 19 ikke støttes.
+				</Alertstripe>
 				<FormikSelect
 					name={paths.spesreg}
 					label="Diskresjonskode"
