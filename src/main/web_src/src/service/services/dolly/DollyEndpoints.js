@@ -14,7 +14,6 @@ const fasteOrgnummerBase = `${uri}/orgnummer`
 const fasteDatasettBase = `${uri}/fastedatasett`
 const dokarkivBase = `${uri}/dokarkiv`
 const inntektsmeldingBase = `${uri}/inntektsmelding`
-const pdlBase = `${uri}/pdlperson`
 
 export default class DollyEndpoints {
 	static gruppe() {
@@ -155,10 +154,6 @@ export default class DollyEndpoints {
 
 	static getPersonnavn() {
 		return `${uri}/personnavn`
-	}
-
-	static getIdentFraPdl(ident) {
-		return `${pdlBase}/ident/${ident}`
 	}
 
 	static getTransaksjonsid(system, ident, bestillingsid) {
