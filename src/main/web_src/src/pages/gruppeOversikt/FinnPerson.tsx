@@ -10,9 +10,11 @@ import DollyModal from '~/components/ui/modal/DollyModal'
 import { Label } from '~/components/ui/form/inputs/label/Label'
 import { Søkeknapp } from 'nav-frontend-ikonknapper'
 import { AsyncFn } from 'react-use/lib/useAsync'
+import { DollyTextInput } from '~/components/ui/form/inputs/textInput/TextInput'
 
 type FinnPerson = {
 	naviger: Function
+	hentFraPdl: Function
 }
 
 type Option = {
@@ -39,12 +41,12 @@ type Respons = {
 	}
 }
 
-export default function FinnPerson({ naviger }: FinnPerson) {
+export default function FinnPerson({ naviger, hentFraPdl }: FinnPerson) {
 	const [isFinnModalOpen, openFinnModal, closeFinnModal] = useBoolean(false)
 	const [isPdlModalOpen, openPdlModal, closePdlModal] = useBoolean(false)
 	const [redirectToGruppe, setRedirect] = useBoolean()
 
-	const [ident, setIdent] = useState(null)
+	const [ident, setIdent] = useState('')
 	const [gruppe, setGruppe] = useState(null)
 	const [feilmelding, setFeilmelding] = useState(null)
 
@@ -73,6 +75,7 @@ export default function FinnPerson({ naviger }: FinnPerson) {
 		setGruppe(null)
 		setFeilmelding(null)
 		closeFinnModal()
+		closePdlModal()
 	}
 
 	const navigerTilPerson = () => {
@@ -82,6 +85,16 @@ export default function FinnPerson({ naviger }: FinnPerson) {
 			} else {
 				setGruppe(response.value.data.gruppe.id)
 				setRedirect()
+			}
+		})
+	}
+
+	const hentPersonFraPdl = () => {
+		hentFraPdl(ident).then((response: Respons) => {
+			if (response.value.data.error) {
+				setFeilmelding(response.value.data.message)
+			} else {
+				console.log(response)
 			}
 		})
 	}
@@ -137,20 +150,14 @@ export default function FinnPerson({ naviger }: FinnPerson) {
 
 			<DollyModal isOpen={isPdlModalOpen} closeModal={handleClose} width="40%" overflow="visible">
 				<h1>Finn person i PDL og fortsett på denne</h1>
-				<p>Henter en ident fra PDL med tilhørednde info som kan fortsettes på i Dolly</p>
+				<p>Henter en ident fra PDL med tilhørende info som kan fortsettes på i Dolly</p>
 				{/* @ts-ignore */}
-				<Label name="Ident" label="Ident">
-					<AsyncSelect
-						defaultOptions={false}
-						loadOptions={fetchOptions}
-						onInputChange={handleChange}
-						options={options}
-						onChange={(e: Option) => setIdent(e.value)}
-						cacheOptions={true}
-						label="Person"
-						placeholder="FNR på person som finnes i PDL"
-					/>
-				</Label>
+				<DollyTextInput
+					name="Ident"
+					label="Ident"
+					value={ident}
+					onChange={event => setIdent(event.target.value)}
+				/>
 				{feilmelding && (
 					<div className="error-message" style={{ marginBottom: '10px' }}>
 						{feilmelding}
@@ -160,7 +167,7 @@ export default function FinnPerson({ naviger }: FinnPerson) {
 					<NavButton type="standard" onClick={handleClose} style={{ marginRight: '10px' }}>
 						Avbryt
 					</NavButton>
-					<NavButton type="hoved" onClick={navigerTilPerson}>
+					<NavButton type="hoved" onClick={hentPersonFraPdl}>
 						Fortsett på ident
 					</NavButton>
 				</div>
