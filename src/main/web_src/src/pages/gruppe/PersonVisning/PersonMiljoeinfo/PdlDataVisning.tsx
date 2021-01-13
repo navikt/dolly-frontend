@@ -23,7 +23,7 @@ export const PdlDataVisning = ({ data }: PdlData) => {
 		return null
 	}
 
-	console.log(data)
+	console.log(data) //TODO: FJERNE
 
 	const getPersonInfo = (identInfo: Data) => (
 		<div className="boks">
