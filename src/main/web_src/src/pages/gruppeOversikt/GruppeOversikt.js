@@ -12,6 +12,7 @@ import FinnPerson from './FinnPerson'
 export default function GruppeOversikt({
 	getGrupper,
 	navigerTilPerson,
+	hentFraPdl,
 	fetchMineGrupper,
 	isFetching,
 	gruppeListe,
@@ -46,7 +47,7 @@ export default function GruppeOversikt({
 						Testdatagruppen inneholder alle personene dine (FNR/DNR/BOST).
 					</Hjelpetekst>
 				</div>
-				<FinnPerson naviger={navigerTilPerson} />
+				<FinnPerson naviger={navigerTilPerson} hentFraPdl={hentFraPdl} />
 			</div>
 
 			<div className="toolbar">

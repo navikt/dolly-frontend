@@ -136,7 +136,7 @@ export default {
 		return Request.get(Endpoints.enhetByTknr(tknr))
 	},
 
-	getPersonFraPdlperson(ident) {
+	getPersonFraPdl(ident) {
 		return Request.get(Endpoints.personoppslag(ident))
 	},
 
@@ -150,6 +150,10 @@ export default {
 
 	getPersonnavn() {
 		return Request.get(Endpoints.getPersonnavn())
+	},
+
+	getIdentFraPdl(ident) {
+		return Request.get(Endpoints.getIdentFraPdl(ident))
 	},
 
 	getTransaksjonid(system, ident, bestillingsid) {
