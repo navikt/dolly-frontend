@@ -7,6 +7,8 @@ import { IdentInfo } from '~/components/fagsystem/pdlf/visning/partials/Identinf
 import { GeografiskTilknytning } from '~/components/fagsystem/pdlf/visning/partials/GeografiskTilknytning'
 import { PdlPersonInfo } from '~/components/fagsystem/pdlf/visning/partials/PdlPersonInfo'
 import { PdlNasjonalitet } from '~/components/fagsystem/pdlf/visning/partials/PdlNasjonalitet'
+import { PdlBoadresse } from '~/components/fagsystem/pdlf/visning/partials/PdlBoadresse'
+import { PdlFullmakt } from '~/components/fagsystem/pdlf/visning/partials/PdlFullmakt'
 
 type PdlData = {
 	data: Data
@@ -31,6 +33,8 @@ export const PdlDataVisning = ({ data }: PdlData) => {
 			<IdentInfo data={identInfo.hentIdenter} />
 			<GeografiskTilknytning data={identInfo.hentGeografiskTilknytning} />
 			<PdlNasjonalitet data={identInfo.hentPerson} />
+			<PdlBoadresse data={identInfo.hentPerson.bostedsadresse[0]} />
+			<PdlFullmakt data={identInfo.hentPerson.fullmakt[0]} />
 		</div>
 	)
 

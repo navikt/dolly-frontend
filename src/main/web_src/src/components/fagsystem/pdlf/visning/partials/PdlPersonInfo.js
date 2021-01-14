@@ -21,6 +21,21 @@ export const PdlPersonInfo = ({ data, visTittel = true }) => {
 					<TitleValue title="Kjønn" value={data.kjoenn[0].kjoenn} />
 					<TitleValue title="Sivilstand" value={data.sivilstand[0].type} />
 					<TitleValue title="Fødselsdato" value={data.foedsel[0].foedselsdato} />
+					<h4 style={{ marginTop: '0px' }}>Adressebeskyttelse</h4>
+					<div className="person-visning_content">
+						<TitleValue
+							title="Gradering (Diskresjonskode)"
+							value={data.adressebeskyttelse[0].gradering}
+						/>
+						<TitleValue
+							title="Kilde"
+							value={data.adressebeskyttelse[0].folkeregistermetadata.kilde}
+						/>
+						<TitleValue
+							title="Gyldighetstidspunkt"
+							value={data.adressebeskyttelse[0].folkeregistermetadata.gyldighetstidspunkt}
+						/>
+					</div>
 				</div>
 				<UtenlandsId data={data.utenlandskIdentifikasjonsnummer} loading={false} />
 				<FalskIdentitet data={data.falskIdentitet} loading={false} />
