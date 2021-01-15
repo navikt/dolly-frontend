@@ -16,8 +16,13 @@ type PdlData = {
 
 type Data = {
 	hentIdenter: object
-	hentPerson: object
+	hentPerson: HentPerson
 	hentGeografiskTilknytning: object
+}
+
+type HentPerson = {
+	bostedsadresse: [object]
+	fullmakt: [object]
 }
 
 export const PdlDataVisning = ({ data }: PdlData) => {
