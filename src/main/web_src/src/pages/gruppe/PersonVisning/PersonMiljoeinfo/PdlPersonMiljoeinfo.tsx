@@ -21,8 +21,8 @@ export const PdlPersonMiljoeInfo = ({ ident }: PdlPersonMiljoeinfo) => {
 	return (
 		<ErrorBoundary>
 			<div>
-				<SubOverskrift label="PDL data" iconKind="visTpsData" />
-				{state.loading && <Loading label="Laster miljøer" />}
+				<SubOverskrift label="PDL" iconKind="visTpsData" />
+				{state.loading && <Loading label="Henter info fra PDL" />}
 				{/* @ts-ignore */}
 				{state.value && <PdlDataVisning data={state.value.data} />}
 				{state.value && (
