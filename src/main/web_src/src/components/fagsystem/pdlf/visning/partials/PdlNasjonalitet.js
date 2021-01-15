@@ -30,7 +30,7 @@ export const PdlNasjonalitet = ({ data, visTittel = true }) => {
 				{statsborgerskap && statsborgerskap.length > 1 ? (
 					<ErrorBoundary>
 						<DollyFieldArray data={statsborgerskap} header="Statsborgerskap" nested>
-							{(statsborgerskap, idx) => <Statsborgerskap statsborgerskap={statsborgerskap} />}
+							{(borgerskap, idx) => <Statsborgerskap key={idx} statsborgerskap={borgerskap} />}
 						</DollyFieldArray>
 					</ErrorBoundary>
 				) : (
