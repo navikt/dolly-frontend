@@ -42,14 +42,10 @@ export const PdlNasjonalitet = ({ data, visTittel = true }) => {
 				<ErrorBoundary>
 					<DollyFieldArray data={innflyttingTilNorge} header={'Innvandret/utvandret'} nested>
 						{(id, idx) => (
-							<React.Fragment>
-								<>
-									<TitleValue
-										title="Fraflyttingsland"
-										value={innflyttingTilNorge[idx].fraflyttingsland}
-									/>
-								</>
-							</React.Fragment>
+							<TitleValue
+								title="Fraflyttingsland"
+								value={innflyttingTilNorge[idx].fraflyttingsland}
+							/>
 						)}
 					</DollyFieldArray>
 				</ErrorBoundary>
