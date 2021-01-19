@@ -10,14 +10,18 @@ export const PdlPersonInfo = ({ data, visTittel = true }) => {
 	if (!data) {
 		return null
 	}
+
+	const adressebeskyttelse = data.adressebeskyttelse[0]
+	const personInfo = data.navn[0]
+
 	return (
 		<ErrorBoundary>
 			<div>
 				{visTittel && <SubOverskrift label="Persondetaljer" iconKind="personinformasjon" />}
 				<div className="person-visning_content">
-					<TitleValue title="Fornavn" value={data.navn[0].fornavn} />
-					<TitleValue title="Mellomnavn" value={data.navn[0].mellomnavn} />
-					<TitleValue title="Etternavn" value={data.navn[0].etternavn} />
+					<TitleValue title="Fornavn" value={personInfo.fornavn} />
+					<TitleValue title="Mellomnavn" value={personInfo.mellomnavn} />
+					<TitleValue title="Etternavn" value={personInfo.etternavn} />
 					<TitleValue title="Kjønn" value={data.kjoenn[0].kjoenn} />
 					<TitleValue title="Sivilstand" value={data.sivilstand[0].type} />
 					<TitleValue title="Fødselsdato" value={data.foedsel[0].foedselsdato} />
@@ -25,15 +29,23 @@ export const PdlPersonInfo = ({ data, visTittel = true }) => {
 					<div className="person-visning_content">
 						<TitleValue
 							title="Gradering (Diskresjonskode)"
-							value={data.adressebeskyttelse[0].gradering}
+							value={adressebeskyttelse && adressebeskyttelse.gradering}
 						/>
 						<TitleValue
 							title="Kilde"
-							value={data.adressebeskyttelse[0].folkeregistermetadata.kilde}
+							value={
+								adressebeskyttelse &&
+								adressebeskyttelse.folkeregistermetadata &&
+								adressebeskyttelse.folkeregistermetadata.kilde
+							}
 						/>
 						<TitleValue
 							title="Gyldighetstidspunkt"
-							value={data.adressebeskyttelse[0].folkeregistermetadata.gyldighetstidspunkt}
+							value={
+								adressebeskyttelse &&
+								adressebeskyttelse.folkeregistermetadata &&
+								adressebeskyttelse.folkeregistermetadata.gyldighetstidspunkt
+							}
 						/>
 					</div>
 				</div>
