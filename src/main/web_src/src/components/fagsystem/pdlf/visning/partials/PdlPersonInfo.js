@@ -24,7 +24,7 @@ export const PdlPersonInfo = ({ data, visTittel = true }) => {
 				<div className="person-visning_content">
 					<TitleValue title="Fornavn" value={personNavn && personNavn.fornavn} />
 					<TitleValue title="Mellomnavn" value={personNavn && personNavn.mellomnavn} />
-					<TitleValue title="Etternavn" value={personNavn &&personNavn.etternavn} />
+					<TitleValue title="Etternavn" value={personNavn && personNavn.etternavn} />
 					<TitleValue title="Kjønn" value={personKjoenn && personKjoenn.kjoenn} />
 					<TitleValue title="Sivilstand" value={personSivilstand && personSivilstand.type} />
 					<TitleValue title="Fødselsdato" value={personFoedsel && personFoedsel.foedselsdato} />
