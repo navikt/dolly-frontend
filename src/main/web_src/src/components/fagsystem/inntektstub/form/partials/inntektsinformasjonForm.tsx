@@ -25,6 +25,7 @@ export default ({ path, formikBag }: InntektsinformasjonForm) => {
 			<div className="flexbox--flex-wrap">
 				<Label name={'År/måned'} label={'År/måned'}>
 					<ReactDatepicker
+						className={'skjemaelement__input'}
 						locale="nb"
 						dateFormat="yyyy-MM"
 						selected={date}
