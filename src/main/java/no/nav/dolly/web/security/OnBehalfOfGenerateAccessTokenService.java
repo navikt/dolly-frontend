@@ -65,12 +65,6 @@ class OnBehalfOfGenerateAccessTokenService {
         }
         OAuth2AccessToken accessToken = tokenResolver.getToken();
 
-        log.info(
-                "Er client secret tom={} for clientId: {}.",
-                clientCredential.getClientSecret() == null,
-                clientCredential.getClientId()
-        );
-
         var body = BodyInserters
                 .fromFormData("scope", String.join(" ", accessScopes.getScopes()))
                 .with("client_id", clientCredential.getClientId())
