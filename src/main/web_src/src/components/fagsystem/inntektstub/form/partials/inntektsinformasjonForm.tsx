@@ -6,6 +6,7 @@ import InntektsinformasjonLister from './inntektsinformasjonLister/inntektsinfor
 import InntektsendringForm from './inntektsendringForm'
 import ReactDatepicker from 'react-datepicker'
 import { Label } from '~/components/ui/form/inputs/label/Label'
+import { InputWrapper } from '~/components/ui/form/inputWrapper/InputWrapper'
 
 interface InntektsinformasjonForm {
 	path: string
@@ -24,17 +25,19 @@ export default ({ path, formikBag }: InntektsinformasjonForm) => {
 		<div key={path}>
 			<div className="flexbox--flex-wrap">
 				<Label name={'År/måned'} label={'År/måned'}>
-					<ReactDatepicker
-						className={'skjemaelement__input'}
-						locale="nb"
-						dateFormat="yyyy-MM"
-						selected={date}
-						onChange={handleDateChange}
-						placeholderText={'yyyy-MM'}
-						showMonthYearPicker
-						dropdownMode="select"
-						autoComplete="off"
-					/>
+					<InputWrapper>
+						<ReactDatepicker
+							className={'skjemaelement__input'}
+							locale="nb"
+							dateFormat="yyyy-MM"
+							selected={date}
+							onChange={handleDateChange}
+							placeholderText={'yyyy-MM'}
+							showMonthYearPicker
+							dropdownMode="select"
+							autoComplete="off"
+						/>
+					</InputWrapper>
 				</Label>
 			</div>
 			<FormikTextInput
