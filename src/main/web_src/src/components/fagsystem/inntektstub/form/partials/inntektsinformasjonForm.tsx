@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { FormikProps } from 'formik'
-import { FormikTextInput } from '~/components/ui/form/inputs/textInput/TextInput'
+import { FormikTextInput, TextInput } from '~/components/ui/form/inputs/textInput/TextInput'
 import { InntektstubVirksomhetToggle } from './inntektstubVirksomhetToggle'
 import InntektsinformasjonLister from './inntektsinformasjonLister/inntektsinformasjonLister'
 import InntektsendringForm from './inntektsendringForm'
 import ReactDatepicker from 'react-datepicker'
 import { Label } from '~/components/ui/form/inputs/label/Label'
 import { InputWrapper } from '~/components/ui/form/inputWrapper/InputWrapper'
+import _get from 'lodash/get'
 
 interface InntektsinformasjonForm {
 	path: string
@@ -18,14 +19,22 @@ export default ({ path, formikBag }: InntektsinformasjonForm) => {
 
 	const handleDateChange = (selectedDate: Date) => {
 		setDate(selectedDate)
-		formikBag.setFieldValue(`${path}.sisteAarMaaned`, selectedDate.toISOString().substr(0, 7))
+		formikBag.setFieldValue(
+			`${path}.sisteAarMaaned`,
+			selectedDate ? selectedDate.toISOString().substr(0, 7) : undefined
+		)
+	}
+
+	const getFeilmelding = (formikBag: FormikProps<{}>, path: string) => {
+		const feilmelding = _get(formikBag.errors, path)
+		return feilmelding ? { feilmelding: feilmelding } : null
 	}
 
 	return (
 		<div key={path}>
 			<div className="flexbox--flex-wrap">
-				<Label name={'År/måned'} label={'År/måned'}>
-					<InputWrapper>
+				<InputWrapper>
+					<Label name={`${path}.sisteAarMaaned`} label={'År/måned'}>
 						<ReactDatepicker
 							className={'skjemaelement__input'}
 							locale="nb"
@@ -34,17 +43,23 @@ export default ({ path, formikBag }: InntektsinformasjonForm) => {
 							onChange={handleDateChange}
 							placeholderText={'yyyy-MM'}
 							showMonthYearPicker
+							customInput={
+								<TextInput
+									icon="calendar"
+									feil={getFeilmelding(formikBag, `${path}.sisteAarMaaned`)}
+								/>
+							}
 							dropdownMode="select"
 							autoComplete="off"
 						/>
-					</InputWrapper>
-				</Label>
+					</Label>
+				</InputWrapper>
+				<FormikTextInput
+					name={`${path}.antallMaaneder`}
+					label="Generer antall måneder"
+					type="number"
+				/>
 			</div>
-			<FormikTextInput
-				name={`${path}.antallMaaneder`}
-				label="Generer antall måneder"
-				type="number"
-			/>
 			<InntektstubVirksomhetToggle path={path} formikBag={formikBag} />
 			<InntektsinformasjonLister formikBag={formikBag} path={path} />
 			<InntektsendringForm formikBag={formikBag} path={path} />
