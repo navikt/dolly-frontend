@@ -25,8 +25,8 @@ export default ({ path, formikBag }: InntektsinformasjonForm) => {
 		)
 	}
 
-	const getFeilmelding = (formikBag: FormikProps<{}>, path: string) => {
-		const feilmelding = _get(formikBag.errors, path)
+	const getFeilmelding = (formikProps: FormikProps<{}>, formikPath: string) => {
+		const feilmelding = _get(formikProps.errors, formikPath)
 		return feilmelding ? { feilmelding: feilmelding } : null
 	}
 
