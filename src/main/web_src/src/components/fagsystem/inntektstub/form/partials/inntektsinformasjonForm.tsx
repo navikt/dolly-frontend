@@ -15,7 +15,11 @@ interface InntektsinformasjonForm {
 }
 
 export default ({ path, formikBag }: InntektsinformasjonForm) => {
-	const [date, setDate] = useState(null)
+	const [date, setDate] = useState(
+		formikBag.getFieldMeta(`${path}.sisteAarMaaned`).value != ''
+			? Date.parse(formikBag.getFieldMeta(`${path}.sisteAarMaaned`).value as string)
+			: null
+	)
 
 	const handleDateChange = (selectedDate: Date) => {
 		setDate(selectedDate)
@@ -34,7 +38,11 @@ export default ({ path, formikBag }: InntektsinformasjonForm) => {
 		<div key={path}>
 			<div className="flexbox--flex-wrap">
 				<InputWrapper>
-					<Label name={`${path}.sisteAarMaaned`} label={'År/måned'}>
+					<Label
+						name={`${path}.sisteAarMaaned`}
+						label={'År/måned'}
+						feil={getFeilmelding(formikBag, `${path}.sisteAarMaaned`)}
+					>
 						<ReactDatepicker
 							className={'skjemaelement__input'}
 							locale="nb"
