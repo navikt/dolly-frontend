@@ -16,8 +16,8 @@ interface InntektsinformasjonForm {
 
 export default ({ path, formikBag }: InntektsinformasjonForm) => {
 	const [date, setDate] = useState(
-		formikBag.getFieldMeta(`${path}.sisteAarMaaned`).value != ''
-			? Date.parse(formikBag.getFieldMeta(`${path}.sisteAarMaaned`).value as string)
+		_get(formikBag.values, `${path}.sisteAarMaaned`) != ''
+			? Date.parse(_get(formikBag.values, `${path}.sisteAarMaaned`))
 			: null
 	)
 
