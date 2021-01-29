@@ -1,5 +1,4 @@
 import React from 'react'
-import _get from 'lodash/get'
 import { FormikProps } from 'formik'
 import { FormikTextInput } from '~/components/ui/form/inputs/textInput/TextInput'
 import { InntektstubVirksomhetToggle } from './inntektstubVirksomhetToggle'
