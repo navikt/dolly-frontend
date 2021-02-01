@@ -95,7 +95,7 @@ export const Detaljer = ({ formikBag, path, level, number }: Detaljer) => {
 				<FormikSelect
 					name={`${path}.naeringskode`}
 					label="Næringskode"
-					kodeverk={OrganisasjonKodeverk.Næringskoder}
+					kodeverk={OrganisasjonKodeverk.Naeringskoder}
 					size="xlarge"
 					optionHeight={50}
 					isClearable={false}
