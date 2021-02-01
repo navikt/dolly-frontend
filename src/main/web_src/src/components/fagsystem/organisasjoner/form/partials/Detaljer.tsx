@@ -89,6 +89,7 @@ export const Detaljer = ({ formikBag, path, level, number }: Detaljer) => {
 								: OrganisasjonKodeverk.EnhetstyperVirksomhet
 						}
 						size="xxlarge"
+						fastfield={false}
 						isClearable={false}
 					/>
 				</div>
