@@ -7,17 +7,17 @@ import Api from '~/api'
 import ProgressBar from 'fremdriftslinje'
 import { WarningFilled } from '@navikt/ds-icons'
 
-function getCookie(cname: string) {
-	const name = cname + '='
+function getCookie(cookieName: string) {
+	const name = cookieName + '='
 	const decodedCookie = decodeURIComponent(document.cookie)
-	const ca = decodedCookie.split(';')
-	for (let i = 0; i < ca.length; i++) {
-		let c = ca[i]
-		while (c.charAt(0) == ' ') {
-			c = c.substring(1)
+	const list = decodedCookie.split(';')
+	for (let index = 0; index < list.length; index++) {
+		let value = list[index]
+		while (value.charAt(0) == ' ') {
+			value = value.substring(1)
 		}
-		if (c.indexOf(name) == 0) {
-			return c.substring(name.length, c.length)
+		if (value.indexOf(name) == 0) {
+			return value.substring(name.length, value.length)
 		}
 	}
 	return ''
