@@ -200,6 +200,38 @@ const selectOptions: SelectOptions = {
 		{ value: 'MIDLERTIDIG', label: 'Midlertidig' }
 	],
 
+	ovrigIkkeOppholdsKategoriArsak: [
+		{ value: 'OPPHEVET_INNREISEFORBUD', label: 'Opphevet innreiseforbud' },
+		{ value: 'ANNULERING_AV_VISUM', label: 'Annulering av visum' },
+		{ value: 'UTLOPT_OPPHOLDSTILLATELSE', label: 'Utløpt oppholdstillatelse' },
+		{
+			value: 'UTLOPT_EO_SELLER_EFTA_OPPHOLDSRETT_ELLER_EO_SELLER_EFTA_OPPHOLDSTILLATELSE',
+			label: 'Utløpt EOS eller EFTA oppholdsrett/oppholdstillatelse'
+		}
+	],
+
+	avslagGrunnlagOverig: [
+		{ value: 'PERMANENT', label: 'Permanent' },
+		{ value: 'BESKYTTELSE', label: 'Beskyttelse' },
+		{
+			value: 'STERKE_MENNESKELIGE_HENSYN_ELLER_SAERLIG_TILKNYTNING_TIL_NORGE',
+			label: 'Sterke menneskelige hensyn/Særlig tilknytning til Norge'
+		},
+		{ value: 'ARBEID', label: 'Arbeid' },
+		{ value: 'UTDANNING', label: 'Utdanning' },
+		{ value: 'FAMILIE', label: 'Familie' },
+		{ value: 'SELVSTENDIG_NAERINGSVIRKSOMHET', label: 'Selvstendig næringsvirksomhet' },
+		{ value: 'ANNET', label: 'Annet' },
+		{ value: 'UAVKLART', label: 'Uavklart' }
+	],
+
+	varighet: [
+		{ value: 'ETT_AR', label: 'Ett år' },
+		{ value: 'TO_AR', label: 'To år' },
+		{ value: 'FEM_AR', label: 'Fem år' },
+		{ value: 'VARIG', label: 'Varig' }
+	],
+
 	jaNeiUavklart: [
 		{ value: 'JA', label: 'Ja' },
 		{ value: 'NEI', label: 'Nei' },

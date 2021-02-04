@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import { FormikSelect } from '~/components/ui/form/inputs/select/Select'
+import { DollySelect, FormikSelect } from '~/components/ui/form/inputs/select/Select'
 import { FormikDatepicker } from '~/components/ui/form/inputs/datepicker/Datepicker'
-import { DollySelect } from '~/components/ui/form/inputs/select/Select'
 import { SelectOptionsManager as Options } from '~/service/SelectOptions'
 
 const findInitialStatus = formikBag => {
@@ -31,16 +30,19 @@ export const Oppholdsstatus = ({ formikBag }) => {
 	const [eosEllerEFTAtypeOpphold, setEosEllerEFTAtypeOpphold] = useState(initialStatus[1])
 	const [tredjelandsBorgereValg, setTredjelandsBorgereValg] = useState(initialStatus[2])
 
+	const basePath = 'udistub.oppholdStatus'
+	const ikkeOppholdPath = basePath + '.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum'
+
 	const endreOppholdsstatus = value => {
 		setOppholdsstatus(value)
 		setEosEllerEFTAtypeOpphold('')
 		setTredjelandsBorgereValg('')
-		formikBag.setFieldValue('udistub.oppholdStatus', {})
+		formikBag.setFieldValue(basePath, {})
 	}
 
 	const endreEosEllerEFTAtypeOpphold = value => {
 		setEosEllerEFTAtypeOpphold(value)
-		formikBag.setFieldValue('udistub.oppholdStatus', {})
+		formikBag.setFieldValue(basePath, {})
 		formikBag.setFieldValue(`udistub.oppholdStatus.${value}Periode`, {
 			fra: null,
 			til: null
@@ -51,7 +53,7 @@ export const Oppholdsstatus = ({ formikBag }) => {
 
 	const endreTredjelandsBorgereValg = value => {
 		setTredjelandsBorgereValg(value)
-		formikBag.setFieldValue('udistub.oppholdStatus', {})
+		formikBag.setFieldValue(basePath, {})
 		if (value === 'oppholdSammeVilkaar') {
 			formikBag.setFieldValue('udistub.harOppholdsTillatelse', null)
 			formikBag.setFieldValue('udistub.oppholdStatus.oppholdSammeVilkaar', {
@@ -61,10 +63,32 @@ export const Oppholdsstatus = ({ formikBag }) => {
 				oppholdstillatelseType: ''
 			})
 		} else if (value === 'ikkeOppholdSammeVilkaar') {
-			formikBag.setFieldValue('udistub.oppholdStatus', {})
+			formikBag.setFieldValue(basePath, {})
 			formikBag.setFieldValue('udistub.harOppholdsTillatelse', false)
+			formikBag.setFieldValue('udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum', {
+				avslagEllerBortfall: {
+					avgjorelsesDato: '',
+					avslagGrunnlagOverig: '',
+					avslagGrunnlagTillatelseGrunnlagEOS: '',
+					avslagOppholdsrettBehandlet: '',
+					avslagOppholdstillatelseBehandletGrunnlagEOS: '',
+					avslagOppholdstillatelseBehandletGrunnlagOvrig: '',
+					avslagOppholdstillatelseBehandletUtreiseFrist: '',
+					avslagOppholdstillatelseUtreiseFrist: '',
+					bortfallAvPOellerBOSDato: '',
+					tilbakeKallUtreiseFrist: '',
+					formeltVedtakUtreiseFrist: '',
+					tilbakeKallVirkningsDato: ''
+				},
+				ovrigIkkeOppholdsKategoriArsak: '',
+				utvistMedInnreiseForbud: {
+					innreiseForbud: '',
+					innreiseForbudVedtaksDato: '',
+					varighet: ''
+				}
+			})
 		} else if (value === 'UAVKLART') {
-			formikBag.setFieldValue('udistub.oppholdStatus', { uavklart: true })
+			formikBag.setFieldValue(basePath, { uavklart: true })
 			formikBag.setFieldValue('udistub.harOppholdsTillatelse', '')
 		}
 	}
@@ -157,6 +181,47 @@ export const Oppholdsstatus = ({ formikBag }) => {
 								label="Vedtaksdato"
 							/>
 						</React.Fragment>
+					)}
+					{tredjelandsBorgereValg === 'ikkeOppholdSammeVilkaar' && (
+						<div className="flexbox--flex-wrap">
+							<div className="flexbox--full-width">
+								<h5> Avslag eller bortfall </h5>
+							</div>
+							<FormikDatepicker
+								name={ikkeOppholdPath + '.avslagEllerBortfall.avgjorelsesDato'}
+								label="Avgjørelsesdato"
+							/>
+							<FormikSelect
+								name={ikkeOppholdPath + '.avslagEllerBortfall.avslagGrunnlagOverig'}
+								label="Grunnlag for avslag"
+								options={Options('avslagGrunnlagOverig')}
+							/>
+							<div className="flexbox--full-width">
+								<h5> Utvist med innreiseforbud </h5>
+							</div>
+							<FormikSelect
+								name={ikkeOppholdPath + '.utvistMedInnreiseForbud.innreiseForbud'}
+								label="Innreiseforbud"
+								options={Options('jaNeiUavklart')}
+							/>
+							<FormikSelect
+								name={ikkeOppholdPath + '.utvistMedInnreiseForbud.varighet'}
+								label="Varighet"
+								options={Options('varighet')}
+							/>
+							<FormikDatepicker
+								name={ikkeOppholdPath + '.utvistMedInnreiseForbud.innreiseForbudVedtaksDato'}
+								label="Innreiseforbud vedtaksdato"
+							/>
+							<div className="flexbox--full-width">
+								<h5> Diverse </h5>
+							</div>
+							<FormikSelect
+								name={ikkeOppholdPath + '.ovrigIkkeOppholdsKategoriArsak'}
+								label="Ikke-opphold kategori årsak"
+								options={Options('ovrigIkkeOppholdsKategoriArsak')}
+							/>
+						</div>
 					)}
 				</React.Fragment>
 			)}
