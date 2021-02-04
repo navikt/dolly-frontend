@@ -13,6 +13,8 @@ import { ImportFraEtikett } from '~/components/ui/etikett'
 
 import Icon from '~/components/ui/icon/Icon'
 import { ErrorBoundary } from '~/components/ui/appError/ErrorBoundary'
+import useBoolean from '~/utils/hooks/useBoolean'
+import { KommentarModal } from '~/pages/gruppe/PersonListe/modal/KommentarModal'
 
 const ikonTypeMap = {
 	Ferdig: 'feedback-check-circle',
@@ -31,6 +33,8 @@ export default function PersonListe({
 }) {
 	useMount(fetchTpsfPersoner)
 
+	const [isKommentarModalOpen, openKommentarModal, closeKommentarModal] = useBoolean(false)
+
 	if (isFetching) return <Loading label="laster personer" panel />
 
 	if (!personListe || personListe.length === 0)
@@ -45,10 +49,10 @@ export default function PersonListe({
 	}
 
 	const getKommentarTekst = tekst => {
-		const kommentar = tekst.length > 170 ? tekst.substring(0, 170) + '...' : tekst
+		const beskrivelse = tekst.length > 170 ? tekst.substring(0, 170) + '...' : tekst
 		return (
 			<div style={{ maxWidth: 200 }}>
-				<p>{kommentar}</p>
+				<p>{beskrivelse}</p>
 			</div>
 		)
 	}
@@ -74,7 +78,7 @@ export default function PersonListe({
 							destroyTooltipOnHide={true}
 							mouseEnterDelay={0}
 							mouseLeaveDelay={0.1}
-							arrowContent={<div className="rc-tooltip-arrow-inner"> </div>}
+							arrowContent={<div className="rc-tooltip-arrow-inner"></div>}
 							align={{
 								offset: ['0', '-10']
 							}}
@@ -147,7 +151,8 @@ export default function PersonListe({
 							destroyTooltipOnHide={true}
 							mouseEnterDelay={0}
 							mouseLeaveDelay={0.1}
-							arrowContent={<div className="rc-tooltip-arrow-inner"> </div>}
+							onClick={openKommentarModal}
+							arrowContent={<div className="rc-tooltip-arrow-inner"></div>}
 							align={{
 								offset: ['0', '-10']
 							}}
@@ -171,15 +176,23 @@ export default function PersonListe({
 				iconItem={bruker => (bruker.kjonn === 'MANN' ? <ManIconItem /> : <WomanIconItem />)}
 				visSide={visSide}
 				visPerson={visPerson}
-				onExpand={bruker => (
-					<PersonVisningConnector
-						personId={bruker.ident.ident}
-						bestillingId={bruker.ident.bestillingId[0]}
-						bestillingsIdListe={bruker.ident.bestillingId}
-						gruppeId={bruker.ident.gruppeId}
-						iLaastGruppe={iLaastGruppe}
-					/>
-				)}
+				onExpand={bruker =>
+					isKommentarModalOpen ? (
+						<KommentarModal
+							closeModal={closeKommentarModal}
+							id={bruker.ident.ident}
+							beskrivelse={bruker.ident.beskrivelse}
+						/>
+					) : (
+						<PersonVisningConnector
+							personId={bruker.ident.ident}
+							bestillingId={bruker.ident.bestillingId[0]}
+							bestillingsIdListe={bruker.ident.bestillingId}
+							gruppeId={bruker.ident.gruppeId}
+							iLaastGruppe={iLaastGruppe}
+						/>
+					)
+				}
 			/>
 		</ErrorBoundary>
 	)
