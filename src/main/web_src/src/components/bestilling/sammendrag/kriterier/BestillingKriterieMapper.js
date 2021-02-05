@@ -890,7 +890,7 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 				: oppholdKriterier && oppholdKriterier.uavklart
 				? 'Uavklart'
 				: udiStubKriterier.harOppholdsTillatelse === false
-				? 'Ikke oppholdstillatalse eller ikke opphold på samme vilkår'
+				? 'Ikke oppholdstillatelse eller ikke opphold på samme vilkår'
 				: null
 
 		const oppholdsrett = Boolean(currentOppholdsrettType)
@@ -905,6 +905,162 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 					aliaserListe.push(`#${i + 1} ID-nummer - ${alias.identtype}\n`)
 				}
 			})
+
+		const udistubAvslagEllerBortfall = oppholdKriterier.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum
+			?.avslagEllerBortfall && {
+			header: 'UDI - Avslag eller bortfall',
+			items: [
+				obj(
+					'Avgjørelsesdato',
+					Formatters.formatDate(
+						_get(
+							oppholdKriterier,
+							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avgjorelsesDato'
+						)
+					)
+				),
+				obj(
+					'Avslag grunnlag øvrig',
+					Formatters.showLabel(
+						'avslagGrunnlagOverig',
+						_get(
+							oppholdKriterier,
+							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagGrunnlagOverig'
+						)
+					)
+				),
+				obj(
+					'Avslag tillatelsesgrunnlag',
+					Formatters.showLabel(
+						'avslagGrunnlagTillatelseGrunnlagEOS',
+						_get(
+							oppholdKriterier,
+							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagGrunnlagTillatelseGrunnlagEOS'
+						)
+					)
+				),
+				obj(
+					'Oppholdsrett behandlet',
+					Formatters.showLabel(
+						'avslagOppholdsrettBehandlet',
+						_get(
+							oppholdKriterier,
+							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagOppholdsrettBehandlet'
+						)
+					)
+				),
+				obj(
+					'Oppholdstillatelse behandlet',
+					Formatters.showLabel(
+						'avslagGrunnlagTillatelseGrunnlagEOS',
+						_get(
+							oppholdKriterier,
+							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagOppholdstillatelseBehandletGrunnlagEOS'
+						)
+					)
+				),
+				obj(
+					'Oppholdstillatelse behandlet øvrig',
+					Formatters.showLabel(
+						'avslagGrunnlagOverig',
+						_get(
+							oppholdKriterier,
+							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagOppholdstillatelseBehandletGrunnlagOvrig'
+						)
+					)
+				),
+				obj(
+					'Behandlet utreisefrist',
+					Formatters.formatDate(
+						_get(
+							oppholdKriterier,
+							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagOppholdstillatelseBehandletUtreiseFrist'
+						)
+					)
+				),
+				obj(
+					'Utreisefrist',
+					Formatters.formatDate(
+						_get(
+							oppholdKriterier,
+							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagOppholdstillatelseUtreiseFrist'
+						)
+					)
+				),
+				obj(
+					'Bortfallsdato',
+					Formatters.formatDate(
+						_get(
+							oppholdKriterier,
+							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.bortfallAvPOellerBOSDato'
+						)
+					)
+				),
+				obj(
+					'Tilbakekall utreisefrist',
+					Formatters.formatDate(
+						_get(
+							oppholdKriterier,
+							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.tilbakeKallUtreiseFrist'
+						)
+					)
+				),
+				obj(
+					'Vedtak utreisefrist',
+					Formatters.formatDate(
+						_get(
+							oppholdKriterier,
+							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.formeltVedtakUtreiseFrist'
+						)
+					)
+				),
+				obj(
+					'Tilbakekall virkningsdato',
+					Formatters.formatDate(
+						_get(
+							oppholdKriterier,
+							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.tilbakeKallVirkningsDato'
+						)
+					)
+				)
+			]
+		}
+
+		const udiStubUtvistMedInnreiseforbud = oppholdKriterier
+			.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum?.utvistMedInnreiseForbud && {
+			header: 'UDI - Utvist med innreiseforbud',
+			items: [
+				obj(
+					'Innreiseforbud',
+					Formatters.showLabel(
+						'jaNeiUavklart',
+						_get(
+							oppholdKriterier,
+							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.utvistMedInnreiseForbud.innreiseForbud'
+						)
+					)
+				),
+				obj(
+					'Innreiseforbud vedtatt',
+					Formatters.formatDate(
+						_get(
+							oppholdKriterier,
+							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.utvistMedInnreiseForbud.innreiseForbudVedtaksDato'
+						)
+					)
+				),
+				obj(
+					'Varighet',
+					Formatters.showLabel(
+						'varighet',
+						_get(
+							oppholdKriterier,
+							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.utvistMedInnreiseForbud.varighet'
+						)
+					)
+				)
+			]
+		}
 
 		const udistub = {
 			header: 'UDI',
@@ -937,116 +1093,6 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 					Formatters.formatDate(
 						_get(oppholdKriterier, `${currentOppholdsrettType}Effektuering`) ||
 							_get(oppholdKriterier, 'oppholdSammeVilkaar.oppholdSammeVilkaarEffektuering')
-					)
-				),
-				obj(
-					'Avgjørelsesdato',
-					Formatters.formatDate(
-						_get(oppholdKriterier, 'ikkeOppholdSammeVilkaar.avslagEllerBortfall.avgjorelsesDato')
-					)
-				),
-				obj(
-					'Avslag grunnlag øvrig',
-					Formatters.showLabel(
-						'avslagGrunnlagOverig',
-						_get(
-							oppholdKriterier,
-							'ikkeOppholdSammeVilkaar.avslagEllerBortfall.avslagGrunnlagOverig'
-						)
-					)
-				),
-				obj(
-					'Avslag tillatelsesgrunnlag',
-					Formatters.showLabel(
-						'avslagGrunnlagTillatelseGrunnlagEOS',
-						_get(
-							oppholdKriterier,
-							'ikkeOppholdSammeVilkaar.avslagEllerBortfall.avslagGrunnlagTillatelseGrunnlagEOS'
-						)
-					)
-				),
-				obj(
-					'Oppholdsrett behandlet',
-					Formatters.showLabel(
-						'avslagOppholdsrettBehandlet',
-						_get(
-							oppholdKriterier,
-							'ikkeOppholdSammeVilkaar.avslagEllerBortfall.avslagOppholdsrettBehandlet'
-						)
-					)
-				),
-				obj(
-					'Oppholdstillatelse behandlet',
-					Formatters.showLabel(
-						'avslagGrunnlagTillatelseGrunnlagEOS',
-						_get(
-							oppholdKriterier,
-							'ikkeOppholdSammeVilkaar.avslagEllerBortfall.avslagOppholdstillatelseBehandletGrunnlagEOS'
-						)
-					)
-				),
-				obj(
-					'Oppholdstillatelse behandlet øvrig',
-					Formatters.showLabel(
-						'avslagGrunnlagOverig',
-						_get(
-							oppholdKriterier,
-							'ikkeOppholdSammeVilkaar.avslagEllerBortfall.avslagOppholdstillatelseBehandletGrunnlagOvrig'
-						)
-					)
-				),
-				obj(
-					'Behandlet utreisefrist',
-					Formatters.formatDate(
-						_get(
-							oppholdKriterier,
-							'ikkeOppholdSammeVilkaar.avslagEllerBortfall.avslagOppholdstillatelseBehandletUtreiseFrist'
-						)
-					)
-				),
-				obj(
-					'Utreisefrist',
-					Formatters.formatDate(
-						_get(
-							oppholdKriterier,
-							'ikkeOppholdSammeVilkaar.avslagEllerBortfall.avslagOppholdstillatelseUtreiseFrist'
-						)
-					)
-				),
-				obj(
-					'Bortfallsdato',
-					Formatters.formatDate(
-						_get(
-							oppholdKriterier,
-							'ikkeOppholdSammeVilkaar.avslagEllerBortfall.bortfallAvPOellerBOSDato'
-						)
-					)
-				),
-				obj(
-					'Tilbakekall utreisefrist',
-					Formatters.formatDate(
-						_get(
-							oppholdKriterier,
-							'ikkeOppholdSammeVilkaar.avslagEllerBortfall.tilbakeKallUtreiseFrist'
-						)
-					)
-				),
-				obj(
-					'Vedtak utreisefrist',
-					Formatters.formatDate(
-						_get(
-							oppholdKriterier,
-							'ikkeOppholdSammeVilkaar.avslagEllerBortfall.formeltVedtakUtreiseFrist'
-						)
-					)
-				),
-				obj(
-					'Tilbakekall virkningsdato',
-					Formatters.formatDate(
-						_get(
-							oppholdKriterier,
-							'ikkeOppholdSammeVilkaar.avslagEllerBortfall.tilbakeKallVirkningsDato'
-						)
 					)
 				),
 				obj(
@@ -1103,10 +1149,24 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 						'jaNeiUavklart',
 						udiStubKriterier.soeknadOmBeskyttelseUnderBehandling
 					)
+				),
+				obj(
+					'Øvrig årsak',
+					Formatters.showLabel(
+						'ovrigIkkeOppholdsKategoriArsak',
+						_get(
+							oppholdKriterier,
+							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.ovrigIkkeOppholdsKategoriArsak'
+						)
+					)
 				)
 			]
 		}
 		data.push(udistub)
+		oppholdKriterier.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum?.avslagEllerBortfall &&
+			data.push(udistubAvslagEllerBortfall)
+		oppholdKriterier.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum?.utvistMedInnreiseForbud &&
+			data.push(udiStubUtvistMedInnreiseforbud)
 	}
 
 	const pensjonKriterier = bestillingData.pensjonforvalter

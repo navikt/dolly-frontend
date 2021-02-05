@@ -1,67 +1,91 @@
 import React from 'react'
-import { DollySelect } from '~/components/ui/form/inputs/select/Select'
+import { FormikSelect } from '~/components/ui/form/inputs/select/Select'
 import { FormikDatepicker } from '~/components/ui/form/inputs/datepicker/Datepicker'
 import { SelectOptionsManager as Options } from '~/service/SelectOptions'
 
-export const IkkeOppholdSammeVilkaar = path => (
+export const IkkeOppholdSammeVilkaar = () => (
 	<div className="flexbox--flex-wrap">
 		<div className="input--fullbredde">
 			<h5> Avslag eller bortfall </h5>
 		</div>
 
 		<FormikDatepicker
-			name={path + '.avslagEllerBortfall.avgjorelsesDato'}
+			name={
+				'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avgjorelsesDato'
+			}
 			label="Avgjørelsesdato"
 		/>
-		<DollySelect
-			name={path + '.avslagEllerBortfall.avslagGrunnlagOverig'}
+		<FormikSelect
+			name={
+				'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagGrunnlagOverig'
+			}
 			label="Grunnlag for avslag"
 			options={Options('avslagGrunnlagOverig')}
 			size="large"
 		/>
-		<DollySelect
-			name={path + '.avslagEllerBortfall.avslagGrunnlagTillatelseGrunnlagEOS'}
+		<FormikSelect
+			name={
+				'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagGrunnlagTillatelseGrunnlagEOS'
+			}
 			label="Tillatelsesgrunnlag EOS"
 			options={Options('avslagGrunnlagTillatelseGrunnlagEOS')}
 			size="large"
 		/>
-		<DollySelect
-			name={path + '.avslagEllerBortfall.avslagOppholdsrettBehandlet'}
+		<FormikSelect
+			name={
+				'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagOppholdsrettBehandlet'
+			}
 			label="Oppholdsrett behandlet"
 			options={Options('avslagOppholdsrettBehandlet')}
 		/>
-		<DollySelect
-			name={path + '.avslagEllerBortfall.avslagOppholdstillatelseBehandletGrunnlagEOS'}
+		<FormikSelect
+			name={
+				'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagOppholdstillatelseBehandletGrunnlagEOS'
+			}
 			label="Behandlet tillatelsesgrunnlag"
 			options={Options('avslagGrunnlagTillatelseGrunnlagEOS')}
 		/>
-		<DollySelect
-			name={path + '.avslagEllerBortfall.avslagOppholdstillatelseBehandletGrunnlagOvrig'}
+		<FormikSelect
+			name={
+				'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagOppholdstillatelseBehandletGrunnlagOvrig'
+			}
 			label="Behandlet grunnlag for avslag"
 			options={Options('avslagGrunnlagTillatelseGrunnlagEOS')}
 		/>
 		<FormikDatepicker
-			name={path + '.avslagEllerBortfall.avslagOppholdstillatelseUtreiseFrist'}
+			name={
+				'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagOppholdstillatelseUtreiseFrist'
+			}
 			label="Utreisefrist"
 		/>
 		<FormikDatepicker
-			name={path + '.avslagEllerBortfall.avslagOppholdstillatelseBehandletUtreiseFrist'}
+			name={
+				'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagOppholdstillatelseBehandletUtreiseFrist'
+			}
 			label="Behandlet utreisefrist"
 		/>
 		<FormikDatepicker
-			name={path + '.avslagEllerBortfall.bortfallAvPOellerBOSDato'}
+			name={
+				'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.bortfallAvPOellerBOSDato'
+			}
 			label="Bortfall av PO eller BOS"
 		/>
 		<FormikDatepicker
-			name={path + '.avslagEllerBortfall.tilbakeKallUtreiseFrist'}
+			name={
+				'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.tilbakeKallUtreiseFrist'
+			}
 			label="Tilbakekall utreisefrist"
 		/>
 		<FormikDatepicker
-			name={path + '.avslagEllerBortfall.formeltVedtakUtreiseFrist'}
+			name={
+				'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.formeltVedtakUtreiseFrist'
+			}
 			label="Formelt vedtak utreisefrist"
 		/>
 		<FormikDatepicker
-			name={path + '.avslagEllerBortfall.tilbakeKallVirkningsDato'}
+			name={
+				'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.tilbakeKallVirkningsDato'
+			}
 			label="Tilbakekall virkningsdato"
 		/>
 
@@ -69,18 +93,24 @@ export const IkkeOppholdSammeVilkaar = path => (
 			<h5> Utvist med innreiseforbud </h5>
 		</div>
 
-		<DollySelect
-			name={path + '.utvistMedInnreiseForbud.innreiseForbud'}
+		<FormikSelect
+			name={
+				'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.utvistMedInnreiseForbud.innreiseForbud'
+			}
 			label="Innreiseforbud"
 			options={Options('jaNeiUavklart')}
 		/>
-		<DollySelect
-			name={path + '.utvistMedInnreiseForbud.varighet'}
+		<FormikSelect
+			name={
+				'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.utvistMedInnreiseForbud.varighet'
+			}
 			label="Varighet"
 			options={Options('varighet')}
 		/>
 		<FormikDatepicker
-			name={path + '.utvistMedInnreiseForbud.innreiseForbudVedtaksDato'}
+			name={
+				'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.utvistMedInnreiseForbud.innreiseForbudVedtaksDato'
+			}
 			label="Innreiseforbud vedtaksdato"
 		/>
 
@@ -88,8 +118,10 @@ export const IkkeOppholdSammeVilkaar = path => (
 			<h5> Diverse </h5>
 		</div>
 
-		<DollySelect
-			name={path + '.ovrigIkkeOppholdsKategoriArsak'}
+		<FormikSelect
+			name={
+				'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.ovrigIkkeOppholdsKategoriArsak'
+			}
 			label="Ikke-opphold kategori årsak"
 			options={Options('ovrigIkkeOppholdsKategoriArsak')}
 		/>

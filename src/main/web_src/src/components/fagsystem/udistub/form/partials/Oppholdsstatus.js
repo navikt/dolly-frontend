@@ -20,9 +20,12 @@ const findInitialStatus = formikBag => {
 	}
 	if (oppholdsstatusObj.oppholdSammeVilkaar)
 		return ['tredjelandsBorgere', '', 'oppholdSammeVilkaar']
-	if (oppholdsstatusObj.uavklart) return ['tredjelandsBorgere', '', 'UAVKLART']
-	if (formikBag.values.udistub.harOppholdsTillatelse === false)
+	if (
+		oppholdsstatusObj.ikkeOppholdSammeVilkaar ||
+		formikBag.values.udistub.harOppholdsTillatelse === false
+	)
 		return ['tredjelandsBorgere', '', 'ikkeOppholdSammeVilkaar']
+	if (oppholdsstatusObj.uavklart) return ['tredjelandsBorgere', '', 'UAVKLART']
 	return ['', '', '']
 }
 
@@ -69,23 +72,23 @@ export const Oppholdsstatus = ({ formikBag }) => {
 			formikBag.setFieldValue('udistub.harOppholdsTillatelse', false)
 			formikBag.setFieldValue('udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum', {
 				avslagEllerBortfall: {
-					avgjorelsesDato: '',
+					avgjorelsesDato: null,
 					avslagGrunnlagOverig: '',
 					avslagGrunnlagTillatelseGrunnlagEOS: '',
 					avslagOppholdsrettBehandlet: '',
 					avslagOppholdstillatelseBehandletGrunnlagEOS: '',
 					avslagOppholdstillatelseBehandletGrunnlagOvrig: '',
-					avslagOppholdstillatelseBehandletUtreiseFrist: '',
-					avslagOppholdstillatelseUtreiseFrist: '',
-					bortfallAvPOellerBOSDato: '',
-					tilbakeKallUtreiseFrist: '',
-					formeltVedtakUtreiseFrist: '',
-					tilbakeKallVirkningsDato: ''
+					avslagOppholdstillatelseBehandletUtreiseFrist: null,
+					avslagOppholdstillatelseUtreiseFrist: null,
+					bortfallAvPOellerBOSDato: null,
+					tilbakeKallUtreiseFrist: null,
+					formeltVedtakUtreiseFrist: null,
+					tilbakeKallVirkningsDato: null
 				},
 				ovrigIkkeOppholdsKategoriArsak: '',
 				utvistMedInnreiseForbud: {
 					innreiseForbud: '',
-					innreiseForbudVedtaksDato: '',
+					innreiseForbudVedtaksDato: null,
 					varighet: ''
 				}
 			})
@@ -160,9 +163,7 @@ export const Oppholdsstatus = ({ formikBag }) => {
 						isClearable={false}
 					/>
 					{tredjelandsBorgereValg === 'oppholdSammeVilkaar' && <OppholdSammeVilkaar />}
-					{tredjelandsBorgereValg === 'ikkeOppholdSammeVilkaar' && (
-						<IkkeOppholdSammeVilkaar path={ikkeOppholdPath} />
-					)}
+					{tredjelandsBorgereValg === 'ikkeOppholdSammeVilkaar' && <IkkeOppholdSammeVilkaar />}
 				</React.Fragment>
 			)}
 		</React.Fragment>

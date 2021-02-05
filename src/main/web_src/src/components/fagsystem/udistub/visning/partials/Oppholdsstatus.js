@@ -17,7 +17,7 @@ export const Oppholdsstatus = ({ oppholdsstatus, oppholdstillatelse }) => {
 		: oppholdsstatus.uavklart
 		? 'Uavklart'
 		: oppholdstillatelse === false
-		? 'Ikke oppholdstillatalse eller ikke opphold på samme vilkår'
+		? 'Ikke oppholdstillatelse eller ikke opphold på samme vilkår'
 		: null
 	const oppholdsrett = Boolean(currentOppholdsrettType)
 	const tredjelandsborger = Boolean(currentTredjelandsborgereStatus)
