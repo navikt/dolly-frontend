@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { DollySelect, FormikSelect } from '~/components/ui/form/inputs/select/Select'
 import { FormikDatepicker } from '~/components/ui/form/inputs/datepicker/Datepicker'
 import { SelectOptionsManager as Options } from '~/service/SelectOptions'
+import { OppholdSammeVilkaar } from '~/components/fagsystem/udistub/form/partials/OppholdSammeVilkaar'
+import { IkkeOppholdSammeVilkaar } from '~/components/fagsystem/udistub/form/partials/IkkeOppholdSammeVilkaar'
 
 const findInitialStatus = formikBag => {
 	const oppholdsstatusObj = formikBag.values.udistub.oppholdStatus
@@ -157,71 +159,9 @@ export const Oppholdsstatus = ({ formikBag }) => {
 						feil={feilmelding(tredjelandsBorgereValg)}
 						isClearable={false}
 					/>
-					{tredjelandsBorgereValg === 'oppholdSammeVilkaar' && (
-						<React.Fragment>
-							<FormikDatepicker
-								name="udistub.oppholdStatus.oppholdSammeVilkaar.oppholdSammeVilkaarPeriode.fra"
-								label="Oppholdstillatelse fra dato"
-							/>
-							<FormikDatepicker
-								name="udistub.oppholdStatus.oppholdSammeVilkaar.oppholdSammeVilkaarPeriode.til"
-								label="Oppholdstillatelse til dato"
-							/>
-							<FormikDatepicker
-								name="udistub.oppholdStatus.oppholdSammeVilkaar.oppholdSammeVilkaarEffektuering"
-								label="Effektueringsdato"
-							/>
-							<FormikSelect
-								name="udistub.oppholdStatus.oppholdSammeVilkaar.oppholdstillatelseType"
-								label="Type oppholdstillatelse"
-								options={Options('oppholdstillatelseType')}
-							/>
-							<FormikDatepicker
-								name="udistub.oppholdStatus.oppholdSammeVilkaar.oppholdstillatelseVedtaksDato"
-								label="Vedtaksdato"
-							/>
-						</React.Fragment>
-					)}
+					{tredjelandsBorgereValg === 'oppholdSammeVilkaar' && <OppholdSammeVilkaar />}
 					{tredjelandsBorgereValg === 'ikkeOppholdSammeVilkaar' && (
-						<div className="flexbox--flex-wrap">
-							<div className="flexbox--full-width">
-								<h5> Avslag eller bortfall </h5>
-							</div>
-							<FormikDatepicker
-								name={ikkeOppholdPath + '.avslagEllerBortfall.avgjorelsesDato'}
-								label="Avgjørelsesdato"
-							/>
-							<FormikSelect
-								name={ikkeOppholdPath + '.avslagEllerBortfall.avslagGrunnlagOverig'}
-								label="Grunnlag for avslag"
-								options={Options('avslagGrunnlagOverig')}
-							/>
-							<div className="flexbox--full-width">
-								<h5> Utvist med innreiseforbud </h5>
-							</div>
-							<FormikSelect
-								name={ikkeOppholdPath + '.utvistMedInnreiseForbud.innreiseForbud'}
-								label="Innreiseforbud"
-								options={Options('jaNeiUavklart')}
-							/>
-							<FormikSelect
-								name={ikkeOppholdPath + '.utvistMedInnreiseForbud.varighet'}
-								label="Varighet"
-								options={Options('varighet')}
-							/>
-							<FormikDatepicker
-								name={ikkeOppholdPath + '.utvistMedInnreiseForbud.innreiseForbudVedtaksDato'}
-								label="Innreiseforbud vedtaksdato"
-							/>
-							<div className="flexbox--full-width">
-								<h5> Diverse </h5>
-							</div>
-							<FormikSelect
-								name={ikkeOppholdPath + '.ovrigIkkeOppholdsKategoriArsak'}
-								label="Ikke-opphold kategori årsak"
-								options={Options('ovrigIkkeOppholdsKategoriArsak')}
-							/>
-						</div>
+						<IkkeOppholdSammeVilkaar path={ikkeOppholdPath} />
 					)}
 				</React.Fragment>
 			)}

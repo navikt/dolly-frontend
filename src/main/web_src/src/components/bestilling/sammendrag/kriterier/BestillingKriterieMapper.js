@@ -940,6 +940,116 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 					)
 				),
 				obj(
+					'Avgjørelsesdato',
+					Formatters.formatDate(
+						_get(oppholdKriterier, 'ikkeOppholdSammeVilkaar.avslagEllerBortfall.avgjorelsesDato')
+					)
+				),
+				obj(
+					'Avslag grunnlag øvrig',
+					Formatters.showLabel(
+						'avslagGrunnlagOverig',
+						_get(
+							oppholdKriterier,
+							'ikkeOppholdSammeVilkaar.avslagEllerBortfall.avslagGrunnlagOverig'
+						)
+					)
+				),
+				obj(
+					'Avslag tillatelsesgrunnlag',
+					Formatters.showLabel(
+						'avslagGrunnlagTillatelseGrunnlagEOS',
+						_get(
+							oppholdKriterier,
+							'ikkeOppholdSammeVilkaar.avslagEllerBortfall.avslagGrunnlagTillatelseGrunnlagEOS'
+						)
+					)
+				),
+				obj(
+					'Oppholdsrett behandlet',
+					Formatters.showLabel(
+						'avslagOppholdsrettBehandlet',
+						_get(
+							oppholdKriterier,
+							'ikkeOppholdSammeVilkaar.avslagEllerBortfall.avslagOppholdsrettBehandlet'
+						)
+					)
+				),
+				obj(
+					'Oppholdstillatelse behandlet',
+					Formatters.showLabel(
+						'avslagGrunnlagTillatelseGrunnlagEOS',
+						_get(
+							oppholdKriterier,
+							'ikkeOppholdSammeVilkaar.avslagEllerBortfall.avslagOppholdstillatelseBehandletGrunnlagEOS'
+						)
+					)
+				),
+				obj(
+					'Oppholdstillatelse behandlet øvrig',
+					Formatters.showLabel(
+						'avslagGrunnlagOverig',
+						_get(
+							oppholdKriterier,
+							'ikkeOppholdSammeVilkaar.avslagEllerBortfall.avslagOppholdstillatelseBehandletGrunnlagOvrig'
+						)
+					)
+				),
+				obj(
+					'Behandlet utreisefrist',
+					Formatters.formatDate(
+						_get(
+							oppholdKriterier,
+							'ikkeOppholdSammeVilkaar.avslagEllerBortfall.avslagOppholdstillatelseBehandletUtreiseFrist'
+						)
+					)
+				),
+				obj(
+					'Utreisefrist',
+					Formatters.formatDate(
+						_get(
+							oppholdKriterier,
+							'ikkeOppholdSammeVilkaar.avslagEllerBortfall.avslagOppholdstillatelseUtreiseFrist'
+						)
+					)
+				),
+				obj(
+					'Bortfallsdato',
+					Formatters.formatDate(
+						_get(
+							oppholdKriterier,
+							'ikkeOppholdSammeVilkaar.avslagEllerBortfall.bortfallAvPOellerBOSDato'
+						)
+					)
+				),
+				obj(
+					'Tilbakekall utreisefrist',
+					Formatters.formatDate(
+						_get(
+							oppholdKriterier,
+							'ikkeOppholdSammeVilkaar.avslagEllerBortfall.tilbakeKallUtreiseFrist'
+						)
+					)
+				),
+				obj(
+					'Vedtak utreisefrist',
+					Formatters.formatDate(
+						_get(
+							oppholdKriterier,
+							'ikkeOppholdSammeVilkaar.avslagEllerBortfall.formeltVedtakUtreiseFrist'
+						)
+					)
+				),
+				obj(
+					'Tilbakekall virkningsdato',
+					Formatters.formatDate(
+						_get(
+							oppholdKriterier,
+							'ikkeOppholdSammeVilkaar.avslagEllerBortfall.tilbakeKallVirkningsDato'
+						)
+					)
+				),
+				obj(
 					'Grunnlag for opphold',
 					oppholdsrett &&
 						Formatters.showLabel(currentOppholdsrettType, oppholdKriterier[currentOppholdsrettType])
