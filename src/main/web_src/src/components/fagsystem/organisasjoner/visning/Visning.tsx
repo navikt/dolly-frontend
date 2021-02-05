@@ -20,7 +20,7 @@ export const OrganisasjonVisning = ({ data, bestillinger }: OrganisasjonVisning)
 	const enheterListe: Array<EnhetData> = []
 
 	const slettOrganisasjon = () => {
-		DollyApi.deleteOrganisasjonBestilling(data.bestillingId).then(() => {
+		DollyApi.deleteOrganisasjonOrgnummer(data.organisasjonsnummer).then(() => {
 			window.location.reload()
 		})
 	}

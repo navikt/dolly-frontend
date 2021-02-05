@@ -178,7 +178,7 @@ export default {
 		return Request.put(Endpoints.gjenopprettOrganisasjonBestilling(bestillingId, envs))
 	},
 
-	deleteOrganisasjonBestilling(bestillingId) {
-		return Request.delete(Endpoints.deleteOrganisasjonBestilling(bestillingId))
+	deleteOrganisasjonOrgnummer(orgnummer) {
+		return Request.delete(Endpoints.deleteOrganisasjonOrgnummer(orgnummer))
 	}
 }

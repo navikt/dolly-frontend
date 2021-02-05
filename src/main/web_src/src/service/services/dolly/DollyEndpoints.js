@@ -65,8 +65,8 @@ export default class DollyEndpoints {
 		return `${organisasjonBase}/gjenopprett/${bestillingId}?miljoer=${envs}`
 	}
 
-	static deleteOrganisasjonBestilling(bestillingId) {
-		return `${organisasjonBase}/bestilling/${bestillingId}`
+	static deleteOrganisasjonOrgnummer(orgnummer) {
+		return `${organisasjonBase}/bestilling/${orgnummer}`
 	}
 
 	static bruker() {
