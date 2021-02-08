@@ -50,7 +50,8 @@ export const IkkeOppholdSammeVilkaar = () => (
 				'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagOppholdstillatelseBehandletGrunnlagOvrig'
 			}
 			label="Behandlet grunnlag for avslag"
-			options={Options('avslagGrunnlagTillatelseGrunnlagEOS')}
+			options={Options('avslagGrunnlagOverig')}
+			size="large"
 		/>
 		<FormikDatepicker
 			name={

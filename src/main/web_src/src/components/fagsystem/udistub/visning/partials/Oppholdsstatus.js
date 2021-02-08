@@ -2,6 +2,8 @@ import React from 'react'
 import _get from 'lodash/get'
 import { TitleValue } from '~/components/ui/titleValue/TitleValue'
 import Formatters from '~/utils/DataFormatter'
+import { AvslagEllerBortfall } from '~/components/fagsystem/udistub/visning/partials/AvslagEllerBortfall'
+import { UtvistMedInnreiseForbud } from '~/components/fagsystem/udistub/visning/partials/UtvistMedInnreiseForbud'
 
 export const Oppholdsstatus = ({ oppholdsstatus, oppholdstillatelse }) => {
 	if (!oppholdsstatus) return null
@@ -84,7 +86,22 @@ export const Oppholdsstatus = ({ oppholdsstatus, oppholdstillatelse }) => {
 						Formatters.showLabel([currentOppholdsrettType], oppholdsstatus[currentOppholdsrettType])
 					}
 				/>
+				<TitleValue
+					title="Øvrig årsak"
+					value={
+						oppholdsrett &&
+						Formatters.showLabel(
+							'ovrigIkkeOppholdsKategoriArsak',
+							_get(
+								oppholdsstatus,
+								'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.ovrigIkkeOppholdsKategoriArsak'
+							)
+						)
+					}
+				/>
 			</div>
+			<AvslagEllerBortfall oppholdsstatus={oppholdsstatus} />
+			<UtvistMedInnreiseForbud oppholdsstatus={oppholdsstatus} />
 		</div>
 	)
 }
