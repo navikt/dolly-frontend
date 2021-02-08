@@ -45,9 +45,11 @@ export const OrganisasjonVisning = ({ data, bestillinger }: OrganisasjonVisning)
 				<BestillingSammendragModal
 					bestilling={bestillinger.filter(bestilling => bestilling.id === data.bestillingId)[0]}
 				/>
-				<SlettButton action={slettOrganisasjon} loading={undefined}>
-					Er du sikker på at du vil slette denne organisasjonen?
-				</SlettButton>
+				TODO: Slett fungerer greit, men de finnes fortsatt deployet i miljøene etter slett. Venter
+				til sletting av disse er implementert før sletting i Dolly tas i bruk
+				{/*<SlettButton action={slettOrganisasjon} loading={undefined}>*/}
+				{/*	Er du sikker på at du vil slette denne organisasjonen?*/}
+				{/*</SlettButton>*/}
 			</div>
 		</div>
 	)
