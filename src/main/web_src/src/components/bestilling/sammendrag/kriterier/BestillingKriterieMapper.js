@@ -985,6 +985,11 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 					'Arbeidsadgang til dato',
 					Formatters.formatDate(_get(arbeidsadgangKriterier, 'periode.til'))
 				),
+				obj(
+					'Innhent vedtakshjemmel',
+					Formatters.oversettBoolean(_get(arbeidsadgangKriterier, 'hjemmel'))
+				),
+				obj('Forklaring', _get(arbeidsadgangKriterier, 'forklaring')),
 				obj('Alias', aliaserListe.length > 0 && aliaserListe),
 				obj('Flyktningstatus', Formatters.oversettBoolean(udiStubKriterier.flyktning)),
 				obj(

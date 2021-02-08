@@ -28,7 +28,9 @@ const arbeidsadgang = Yup.object({
 		fra: Yup.date().nullable(),
 		til: Yup.date().nullable()
 	}),
-	typeArbeidsadgang: Yup.string().nullable()
+	typeArbeidsadgang: Yup.string().nullable(),
+	hjemmel: Yup.boolean(),
+	forklaring: Yup.string().max(4000)
 })
 
 const oppholdSammeVilkaar = Yup.object({

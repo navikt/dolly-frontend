@@ -56,7 +56,9 @@ UdiPanel.initialValues = ({ set, del, has }) => ({
 					fra: null,
 					til: null
 				},
-				typeArbeidsadgang: null
+				typeArbeidsadgang: null,
+				hjemmel: false,
+				forklaring: ''
 			})
 		},
 		remove() {
