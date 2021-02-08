@@ -36,7 +36,6 @@ export const Oppholdsstatus = ({ formikBag }) => {
 	const [tredjelandsBorgereValg, setTredjelandsBorgereValg] = useState(initialStatus[2])
 
 	const basePath = 'udistub.oppholdStatus'
-	const ikkeOppholdPath = basePath + '.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum'
 
 	const endreOppholdsstatus = value => {
 		setOppholdsstatus(value)
@@ -73,11 +72,11 @@ export const Oppholdsstatus = ({ formikBag }) => {
 			formikBag.setFieldValue('udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum', {
 				avslagEllerBortfall: {
 					avgjorelsesDato: null,
-					avslagGrunnlagOverig: '',
-					avslagGrunnlagTillatelseGrunnlagEOS: '',
-					avslagOppholdsrettBehandlet: '',
-					avslagOppholdstillatelseBehandletGrunnlagEOS: '',
-					avslagOppholdstillatelseBehandletGrunnlagOvrig: '',
+					avslagGrunnlagOverig: null,
+					avslagGrunnlagTillatelseGrunnlagEOS: null,
+					avslagOppholdsrettBehandlet: null,
+					avslagOppholdstillatelseBehandletGrunnlagEOS: null,
+					avslagOppholdstillatelseBehandletGrunnlagOvrig: null,
 					avslagOppholdstillatelseBehandletUtreiseFrist: null,
 					avslagOppholdstillatelseUtreiseFrist: null,
 					bortfallAvPOellerBOSDato: null,
@@ -85,11 +84,11 @@ export const Oppholdsstatus = ({ formikBag }) => {
 					formeltVedtakUtreiseFrist: null,
 					tilbakeKallVirkningsDato: null
 				},
-				ovrigIkkeOppholdsKategoriArsak: '',
+				ovrigIkkeOppholdsKategoriArsak: null,
 				utvistMedInnreiseForbud: {
-					innreiseForbud: '',
+					innreiseForbud: null,
 					innreiseForbudVedtaksDato: null,
-					varighet: ''
+					varighet: null
 				}
 			})
 		} else if (value === 'UAVKLART') {
