@@ -162,7 +162,9 @@ export const Oppholdsstatus = ({ formikBag }) => {
 						isClearable={false}
 					/>
 					{tredjelandsBorgereValg === 'oppholdSammeVilkaar' && <OppholdSammeVilkaar />}
-					{tredjelandsBorgereValg === 'ikkeOppholdSammeVilkaar' && <IkkeOppholdSammeVilkaar />}
+					{tredjelandsBorgereValg === 'ikkeOppholdSammeVilkaar' && (
+						<IkkeOppholdSammeVilkaar formikBag={formikBag.values} />
+					)}
 				</React.Fragment>
 			)}
 		</React.Fragment>

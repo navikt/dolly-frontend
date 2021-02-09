@@ -3,7 +3,7 @@ import { TitleValue } from '~/components/ui/titleValue/TitleValue'
 import Formatters from '~/utils/DataFormatter'
 import _get from 'lodash/get'
 
-export const AvslagEllerBortfall = ({ oppholdsstatus }) =>
+export const AvslagEllerBortfall = ({ oppholdsstatus }: any) =>
 	oppholdsstatus?.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum?.avslagEllerBortfall ? (
 		<>
 			<h4>Avslag eller bortfall</h4>
