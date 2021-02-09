@@ -228,12 +228,12 @@ const selectOptions: SelectOptions = {
 	avslagGrunnlagTillatelseGrunnlagEOS: [
 		{
 			value: 'EGNE_MIDLER_ELLER_FASTE_PERIODISKE_YTELSER',
-			label: 'Egne Midler/Faste ytelser'
+			label: 'Egne midler/faste ytelser'
 		},
 		{ value: 'ARBEID', label: 'Arbeid' },
 		{ value: 'UTDANNING', label: 'Utdanning' },
 		{ value: 'FAMILIE', label: 'Familie' },
-		{ value: 'TJENESTEYTING_ELLER_ETABLERING', label: 'Tjenesteyting/Etablering' },
+		{ value: 'TJENESTEYTING_ELLER_ETABLERING', label: 'Tjenesteyting/etablering' },
 		{ value: 'UAVKLART', label: 'Uavklart' }
 	],
 
@@ -241,7 +241,7 @@ const selectOptions: SelectOptions = {
 		{ value: 'VARIG', label: 'Varig' },
 		{ value: 'INGEN_INFORMASJON', label: 'Ingen informasjon' },
 		{ value: 'FAMILIE', label: 'Familie' },
-		{ value: 'TJENESTEYTING_ELLER_ETABLERING', label: 'Tjenesteyting/Etablering' },
+		{ value: 'TJENESTEYTING_ELLER_ETABLERING', label: 'Tjenesteyting/etablering' },
 		{ value: 'UAVKLART', label: 'Uavklart' }
 	],
 
