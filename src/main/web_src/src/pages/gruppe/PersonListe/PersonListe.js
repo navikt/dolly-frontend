@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Tooltip from 'rc-tooltip'
 import { useMount } from 'react-use'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
@@ -34,6 +34,7 @@ export default function PersonListe({
 	useMount(fetchTpsfPersoner)
 
 	const [isKommentarModalOpen, openKommentarModal, closeKommentarModal] = useBoolean(false)
+	const [selectedIdent, setSelectedIdent] = useState(null)
 
 	if (isFetching) return <Loading label="laster personer" panel />
 
@@ -57,7 +58,7 @@ export default function PersonListe({
 		)
 	}
 
-	const personIndex = personListe.findIndex(person => person.identNr == visPerson)
+	const personIndex = personListe.findIndex(person => person.identNr === visPerson)
 	const personerPrSide = 10
 	const visSide = personIndex >= 0 ? Math.floor(personIndex / personerPrSide) : 0
 
@@ -151,7 +152,10 @@ export default function PersonListe({
 							destroyTooltipOnHide={true}
 							mouseEnterDelay={0}
 							mouseLeaveDelay={0.1}
-							onClick={openKommentarModal}
+							onClick={() => {
+								setSelectedIdent(row.ident)
+								openKommentarModal()
+							}}
 							arrowContent={<div className="rc-tooltip-arrow-inner"></div>}
 							align={{
 								offset: ['0', '-10']
@@ -169,6 +173,13 @@ export default function PersonListe({
 
 	return (
 		<ErrorBoundary>
+			{isKommentarModalOpen && selectedIdent && (
+				<KommentarModal
+					closeModal={closeKommentarModal}
+					id={selectedIdent.ident}
+					beskrivelse={selectedIdent.beskrivelse}
+				/>
+			)}
 			<DollyTable
 				data={personListe}
 				columns={columns}
@@ -176,23 +187,15 @@ export default function PersonListe({
 				iconItem={bruker => (bruker.kjonn === 'MANN' ? <ManIconItem /> : <WomanIconItem />)}
 				visSide={visSide}
 				visPerson={visPerson}
-				onExpand={bruker =>
-					isKommentarModalOpen ? (
-						<KommentarModal
-							closeModal={closeKommentarModal}
-							id={bruker.ident.ident}
-							beskrivelse={bruker.ident.beskrivelse}
-						/>
-					) : (
-						<PersonVisningConnector
-							personId={bruker.ident.ident}
-							bestillingId={bruker.ident.bestillingId[0]}
-							bestillingsIdListe={bruker.ident.bestillingId}
-							gruppeId={bruker.ident.gruppeId}
-							iLaastGruppe={iLaastGruppe}
-						/>
-					)
-				}
+				onExpand={bruker => (
+					<PersonVisningConnector
+						personId={bruker.ident.ident}
+						bestillingId={bruker.ident.bestillingId[0]}
+						bestillingsIdListe={bruker.ident.bestillingId}
+						gruppeId={bruker.ident.gruppeId}
+						iLaastGruppe={iLaastGruppe}
+					/>
+				)}
 			/>
 		</ErrorBoundary>
 	)

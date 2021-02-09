@@ -15,7 +15,7 @@ export const KommentarModal = ({ id, beskrivelse, closeModal }) => {
 
 	return (
 		<ErrorBoundary>
-			<DollyModal isOpen closeModal={closeModal} width="40%" overflow="auto">
+			<DollyModal isOpen closeModal={closeModal} width="50%" overflow="auto">
 				<div className="modal">
 					<h1>Endre kommentar</h1>
 					<br />
@@ -32,7 +32,7 @@ export const KommentarModal = ({ id, beskrivelse, closeModal }) => {
 					/>
 					<ModalActionKnapper
 						submitknapp="Lagre kommentar"
-						disabled={kommentar === ''}
+						disabled={kommentar === '' || kommentar.length > MAX_LENGTH}
 						onSubmit={lagreEndring}
 						onAvbryt={closeModal}
 						center
