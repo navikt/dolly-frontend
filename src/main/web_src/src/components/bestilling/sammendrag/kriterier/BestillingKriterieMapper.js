@@ -906,8 +906,9 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 				}
 			})
 
-		const udistubAvslagEllerBortfall = oppholdKriterier.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum
-			?.avslagEllerBortfall && {
+		const udistubAvslagEllerBortfall = Object.values(
+			oppholdKriterier.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum?.avslagEllerBortfall
+		).some(item => item !== null) && {
 			header: 'UDI - Avslag eller bortfall',
 			items: [
 				obj(
@@ -1027,7 +1028,7 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 		}
 
 		const udiStubUtvistMedInnreiseforbud = oppholdKriterier
-			.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum?.utvistMedInnreiseForbud && {
+			.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum?.utvistMedInnreiseForbud.innreiseForbud && {
 			header: 'UDI - Utvist med innreiseforbud',
 			items: [
 				obj(
@@ -1163,10 +1164,8 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 			]
 		}
 		data.push(udistub)
-		oppholdKriterier.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum?.avslagEllerBortfall &&
-			data.push(udistubAvslagEllerBortfall)
-		oppholdKriterier.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum?.utvistMedInnreiseForbud &&
-			data.push(udiStubUtvistMedInnreiseforbud)
+		udistubAvslagEllerBortfall && data.push(udistubAvslagEllerBortfall)
+		udiStubUtvistMedInnreiseforbud && data.push(udiStubUtvistMedInnreiseforbud)
 	}
 
 	const pensjonKriterier = bestillingData.pensjonforvalter
