@@ -46,14 +46,14 @@ export const Oppholdsstatus = ({ oppholdsstatus, oppholdstillatelse }) => {
 				/>
 				<TitleValue title="Status" value={currentTredjelandsborgereStatus} />
 				<TitleValue
-					title="Oppholdstillatelse fra dato"
+					title="Oppholdstillatelse fra"
 					value={Formatters.formatStringDates(
 						_get(oppholdsstatus, `${currentOppholdsrettType}Periode.fra`) ||
 							_get(oppholdsstatus, 'oppholdSammeVilkaar.oppholdSammeVilkaarPeriode.fra')
 					)}
 				/>
 				<TitleValue
-					title="Oppholdstillatelse til dato"
+					title="Oppholdstillatelse til"
 					value={Formatters.formatStringDates(
 						_get(oppholdsstatus, `${currentOppholdsrettType}Periode.til`) ||
 							_get(oppholdsstatus, 'oppholdSammeVilkaar.oppholdSammeVilkaarPeriode.til')
