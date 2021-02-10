@@ -56,6 +56,10 @@ spec:
       value: 787eb670-2731-49b4-8be1-2385990370a9
     - name: DOLLY_BACKEND_HOST
       value: https://dolly-backend.dev.adeo.no
+    - name: UDI_STUB_CLIENT_ID
+      value: 4426ef7d-f148-4d19-8a03-b0d07a451938 # MÅ ENDRES NÅR UDI PROD APP ER UTE OG FÅR CLIENT ID!
+    - name: UDI_STUB_HOST
+      value: https://udi-stub.dev.adeo.no
     - name: TESTNORGE_MILJOER_SERVICE_HOST
       value: https://miljoer-service.dev.intern.nav.no
     - name: TESTNORGE_PROFIL_API_HOST
