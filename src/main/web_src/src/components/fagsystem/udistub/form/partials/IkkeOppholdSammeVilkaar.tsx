@@ -97,10 +97,26 @@ export const IkkeOppholdSammeVilkaar = ({ formikBag }: any) => (
 				}
 				label="Innreiseforbud"
 				options={Options('jaNeiUavklart')}
+				onChange={(event: any) => {
+					formikBag.setFieldValue(
+						'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.utvistMedInnreiseForbud.innreiseForbud',
+						event.value
+					)
+					if (event.lowercaseLabel.includes('nei') || event.lowercaseLabel.includes('uavklart')) {
+						formikBag.setFieldValue(
+							'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.utvistMedInnreiseForbud.varighet',
+							null
+						)
+						formikBag.setFieldValue(
+							'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.utvistMedInnreiseForbud.innreiseForbudVedtaksDato',
+							null
+						)
+					}
+				}}
 			/>
 
 			{_get(
-				formikBag,
+				formikBag.values,
 				'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.utvistMedInnreiseForbud.innreiseForbud'
 			)?.includes('JA') ? (
 				<>

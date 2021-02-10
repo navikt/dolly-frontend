@@ -163,7 +163,7 @@ export const Oppholdsstatus = ({ formikBag }) => {
 					/>
 					{tredjelandsBorgereValg === 'oppholdSammeVilkaar' && <OppholdSammeVilkaar />}
 					{tredjelandsBorgereValg === 'ikkeOppholdSammeVilkaar' && (
-						<IkkeOppholdSammeVilkaar formikBag={formikBag.values} />
+						<IkkeOppholdSammeVilkaar formikBag={formikBag} />
 					)}
 				</React.Fragment>
 			)}
