@@ -5,12 +5,12 @@ import ModalActionKnapper from '~/components/ui/modal/ModalActionKnapper'
 import { DollyApi } from '~/service/Api'
 import { Textarea } from 'nav-frontend-skjema'
 
-export const KommentarModal = ({ id, beskrivelse, closeModal }) => {
+export const KommentarModal = ({ ident, closeModal }) => {
 	const lagreEndring = () => {
-		DollyApi.updateIdentBeskrivelse(id, kommentar).then(() => window.location.reload())
+		DollyApi.updateIdentBeskrivelse(ident.ident, kommentar).then(() => window.location.reload())
 	}
 
-	const [kommentar, setKommentar] = useState(beskrivelse)
+	const [kommentar, setKommentar] = useState(ident.beskrivelse)
 	const MAX_LENGTH = 200
 
 	return (

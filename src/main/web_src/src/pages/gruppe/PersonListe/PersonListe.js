@@ -152,9 +152,10 @@ export default function PersonListe({
 							destroyTooltipOnHide={true}
 							mouseEnterDelay={0}
 							mouseLeaveDelay={0.1}
-							onClick={() => {
+							onClick={event => {
 								setSelectedIdent(row.ident)
 								openKommentarModal()
+								event.stopPropagation()
 							}}
 							arrowContent={<div className="rc-tooltip-arrow-inner"></div>}
 							align={{
@@ -173,13 +174,6 @@ export default function PersonListe({
 
 	return (
 		<ErrorBoundary>
-			{isKommentarModalOpen && selectedIdent && (
-				<KommentarModal
-					closeModal={closeKommentarModal}
-					id={selectedIdent.ident}
-					beskrivelse={selectedIdent.beskrivelse}
-				/>
-			)}
 			<DollyTable
 				data={personListe}
 				columns={columns}
@@ -197,6 +191,9 @@ export default function PersonListe({
 					/>
 				)}
 			/>
+			{isKommentarModalOpen && selectedIdent && (
+				<KommentarModal closeModal={closeKommentarModal} ident={selectedIdent} />
+			)}
 		</ErrorBoundary>
 	)
 }
