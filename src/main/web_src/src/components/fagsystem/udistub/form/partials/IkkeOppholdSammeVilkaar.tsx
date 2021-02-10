@@ -4,8 +4,19 @@ import { FormikDatepicker } from '~/components/ui/form/inputs/datepicker/Datepic
 import { SelectOptionsManager as Options } from '~/service/SelectOptions'
 import { Kategori } from '~/components/ui/form/kategori/Kategori'
 import _get from 'lodash/get'
+import { FormikProps } from 'formik'
 
-export const IkkeOppholdSammeVilkaar = ({ formikBag }: any) => (
+interface Opphold {
+	formikBag: FormikProps<{}>
+}
+
+type selectEvent = {
+	value: string
+	lowercaseLabel: string
+	label: string
+}
+
+export const IkkeOppholdSammeVilkaar = ({ formikBag }: Opphold) => (
 	<div className="flexbox--flex-wrap">
 		<Kategori title={'Avslag eller bortfall'}>
 			<FormikDatepicker
@@ -97,7 +108,7 @@ export const IkkeOppholdSammeVilkaar = ({ formikBag }: any) => (
 				}
 				label="Innreiseforbud"
 				options={Options('jaNeiUavklart')}
-				onChange={(event: any) => {
+				onChange={(event: selectEvent) => {
 					formikBag.setFieldValue(
 						'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.utvistMedInnreiseForbud.innreiseForbud',
 						event.value

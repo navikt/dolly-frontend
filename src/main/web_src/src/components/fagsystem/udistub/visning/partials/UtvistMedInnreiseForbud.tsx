@@ -3,8 +3,14 @@ import { TitleValue } from '~/components/ui/titleValue/TitleValue'
 import Formatters from '~/utils/DataFormatter'
 import _get from 'lodash/get'
 
-export const UtvistMedInnreiseForbud = ({ oppholdsstatus }: any) =>
-	oppholdsstatus?.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum?.utvistMedInnreiseForbud ? (
+type UtvistMedInnreiseForbud = {
+	innreiseForbud: string
+	innreiseForbudVedtaksDato: string
+	varighet: string
+}
+
+export const UtvistMedInnreiseForbud = (utvistMedInnreiseForbud: UtvistMedInnreiseForbud) =>
+	Object.values(utvistMedInnreiseForbud).some(item => item !== null) && (
 		<>
 			<h4>Utvist med innreiseforbud</h4>
 			<div className="person-visning_content">
@@ -12,31 +18,17 @@ export const UtvistMedInnreiseForbud = ({ oppholdsstatus }: any) =>
 					title="Innreiseforbud"
 					value={Formatters.showLabel(
 						'jaNeiUavklart',
-						_get(
-							oppholdsstatus,
-							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.utvistMedInnreiseForbud.innreiseForbud'
-						)
+						_get(utvistMedInnreiseForbud, 'innreiseForbud')
 					)}
 				/>
 				<TitleValue
 					title="Innreiseforbud vedtatt"
-					value={Formatters.formatDate(
-						_get(
-							oppholdsstatus,
-							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.utvistMedInnreiseForbud.innreiseForbudVedtaksDato'
-						)
-					)}
+					value={Formatters.formatDate(_get(utvistMedInnreiseForbud, 'innreiseForbudVedtaksDato'))}
 				/>
 				<TitleValue
 					title="Varighet"
-					value={Formatters.showLabel(
-						'varighet',
-						_get(
-							oppholdsstatus,
-							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.utvistMedInnreiseForbud.varighet'
-						)
-					)}
+					value={Formatters.showLabel('varighet', _get(utvistMedInnreiseForbud, 'varighet'))}
 				/>
 			</div>
 		</>
-	) : null
+	)

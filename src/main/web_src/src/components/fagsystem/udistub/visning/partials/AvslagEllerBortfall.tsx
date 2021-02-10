@@ -1,116 +1,97 @@
 import React from 'react'
 import { TitleValue } from '~/components/ui/titleValue/TitleValue'
 import Formatters from '~/utils/DataFormatter'
-import _get from 'lodash/get'
 
-export const AvslagEllerBortfall = ({ oppholdsstatus }: any) =>
-	oppholdsstatus?.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum?.avslagEllerBortfall ? (
+type AvslagEllerBortfall = {
+	avslagEllerBortfall: {
+		avgjorelsesDato: string
+		avslagGrunnlagOverig: string
+		avslagGrunnlagTillatelseGrunnlagEOS: string
+		avslagOppholdsrettBehandlet: string
+		avslagOppholdstillatelseBehandletGrunnlagEOS: string
+		avslagOppholdstillatelseBehandletGrunnlagOvrig: string
+		avslagOppholdstillatelseBehandletUtreiseFrist: string
+		avslagOppholdstillatelseUtreiseFrist: string
+		bortfallAvPOellerBOSDato: string
+		tilbakeKallUtreiseFrist: string
+		formeltVedtakUtreiseFrist: string
+		tilbakeKallVirkningsDato: string
+	}
+}
+
+export const AvslagEllerBortfall = (avslagEllerBortfall: AvslagEllerBortfall) =>
+	Object.values(avslagEllerBortfall).some(item => item !== null) && (
 		<>
 			<h4>Avslag eller bortfall</h4>
 			<div className="person-visning_content">
 				<TitleValue
 					title="Avgjørelsesdato"
-					value={Formatters.formatDate(
-						_get(
-							oppholdsstatus,
-							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avgjorelsesDato'
-						)
-					)}
+					value={Formatters.formatDate(avslagEllerBortfall.avslagEllerBortfall.avgjorelsesDato)}
 				/>
 				<TitleValue
 					title="Avslag grunnlag øvrig"
 					value={Formatters.showLabel(
 						'avslagGrunnlagOverig',
-						_get(
-							oppholdsstatus,
-							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagGrunnlagOverig'
-						)
+						avslagEllerBortfall.avslagEllerBortfall.avslagGrunnlagOverig
 					)}
 				/>
 				<TitleValue
 					title="Tillatelsesgrunnlag"
 					value={Formatters.showLabel(
 						'avslagGrunnlagTillatelseGrunnlagEOS',
-						_get(
-							oppholdsstatus,
-							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagGrunnlagTillatelseGrunnlagEOS'
-						)
+						avslagEllerBortfall.avslagEllerBortfall.avslagGrunnlagTillatelseGrunnlagEOS
 					)}
 				/>
 				<TitleValue
 					title="Oppholdsrett behandlet"
 					value={Formatters.showLabel(
 						'avslagOppholdsrettBehandlet',
-						_get(
-							oppholdsstatus,
-							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagOppholdsrettBehandlet'
-						)
+						avslagEllerBortfall.avslagEllerBortfall.avslagOppholdsrettBehandlet
 					)}
 				/>
 				<TitleValue
 					title="Oppholdsrett grunnlag"
 					value={Formatters.showLabel(
 						'avslagGrunnlagTillatelseGrunnlagEOS',
-						_get(
-							oppholdsstatus,
-							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagOppholdstillatelseBehandletGrunnlagEOS'
-						)
+						avslagEllerBortfall.avslagEllerBortfall.avslagOppholdstillatelseBehandletGrunnlagEOS
 					)}
 				/>
 				<TitleValue
 					title="Behandlet utreisefrist"
 					value={Formatters.formatDate(
-						_get(
-							oppholdsstatus,
-							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagOppholdstillatelseBehandletUtreiseFrist'
-						)
+						avslagEllerBortfall.avslagEllerBortfall.avslagOppholdstillatelseBehandletUtreiseFrist
 					)}
 				/>
 				<TitleValue
 					title="Utreisefrist"
 					value={Formatters.formatDate(
-						_get(
-							oppholdsstatus,
-							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagOppholdstillatelseUtreiseFrist'
-						)
+						avslagEllerBortfall.avslagEllerBortfall.avslagOppholdstillatelseUtreiseFrist
 					)}
 				/>
 				<TitleValue
 					title="Bortfallsdato"
 					value={Formatters.formatDate(
-						_get(
-							oppholdsstatus,
-							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.bortfallAvPOellerBOSDato'
-						)
+						avslagEllerBortfall.avslagEllerBortfall.bortfallAvPOellerBOSDato
 					)}
 				/>
 				<TitleValue
 					title="Tilbakekall utreisefrist"
 					value={Formatters.formatDate(
-						_get(
-							oppholdsstatus,
-							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.tilbakeKallUtreiseFrist'
-						)
+						avslagEllerBortfall.avslagEllerBortfall.tilbakeKallUtreiseFrist
 					)}
 				/>
 				<TitleValue
 					title="Vedtak utreisefrist"
 					value={Formatters.formatDate(
-						_get(
-							oppholdsstatus,
-							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.formeltVedtakUtreiseFrist'
-						)
+						avslagEllerBortfall.avslagEllerBortfall.formeltVedtakUtreiseFrist
 					)}
 				/>
 				<TitleValue
 					title="Tilbakekall virkningsdato"
 					value={Formatters.formatDate(
-						_get(
-							oppholdsstatus,
-							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.tilbakeKallVirkningsDato'
-						)
+						avslagEllerBortfall.avslagEllerBortfall.tilbakeKallVirkningsDato
 					)}
 				/>
 			</div>
 		</>
-	) : null
+	)

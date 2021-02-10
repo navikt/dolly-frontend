@@ -100,8 +100,16 @@ export const Oppholdsstatus = ({ oppholdsstatus, oppholdstillatelse }) => {
 					}
 				/>
 			</div>
-			<AvslagEllerBortfall oppholdsstatus={oppholdsstatus} />
-			<UtvistMedInnreiseForbud oppholdsstatus={oppholdsstatus} />
+			<AvslagEllerBortfall
+				avslagEllerBortfall={
+					oppholdsstatus?.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum?.avslagEllerBortfall
+				}
+			/>
+			<UtvistMedInnreiseForbud
+				utvistMedInnreiseforbud={
+					oppholdsstatus?.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum?.utvistMedInnreiseForbud
+				}
+			/>
 		</div>
 	)
 }
