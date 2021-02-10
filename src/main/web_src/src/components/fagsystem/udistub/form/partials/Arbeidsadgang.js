@@ -4,8 +4,8 @@ import { Kategori } from '~/components/ui/form/kategori/Kategori'
 import { FormikSelect } from '~/components/ui/form/inputs/select/Select'
 import { FormikDatepicker } from '~/components/ui/form/inputs/datepicker/Datepicker'
 import { Textarea } from 'nav-frontend-skjema'
-import { FormikCheckbox } from '~/components/ui/form/inputs/checbox/Checkbox'
 import { SelectOptionsManager as Options } from '~/service/SelectOptions'
+import { FormikTextInput } from '~/components/ui/form/inputs/textInput/TextInput'
 
 export const Arbeidsadgang = ({ formikBag }) => {
 	const harArbeidsAdgang = _get(formikBag.values, 'udistub.arbeidsadgang.harArbeidsAdgang')
@@ -19,7 +19,6 @@ export const Arbeidsadgang = ({ formikBag }) => {
 				til: null
 			})
 			formikBag.setFieldValue('udistub.arbeidsadgang.typeArbeidsadgang', null)
-			formikBag.setFieldValue('udistub.arbeidsadgang.hjemmel', false)
 			formikBag.setFieldValue('udistub.arbeidsadgang.forklaring', '')
 		}
 	}
@@ -27,7 +26,7 @@ export const Arbeidsadgang = ({ formikBag }) => {
 	const forklaring = _get(formikBag.values, 'udistub.arbeidsadgang.forklaring')
 
 	const endreForklaring = text => {
-		formikBag.setFieldValue('udistub.arbeidsadgang.forklaring', text)
+		formikBag.setFieldValue('udistub.arbeidsadgang.forklaring', text === '' ? null : text)
 	}
 
 	const MAX_LENGTH = 4000
@@ -65,24 +64,17 @@ export const Arbeidsadgang = ({ formikBag }) => {
 							name="udistub.arbeidsadgang.periode.til"
 							label="Arbeidsadgang til dato"
 						/>
-
-						<FormikCheckbox
-							name="udistub.arbeidsadgang.hjemmel"
-							label="Innhent vedtakshjemmel"
-							checkboxMargin
-						/>
 					</div>
-
 					<div className="flexbox--full-width">
 						<Textarea
-							value={forklaring}
+							value={forklaring ? forklaring : ''}
 							name="udistub.arbeidsadgang.forklaring"
 							label="Forklaring"
 							placeholder="Skriv inn forklaring"
 							maxLength={MAX_LENGTH}
 							onChange={event => endreForklaring(event.target.value)}
 							feil={
-								forklaring.length > MAX_LENGTH
+								forklaring && forklaring.length > MAX_LENGTH
 									? { feilmelding: 'Forklaring kan ikke være lenger enn 4000 tegn' }
 									: null
 							}
@@ -90,6 +82,7 @@ export const Arbeidsadgang = ({ formikBag }) => {
 					</div>
 				</React.Fragment>
 			)}
+			<FormikTextInput name="udistub.arbeidsadgang.hjemmel" label="Hjemmel" size="xxlarge" />
 		</Kategori>
 	)
 }

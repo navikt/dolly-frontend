@@ -29,8 +29,13 @@ const arbeidsadgang = Yup.object({
 		til: Yup.date().nullable()
 	}),
 	typeArbeidsadgang: Yup.string().nullable(),
-	hjemmel: Yup.boolean(),
-	forklaring: Yup.string().max(4000)
+	hjemmel: ifPresent(
+		'$udistub.arbeidsadgang.hjemmel',
+		requiredString.max(255, 'Hjemmel kan ikke være lenger enn 255 tegn').nullable()
+	),
+	forklaring: Yup.string()
+		.max(4000)
+		.nullable()
 })
 
 const oppholdSammeVilkaar = Yup.object({
