@@ -22,6 +22,8 @@ export const Arbeidsadgang = ({ arbeidsadgang }) => {
 				/>
 				<TitleValue title="Fra dato" value={Formatters.formatStringDates(periode && periode.fra)} />
 				<TitleValue title="Til dato" value={Formatters.formatStringDates(periode && periode.til)} />
+				<TitleValue title="Forklaring" value={forklaring} />
+				<TitleValue title="Hjemmel" value={hjemmel} />
 			</div>
 		</div>
 	)
