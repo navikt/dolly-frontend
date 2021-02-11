@@ -5,14 +5,31 @@ import Formatters from '~/utils/DataFormatter'
 import { AvslagEllerBortfall } from '~/components/fagsystem/udistub/visning/partials/AvslagEllerBortfall'
 import { UtvistMedInnreiseForbud } from '~/components/fagsystem/udistub/visning/partials/UtvistMedInnreiseForbud'
 
-export const Oppholdsstatus = ({ oppholdsstatus, oppholdstillatelse }) => {
-	if (!oppholdsstatus) return null
+type Opphold = {
+	oppholdsstatus: {
+		oppholdSammeVilkaar: {}
+		ikkeOppholdstilatelseIkkeVilkaarIkkeVisum: {
+			avslagEllerBortfall: AvslagEllerBortfall
+			utvistMedInnreiseForbud: UtvistMedInnreiseForbud
+			ovrigIkkeOppholdsKategoriArsak: string
+		}
+		uavklart: boolean
+	}
+	oppholdstillatelse: boolean
+}
+
+export const Oppholdsstatus = (opphold: Opphold) => {
+	if (!opphold || !opphold.oppholdsstatus) return null
+
+	const oppholdsstatus = opphold.oppholdsstatus
+	const oppholdstillatelse = opphold.oppholdstillatelse
 
 	const oppholdsrettTyper = [
 		'eosEllerEFTABeslutningOmOppholdsrett',
 		'eosEllerEFTAVedtakOmVarigOppholdsrett',
 		'eosEllerEFTAOppholdstillatelse'
 	]
+	// @ts-ignore
 	const currentOppholdsrettType = oppholdsrettTyper.find(type => oppholdsstatus[type])
 	const currentTredjelandsborgereStatus = oppholdsstatus.oppholdSammeVilkaar
 		? 'Oppholdstillatelse eller opphold på samme vilkår'
@@ -49,7 +66,7 @@ export const Oppholdsstatus = ({ oppholdsstatus, oppholdstillatelse }) => {
 					title="Oppholdstillatelse fra"
 					value={Formatters.formatStringDates(
 						_get(oppholdsstatus, `${currentOppholdsrettType}Periode.fra`) ||
-							_get(oppholdsstatus, 'oppholdSammeVilkaar.oppholdSammeVilkaarPeriode.fra')
+							_get(opphold, 'oppholdSammeVilkaar.oppholdSammeVilkaarPeriode.fra')
 					)}
 				/>
 				<TitleValue
@@ -83,30 +100,27 @@ export const Oppholdsstatus = ({ oppholdsstatus, oppholdstillatelse }) => {
 					title="Grunnlag for opphold"
 					value={
 						oppholdsrett &&
+						// @ts-ignore
 						Formatters.showLabel([currentOppholdsrettType], oppholdsstatus[currentOppholdsrettType])
 					}
 				/>
 				<TitleValue
 					title="Øvrig årsak"
-					value={
-						oppholdsrett &&
-						Formatters.showLabel(
-							'ovrigIkkeOppholdsKategoriArsak',
-							_get(
-								oppholdsstatus,
-								'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.ovrigIkkeOppholdsKategoriArsak'
-							)
-						)
-					}
+					value={Formatters.showLabel(
+						'ovrigIkkeOppholdsKategoriArsak',
+						oppholdsstatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum?.ovrigIkkeOppholdsKategoriArsak
+					)}
 				/>
 			</div>
 			<AvslagEllerBortfall
+				// @ts-ignore
 				avslagEllerBortfall={
 					oppholdsstatus?.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum?.avslagEllerBortfall
 				}
 			/>
 			<UtvistMedInnreiseForbud
-				utvistMedInnreiseforbud={
+				// @ts-ignore
+				utvistMedInnreiseForbud={
 					oppholdsstatus?.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum?.utvistMedInnreiseForbud
 				}
 			/>

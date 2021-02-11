@@ -2,7 +2,7 @@ import React from 'react'
 import { TitleValue } from '~/components/ui/titleValue/TitleValue'
 import Formatters from '~/utils/DataFormatter'
 
-type AvslagEllerBortfall = {
+export type AvslagEllerBortfall = {
 	avslagEllerBortfall: {
 		avgjorelsesDato: string
 		avslagGrunnlagOverig: string
@@ -19,79 +19,69 @@ type AvslagEllerBortfall = {
 	}
 }
 
-export const AvslagEllerBortfall = (avslagEllerBortfall: AvslagEllerBortfall) =>
-	Object.values(avslagEllerBortfall).some(item => item !== null) && (
+export const AvslagEllerBortfall = ({ avslagEllerBortfall }: AvslagEllerBortfall) =>
+	avslagEllerBortfall && Object.values(avslagEllerBortfall).some(item => item !== null) ? (
 		<>
 			<h4>Avslag eller bortfall</h4>
 			<div className="person-visning_content">
 				<TitleValue
 					title="Avgjørelsesdato"
-					value={Formatters.formatDate(avslagEllerBortfall.avslagEllerBortfall.avgjorelsesDato)}
+					value={Formatters.formatDate(avslagEllerBortfall.avgjorelsesDato)}
 				/>
 				<TitleValue
 					title="Avslag grunnlag øvrig"
 					value={Formatters.showLabel(
 						'avslagGrunnlagOverig',
-						avslagEllerBortfall.avslagEllerBortfall.avslagGrunnlagOverig
+						avslagEllerBortfall.avslagGrunnlagOverig
 					)}
 				/>
 				<TitleValue
 					title="Tillatelsesgrunnlag"
 					value={Formatters.showLabel(
 						'avslagGrunnlagTillatelseGrunnlagEOS',
-						avslagEllerBortfall.avslagEllerBortfall.avslagGrunnlagTillatelseGrunnlagEOS
+						avslagEllerBortfall.avslagGrunnlagTillatelseGrunnlagEOS
 					)}
 				/>
 				<TitleValue
 					title="Oppholdsrett behandlet"
 					value={Formatters.showLabel(
 						'avslagOppholdsrettBehandlet',
-						avslagEllerBortfall.avslagEllerBortfall.avslagOppholdsrettBehandlet
+						avslagEllerBortfall.avslagOppholdsrettBehandlet
 					)}
 				/>
 				<TitleValue
 					title="Oppholdsrett grunnlag"
 					value={Formatters.showLabel(
 						'avslagGrunnlagTillatelseGrunnlagEOS',
-						avslagEllerBortfall.avslagEllerBortfall.avslagOppholdstillatelseBehandletGrunnlagEOS
+						avslagEllerBortfall.avslagOppholdstillatelseBehandletGrunnlagEOS
 					)}
 				/>
 				<TitleValue
 					title="Behandlet utreisefrist"
 					value={Formatters.formatDate(
-						avslagEllerBortfall.avslagEllerBortfall.avslagOppholdstillatelseBehandletUtreiseFrist
+						avslagEllerBortfall.avslagOppholdstillatelseBehandletUtreiseFrist
 					)}
 				/>
 				<TitleValue
 					title="Utreisefrist"
-					value={Formatters.formatDate(
-						avslagEllerBortfall.avslagEllerBortfall.avslagOppholdstillatelseUtreiseFrist
-					)}
+					value={Formatters.formatDate(avslagEllerBortfall.avslagOppholdstillatelseUtreiseFrist)}
 				/>
 				<TitleValue
 					title="Bortfallsdato"
-					value={Formatters.formatDate(
-						avslagEllerBortfall.avslagEllerBortfall.bortfallAvPOellerBOSDato
-					)}
+					value={Formatters.formatDate(avslagEllerBortfall.bortfallAvPOellerBOSDato)}
 				/>
 				<TitleValue
 					title="Tilbakekall utreisefrist"
-					value={Formatters.formatDate(
-						avslagEllerBortfall.avslagEllerBortfall.tilbakeKallUtreiseFrist
-					)}
+					value={Formatters.formatDate(avslagEllerBortfall.tilbakeKallUtreiseFrist)}
 				/>
 				<TitleValue
 					title="Vedtak utreisefrist"
-					value={Formatters.formatDate(
-						avslagEllerBortfall.avslagEllerBortfall.formeltVedtakUtreiseFrist
-					)}
+					value={Formatters.formatDate(avslagEllerBortfall.formeltVedtakUtreiseFrist)}
 				/>
 				<TitleValue
 					title="Tilbakekall virkningsdato"
-					value={Formatters.formatDate(
-						avslagEllerBortfall.avslagEllerBortfall.tilbakeKallVirkningsDato
-					)}
+					value={Formatters.formatDate(avslagEllerBortfall.tilbakeKallVirkningsDato)}
 				/>
 			</div>
 		</>
-	)
+	) : null
