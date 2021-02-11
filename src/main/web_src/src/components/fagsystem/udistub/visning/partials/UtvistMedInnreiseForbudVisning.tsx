@@ -10,7 +10,9 @@ export type UtvistMedInnreiseForbud = {
 	}
 }
 
-export const UtvistMedInnreiseForbud = ({ utvistMedInnreiseForbud }: UtvistMedInnreiseForbud) =>
+export const UtvistMedInnreiseForbudVisning = ({
+	utvistMedInnreiseForbud
+}: UtvistMedInnreiseForbud) =>
 	utvistMedInnreiseForbud && Object.values(utvistMedInnreiseForbud).some(item => item !== null) ? (
 		<>
 			<h4>Utvist med innreiseforbud</h4>

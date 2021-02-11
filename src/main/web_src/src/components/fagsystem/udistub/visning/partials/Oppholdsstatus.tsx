@@ -2,8 +2,14 @@ import React from 'react'
 import _get from 'lodash/get'
 import { TitleValue } from '~/components/ui/titleValue/TitleValue'
 import Formatters from '~/utils/DataFormatter'
-import { AvslagEllerBortfall } from '~/components/fagsystem/udistub/visning/partials/AvslagEllerBortfall'
-import { UtvistMedInnreiseForbud } from '~/components/fagsystem/udistub/visning/partials/UtvistMedInnreiseForbud'
+import {
+	AvslagEllerBortfall,
+	AvslagEllerBortfallVisning
+} from '~/components/fagsystem/udistub/visning/partials/AvslagEllerBortfallVisning'
+import {
+	UtvistMedInnreiseForbud,
+	UtvistMedInnreiseForbudVisning
+} from '~/components/fagsystem/udistub/visning/partials/UtvistMedInnreiseForbudVisning'
 
 type Opphold = {
 	oppholdsstatus: {
@@ -112,13 +118,13 @@ export const Oppholdsstatus = (opphold: Opphold) => {
 					)}
 				/>
 			</div>
-			<AvslagEllerBortfall
+			<AvslagEllerBortfallVisning
 				// @ts-ignore
 				avslagEllerBortfall={
 					oppholdsstatus?.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum?.avslagEllerBortfall
 				}
 			/>
-			<UtvistMedInnreiseForbud
+			<UtvistMedInnreiseForbudVisning
 				// @ts-ignore
 				utvistMedInnreiseForbud={
 					oppholdsstatus?.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum?.utvistMedInnreiseForbud

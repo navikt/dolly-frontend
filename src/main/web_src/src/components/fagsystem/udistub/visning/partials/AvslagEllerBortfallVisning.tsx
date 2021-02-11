@@ -19,7 +19,7 @@ export type AvslagEllerBortfall = {
 	}
 }
 
-export const AvslagEllerBortfall = ({ avslagEllerBortfall }: AvslagEllerBortfall) =>
+export const AvslagEllerBortfallVisning = ({ avslagEllerBortfall }: AvslagEllerBortfall) =>
 	avslagEllerBortfall && Object.values(avslagEllerBortfall).some(item => item !== null) ? (
 		<>
 			<h4>Avslag eller bortfall</h4>
