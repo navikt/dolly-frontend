@@ -25,7 +25,6 @@ export const Oppholdsstatus = (opphold: Opphold) => {
 	if (!opphold || !opphold.oppholdsstatus) return null
 
 	const oppholdsstatus = opphold.oppholdsstatus
-	const oppholdstillatelse = opphold.oppholdstillatelse
 
 	const oppholdsrettTyper = [
 		'eosEllerEFTABeslutningOmOppholdsrett',
@@ -38,9 +37,7 @@ export const Oppholdsstatus = (opphold: Opphold) => {
 		? 'Oppholdstillatelse eller opphold på samme vilkår'
 		: oppholdsstatus.uavklart
 		? 'Uavklart'
-		: oppholdstillatelse === false
-		? 'Ikke oppholdstillatelse eller ikke opphold på samme vilkår'
-		: null
+		: 'Ikke oppholdstillatelse eller ikke opphold på samme vilkår'
 	const oppholdsrett = Boolean(currentOppholdsrettType)
 	const tredjelandsborger = Boolean(currentTredjelandsborgereStatus)
 
@@ -60,9 +57,7 @@ export const Oppholdsstatus = (opphold: Opphold) => {
 				/>
 				<TitleValue
 					title="Type opphold"
-					value={
-						oppholdsrett && Formatters.showLabel('eosEllerEFTAtypeOpphold', currentOppholdsrettType)
-					}
+					value={Formatters.showLabel('eosEllerEFTAtypeOpphold', currentOppholdsrettType)}
 				/>
 				<TitleValue title="Status" value={currentTredjelandsborgereStatus} />
 				<TitleValue

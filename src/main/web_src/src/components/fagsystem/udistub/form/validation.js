@@ -1,6 +1,6 @@
 import * as Yup from 'yup'
 import _isEmpty from 'lodash/isEmpty'
-import { ifPresent, requiredString, requiredBoolean } from '~/utils/YupValidations'
+import { ifPresent, requiredBoolean, requiredString } from '~/utils/YupValidations'
 
 const checkUndefined = value => {
 	if (value !== undefined) {
@@ -76,7 +76,6 @@ const oppholdStatus = Yup.object()
 			return Yup.mixed().notRequired()
 		}),
 		oppholdSammeVilkaar: Yup.lazy(value => {
-			console.log(value) // TODO: slett meg!
 			if (value !== undefined) {
 				return oppholdSammeVilkaar
 			}

@@ -17,7 +17,6 @@ type selectEvent = {
 }
 
 const innReiseForbudOnClick = (event: selectEvent, formikBag: FormikProps<{}>) => {
-	console.log(event) // TODO: slett meg!
 	formikBag.setFieldValue(
 		'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.utvistMedInnreiseForbud.innreiseForbud',
 		event && event.value ? event.value : null
