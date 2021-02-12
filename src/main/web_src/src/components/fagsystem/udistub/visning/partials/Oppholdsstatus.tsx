@@ -2,14 +2,11 @@ import React from 'react'
 import _get from 'lodash/get'
 import { TitleValue } from '~/components/ui/titleValue/TitleValue'
 import Formatters from '~/utils/DataFormatter'
-import {
-	AvslagEllerBortfall,
-	AvslagEllerBortfallVisning
-} from '~/components/fagsystem/udistub/visning/partials/AvslagEllerBortfallVisning'
+import { AvslagEllerBortfall, AvslagEllerBortfallVisning } from './AvslagEllerBortfallVisning'
 import {
 	UtvistMedInnreiseForbud,
 	UtvistMedInnreiseForbudVisning
-} from '~/components/fagsystem/udistub/visning/partials/UtvistMedInnreiseForbudVisning'
+} from './UtvistMedInnreiseForbudVisning'
 
 type Opphold = {
 	oppholdsstatus: {

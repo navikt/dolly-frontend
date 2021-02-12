@@ -59,7 +59,7 @@ export const Oppholdsstatus = ({ formikBag }) => {
 		setTredjelandsBorgereValg(value)
 		formikBag.setFieldValue(basePath, {})
 		if (value === 'oppholdSammeVilkaar') {
-			formikBag.setFieldValue('udistub.harOppholdsTillatelse', null)
+			formikBag.setFieldValue('udistub.harOppholdsTillatelse', true)
 			formikBag.setFieldValue('udistub.oppholdStatus.oppholdSammeVilkaar', {
 				oppholdSammeVilkaarPeriode: { fra: null, til: null },
 				oppholdSammeVilkaarEffektuering: null,
@@ -93,7 +93,7 @@ export const Oppholdsstatus = ({ formikBag }) => {
 			})
 		} else if (value === 'UAVKLART') {
 			formikBag.setFieldValue(basePath, { uavklart: true })
-			formikBag.setFieldValue('udistub.harOppholdsTillatelse', '')
+			formikBag.setFieldValue('udistub.harOppholdsTillatelse', undefined)
 		}
 	}
 

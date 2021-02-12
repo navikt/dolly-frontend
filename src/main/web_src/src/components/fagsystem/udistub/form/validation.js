@@ -38,7 +38,7 @@ const oppholdSammeVilkaar = Yup.object({
 	}),
 	oppholdSammeVilkaarEffektuering: Yup.date().nullable(),
 	oppholdstillatelseVedtaksDato: Yup.date().nullable(),
-	oppholdstillatelseType: requiredString
+	oppholdstillatelseType: Yup.string().nullable()
 })
 
 const ikkeOppholdSammeVilkaar = Yup.object({
@@ -76,6 +76,7 @@ const oppholdStatus = Yup.object()
 			return Yup.mixed().notRequired()
 		}),
 		oppholdSammeVilkaar: Yup.lazy(value => {
+			console.log(value) // TODO: slett meg!
 			if (value !== undefined) {
 				return oppholdSammeVilkaar
 			}

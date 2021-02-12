@@ -906,126 +906,128 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 				}
 			})
 
-		const udistubAvslagEllerBortfall = Object.values(
-			oppholdKriterier.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum?.avslagEllerBortfall
-		).some(item => item !== null) && {
-			header: 'UDI - Avslag eller bortfall',
-			items: [
-				obj(
-					'Avgjørelsesdato',
-					Formatters.formatDate(
-						_get(
-							oppholdKriterier,
-							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avgjorelsesDato'
+		const udistubAvslagEllerBortfall = oppholdKriterier?.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum
+			?.avslagEllerBortfall &&
+			Object.values(
+				oppholdKriterier.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall
+			).some(item => item !== null) && {
+				header: 'UDI - Avslag eller bortfall',
+				items: [
+					obj(
+						'Avgjørelsesdato',
+						Formatters.formatDate(
+							_get(
+								oppholdKriterier,
+								'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avgjorelsesDato'
+							)
+						)
+					),
+					obj(
+						'Avslag grunnlag øvrig',
+						Formatters.showLabel(
+							'avslagGrunnlagOverig',
+							_get(
+								oppholdKriterier,
+								'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagGrunnlagOverig'
+							)
+						)
+					),
+					obj(
+						'Avslag tillatelsesgrunnlag',
+						Formatters.showLabel(
+							'avslagGrunnlagTillatelseGrunnlagEOS',
+							_get(
+								oppholdKriterier,
+								'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagGrunnlagTillatelseGrunnlagEOS'
+							)
+						)
+					),
+					obj(
+						'Oppholdsrett behandlet',
+						Formatters.showLabel(
+							'avslagOppholdsrettBehandlet',
+							_get(
+								oppholdKriterier,
+								'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagOppholdsrettBehandlet'
+							)
+						)
+					),
+					obj(
+						'Oppholdstillatelse behandlet',
+						Formatters.showLabel(
+							'avslagGrunnlagTillatelseGrunnlagEOS',
+							_get(
+								oppholdKriterier,
+								'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagOppholdstillatelseBehandletGrunnlagEOS'
+							)
+						)
+					),
+					obj(
+						'Oppholdstillatelse behandlet øvrig',
+						Formatters.showLabel(
+							'avslagGrunnlagOverig',
+							_get(
+								oppholdKriterier,
+								'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagOppholdstillatelseBehandletGrunnlagOvrig'
+							)
+						)
+					),
+					obj(
+						'Behandlet utreisefrist',
+						Formatters.formatDate(
+							_get(
+								oppholdKriterier,
+								'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagOppholdstillatelseBehandletUtreiseFrist'
+							)
+						)
+					),
+					obj(
+						'Utreisefrist',
+						Formatters.formatDate(
+							_get(
+								oppholdKriterier,
+								'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagOppholdstillatelseUtreiseFrist'
+							)
+						)
+					),
+					obj(
+						'Bortfallsdato',
+						Formatters.formatDate(
+							_get(
+								oppholdKriterier,
+								'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.bortfallAvPOellerBOSDato'
+							)
+						)
+					),
+					obj(
+						'Tilbakekall utreisefrist',
+						Formatters.formatDate(
+							_get(
+								oppholdKriterier,
+								'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.tilbakeKallUtreiseFrist'
+							)
+						)
+					),
+					obj(
+						'Vedtak utreisefrist',
+						Formatters.formatDate(
+							_get(
+								oppholdKriterier,
+								'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.formeltVedtakUtreiseFrist'
+							)
+						)
+					),
+					obj(
+						'Tilbakekall virkningsdato',
+						Formatters.formatDate(
+							_get(
+								oppholdKriterier,
+								'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.tilbakeKallVirkningsDato'
+							)
 						)
 					)
-				),
-				obj(
-					'Avslag grunnlag øvrig',
-					Formatters.showLabel(
-						'avslagGrunnlagOverig',
-						_get(
-							oppholdKriterier,
-							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagGrunnlagOverig'
-						)
-					)
-				),
-				obj(
-					'Avslag tillatelsesgrunnlag',
-					Formatters.showLabel(
-						'avslagGrunnlagTillatelseGrunnlagEOS',
-						_get(
-							oppholdKriterier,
-							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagGrunnlagTillatelseGrunnlagEOS'
-						)
-					)
-				),
-				obj(
-					'Oppholdsrett behandlet',
-					Formatters.showLabel(
-						'avslagOppholdsrettBehandlet',
-						_get(
-							oppholdKriterier,
-							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagOppholdsrettBehandlet'
-						)
-					)
-				),
-				obj(
-					'Oppholdstillatelse behandlet',
-					Formatters.showLabel(
-						'avslagGrunnlagTillatelseGrunnlagEOS',
-						_get(
-							oppholdKriterier,
-							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagOppholdstillatelseBehandletGrunnlagEOS'
-						)
-					)
-				),
-				obj(
-					'Oppholdstillatelse behandlet øvrig',
-					Formatters.showLabel(
-						'avslagGrunnlagOverig',
-						_get(
-							oppholdKriterier,
-							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagOppholdstillatelseBehandletGrunnlagOvrig'
-						)
-					)
-				),
-				obj(
-					'Behandlet utreisefrist',
-					Formatters.formatDate(
-						_get(
-							oppholdKriterier,
-							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagOppholdstillatelseBehandletUtreiseFrist'
-						)
-					)
-				),
-				obj(
-					'Utreisefrist',
-					Formatters.formatDate(
-						_get(
-							oppholdKriterier,
-							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagOppholdstillatelseUtreiseFrist'
-						)
-					)
-				),
-				obj(
-					'Bortfallsdato',
-					Formatters.formatDate(
-						_get(
-							oppholdKriterier,
-							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.bortfallAvPOellerBOSDato'
-						)
-					)
-				),
-				obj(
-					'Tilbakekall utreisefrist',
-					Formatters.formatDate(
-						_get(
-							oppholdKriterier,
-							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.tilbakeKallUtreiseFrist'
-						)
-					)
-				),
-				obj(
-					'Vedtak utreisefrist',
-					Formatters.formatDate(
-						_get(
-							oppholdKriterier,
-							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.formeltVedtakUtreiseFrist'
-						)
-					)
-				),
-				obj(
-					'Tilbakekall virkningsdato',
-					Formatters.formatDate(
-						_get(
-							oppholdKriterier,
-							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.tilbakeKallVirkningsDato'
-						)
-					)
-				)
-			]
-		}
+				]
+			}
 
 		const udiStubUtvistMedInnreiseforbud = oppholdKriterier
 			.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum?.utvistMedInnreiseForbud.innreiseForbud && {

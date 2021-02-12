@@ -6,7 +6,7 @@ import { Kategori } from '~/components/ui/form/kategori/Kategori'
 import _get from 'lodash/get'
 import { FormikProps } from 'formik'
 
-interface Opphold {
+interface Formik {
 	formikBag: FormikProps<{}>
 }
 
@@ -16,7 +16,25 @@ type selectEvent = {
 	label: string
 }
 
-export const IkkeOppholdSammeVilkaar = ({ formikBag }: Opphold) => (
+const innReiseForbudOnClick = (event: selectEvent, formikBag: FormikProps<{}>) => {
+	console.log(event) // TODO: slett meg!
+	formikBag.setFieldValue(
+		'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.utvistMedInnreiseForbud.innreiseForbud',
+		event && event.value ? event.value : null
+	)
+	if (!event || event.lowercaseLabel.includes('nei') || event.lowercaseLabel.includes('uavklart')) {
+		formikBag.setFieldValue(
+			'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.utvistMedInnreiseForbud.varighet',
+			null
+		)
+		formikBag.setFieldValue(
+			'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.utvistMedInnreiseForbud.innreiseForbudVedtaksDato',
+			null
+		)
+	}
+}
+
+export const IkkeOppholdSammeVilkaar = ({ formikBag }: Formik) => (
 	<div className="flexbox--flex-wrap">
 		<Kategori title={'Avslag eller bortfall'}>
 			<FormikDatepicker
@@ -108,22 +126,7 @@ export const IkkeOppholdSammeVilkaar = ({ formikBag }: Opphold) => (
 				}
 				label="Innreiseforbud"
 				options={Options('jaNeiUavklart')}
-				onChange={(event: selectEvent) => {
-					formikBag.setFieldValue(
-						'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.utvistMedInnreiseForbud.innreiseForbud',
-						event.value
-					)
-					if (event.lowercaseLabel.includes('nei') || event.lowercaseLabel.includes('uavklart')) {
-						formikBag.setFieldValue(
-							'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.utvistMedInnreiseForbud.varighet',
-							null
-						)
-						formikBag.setFieldValue(
-							'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.utvistMedInnreiseForbud.innreiseForbudVedtaksDato',
-							null
-						)
-					}
-				}}
+				onChange={(event: selectEvent) => innReiseForbudOnClick(event, formikBag)}
 			/>
 
 			{_get(
