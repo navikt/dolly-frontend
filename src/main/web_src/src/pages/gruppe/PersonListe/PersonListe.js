@@ -192,7 +192,11 @@ export default function PersonListe({
 				)}
 			/>
 			{isKommentarModalOpen && selectedIdent && (
-				<KommentarModal closeModal={closeKommentarModal} ident={selectedIdent} />
+				<KommentarModal
+					closeModal={closeKommentarModal}
+					ident={selectedIdent}
+					iLaastGruppe={iLaastGruppe}
+				/>
 			)}
 		</ErrorBoundary>
 	)
