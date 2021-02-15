@@ -1030,7 +1030,7 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 			}
 
 		const udiStubUtvistMedInnreiseforbud = oppholdKriterier
-			.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum?.utvistMedInnreiseForbud.innreiseForbud && {
+			?.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum?.utvistMedInnreiseForbud.innreiseForbud && {
 			header: 'UDI - Utvist med innreiseforbud',
 			items: [
 				obj(
@@ -1144,6 +1144,8 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 					'Arbeidsadgang til dato',
 					Formatters.formatDate(_get(arbeidsadgangKriterier, 'periode.til'))
 				),
+				obj('Hjemmel', _get(arbeidsadgangKriterier, 'hjemmel')),
+				obj('Forklaring', _get(arbeidsadgangKriterier, 'forklaring')),
 				obj('Alias', aliaserListe.length > 0 && aliaserListe),
 				obj('Flyktningstatus', Formatters.oversettBoolean(udiStubKriterier.flyktning)),
 				obj(
