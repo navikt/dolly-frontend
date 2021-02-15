@@ -30,7 +30,8 @@ const selectOptions: SelectOptions = {
 	barnBorHos: [
 		{ value: 'MEG', label: 'Hovedperson' },
 		{ value: 'DEG', label: 'Partner' },
-		{ value: 'OSS', label: 'Begge' }
+		{ value: 'OSS', label: 'Sammen' },
+		{ value: 'BEGGE', label: 'Delt bosted' }
 	],
 
 	boolean: [
