@@ -13,19 +13,18 @@ import { Forbedring } from '~/components/feedback/Forbedring'
 
 export default class App extends Component {
 	state = {
-		error: null
+		error: null,
+		apiError: null
 	}
 
 	async componentDidMount() {
-		await this.props.fetchConfig().catch(err => {
-			this.setState({ error: err })
-		})
-		await this.props.getCurrentBruker()
-		await this.props.getCurrentBrukerProfil()
-		await this.props.getCurrentBrukerBilde()
-		await this.props.getEnvironments()
-		await this.props.getVarslinger()
-		await this.props.getVarslingerBruker()
+		await this.props.fetchConfig().catch(err => this.setState({ error: err }))
+		await this.props.getEnvironments().catch(err => this.setState({ error: err }))
+		await this.props.getCurrentBruker().catch(err => this.setState({ apiError: err }))
+		await this.props.getCurrentBrukerProfil().catch(err => this.setState({ apiError: err }))
+		await this.props.getCurrentBrukerBilde().catch(err => this.setState({ apiError: err }))
+		await this.props.getVarslinger().catch(err => this.setState({ apiError: err }))
+		await this.props.getVarslingerBruker().catch(err => this.setState({ apiError: err }))
 	}
 
 	componentDidUpdate() {
@@ -50,7 +49,9 @@ export default class App extends Component {
 		if (this.state.error)
 			return (
 				<ErrorBoundary
-					error={'Problemer med å hente dolly config. Prøv å refresh siden (ctrl + R).'}
+					error={
+						'Problemer med å hente dolly config eller gyldige miljøer. Prøv å refresh siden (ctrl + R).'
+					}
 					stackTrace={this.state.error.stack}
 					style={{ margin: '25px auto' }}
 				/>
@@ -85,6 +86,7 @@ export default class App extends Component {
 				</main>
 				<Forbedring brukerBilde={brukerBilde} />
 				{applicationError && <Toast error={applicationError} clearErrors={clearAllErrors} />}
+				{this.state.apiError && <Toast error={this.state.apiError} clearErrors={clearAllErrors} />}
 			</React.Fragment>
 		)
 	}
