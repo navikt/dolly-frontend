@@ -38,6 +38,13 @@ export const initialValuesDoedfoedt = {
 }
 
 export const Barn = ({ formikBag, personFoerLeggTil }) => {
+	const filterBorHos = options => {
+		const partner = _get(formikBag.values, 'tpsf.relasjoner.partnere')
+		console.log(partner) // TODO: slett meg!
+		console.log(options) // TODO: slett meg!
+		return options
+	}
+
 	const handleIdenttypeChange = (path, ident, isDoedfoedt) => {
 		if (ident.value === 'FDAT') {
 			formikBag.setFieldValue(`${path}`, initialValuesDoedfoedt)
@@ -118,7 +125,7 @@ export const Barn = ({ formikBag, personFoerLeggTil }) => {
 							<FormikSelect
 								name={`${path}.borHos`}
 								label="Bor hos"
-								options={Options('barnBorHos')}
+								options={filterBorHos(Options('barnBorHos'))}
 								isClearable={false}
 							/>
 						)}

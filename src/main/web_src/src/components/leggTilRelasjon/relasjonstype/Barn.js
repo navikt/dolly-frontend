@@ -37,7 +37,7 @@ export const Barn = ({ formikBag, lagOptions, identInfo, hovedIdent }) => {
 						<FormikSelect
 							name={`${path}.borHos`}
 							label="Bor hos"
-							options={Options('barnBorHos')}
+							options={filterBorHos(Options('barnBorHos'))}
 							isClearable={false}
 						/>
 
