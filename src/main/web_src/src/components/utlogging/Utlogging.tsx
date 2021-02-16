@@ -67,7 +67,7 @@ const Utlogging = () => {
 			<div className="utlogging">
 				<WarningFilled className="utlogging__ikon" />
 				<h1 className="utlogging__title">
-					Du har ikke vært aktiv på en stud, og snart bli logget ut av Dolly
+					Du har ikke vært aktiv på en stund, og vil snart bli logget ut av Dolly
 				</h1>
 				<ProgressBar
 					now={milliseconds < 0 ? 0 : Math.round(progress)}
