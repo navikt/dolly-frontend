@@ -227,6 +227,7 @@ const innvandringUtvandringDatoTest = schema => {
 const foedtFoerOgEtterTest = (validation, validerFoedtFoer) => {
 	const errorMsgFoedtFoer = 'Født Før dato kan ikke være før Født Etter dato.'
 	const errorMsgFoedtEtter = 'Født Etter dato kan ikke være etter Født Før dato.'
+	const errorMsgInvalidDate = 'Dato kan ikke være før 1.1.1900 eller etter dagens dato.'
 	return validation.test(
 		'range',
 		validerFoedtFoer ? errorMsgFoedtFoer : errorMsgFoedtEtter,
@@ -240,6 +241,9 @@ const foedtFoerOgEtterTest = (validation, validerFoedtFoer) => {
 			const foedtEtterValue = _get(values, `${path}.foedtEtter`)
 			const foedtFoerValue = _get(values, `${path}.foedtFoer`)
 
+			const foedtEtterDato = new Date(foedtEtterValue)
+			const foedtFoerDato = new Date(foedtFoerValue)
+
 			const identtype = _get(values, `${path}.identtype`)
 			if (identtype === 'FDAT') {
 				return true
@@ -247,13 +251,11 @@ const foedtFoerOgEtterTest = (validation, validerFoedtFoer) => {
 
 			if (validerFoedtFoer) {
 				if (foedtEtterValue !== '' && foedtEtterValue !== undefined) {
-					const foedtEtterDato = new Date(foedtEtterValue)
 					foedtEtterDato.setDate(foedtEtterDato.getDate())
 					if (selectedDato < new Date(foedtEtterDato.toDateString())) return false
 				}
 			} else {
 				if (foedtFoerValue !== '' && foedtFoerValue !== undefined) {
-					const foedtFoerDato = new Date(foedtFoerValue)
 					foedtFoerDato.setDate(foedtFoerDato.getDate())
 					if (selectedDato > new Date(foedtFoerDato.toDateString())) return false
 				}
