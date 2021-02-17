@@ -39,10 +39,10 @@ export const initialValuesDoedfoedt = {
 
 export const Barn = ({ formikBag, personFoerLeggTil }) => {
 	const filterBorHos = options => {
-		const partner = _get(formikBag.values, 'tpsf.relasjoner.partnere')
-		console.log(partner) // TODO: slett meg!
-		console.log(options) // TODO: slett meg!
-		return options
+		const partnere = formikBag.values.tpsf.relasjoner.partnere
+		return options.filter(opt =>
+			partnere[0].harFellesAdresse ? opt.value !== 'BEGGE' : opt.value !== 'OSS'
+		)
 	}
 
 	const handleIdenttypeChange = (path, ident, isDoedfoedt) => {
@@ -126,6 +126,7 @@ export const Barn = ({ formikBag, personFoerLeggTil }) => {
 								name={`${path}.borHos`}
 								label="Bor hos"
 								options={filterBorHos(Options('barnBorHos'))}
+								fastfield={false}
 								isClearable={false}
 							/>
 						)}
