@@ -225,9 +225,11 @@ const innvandringUtvandringDatoTest = schema => {
 }
 
 const foedtFoerOgEtterTest = (validation, validerFoedtFoer) => {
-	const errorMsgFoedtFoer = 'Født Før dato kan ikke være før Født Etter dato.'
-	const errorMsgFoedtEtter = 'Født Etter dato kan ikke være etter Født Før dato.'
-	const errorMsgInvalidDate = 'Dato kan ikke være før 1.1.1900 eller etter dagens dato.'
+	const errorMsgFoedtFoer =
+		'Født Før dato kan ikke være før Født Etter dato eller etter dagens dato'
+	const errorMsgFoedtEtter =
+		'Født Etter dato kan ikke være etter Født Før dato eller etter dagens dato.'
+
 	return validation.test(
 		'range',
 		validerFoedtFoer ? errorMsgFoedtFoer : errorMsgFoedtEtter,
@@ -249,17 +251,20 @@ const foedtFoerOgEtterTest = (validation, validerFoedtFoer) => {
 				return true
 			}
 
-			if (validerFoedtFoer) {
-				if (foedtEtterValue !== '' && foedtEtterValue !== undefined) {
-					foedtEtterDato.setDate(foedtEtterDato.getDate())
-					if (selectedDato < new Date(foedtEtterDato.toDateString())) return false
+			if (foedtEtterDato > Date.now() || foedtFoerDato > Date.now()) return false
+
+			if (foedtEtterDato)
+				if (validerFoedtFoer) {
+					if (foedtEtterValue !== '' && foedtEtterValue !== undefined) {
+						foedtEtterDato.setDate(foedtEtterDato.getDate())
+						if (selectedDato < new Date(foedtEtterDato.toDateString())) return false
+					}
+				} else {
+					if (foedtFoerValue !== '' && foedtFoerValue !== undefined) {
+						foedtFoerDato.setDate(foedtFoerDato.getDate())
+						if (selectedDato > new Date(foedtFoerDato.toDateString())) return false
+					}
 				}
-			} else {
-				if (foedtFoerValue !== '' && foedtFoerValue !== undefined) {
-					foedtFoerDato.setDate(foedtFoerDato.getDate())
-					if (selectedDato > new Date(foedtFoerDato.toDateString())) return false
-				}
-			}
 			return true
 		}
 	)
