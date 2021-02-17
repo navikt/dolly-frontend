@@ -1,5 +1,5 @@
 import React, { Component, Suspense } from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Link } from 'react-router-dom'
 import Header from '~/components/layout/header/Header'
 import Breadcrumb from '~/components/layout/breadcrumb/BreadcrumbWithHoc'
 import Loading from '~/components/ui/loading/Loading'
@@ -10,6 +10,7 @@ import { VarslingerModal } from '~/components/varslinger/VarslingerModal'
 import './App.less'
 import { ErrorBoundary } from '~/components/ui/appError/ErrorBoundary'
 import { Forbedring } from '~/components/feedback/Forbedring'
+import Utlogging from '~/components/utlogging'
 
 export default class App extends Component {
 	state = {
@@ -60,6 +61,7 @@ export default class App extends Component {
 		if (!brukerData || !configReady) return <Loading label="laster dolly applikasjon" fullpage />
 		return (
 			<React.Fragment>
+				<Utlogging />
 				<VarslingerModal
 					varslinger={varslinger}
 					varslingerBruker={varslingerBruker}
