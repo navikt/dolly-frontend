@@ -39,10 +39,12 @@ export const initialValuesDoedfoedt = {
 
 export const Barn = ({ formikBag, personFoerLeggTil }) => {
 	const filterBorHos = options => {
-		const partnere = formikBag.values.tpsf.relasjoner.partnere
-		return options.filter(opt =>
-			partnere[0].harFellesAdresse ? opt.value !== 'BEGGE' : opt.value !== 'OSS'
-		)
+		const partnere = formikBag?.values?.tpsf?.relasjoner?.partnere
+		return partnere
+			? options.filter(opt =>
+					partnere[0].harFellesAdresse ? opt.value !== 'BEGGE' : opt.value !== 'OSS'
+			  )
+			: options
 	}
 
 	const handleIdenttypeChange = (path, ident, isDoedfoedt) => {
