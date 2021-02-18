@@ -21,7 +21,7 @@ export default class App extends Component {
 	async componentDidMount() {
 		await this.props.fetchConfig().catch(err => this.setState({ criticalError: err }))
 		await this.props.getEnvironments().catch(err => this.setState({ criticalError: err }))
-		await this.props.getCurrentBruker().catch(err => this.setState({ apiError: err }))
+		await this.props.getCurrentBruker().catch(err => this.setState({ criticalError: err }))
 		await this.props.getCurrentBrukerProfil().catch(err => this.setState({ apiError: err }))
 		await this.props.getCurrentBrukerBilde().catch(err => this.setState({ apiError: err }))
 		await this.props.getVarslinger().catch(err => this.setState({ apiError: err }))
@@ -53,6 +53,8 @@ export default class App extends Component {
 					error={
 						this.state.criticalError.stack.includes('miljoer')
 							? 'Problemer med å hente gyldige miljøer. Prøv å refresh siden (ctrl + R).'
+							: this.state.criticalError.stack.includes('current')
+							? 'Problemer med å hente Azure id for innlogget bruker. Prøv å refresh siden (ctrl + R).'
 							: 'Problemer med å hente dolly config. Prøv å refresh siden (ctrl + R).'
 					}
 					stackTrace={this.state.criticalError.stack}
