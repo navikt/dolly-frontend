@@ -1,5 +1,5 @@
 import React, { Component, Suspense } from 'react'
-import { Route, Switch, Link } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import Header from '~/components/layout/header/Header'
 import Breadcrumb from '~/components/layout/breadcrumb/BreadcrumbWithHoc'
 import Loading from '~/components/ui/loading/Loading'
@@ -14,13 +14,13 @@ import Utlogging from '~/components/utlogging'
 
 export default class App extends Component {
 	state = {
-		error: null,
+		criticalError: null,
 		apiError: null
 	}
 
 	async componentDidMount() {
-		await this.props.fetchConfig().catch(err => this.setState({ error: err }))
-		await this.props.getEnvironments().catch(err => this.setState({ error: err }))
+		await this.props.fetchConfig().catch(err => this.setState({ criticalError: err }))
+		await this.props.getEnvironments().catch(err => this.setState({ criticalError: err }))
 		await this.props.getCurrentBruker().catch(err => this.setState({ apiError: err }))
 		await this.props.getCurrentBrukerProfil().catch(err => this.setState({ apiError: err }))
 		await this.props.getCurrentBrukerBilde().catch(err => this.setState({ apiError: err }))
@@ -47,13 +47,15 @@ export default class App extends Component {
 			updateVarslingerBruker
 		} = this.props
 
-		if (this.state.error)
+		if (this.state.criticalError)
 			return (
 				<ErrorBoundary
 					error={
-						'Problemer med å hente dolly config eller gyldige miljøer. Prøv å refresh siden (ctrl + R).'
+						this.state.criticalError.stack.includes('miljoer')
+							? 'Problemer med å hente gyldige miljøer. Prøv å refresh siden (ctrl + R).'
+							: 'Problemer med å hente dolly config. Prøv å refresh siden (ctrl + R).'
 					}
-					stackTrace={this.state.error.stack}
+					stackTrace={this.state.criticalError.stack}
 					style={{ margin: '25px auto' }}
 				/>
 			)
