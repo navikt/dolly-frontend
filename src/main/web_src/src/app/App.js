@@ -8,9 +8,9 @@ import routes from '~/Routes'
 import { VarslingerModal } from '~/components/varslinger/VarslingerModal'
 
 import './App.less'
-import { ErrorBoundary } from '~/components/ui/appError/ErrorBoundary'
 import { Forbedring } from '~/components/feedback/Forbedring'
 import Utlogging from '~/components/utlogging'
+import { CriticalError } from '~/components/ui/appError/CriticalError'
 
 export default class App extends Component {
 	state = {
@@ -47,20 +47,7 @@ export default class App extends Component {
 			updateVarslingerBruker
 		} = this.props
 
-		if (this.state.criticalError)
-			return (
-				<ErrorBoundary
-					error={
-						this.state.criticalError.stack.includes('miljoer')
-							? 'Problemer med å hente gyldige miljøer. Prøv å refresh siden (ctrl + R).'
-							: this.state.criticalError.stack.includes('current')
-							? 'Problemer med å hente Azure id for innlogget bruker. Prøv å refresh siden (ctrl + R).'
-							: 'Problemer med å hente dolly config. Prøv å refresh siden (ctrl + R).'
-					}
-					stackTrace={this.state.criticalError.stack}
-					style={{ margin: '25px auto' }}
-				/>
-			)
+		if (this.state.criticalError) return <CriticalError error={this.state.criticalError.stack} />
 
 		if (!brukerData || !configReady) return <Loading label="laster dolly applikasjon" fullpage />
 		return (
