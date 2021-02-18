@@ -251,7 +251,11 @@ const foedtFoerOgEtterTest = (validation, validerFoedtFoer) => {
 				return true
 			}
 
-			if (foedtEtterDato > Date.now() || foedtFoerDato > Date.now()) return false
+			if (
+				(!validerFoedtFoer && foedtEtterDato > Date.now()) ||
+				(validerFoedtFoer && foedtFoerDato > Date.now())
+			)
+				return false
 
 			if (foedtEtterDato)
 				if (validerFoedtFoer) {
