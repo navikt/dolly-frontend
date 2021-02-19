@@ -38,13 +38,20 @@ export const initialValuesDoedfoedt = {
 }
 
 export const Barn = ({ formikBag, personFoerLeggTil }) => {
-	const filterBorHos = options => {
+	const filterBorHos = (options, index) => {
 		const partnere = formikBag?.values?.tpsf?.relasjoner?.partnere
-		return partnere
-			? options.filter(opt =>
-					partnere[0].harFellesAdresse ? opt.value !== 'BEGGE' : opt.value !== 'OSS'
-			  )
-			: options
+		const barn = formikBag?.values?.tpsf?.relasjoner?.barn
+		if (!partnere || !barn || index > barn.length) {
+			return options
+		}
+		if (barn[index].partnerNr && barn[index].partnerNr !== '') {
+			return options.filter(opt => {
+				return partnere[barn[index].partnerNr - 1].harFellesAdresse
+					? opt.value !== 'BEGGE'
+					: opt.value !== 'OSS'
+			})
+		}
+		return options
 	}
 
 	const handleIdenttypeChange = (path, ident, isDoedfoedt) => {
@@ -127,7 +134,7 @@ export const Barn = ({ formikBag, personFoerLeggTil }) => {
 							<FormikSelect
 								name={`${path}.borHos`}
 								label="Bor hos"
-								options={filterBorHos(Options('barnBorHos'))}
+								options={filterBorHos(Options('barnBorHos'), idx)}
 								fastfield={false}
 								isClearable={false}
 							/>
