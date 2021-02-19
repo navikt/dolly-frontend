@@ -45,11 +45,11 @@ export const Barn = ({ formikBag, personFoerLeggTil }) => {
 			return options
 		}
 		if (barn[index].partnerNr && barn[index].partnerNr !== '') {
-			return options.filter(opt => {
-				return partnere[barn[index].partnerNr - 1].harFellesAdresse
+			return options.filter(opt =>
+				partnere[barn[index].partnerNr - 1].harFellesAdresse
 					? opt.value !== 'BEGGE'
 					: opt.value !== 'OSS'
-			})
+			)
 		}
 		return options
 	}
