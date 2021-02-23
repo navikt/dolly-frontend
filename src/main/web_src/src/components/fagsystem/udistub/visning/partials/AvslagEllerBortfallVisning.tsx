@@ -9,7 +9,6 @@ export type AvslagEllerBortfall = {
 		avslagGrunnlagTillatelseGrunnlagEOS: string
 		avslagOppholdsrettBehandlet: string
 		avslagOppholdstillatelseBehandletGrunnlagEOS: string
-		avslagOppholdstillatelseBehandletGrunnlagOvrig: string
 	}
 }
 
