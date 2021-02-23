@@ -96,12 +96,6 @@ export const IkkeOppholdSammeVilkaar = ({ formikBag }: Formik) => (
 						label="Varighet"
 						options={Options('varighet')}
 					/>
-					<FormikDatepicker
-						name={
-							'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.utvistMedInnreiseForbud.innreiseForbudVedtaksDato'
-						}
-						label="Innreiseforbud vedtaksdato"
-					/>
 				</>
 			) : null}
 		</Kategori>
