@@ -943,7 +943,7 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 						)
 					),
 					obj(
-						'Oppholdsrett behandlet',
+						'Avslag oppholdsrett',
 						Formatters.showLabel(
 							'avslagOppholdsrettBehandlet',
 							_get(
@@ -959,70 +959,6 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 							_get(
 								oppholdKriterier,
 								'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagOppholdstillatelseBehandletGrunnlagEOS'
-							)
-						)
-					),
-					obj(
-						'Oppholdstillatelse behandlet øvrig',
-						Formatters.showLabel(
-							'avslagGrunnlagOverig',
-							_get(
-								oppholdKriterier,
-								'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagOppholdstillatelseBehandletGrunnlagOvrig'
-							)
-						)
-					),
-					obj(
-						'Behandlet utreisefrist',
-						Formatters.formatDate(
-							_get(
-								oppholdKriterier,
-								'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagOppholdstillatelseBehandletUtreiseFrist'
-							)
-						)
-					),
-					obj(
-						'Utreisefrist',
-						Formatters.formatDate(
-							_get(
-								oppholdKriterier,
-								'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagOppholdstillatelseUtreiseFrist'
-							)
-						)
-					),
-					obj(
-						'Bortfallsdato',
-						Formatters.formatDate(
-							_get(
-								oppholdKriterier,
-								'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.bortfallAvPOellerBOSDato'
-							)
-						)
-					),
-					obj(
-						'Tilbakekall utreisefrist',
-						Formatters.formatDate(
-							_get(
-								oppholdKriterier,
-								'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.tilbakeKallUtreiseFrist'
-							)
-						)
-					),
-					obj(
-						'Vedtak utreisefrist',
-						Formatters.formatDate(
-							_get(
-								oppholdKriterier,
-								'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.formeltVedtakUtreiseFrist'
-							)
-						)
-					),
-					obj(
-						'Tilbakekall virkningsdato',
-						Formatters.formatDate(
-							_get(
-								oppholdKriterier,
-								'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.tilbakeKallVirkningsDato'
 							)
 						)
 					)

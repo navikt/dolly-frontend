@@ -10,12 +10,6 @@ export type AvslagEllerBortfall = {
 		avslagOppholdsrettBehandlet: string
 		avslagOppholdstillatelseBehandletGrunnlagEOS: string
 		avslagOppholdstillatelseBehandletGrunnlagOvrig: string
-		avslagOppholdstillatelseBehandletUtreiseFrist: string
-		avslagOppholdstillatelseUtreiseFrist: string
-		bortfallAvPOellerBOSDato: string
-		tilbakeKallUtreiseFrist: string
-		formeltVedtakUtreiseFrist: string
-		tilbakeKallVirkningsDato: string
 	}
 }
 
@@ -36,51 +30,25 @@ export const AvslagEllerBortfallVisning = ({ avslagEllerBortfall }: AvslagEllerB
 					)}
 				/>
 				<TitleValue
-					title="Tillatelsesgrunnlag"
+					title="Avslag tillatelsesgrunnlag"
 					value={Formatters.showLabel(
 						'avslagGrunnlagTillatelseGrunnlagEOS',
 						avslagEllerBortfall.avslagGrunnlagTillatelseGrunnlagEOS
 					)}
 				/>
 				<TitleValue
-					title="Oppholdsrett behandlet"
+					title="Avslag Oppholdsrett"
 					value={Formatters.showLabel(
 						'avslagOppholdsrettBehandlet',
 						avslagEllerBortfall.avslagOppholdsrettBehandlet
 					)}
 				/>
 				<TitleValue
-					title="Oppholdsrett grunnlag"
+					title="Avslag grunnlag EØS"
 					value={Formatters.showLabel(
 						'avslagGrunnlagTillatelseGrunnlagEOS',
 						avslagEllerBortfall.avslagOppholdstillatelseBehandletGrunnlagEOS
 					)}
-				/>
-				<TitleValue
-					title="Behandlet utreisefrist"
-					value={Formatters.formatDate(
-						avslagEllerBortfall.avslagOppholdstillatelseBehandletUtreiseFrist
-					)}
-				/>
-				<TitleValue
-					title="Utreisefrist"
-					value={Formatters.formatDate(avslagEllerBortfall.avslagOppholdstillatelseUtreiseFrist)}
-				/>
-				<TitleValue
-					title="Bortfallsdato"
-					value={Formatters.formatDate(avslagEllerBortfall.bortfallAvPOellerBOSDato)}
-				/>
-				<TitleValue
-					title="Tilbakekall utreisefrist"
-					value={Formatters.formatDate(avslagEllerBortfall.tilbakeKallUtreiseFrist)}
-				/>
-				<TitleValue
-					title="Vedtak utreisefrist"
-					value={Formatters.formatDate(avslagEllerBortfall.formeltVedtakUtreiseFrist)}
-				/>
-				<TitleValue
-					title="Tilbakekall virkningsdato"
-					value={Formatters.formatDate(avslagEllerBortfall.tilbakeKallVirkningsDato)}
 				/>
 			</div>
 		</>

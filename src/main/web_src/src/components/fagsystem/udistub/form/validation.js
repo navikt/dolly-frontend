@@ -55,13 +55,7 @@ const ikkeOppholdSammeVilkaar = Yup.object({
 		avslagGrunnlagTillatelseGrunnlagEOS: Yup.string().nullable(),
 		avslagOppholdsrettBehandlet: Yup.string().nullable(),
 		avslagOppholdstillatelseBehandletGrunnlagEOS: Yup.string().nullable(),
-		avslagOppholdstillatelseBehandletGrunnlagOvrig: Yup.string().nullable(),
-		avslagOppholdstillatelseBehandletUtreiseFrist: Yup.date().nullable(),
-		avslagOppholdstillatelseUtreiseFrist: Yup.date().nullable(),
-		bortfallAvPOellerBOSDato: Yup.date().nullable(),
-		tilbakeKallUtreiseFrist: Yup.date().nullable(),
-		formeltVedtakUtreiseFrist: Yup.date().nullable(),
-		tilbakeKallVirkningsDato: Yup.date().nullable()
+		avslagOppholdstillatelseBehandletGrunnlagOvrig: Yup.string().nullable()
 	}),
 	ovrigIkkeOppholdsKategoriArsak: Yup.string().nullable(),
 	utvistMedInnreiseForbud: Yup.object({
