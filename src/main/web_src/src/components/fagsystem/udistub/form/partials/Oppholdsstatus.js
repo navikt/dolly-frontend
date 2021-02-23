@@ -75,7 +75,7 @@ export const Oppholdsstatus = ({ formikBag }) => {
 					avslagGrunnlagOverig: null,
 					avslagGrunnlagTillatelseGrunnlagEOS: null,
 					avslagOppholdsrettBehandlet: null,
-					avslagOppholdstillatelseBehandletGrunnlagEOS: null,
+					avslagOppholdstillatelseBehandletGrunnlagEOS: null
 				},
 				ovrigIkkeOppholdsKategoriArsak: null,
 				utvistMedInnreiseForbud: {
