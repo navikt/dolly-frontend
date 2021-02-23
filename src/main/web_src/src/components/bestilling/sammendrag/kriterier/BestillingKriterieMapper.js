@@ -923,26 +923,6 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 						)
 					),
 					obj(
-						'Avslag grunnlag øvrig',
-						Formatters.showLabel(
-							'avslagGrunnlagOverig',
-							_get(
-								oppholdKriterier,
-								'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagGrunnlagOverig'
-							)
-						)
-					),
-					obj(
-						'Avslag tillatelsesgrunnlag',
-						Formatters.showLabel(
-							'avslagGrunnlagTillatelseGrunnlagEOS',
-							_get(
-								oppholdKriterier,
-								'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagGrunnlagTillatelseGrunnlagEOS'
-							)
-						)
-					),
-					obj(
 						'Avslag oppholdsrett',
 						Formatters.showLabel(
 							'avslagOppholdsrettBehandlet',
@@ -959,6 +939,16 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 							_get(
 								oppholdKriterier,
 								'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagOppholdstillatelseBehandletGrunnlagEOS'
+							)
+						)
+					),
+					obj(
+						'Oppholdstillatelse behandlet øvrig',
+						Formatters.showLabel(
+							'avslagGrunnlagOverig',
+							_get(
+								oppholdKriterier,
+								'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagOppholdstillatelseBehandletGrunnlagOvrig'
 							)
 						)
 					)

@@ -51,8 +51,6 @@ const oppholdSammeVilkaar = Yup.object({
 const ikkeOppholdSammeVilkaar = Yup.object({
 	avslagEllerBortfall: Yup.object({
 		avgjorelsesDato: Yup.date().nullable(),
-		avslagGrunnlagOverig: Yup.string().nullable(),
-		avslagGrunnlagTillatelseGrunnlagEOS: Yup.string().nullable(),
 		avslagOppholdsrettBehandlet: Yup.string().nullable(),
 		avslagOppholdstillatelseBehandletGrunnlagEOS: Yup.string().nullable()
 	}),

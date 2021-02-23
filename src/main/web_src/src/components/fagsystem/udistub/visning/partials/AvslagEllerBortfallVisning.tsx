@@ -5,10 +5,9 @@ import Formatters from '~/utils/DataFormatter'
 export type AvslagEllerBortfall = {
 	avslagEllerBortfall: {
 		avgjorelsesDato: string
-		avslagGrunnlagOverig: string
-		avslagGrunnlagTillatelseGrunnlagEOS: string
 		avslagOppholdsrettBehandlet: string
 		avslagOppholdstillatelseBehandletGrunnlagEOS: string
+		avslagOppholdstillatelseBehandletGrunnlagOvrig: string
 	}
 }
 
@@ -22,20 +21,6 @@ export const AvslagEllerBortfallVisning = ({ avslagEllerBortfall }: AvslagEllerB
 					value={Formatters.formatDate(avslagEllerBortfall.avgjorelsesDato)}
 				/>
 				<TitleValue
-					title="Avslag grunnlag øvrig"
-					value={Formatters.showLabel(
-						'avslagGrunnlagOverig',
-						avslagEllerBortfall.avslagGrunnlagOverig
-					)}
-				/>
-				<TitleValue
-					title="Avslag tillatelsesgrunnlag"
-					value={Formatters.showLabel(
-						'avslagGrunnlagTillatelseGrunnlagEOS',
-						avslagEllerBortfall.avslagGrunnlagTillatelseGrunnlagEOS
-					)}
-				/>
-				<TitleValue
 					title="Avslag Oppholdsrett"
 					value={Formatters.showLabel(
 						'avslagOppholdsrettBehandlet',
@@ -47,6 +32,13 @@ export const AvslagEllerBortfallVisning = ({ avslagEllerBortfall }: AvslagEllerB
 					value={Formatters.showLabel(
 						'avslagGrunnlagTillatelseGrunnlagEOS',
 						avslagEllerBortfall.avslagOppholdstillatelseBehandletGrunnlagEOS
+					)}
+				/>
+				<TitleValue
+					title="Avslag grunnlag øvrig"
+					value={Formatters.showLabel(
+						'avslagGrunnlagOverig',
+						avslagEllerBortfall.avslagOppholdstillatelseBehandletGrunnlagOvrig
 					)}
 				/>
 			</div>

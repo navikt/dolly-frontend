@@ -44,22 +44,6 @@ export const IkkeOppholdSammeVilkaar = ({ formikBag }: Formik) => (
 			/>
 			<FormikSelect
 				name={
-					'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagGrunnlagOverig'
-				}
-				label="Avslag grunnlag øvrig"
-				options={Options('avslagGrunnlagOverig')}
-				size="large"
-			/>
-			<FormikSelect
-				name={
-					'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagGrunnlagTillatelseGrunnlagEOS'
-				}
-				label="Avslag grunnlag EØS"
-				options={Options('avslagGrunnlagTillatelseGrunnlagEOS')}
-				size="large"
-			/>
-			<FormikSelect
-				name={
 					'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagOppholdsrettBehandlet'
 				}
 				label="Avslag oppholdsrett"
@@ -71,6 +55,14 @@ export const IkkeOppholdSammeVilkaar = ({ formikBag }: Formik) => (
 				}
 				label="Avslag tillatelsesgrunnlag"
 				options={Options('avslagGrunnlagTillatelseGrunnlagEOS')}
+			/>
+			<FormikSelect
+				name={
+					'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagOppholdstillatelseBehandletGrunnlagOvrig'
+				}
+				label="Avslag øvrig"
+				options={Options('avslagGrunnlagOverig')}
+				size="large"
 			/>
 		</Kategori>
 

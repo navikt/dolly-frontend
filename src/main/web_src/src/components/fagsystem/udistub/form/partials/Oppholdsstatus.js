@@ -72,10 +72,9 @@ export const Oppholdsstatus = ({ formikBag }) => {
 			formikBag.setFieldValue('udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum', {
 				avslagEllerBortfall: {
 					avgjorelsesDato: null,
-					avslagGrunnlagOverig: null,
-					avslagGrunnlagTillatelseGrunnlagEOS: null,
 					avslagOppholdsrettBehandlet: null,
-					avslagOppholdstillatelseBehandletGrunnlagEOS: null
+					avslagOppholdstillatelseBehandletGrunnlagEOS: null,
+					avslagOppholdstillatelseBehandletGrunnlagOvrig: null
 				},
 				ovrigIkkeOppholdsKategoriArsak: null,
 				utvistMedInnreiseForbud: {
