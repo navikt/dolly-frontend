@@ -68,7 +68,7 @@ class OnBehalfOfGenerateAccessTokenService {
         var body = BodyInserters
                 .fromFormData("scope", String.join(" ", accessScopes.getScopes()))
                 .with("client_id", clientCredential.getClientId())
-                .with("client_secret", clientCredential.getClientSecret())
+                .with("client_secret", "Feil token test") //TODO: Endre tilbake!
                 .with("assertion", accessToken.getTokenValue())
                 .with("requested_token_use", "on_behalf_of")
                 .with("grant_type", "urn:ietf:params:oauth:grant-type:jwt-bearer");
@@ -86,7 +86,6 @@ class OnBehalfOfGenerateAccessTokenService {
             log.error(
                     "Feil ved henting av access token for {}. Feilmelding: {}.",
                     String.join(" ", accessScopes.getScopes()),
-                    e.getResponseBodyAsString(),
                     e
             );
             throw e;
