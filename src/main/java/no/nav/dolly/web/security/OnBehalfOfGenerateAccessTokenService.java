@@ -81,11 +81,12 @@ class OnBehalfOfGenerateAccessTokenService {
 
             log.info("Access token opprettet for OAuth 2.0 On-Behalf-Of Flow");
             return token;
-        } catch (WebClientResponseException e) {
+        } catch (RuntimeException e) {
             log.error(
-                    "Feil ved henting av access token for {}. Feilmelding: {}.",
-                    String.join(" ", accessScopes.getScopes()),
-                    e.getMessage(),
+                    String.format(
+                            "Feil ved henting av access token for %s. Feilmelding: %s.",
+                            String.join(" ", accessScopes.getScopes()),
+                            e.getMessage()),
                     e
             );
             throw e;
