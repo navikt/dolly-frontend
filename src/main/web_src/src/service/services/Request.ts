@@ -34,10 +34,10 @@ export default class Request {
 
 	private static logError(error: any, url: string) {
 		const event = `Henting av data fra ${url} feilet.`
-		// Logger.error({
-		// 	event: event,
-		// 	message: error.message
-		// })
+		Logger.error({
+			event: event,
+			message: error.message
+		})
 		throw new Error(event + ' Dersom Dolly er ustabil, prøv å refreshe siden!')
 	}
 }
