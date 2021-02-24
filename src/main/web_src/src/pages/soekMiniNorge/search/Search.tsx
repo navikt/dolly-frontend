@@ -10,6 +10,7 @@ import { getSoekOptions, initialValues, infoTekst } from '~/pages/soekMiniNorge/
 import { Feedback } from '~/components/feedback'
 import Button from '~/components/ui/button/Button'
 import useBoolean from '~/utils/hooks/useBoolean'
+import SearchContainer from '~/components/SearchContainer'
 
 export const Search = () => {
 	const [soekOptions, setSoekOptions] = useState('')
@@ -31,11 +32,11 @@ export const Search = () => {
 					return (
 						<div className="search-field">
 							<AlertStripeInfo>{infoTekst}</AlertStripeInfo>
-							<div className="flexbox">
-								<div className="search-field__options-container">
-									<SearchOptions formikBag={formikBag} onSubmit={_onSubmit} />
-								</div>
-								<div className="search-field__resultat">
+
+							<SearchContainer
+								onSubmit={() => _onSubmit(formikBag.values)}
+								left={<SearchOptions />}
+								right={
 									<SearchResult
 										key={soekNummer}
 										soekOptions={soekOptions}
@@ -43,8 +44,8 @@ export const Search = () => {
 										soekNummer={soekNummer}
 										antallResultat={_get(formikBag.values, 'antallResultat')}
 									/>
-								</div>
-							</div>
+								}
+							/>
 							{isFeedbackShowing && (
 								<div className="feedback-container">
 									<div className="feedback-container__close-button">
