@@ -42,10 +42,6 @@ public class SessionTimeoutCookieFilter implements Filter {
         }
         cookie.setPath("/");
         httpResponse.addCookie(cookie);
-        try {
         chain.doFilter(request, response);
-        } catch (Exception e) {
-            log.error("Feil under sending gjennom filter", e);
-        }
     }
 }
