@@ -6,7 +6,6 @@ import com.netflix.zuul.exception.ZuulException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
-import org.springframework.util.ReflectionUtils;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -50,7 +49,6 @@ public class AddAuthorizationToRouteFilter extends ZuulFilter {
             ctx.addZuulRequestHeader(HttpHeaders.AUTHORIZATION, "Bearer " + generateToken.getToken());
         } catch (Exception ex) {
             log.error("Exception filtering in custom error filter", ex);
-            ReflectionUtils.rethrowRuntimeException(ex);
         }
         return null;
     }
