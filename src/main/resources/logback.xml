@@ -15,11 +15,10 @@
     <springProfile name="dev">
 
         <appender name="stdout_json" class="ch.qos.logback.core.ConsoleAppender">
-            <encoder class="net.logstash.logback.encoder.LogstashEncoder">
-                <throwableConverter class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
-                    <maxDepthPerThrowable>30</maxDepthPerThrowable>
-                    <maxLength>2048</maxLength>
-                </throwableConverter>
+            <encoder>
+                <pattern>
+                    %d{ISO8601} %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n
+                </pattern>
             </encoder>
         </appender>
 
