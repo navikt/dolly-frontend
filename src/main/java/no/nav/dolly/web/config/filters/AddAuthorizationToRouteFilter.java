@@ -6,6 +6,7 @@ import com.netflix.zuul.exception.ZuulException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
+import org.springframework.util.ReflectionUtils;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -33,10 +34,23 @@ public class AddAuthorizationToRouteFilter extends ZuulFilter {
     public Object run() throws ZuulException {
         try {
             RequestContext ctx = RequestContext.getCurrentContext();
+            Object e = ctx.get("error.exception");
+            if (e != null && e instanceof ZuulException) {
+                ZuulException zuulException = (ZuulException) e;
+                log.error("Zuul failure detected: " + zuulException.getMessage(), zuulException);
+
+                // Remove error code to prevent further error handling in follow up filters
+                ctx.remove("error.status_code");
+
+                // Populate context with new response values
+                ctx.setResponseBody("Overriding Zuul Exception Body");
+                ctx.getResponse().setContentType("application/json");
+                ctx.setResponseStatusCode(500); //Can set any error code as excepted
+            }
             ctx.addZuulRequestHeader(HttpHeaders.AUTHORIZATION, "Bearer " + generateToken.getToken());
-        } catch (Exception e) {
-            log.error("Feil under filter request: {}", e.getMessage());
-            throw new RuntimeException("Feil under filter request: ", e);
+        } catch (Exception ex) {
+            log.error("Exception filtering in custom error filter", ex);
+            ReflectionUtils.rethrowRuntimeException(ex);
         }
         return null;
     }
