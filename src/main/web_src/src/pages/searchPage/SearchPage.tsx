@@ -11,7 +11,7 @@ export default () => {
 	return (
 		<div>
 			<RadioPanelGruppe
-				legend="Hvilket datasett?"
+				legend="Hvilket datasett ønsker du å søke i?"
 				radios={[
 					{ label: 'Testnorge', value: 'TESTNORGE' },
 					{ label: 'Mini-Norge', value: 'MINI_NORGE' }

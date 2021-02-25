@@ -47,7 +47,15 @@ export default () => {
 	return (
 		<div>
 			<Title title="Søk i Testnorge" beta={true} />
-			<p>Testnorge er en felles offentlig testdata populasjon.</p>
+			<p>
+				Testnorge er en felles offentlig testdatapopulasjon, som ble laget i forbindelse med nytt
+				folkeregister. Populasjonen er levende, og endrer seg fortløpende ved at personer fødes,
+				dør, får barn, osv. Pr. i dag støttes kun personer, men fremover vil det også komme støtte
+				for organisasjoner og arbeidsforhold.
+				<br />
+				<br />
+				Testnorge er tilgjengelig i PDL.
+			</p>
 
 			<Formik initialValues={{}} onSubmit={onSubmit}>
 				{({ handleSubmit, values }) => (
