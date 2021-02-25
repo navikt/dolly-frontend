@@ -13,7 +13,6 @@ import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.client.WebClientResponseException;
 import reactor.netty.http.client.HttpClient;
 import reactor.netty.tcp.ProxyProvider;
 
@@ -83,11 +82,7 @@ class OnBehalfOfGenerateAccessTokenService {
             return token;
         } catch (Exception e) {
             log.error(
-                    String.format(
-                            "Feil ved henting av access token for %s. Feilmelding: %s.",
-                            String.join(" ", accessScopes.getScopes()),
-                            e.getMessage()),
-                    e
+                    "Feil ved henting av access token for %s. Feilmelding: %s."
             );
             throw e;
         }
