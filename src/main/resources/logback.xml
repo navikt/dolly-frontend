@@ -16,7 +16,7 @@
         <conversionRule conversionWord="stack" converterClass="net.logstash.logback.stacktrace.ShortenedThrowableConverter" />
         <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
             <encoder>
-                <pattern>%d{ISO8601} %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n%throwable</pattern>
+                <pattern>%d{ISO8601} %highlight(%-5level) - %msg%n%stack{5,1024,10,rootFirst}</pattern>
             </encoder>
         </appender>
         <root level="INFO">
