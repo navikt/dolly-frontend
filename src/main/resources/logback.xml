@@ -24,12 +24,6 @@
             </syslogConfig>
         </appender>
 
-        <appender name="stdout_json" class="ch.qos.logback.core.ConsoleAppender">
-            <encoder class="net.logstash.logback.encoder.LogstashEncoder">
-                <customFields>{"log_type":"default"}</customFields>
-            </encoder>
-        </appender>
-
         <root level="INFO">
             <appender-ref ref="stdout_json"/>
         </root>
@@ -60,12 +54,6 @@
             </syslogConfig>
         </appender>
 
-        <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-            <encoder>
-                    <pattern>%d{yyyy-MM-dd HH:mm:ss.SSSS} [%-5level] %msg%n</pattern>
-                <charset>utf8</charset>
-            </encoder>
-        </appender>
         <root level="INFO">
             <appender-ref ref="CONSOLE"/>
         </root>
