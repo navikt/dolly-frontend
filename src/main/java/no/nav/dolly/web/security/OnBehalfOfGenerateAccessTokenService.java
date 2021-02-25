@@ -87,7 +87,7 @@ class OnBehalfOfGenerateAccessTokenService {
                             "Feil ved henting av access token for %s. %nFeilmelding: %s.",
                             String.join(" ", accessScopes.getScopes()),
                             e.getMessage()),
-                    e.getStackTrace()
+                    new Exception(e)
             );
             throw e;
         }
