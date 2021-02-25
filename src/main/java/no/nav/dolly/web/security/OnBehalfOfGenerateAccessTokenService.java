@@ -1,5 +1,6 @@
 package no.nav.dolly.web.security;
 
+import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import no.nav.dolly.web.security.domain.AccessScopes;
 import no.nav.dolly.web.security.domain.AccessToken;
@@ -13,14 +14,13 @@ import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.client.WebClientResponseException;
 import reactor.netty.http.client.HttpClient;
 import reactor.netty.tcp.ProxyProvider;
 
 import java.net.URI;
 
 
-@Slf4j
+@Log4j2
 @Service
 class OnBehalfOfGenerateAccessTokenService {
     private final WebClient webClient;
@@ -87,7 +87,7 @@ class OnBehalfOfGenerateAccessTokenService {
                             "Feil ved henting av access token for %s. %nFeilmelding: %s.",
                             String.join(" ", accessScopes.getScopes()),
                             e.getMessage()),
-                    (Throwable) e
+                    e
             );
             throw e;
         }
