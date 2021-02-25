@@ -16,6 +16,3 @@ TESTNORGE_PROFIL_API_HOST: https://testnorge-profil-api-dev.dev.intern.nav.no
 zuul:
   debug:
     request: true
-server:
-  error:
-    include-stacktrace: always
