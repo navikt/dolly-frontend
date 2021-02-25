@@ -1,5 +1,6 @@
 package no.nav.dolly.web.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+@Slf4j
 public class SessionTimeoutCookieFilter implements Filter {
 
     public static HttpSession session() {
@@ -40,6 +42,10 @@ public class SessionTimeoutCookieFilter implements Filter {
         }
         cookie.setPath("/");
         httpResponse.addCookie(cookie);
+        try {
         chain.doFilter(request, response);
+        } catch (Exception e) {
+            log.error("Feil under sending gjennom filter", e);
+        }
     }
 }
