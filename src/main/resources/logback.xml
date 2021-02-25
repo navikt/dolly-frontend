@@ -13,29 +13,24 @@
     </springProfile>
 
     <springProfile name="dev">
-
-        <appender name="stdout_json" class="ch.qos.logback.core.ConsoleAppender">
+        <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
             <encoder>
                 <pattern>
-                    %d{ISO8601} %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n
+                    %d{ISO8601} %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n%throwable
                 </pattern>
             </encoder>
         </appender>
 
-        <appender name="auditLogger" class="com.papertrailapp.logback.Syslog4jAppender">
-            <layout class="ch.qos.logback.classic.PatternLayout">
-                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSSS} [%-5level] %msg%n</pattern>
-            </layout>
-            <syslogConfig class="org.productivity.java.syslog4j.impl.net.tcp.TCPNetSyslogConfig">
-                <host>audit.nais</host> <!-- remote system to log to -->
-                <port>6514</port> <!-- remote port to log to -->
-                <ident>dkif</ident> <!-- program name to log as -->
-                <maxMessageLength>128000</maxMessageLength> <!-- max log message length in bytes -->
-            </syslogConfig>
+        <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>
+                    %d{ISO8601} %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n%throwable
+                </pattern>
+            </encoder>
         </appender>
 
         <root level="INFO">
-            <appender-ref ref="stdout_json"/>
+            <appender-ref ref="CONSOLE"/>
         </root>
     </springProfile>
 

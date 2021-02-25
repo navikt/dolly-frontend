@@ -32,10 +32,10 @@ public class AddAuthorizationToRouteFilter extends ZuulFilter {
     @Override
     public Object run() throws ZuulException {
         try {
-        RequestContext ctx = RequestContext.getCurrentContext();
-        ctx.addZuulRequestHeader(HttpHeaders.AUTHORIZATION, "Bearer " + generateToken.getToken());
+            RequestContext ctx = RequestContext.getCurrentContext();
+            ctx.addZuulRequestHeader(HttpHeaders.AUTHORIZATION, "Bearer " + generateToken.getToken());
         } catch (Exception e) {
-            log.error("Feil under filter request: {}", e.getMessage());
+            log.error("Feil under filter request: {}", e.getMessage(), e);
         }
         return null;
     }
