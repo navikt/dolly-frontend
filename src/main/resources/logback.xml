@@ -3,6 +3,29 @@
     <springProfile name="prod">
         <appender name="stdout_json" class="ch.qos.logback.core.ConsoleAppender">
             <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+                <throwableConverter class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
+                    <exclude>java\.util\.concurrent\..*</exclude>
+                    <exclude>org\.apache\.catalina\..*</exclude>
+                    <exclude>org\.apache\.coyote\..*</exclude>
+                    <exclude>org\.apache\.tomcat\..*</exclude>
+                </throwableConverter>
+            </encoder>
+        </appender>
+
+        <appender name="auditLogger" class="com.papertrailapp.logback.Syslog4jAppender">
+            <layout class="ch.qos.logback.classic.PatternLayout">
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSSS} [%-5level] %msg%n</pattern>
+            </layout>
+            <syslogConfig class="org.productivity.java.syslog4j.impl.net.tcp.TCPNetSyslogConfig">
+                <host>audit.nais</host> <!-- remote system to log to -->
+                <port>6514</port> <!-- remote port to log to -->
+                <ident>dkif</ident> <!-- program name to log as -->
+                <maxMessageLength>128000</maxMessageLength> <!-- max log message length in bytes -->
+            </syslogConfig>
+        </appender>
+
+        <appender name="stdout_json" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="net.logstash.logback.encoder.LogstashEncoder">
                 <customFields>{"log_type":"default"}</customFields>
             </encoder>
         </appender>
@@ -13,6 +36,30 @@
     </springProfile>
 
     <springProfile name="dev">
+
+        <appender name="stdout_json" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+                <throwableConverter class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
+                    <exclude>java\.util\.concurrent\..*</exclude>
+                    <exclude>org\.apache\.catalina\..*</exclude>
+                    <exclude>org\.apache\.coyote\..*</exclude>
+                    <exclude>org\.apache\.tomcat\..*</exclude>
+                </throwableConverter>
+            </encoder>
+        </appender>
+
+        <appender name="auditLogger" class="com.papertrailapp.logback.Syslog4jAppender">
+            <layout class="ch.qos.logback.classic.PatternLayout">
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSSS} [%-5level] %msg%n</pattern>
+            </layout>
+            <syslogConfig class="org.productivity.java.syslog4j.impl.net.tcp.TCPNetSyslogConfig">
+                <host>audit.nais</host> <!-- remote system to log to -->
+                <port>6514</port> <!-- remote port to log to -->
+                <ident>dkif</ident> <!-- program name to log as -->
+                <maxMessageLength>128000</maxMessageLength> <!-- max log message length in bytes -->
+            </syslogConfig>
+        </appender>
+
         <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
             <encoder>
                     <pattern>%d{yyyy-MM-dd HH:mm:ss.SSSS} [%-5level] %msg%n</pattern>
