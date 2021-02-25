@@ -16,9 +16,8 @@
         <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
             <encoder>
                 <pattern>
-                    %d{HH:mm:ss.SSS} | %5p | %logger{25} | %m%n
+                    %black(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n%throwable
                 </pattern>
-                <charset>utf8</charset>
             </encoder>
         </appender>
         <root level="INFO">

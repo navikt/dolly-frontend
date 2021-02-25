@@ -1,7 +1,6 @@
 package no.nav.dolly.web.security;
 
 import lombok.extern.log4j.Log4j2;
-import lombok.extern.slf4j.Slf4j;
 import no.nav.dolly.web.security.domain.AccessScopes;
 import no.nav.dolly.web.security.domain.AccessToken;
 import no.nav.dolly.web.security.domain.ClientCredential;
@@ -86,7 +85,7 @@ class OnBehalfOfGenerateAccessTokenService {
                     String.format(
                             "Feil ved henting av access token for %s. %nFeilmelding: %s.",
                             String.join(" ", accessScopes.getScopes()),
-                            e.getMessage())
+                            e.getMessage()), e
             );
             throw e;
         }
