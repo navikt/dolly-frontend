@@ -84,10 +84,10 @@ class OnBehalfOfGenerateAccessTokenService {
         } catch (Exception e) {
             log.error(
                     String.format(
-                            "Feil ved henting av access token for %s. Feilmelding: %s.",
+                            "Feil ved henting av access token for %s. %nFeilmelding: %s.",
                             String.join(" ", accessScopes.getScopes()),
                             e.getMessage()),
-                    e.getCause()
+                    e
             );
             throw e;
         }
