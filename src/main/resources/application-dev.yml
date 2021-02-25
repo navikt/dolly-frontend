@@ -12,6 +12,10 @@ DOLLY_BACKEND_HOST: https://dolly-backend-dev.dev.adeo.no
 UDI_STUB_HOST: https://udi-stub-dev.dev.adeo.no
 TESTNORGE_PROFIL_API_HOST: https://testnorge-profil-api-dev.dev.intern.nav.no
 
+
 zuul:
   debug:
     request: true
+server:
+  error:
+    include-stacktrace: always
