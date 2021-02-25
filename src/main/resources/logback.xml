@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+    <springProfile name="prod">
+        <appender name="stdout_json" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+                <customFields>{"log_type":"default"}</customFields>
+            </encoder>
+        </appender>
 
-    <appender name="stdout_json" class="ch.qos.logback.core.ConsoleAppender">
-            <layout class="ch.qos.logback.classic.PatternLayout">
+        <root level="INFO">
+            <appender-ref ref="stdout_json"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="dev">
+        <conversionRule conversionWord="stack" converterClass="net.logstash.logback.stacktrace.ShortenedThrowableConverter" />
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
                 <pattern>%d{ISO8601} %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n%throwable</pattern>
-            </layout>
-    </appender>
-
-    <appender name="auditLogger" class="com.papertrailapp.logback.Syslog4jAppender">
-        <layout class="ch.qos.logback.classic.PatternLayout">
-            <pattern>%d{ISO8601} %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n%throwable</pattern>
-        </layout>
-        <syslogConfig class="org.productivity.java.syslog4j.impl.net.tcp.TCPNetSyslogConfig">
-            <host>audit.nais</host> <!-- remote system to log to -->
-            <port>6514</port> <!-- remote port to log to -->
-            <ident>dkif</ident> <!-- program name to log as -->
-            <maxMessageLength>128000</maxMessageLength> <!-- max log message length in bytes -->
-        </syslogConfig>
-    </appender>
-
-
-    <root level="INFO">
-        <appender-ref ref="stdout_json"/>
-    </root>
+            </encoder>
+        </appender>
+        <root level="INFO">
+            <appender-ref ref="STDOUT"/>
+        </root>
+    </springProfile>
 
     <logger name="no.nav.dolly.web.logging.LogRequestInterceptor">
         <level value="TRACE"/>
