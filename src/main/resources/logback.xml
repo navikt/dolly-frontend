@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>
-                %d{ISO8601} %highlight(%-5level) - %msg%n%throwable{20}
-            </pattern>
-            <charset>utf8</charset>
-        </encoder>
-    </appender>
-
-<!--    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">-->
-<!--        <encoder class="net.logstash.logback.encoder.LogstashEncoder">-->
-<!--            <providers>-->
-<!--                <stackTrace>-->
-<!--                    <throwableConverter-->
-<!--                            class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">-->
-<!--                        <rootCauseFirst>true</rootCauseFirst>-->
-<!--                        <maxDepthPerThrowable>30</maxDepthPerThrowable>-->
-<!--                        <maxLength>2048</maxLength>-->
-<!--                        <shortenedClassNameLength>20</shortenedClassNameLength>-->
-<!--                        <exclude>^sun\.reflect\..*\.invoke</exclude>-->
-<!--                        <exclude>^net\.sf\.cglib\.proxy\.MethodProxy\.invoke</exclude>-->
-<!--                    </throwableConverter>-->
-<!--                </stackTrace>-->
-<!--            </providers>-->
+<!--    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">-->
+<!--        <encoder>-->
+<!--            <pattern>-->
+<!--                %d{ISO8601} %highlight(%-5level) - %msg%n%throwable{20}-->
+<!--            </pattern>-->
+<!--            <charset>utf8</charset>-->
 <!--        </encoder>-->
 <!--    </appender>-->
-<!--    <root level="INFO">-->
-<!--        <appender-ref ref="STDOUT"/>-->
-<!--    </root>-->
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <providers>
+                <stackTrace>
+                    <throwableConverter
+                            class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
+                        <rootCauseFirst>true</rootCauseFirst>
+                        <maxDepthPerThrowable>30</maxDepthPerThrowable>
+                        <maxLength>2048</maxLength>
+                        <shortenedClassNameLength>20</shortenedClassNameLength>
+                        <exclude>^sun\.reflect\..*\.invoke</exclude>
+                        <exclude>^net\.sf\.cglib\.proxy\.MethodProxy\.invoke</exclude>
+                    </throwableConverter>
+                </stackTrace>
+            </providers>
+        </encoder>
+    </appender>
     <root level="INFO">
-        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="STDOUT"/>
     </root>
+<!--    <root level="INFO">-->
+<!--        <appender-ref ref="CONSOLE"/>-->
+<!--    </root>-->
 
     <logger name="no.nav.dolly.web.logging.LogRequestInterceptor">
         <level value="TRACE"/>
