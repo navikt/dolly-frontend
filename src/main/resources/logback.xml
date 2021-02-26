@@ -10,7 +10,7 @@
 <!--        </encoder>-->
 <!--    </appender>-->
 
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <appender name="stdout_json" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="net.logstash.logback.encoder.LogstashEncoder">
             <providers>
                 <stackTrace>
@@ -28,7 +28,7 @@
         </encoder>
     </appender>
     <root level="INFO">
-        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="stdout_json"/>
     </root>
 <!--    <root level="INFO">-->
 <!--        <appender-ref ref="CONSOLE"/>-->
