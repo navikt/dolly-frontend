@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-<!--    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">-->
-<!--        <encoder>-->
-<!--            <pattern>-->
-<!--                %d{ISO8601} %highlight(%-5level) - %msg%n%throwable{20}-->
-<!--            </pattern>-->
-<!--            <charset>utf8</charset>-->
-<!--        </encoder>-->
-<!--    </appender>-->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                %d{ISO8601} %highlight(%-5level) - %msg%n%throwable{20}
+            </pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
 
     <appender name="stdout_json" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="net.logstash.logback.encoder.LogstashEncoder">
@@ -30,9 +30,9 @@
     <root level="INFO">
         <appender-ref ref="stdout_json"/>
     </root>
-<!--    <root level="INFO">-->
-<!--        <appender-ref ref="CONSOLE"/>-->
-<!--    </root>-->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
 
     <logger name="no.nav.dolly.web.logging.LogRequestInterceptor">
         <level value="TRACE"/>
