@@ -14,23 +14,14 @@
 
     <springProfile name="dev">
 
-        <conversionRule conversionWord="stack" converterClass="net.logstash.logback.stacktrace.ShortenedThrowableConverter" />
-
-        <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
-            <encoder>
-                <pattern>
-                    %d{ISO8601} %highlight(%-5level) - %msg%n%stack{short}
-                </pattern>
-                <charset>utf8</charset>
-            </encoder>
-        </appender>
-
         <appender name="stdout_json" class="ch.qos.logback.core.ConsoleAppender">
-            <encoder>
-                <pattern>
-                    %d{ISO8601} %highlight(%-5level) - %msg%n%stack{short}
-                </pattern>
-                <charset>utf8</charset>
+            <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+                <throwableConverter class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
+                    <exclude>java\.util\.concurrent\..*</exclude>
+                    <exclude>org\.apache\.catalina\..*</exclude>
+                    <exclude>org\.apache\.coyote\..*</exclude>
+                    <exclude>org\.apache\.tomcat\..*</exclude>
+                </throwableConverter>
             </encoder>
         </appender>
         <root level="INFO">
