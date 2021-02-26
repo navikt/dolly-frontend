@@ -3,9 +3,6 @@
 
     <appender name="stdout_json" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="net.logstash.logback.encoder.LogstashEncoder">
-<!--            <pattern>-->
-<!--                %d{ISO8601} %highlight(%-5level) - %msg%n%throwable{short}-->
-<!--            </pattern>-->
             <throwableConverter class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
                 <rootCauseFirst>true</rootCauseFirst>
                 <maxDepthPerThrowable>10</maxDepthPerThrowable>
@@ -21,7 +18,7 @@
         </encoder>
     </appender>
 
-    <root level="INFO">
+    <root level="WARN">
         <appender-ref ref="stdout_json"/>
     </root>
 
