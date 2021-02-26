@@ -16,12 +16,20 @@
 
         <appender name="stdout_json" class="ch.qos.logback.core.ConsoleAppender">
             <encoder class="net.logstash.logback.encoder.LogstashEncoder">
-                <throwableConverter class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
-                    <exclude>java\.util\.concurrent\..*</exclude>
-                    <exclude>org\.apache\.catalina\..*</exclude>
-                    <exclude>org\.apache\.coyote\..*</exclude>
-                    <exclude>org\.apache\.tomcat\..*</exclude>
-                </throwableConverter>
+                <providers>
+                    <stackTrace>
+                        <fieldName>stackTrace</fieldName>
+                        <throwableConverter
+                                class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
+                            <rootCauseFirst>true</rootCauseFirst>
+                            <maxDepthPerThrowable>30</maxDepthPerThrowable>
+                            <maxLength>2048</maxLength>
+                            <shortenedClassNameLength>20</shortenedClassNameLength>
+                            <exclude>^sun\.reflect\..*\.invoke</exclude>
+                            <exclude>^net\.sf\.cglib\.proxy\.MethodProxy\.invoke</exclude>
+                        </throwableConverter>
+                    </stackTrace>
+                </providers>
             </encoder>
         </appender>
         <root level="INFO">
