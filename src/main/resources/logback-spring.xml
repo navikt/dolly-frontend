@@ -6,8 +6,8 @@
             <encoder class="net.logstash.logback.encoder.LogstashEncoder">
                 <throwableConverter class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
                     <rootCauseFirst>true</rootCauseFirst>
-                    <maxDepthPerThrowable>50</maxDepthPerThrowable>
-                    <maxLength>12000</maxLength>
+                    <maxDepthPerThrowable>256</maxDepthPerThrowable>
+                    <maxLength>10280</maxLength>
                     <shortenedClassNameLength>20</shortenedClassNameLength>
                     <exclude>^sun\.reflect\..*\.invoke</exclude>
                     <exclude>^net\.sf\.cglib\.proxy\.MethodProxy\.invoke</exclude>
