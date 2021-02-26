@@ -23,7 +23,7 @@ export const UtvistMedInnreiseForbudVisning = ({
 				/>
 				<TitleValue
 					title="Innreiseforbud vedtatt"
-					value={Formatters.formatDate(utvistMedInnreiseForbud.innreiseForbudVedtaksDato)}
+					value={Formatters.formatStringDates(utvistMedInnreiseForbud.innreiseForbudVedtaksDato)}
 				/>
 				<TitleValue
 					title="Varighet"

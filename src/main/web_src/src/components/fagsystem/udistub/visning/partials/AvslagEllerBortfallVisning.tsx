@@ -4,7 +4,7 @@ import Formatters from '~/utils/DataFormatter'
 
 export type AvslagEllerBortfall = {
 	avslagEllerBortfall: {
-		avgjorelsesDato: string
+		avgjorelsesDato: Date
 		avslagOppholdsrettBehandlet: string
 		avslagOppholdstillatelseBehandletGrunnlagEOS: string
 		avslagOppholdstillatelseBehandletGrunnlagOvrig: string
@@ -18,7 +18,7 @@ export const AvslagEllerBortfallVisning = ({ avslagEllerBortfall }: AvslagEllerB
 			<div className="person-visning_content">
 				<TitleValue
 					title="Avgjørelsesdato"
-					value={Formatters.formatDate(avslagEllerBortfall.avgjorelsesDato)}
+					value={Formatters.formatStringDates(avslagEllerBortfall.avgjorelsesDato)}
 				/>
 				<TitleValue
 					title="Avslag Oppholdsrett"

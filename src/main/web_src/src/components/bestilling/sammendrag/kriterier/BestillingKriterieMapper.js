@@ -915,7 +915,7 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 				items: [
 					obj(
 						'Avgjørelsesdato',
-						Formatters.formatDate(
+						Formatters.formatStringDates(
 							_get(
 								oppholdKriterier,
 								'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avgjorelsesDato'
@@ -933,7 +933,7 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 						)
 					),
 					obj(
-						'Oppholdstillatelse behandlet',
+						'Avslag grunnlag EØS',
 						Formatters.showLabel(
 							'avslagGrunnlagTillatelseGrunnlagEOS',
 							_get(
@@ -971,7 +971,7 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 				),
 				obj(
 					'Innreiseforbud vedtatt',
-					Formatters.formatDate(
+					Formatters.formatStringDates(
 						_get(
 							oppholdKriterier,
 							'ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.utvistMedInnreiseForbud.innreiseForbudVedtaksDato'
@@ -1082,7 +1082,7 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 					)
 				),
 				obj(
-					'Øvrig årsak',
+					'Øvrig ikkeoppholds årsak',
 					Formatters.showLabel(
 						'ovrigIkkeOppholdsKategoriArsak',
 						_get(

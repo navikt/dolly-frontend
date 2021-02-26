@@ -33,6 +33,7 @@ const innReiseForbudOnClick = (event: selectEvent, formikBag: FormikProps<{}>) =
 	}
 }
 
+// @ts-ignore
 export const IkkeOppholdSammeVilkaar = ({ formikBag }: Formik) => (
 	<div className="flexbox--flex-wrap">
 		<Kategori title={'Avslag eller bortfall'}>
@@ -53,7 +54,7 @@ export const IkkeOppholdSammeVilkaar = ({ formikBag }: Formik) => (
 				name={
 					'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.avslagEllerBortfall.avslagOppholdstillatelseBehandletGrunnlagEOS'
 				}
-				label="Avslag tillatelsesgrunnlag"
+				label="Avslag grunnlag EØS"
 				options={Options('avslagGrunnlagTillatelseGrunnlagEOS')}
 			/>
 			<FormikSelect
@@ -88,11 +89,17 @@ export const IkkeOppholdSammeVilkaar = ({ formikBag }: Formik) => (
 						label="Varighet"
 						options={Options('varighet')}
 					/>
+					<FormikDatepicker
+						name={
+							'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.utvistMedInnreiseForbud.innreiseForbudVedtaksDato'
+						}
+						label="Innreiseforbud vedtaksdato"
+					/>
 				</>
 			) : null}
 		</Kategori>
 
-		<Kategori title={'Øvrig ikke opphold'}>
+		<Kategori title={'Øvrig ikkeoppholds årsak'}>
 			<FormikSelect
 				name={
 					'udistub.oppholdStatus.ikkeOppholdstilatelseIkkeVilkaarIkkeVisum.ovrigIkkeOppholdsKategoriArsak'
