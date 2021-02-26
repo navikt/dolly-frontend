@@ -6,7 +6,7 @@
             <encoder class="net.logstash.logback.encoder.LogstashEncoder">
                 <throwableConverter class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
                     <rootCauseFirst>true</rootCauseFirst>
-                    <maxDepthPerThrowable>10</maxDepthPerThrowable>
+                    <maxDepthPerThrowable>50</maxDepthPerThrowable>
                     <maxLength>12000</maxLength>
                     <shortenedClassNameLength>20</shortenedClassNameLength>
                     <exclude>^sun\.reflect\..*\.invoke</exclude>
