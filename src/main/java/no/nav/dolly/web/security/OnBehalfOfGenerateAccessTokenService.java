@@ -1,6 +1,6 @@
 package no.nav.dolly.web.security;
 
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import no.nav.dolly.web.security.domain.AccessScopes;
 import no.nav.dolly.web.security.domain.AccessToken;
 import no.nav.dolly.web.security.domain.ClientCredential;
@@ -19,7 +19,7 @@ import reactor.netty.tcp.ProxyProvider;
 import java.net.URI;
 
 
-@Log4j2
+@Slf4j
 @Service
 class OnBehalfOfGenerateAccessTokenService {
     private final WebClient webClient;
@@ -66,7 +66,7 @@ class OnBehalfOfGenerateAccessTokenService {
         var body = BodyInserters
                 .fromFormData("scope", String.join(" ", accessScopes.getScopes()))
                 .with("client_id", clientCredential.getClientId())
-                .with("client_secret", "Feil token test") //TODO: Endre tilbake!
+                .with("client_secret", clientCredential.getClientSecret())
                 .with("assertion", accessToken.getTokenValue())
                 .with("requested_token_use", "on_behalf_of")
                 .with("grant_type", "urn:ietf:params:oauth:grant-type:jwt-bearer");
