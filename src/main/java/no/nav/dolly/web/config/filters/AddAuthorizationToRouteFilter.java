@@ -48,7 +48,7 @@ public class AddAuthorizationToRouteFilter extends ZuulFilter {
             }
             ctx.addZuulRequestHeader(HttpHeaders.AUTHORIZATION, "Bearer " + generateToken.getToken());
         } catch (Exception ex) {
-            log.error("Exception filtering in custom error filter", ex);
+            log.error("Exception filtering in custom error filter");
         }
         return null;
     }
