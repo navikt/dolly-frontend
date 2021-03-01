@@ -2,6 +2,7 @@ import React from 'react'
 import { FormikSelect } from '~/components/ui/form/inputs/select/Select'
 import { FormikDatepicker } from '~/components/ui/form/inputs/datepicker/Datepicker'
 import { AdresseKodeverk } from '~/config/kodeverk'
+import { FormikTextInput } from '~/components/ui/form/inputs/textInput/TextInput'
 
 export default () => (
 	<>
@@ -18,6 +19,8 @@ export default () => (
 				label="Fødselsdato tom"
 				visHvisAvhuket={false}
 			/>
+			<FormikTextInput name="personinformasjon.alder.fra" label="Fra" visHvisAvhuket={false} />
+			<FormikTextInput name="personinformasjon.alder.til" label="Til" visHvisAvhuket={false} />
 		</section>
 		<section>
 			<h3>Statsborgerskap</h3>

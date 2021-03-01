@@ -23,11 +23,13 @@ export default ({ person }: Props) => (
 		<section>
 			<SubOverskrift label="Persondetaljer" iconKind="personinformasjon" />
 			<Group>
+				<Title title="Ident" value={person.ident} />
+				<Title title="Aktør Id" value={person.aktorId} />
 				<Title title="Fornavn" value={person.fornavn} />
 				<Title title="Mellomnavn" value={person.mellomnavn} />
 				<Title title="Etternavn" value={person.etternavn} />
 				<Title title="Kjønn" value={person.kjoenn} />
-				<Title title="Fødselsdato" value={person.foeddsel?.foedselsdato} />
+				<Title title="Fødselsdato" value={person.foedsel?.foedselsdato} />
 				<Title title="Sivilstand" value={person.sivilstand?.type} />
 			</Group>
 		</section>
