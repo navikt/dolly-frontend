@@ -34,6 +34,8 @@ export const Detaljer = ({ formikBag, path, level, number, maaHaUnderenhet = tru
 	const initialValues = _omit(formikBag.values.organisasjon, ['underenheter', 'sektorkode'])
 	initialValues.enhetstype = ''
 
+	const sektorkodeErValgt = formikBag.values.organisasjon.hasOwnProperty('sektorkode')
+
 	const [typeUnderenhet, setTypeUnderenhet] = useState(
 		level === 0 ||
 			(_has(formikBag.values, `${path}.underenheter`) &&
@@ -52,10 +54,14 @@ export const Detaljer = ({ formikBag, path, level, number, maaHaUnderenhet = tru
 		let values = _set(formikBag.values, `${path}.enhetstype`, '')
 		if (typeUnderenhet === TypeUnderenhet.VIRKSOMHET) {
 			values = _set(values, `${path}.underenheter`, [])
-			values = _set(values, `${path}.sektorkode`, undefined)
+			if (sektorkodeErValgt) {
+				values = _set(values, `${path}.sektorkode`, undefined)
+			}
 		} else if (typeUnderenhet === TypeUnderenhet.JURIDISKENHET && level < 4) {
 			values = _set(values, `${path}.underenheter`, [initialValues])
-			values = _set(values, `${path}.sektorkode`, '')
+			if (sektorkodeErValgt) {
+				values = _set(values, `${path}.sektorkode`, '')
+			}
 		}
 		formikBag.setValues(values, true)
 	}, [typeUnderenhet])

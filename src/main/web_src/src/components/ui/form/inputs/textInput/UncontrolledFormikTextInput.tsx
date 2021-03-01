@@ -6,12 +6,15 @@ import { useFormikContext } from 'formik'
 
 type Props = {
 	name: string
+	value?: any
 }
 
-export default ({ name, ...props }: Props) => {
+export default ({ name, value, ...props }: Props) => {
 	const { errors, touched, setFieldTouched, setFieldValue } = useFormikContext()
 	return (
 		<DollyTextInput
+			// @ts-ignore
+			defaultValue={value}
 			onBlur={(event: React.FocusEvent<HTMLInputElement>) => {
 				if (!_get(touched, name)) {
 					setFieldTouched(name, true)
