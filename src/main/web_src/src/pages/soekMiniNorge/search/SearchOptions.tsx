@@ -5,7 +5,6 @@ import { FormikProps } from 'formik'
 import NavButton from '~/components/ui/button/NavButton/NavButton'
 import { AdresseKodeverk, PersoninformasjonKodeverk } from '~/config/kodeverk'
 import { FormikSelect } from '~/components/ui/form/inputs/select/Select'
-import { FormikDatepicker } from '~/components/ui/form/inputs/datepicker/Datepicker'
 import { antallResultatOptions } from '~/pages/soekMiniNorge/search/utils'
 import { SelectOptionsManager as Options } from '~/service/SelectOptions'
 
