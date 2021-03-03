@@ -19,8 +19,16 @@ export default () => (
 				label="Fødselsdato tom"
 				visHvisAvhuket={false}
 			/>
-			<FormikTextInput name="personinformasjon.alder.fra" label="Fra" visHvisAvhuket={false} />
-			<FormikTextInput name="personinformasjon.alder.til" label="Til" visHvisAvhuket={false} />
+			<FormikTextInput
+				name="personinformasjon.alder.fra"
+				label="Alder fra"
+				visHvisAvhuket={false}
+			/>
+			<FormikTextInput
+				name="personinformasjon.alder.til"
+				label="Alder til"
+				visHvisAvhuket={false}
+			/>
 		</section>
 		<section>
 			<h3>Statsborgerskap</h3>

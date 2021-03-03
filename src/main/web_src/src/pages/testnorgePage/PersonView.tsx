@@ -3,6 +3,7 @@ import { TitleValue } from '~/components/ui/titleValue/TitleValue'
 import React from 'react'
 import styled from 'styled-components'
 import { Person } from '~/service/services/personsearch/types'
+import Formatters from '~/utils/DataFormatter'
 
 type Props = {
 	person: Person
@@ -29,7 +30,10 @@ export default ({ person }: Props) => (
 				<Title title="Mellomnavn" value={person.mellomnavn} />
 				<Title title="Etternavn" value={person.etternavn} />
 				<Title title="Kjønn" value={person.kjoenn} />
-				<Title title="Fødselsdato" value={person.foedsel?.foedselsdato} />
+				<Title
+					title="Fødselsdato"
+					value={Formatters.formatStringDates(person.foedsel?.foedselsdato)}
+				/>
 				<Title title="Sivilstand" value={person.sivilstand?.type} />
 			</Group>
 		</section>
