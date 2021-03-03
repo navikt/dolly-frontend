@@ -30,20 +30,9 @@ public class AddAuthorizationToRouteFilter extends ZuulFilter {
     }
 
     @Override
-    public Object run() throws ZuulException {
+    public Object run() {
         try {
             RequestContext ctx = RequestContext.getCurrentContext();
-            Object e = ctx.get("error.exception");
-            if (e instanceof ZuulException) {
-                ZuulException zuulException = (ZuulException) e;
-                log.error("Zuul feilet med error: " + zuulException.getMessage(), zuulException);
-
-                ctx.remove("error.status_code");
-
-                ctx.setResponseBody("Overriding Zuul Exception Body");
-                ctx.getResponse().setContentType("application/json");
-                ctx.setResponseStatusCode(500);
-            }
             ctx.addZuulRequestHeader(HttpHeaders.AUTHORIZATION, "Bearer " + generateToken.getToken());
         } catch (Exception ex) {
             log.error("Zuul feilet i AddAuthToRoute filter: ", ex);
