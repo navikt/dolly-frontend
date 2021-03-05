@@ -63,7 +63,7 @@ export default function Organisasjoner({
 	useEffect(() => {
 		getOrganisasjonBestillingStatus(brukerId)
 		getOrganisasjonBestilling(brukerId)
-	}, [organisasjoner.length])
+	}, [organisasjoner?.length])
 
 	useEffect(() => {
 		fetchOrganisasjoner(brukerId)
@@ -74,8 +74,8 @@ export default function Organisasjoner({
 		return 'Søk i organisasjoner'
 	}
 
-	const antallOrg = organisasjoner ? organisasjoner.length : 0
-	const antallBest = bestillinger ? bestillinger.length : 0
+	const antallOrg = organisasjoner?.length
+	const antallBest = bestillinger?.length
 
 	const startBestilling = (type: string) => {
 		history.push('/organisasjoner/bestilling', { opprettOrganisasjon: type })
@@ -177,14 +177,14 @@ export default function Organisasjoner({
 								size={13}
 								kind={visning === VISNING_ORGANISASJONER ? 'organisasjonLight' : 'organisasjon'}
 							/>
-							{`Organisasjoner (${antallOrg})`}
+							{`Organisasjoner (${antallOrg ? antallOrg : 0})`}
 						</ToggleKnapp>
 						<ToggleKnapp value={VISNING_BESTILLINGER} checked={visning === VISNING_BESTILLINGER}>
 							<Icon
 								size={13}
 								kind={visning === VISNING_BESTILLINGER ? 'bestillingLight' : 'bestilling'}
 							/>
-							{`Bestillinger (${antallBest})`}
+							{`Bestillinger (${antallBest ? antallBest : 0})`}
 						</ToggleKnapp>
 					</ToggleGruppe>
 
@@ -192,7 +192,7 @@ export default function Organisasjoner({
 				</div>
 
 				{visning === VISNING_ORGANISASJONER &&
-					(isFetching ? (
+					(isFetching || antallOrg === undefined ? (
 						<Loading label="Laster organisasjoner" panel />
 					) : antallOrg > 0 ? (
 						<OrganisasjonListe bestillinger={bestillinger} organisasjoner={filterOrg()} />
