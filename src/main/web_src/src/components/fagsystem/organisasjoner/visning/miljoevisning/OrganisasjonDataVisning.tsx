@@ -1,39 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '~/pages/gruppe/PersonVisning/PersonMiljoeinfo/DataVisning.less'
 // @ts-ignore
 import Tooltip from 'rc-tooltip'
 import 'rc-tooltip/assets/bootstrap_white.css'
 import { Detaljer } from '~/components/fagsystem/organisasjoner/visning/Detaljer'
+import { Enhetstre, OrgTree } from '~/components/enhetstre'
+import SubOverskrift from '~/components/ui/subOverskrift/SubOverskrift'
 
-type OrganisasjonData = {
-	data: Array<Data>
-}
-
-type Data = {
-	0: Array<Record<string, any>>
-}
-
-export const OrganisasjonDataVisning = ({ data }: OrganisasjonData) => {
+// @ts-ignore
+export const OrganisasjonDataVisning = ({ data }) => {
 	if (!data) return null
-	const sortedData = { ...data }
-	console.log(sortedData)
-	const environments = Object.keys(sortedData).sort() //TODO: må fikse!
-	const organisasjoner = Object.values(sortedData)
 
-	const getOrganisasjonInfo = miljoe => {
+	const organisasjonListe = Object.entries(data).sort()
+
+	// @ts-ignore
+	const getOrganisasjonInfo = organisasjon => {
+		const [selectedId, setSelectedId] = useState('0')
+		const orgTree = new OrgTree(organisasjon[1], '0')
 		return (
 			<div className="boks">
-				<Detaljer data={[organisasjoner[environments.indexOf(miljoe)]]} />
+				<SubOverskrift label="Organisasjonsoversikt" iconKind="organisasjon" />
+				<Enhetstre enheter={[orgTree]} selectedEnhet={selectedId} onNodeClick={setSelectedId} />
+				<Detaljer data={[orgTree.find(selectedId)]} />
 			</div>
 		)
 	}
 
 	return (
 		<div className="flexbox--flex-wrap">
-			{environments.map((miljoe, idx) => {
+			{organisasjonListe.map((organisasjoner, idx) => {
+				const miljoe = organisasjoner[0]
 				return (
 					<Tooltip
-						overlay={getOrganisasjonInfo(miljoe)}
+						overlay={getOrganisasjonInfo(organisasjoner)}
 						placement="top"
 						align={{
 							offset: ['0', '-10']
