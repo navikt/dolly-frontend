@@ -10,7 +10,7 @@ import './MiljoVelger.less'
 export const MiljoVelger = ({ bestillingsdata, heading }) => {
 	const filterEnvironments = (miljoer, erOrg) => {
 		if (!erOrg) return miljoer
-		let filtrerteMiljoer = { ...miljoer }
+		const filtrerteMiljoer = { ...miljoer }
 		filtrerteMiljoer.Q = filtrerteMiljoer.Q.filter(env => !env.id.includes('qx'))
 		return filtrerteMiljoer
 	}
