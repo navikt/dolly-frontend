@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { FieldArray, ErrorMessage } from 'formik'
+import { ErrorMessage, FieldArray } from 'formik'
 import LinkButton from '~/components/ui/button/LinkButton/LinkButton'
 import { DollyCheckbox } from '~/components/ui/form/inputs/checbox/Checkbox'
 import { MiljoeInfo } from './MiljoeInfo/MiljoeInfo'
@@ -8,7 +8,8 @@ import { MiljoeInfo } from './MiljoeInfo/MiljoeInfo'
 import './MiljoVelger.less'
 
 export const MiljoVelger = ({ bestillingsdata, heading }) => {
-	const filterEnvironments = miljoer => {
+	const filterEnvironments = (miljoer, erOrg) => {
+		if (!erOrg) return miljoer
 		let filtrerteMiljoer = { ...miljoer }
 		filtrerteMiljoer.Q = filtrerteMiljoer.Q.filter(env => !env.id.includes('qx'))
 		return filtrerteMiljoer
@@ -16,11 +17,10 @@ export const MiljoVelger = ({ bestillingsdata, heading }) => {
 
 	const environments = useSelector(state => state.environments.data)
 	if (!environments) return null
-	const filteredEnvironments = filterEnvironments(environments)
+	const erOrganisasjon = bestillingsdata.hasOwnProperty('organisasjon')
+	const filteredEnvironments = filterEnvironments(environments, erOrganisasjon)
 
 	const order = ['T', 'Q']
-
-	const erOrganisasjon = bestillingsdata.hasOwnProperty('organisasjon')
 
 	return (
 		<div className="miljo-velger">
@@ -60,24 +60,21 @@ export const MiljoVelger = ({ bestillingsdata, heading }) => {
 						const allDisabled = category.some(f => f.disabled)
 
 						return (
-							<fieldset key={type} name={`Liste over ${type}-mijøer`}>
+							<fieldset key={type} name={`Liste over ${type}-miljøer`}>
 								<h3>{type}-miljøer</h3>
 								<div className="miljo-velger_checkboxes">
-									{category.map(
-										(env, idx) =>
-											(!erOrganisasjon || env.id !== 'qx') && (
-												<DollyCheckbox
-													key={env.id}
-													id={env.id}
-													disabled={env.disabled}
-													label={env.id}
-													checked={values.includes(env.id)}
-													onClick={onClick}
-													onChange={() => {}}
-													size={'xxsmall'}
-												/>
-											)
-									)}
+									{category.map(env => (
+										<DollyCheckbox
+											key={env.id}
+											id={env.id}
+											disabled={env.disabled}
+											label={env.id}
+											checked={values.includes(env.id)}
+											onClick={onClick}
+											onChange={() => {}}
+											size={'xxsmall'}
+										/>
+									))}
 								</div>
 								{!allDisabled && (
 									<div className="miljo-velger_buttons">
