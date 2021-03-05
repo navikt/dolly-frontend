@@ -8,9 +8,15 @@ import { MiljoeInfo } from './MiljoeInfo/MiljoeInfo'
 import './MiljoVelger.less'
 
 export const MiljoVelger = ({ bestillingsdata, heading }) => {
-	const environments = useSelector(state => state.environments.data)
+	const filterEnvironments = miljoer => {
+		let filtrerteMiljoer = { ...miljoer }
+		filtrerteMiljoer.Q = filtrerteMiljoer.Q.filter(env => !env.id.includes('qx'))
+		return filtrerteMiljoer
+	}
 
+	const environments = useSelector(state => state.environments.data)
 	if (!environments) return null
+	const filteredEnvironments = filterEnvironments(environments)
 
 	const order = ['T', 'Q']
 
@@ -20,7 +26,7 @@ export const MiljoVelger = ({ bestillingsdata, heading }) => {
 		<div className="miljo-velger">
 			<h2>{heading}</h2>
 			{bestillingsdata && (
-				<MiljoeInfo bestillingsdata={bestillingsdata} dollyEnvironments={environments} />
+				<MiljoeInfo bestillingsdata={bestillingsdata} dollyEnvironments={filteredEnvironments} />
 			)}
 
 			<FieldArray name="environments">
@@ -35,7 +41,7 @@ export const MiljoVelger = ({ bestillingsdata, heading }) => {
 					}
 
 					const velgAlle = type => {
-						const c = environments[type].filter(f => !isChecked(f.id)).map(a => a.id)
+						const c = filteredEnvironments[type].filter(f => !isChecked(f.id)).map(a => a.id)
 						const n = values.concat(c)
 						form.setFieldValue('environments', n)
 					}
@@ -43,12 +49,12 @@ export const MiljoVelger = ({ bestillingsdata, heading }) => {
 					const fjernAlle = type => {
 						form.setFieldValue(
 							'environments',
-							values.filter(id => !environments[type].map(a => a.id).includes(id))
+							values.filter(id => !filteredEnvironments[type].map(a => a.id).includes(id))
 						)
 					}
 
 					return order.map(type => {
-						const category = environments[type]
+						const category = filteredEnvironments[type]
 						if (!category) return null
 
 						const allDisabled = category.some(f => f.disabled)
@@ -75,8 +81,8 @@ export const MiljoVelger = ({ bestillingsdata, heading }) => {
 								</div>
 								{!allDisabled && (
 									<div className="miljo-velger_buttons">
-										<LinkButton text="Velg alle" onClick={e => velgAlle(type)} />
-										<LinkButton text="Fjern alle" onClick={e => fjernAlle(type)} />
+										<LinkButton text="Velg alle" onClick={() => velgAlle(type)} />
+										<LinkButton text="Fjern alle" onClick={() => fjernAlle(type)} />
 									</div>
 								)}
 							</fieldset>
