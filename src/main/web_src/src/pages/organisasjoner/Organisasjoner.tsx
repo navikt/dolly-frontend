@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { sokSelector } from '~/ducks/bestillingStatus'
 import Hjelpetekst from '~/components/hjelpetekst'
 import NavButton from '~/components/ui/button/NavButton/NavButton'
@@ -15,6 +15,7 @@ import { EnhetBestilling } from '~/components/fagsystem/organisasjoner/types'
 import _isEmpty from 'lodash/isEmpty'
 import { dollySlack } from '~/components/dollySlack/dollySlack'
 import TomOrgListe from './TomOrgliste'
+import { OrgforvalterApi } from '~/service/Api'
 
 type Organisasjoner = {
 	history: History

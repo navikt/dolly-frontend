@@ -13,6 +13,7 @@ type Detaljer = {
 }
 
 export const Detaljer = ({ data }: Detaljer) => {
+	console.log(data)
 	return (
 		<section className="person-visning">
 			<SubOverskrift label="Detaljer" iconKind="personinformasjon" />
