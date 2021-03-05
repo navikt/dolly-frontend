@@ -15,7 +15,6 @@ import { EnhetBestilling } from '~/components/fagsystem/organisasjoner/types'
 import _isEmpty from 'lodash/isEmpty'
 import { dollySlack } from '~/components/dollySlack/dollySlack'
 import TomOrgListe from './TomOrgliste'
-import { OrgforvalterApi } from '~/service/Api'
 
 type Organisasjoner = {
 	history: History

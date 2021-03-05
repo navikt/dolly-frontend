@@ -9,7 +9,7 @@ export const OrganisasjonMiljoeinfo = (props: { orgnummer: string }) => {
 	if (!props) return null
 
 	const state = useAsync(async () => {
-		return await OrgforvalterApi.getOrganisasjonerMiljoeInfo(props.orgnummer)
+		return OrgforvalterApi.getOrganisasjonerMiljoeInfo(props.orgnummer)
 	}, [])
 
 	return (
