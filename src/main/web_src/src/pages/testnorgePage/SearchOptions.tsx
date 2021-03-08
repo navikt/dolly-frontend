@@ -3,6 +3,7 @@ import { FormikSelect } from '~/components/ui/form/inputs/select/Select'
 import { FormikDatepicker } from '~/components/ui/form/inputs/datepicker/Datepicker'
 import { AdresseKodeverk } from '~/config/kodeverk'
 import { FormikTextInput } from '~/components/ui/form/inputs/textInput/TextInput'
+import { FormikCheckbox } from '~/components/ui/form/inputs/checbox/Checkbox'
 
 export default () => (
 	<>
@@ -48,6 +49,24 @@ export default () => (
 					{ value: 'GIFT', label: 'Gift' },
 					{ value: 'UGIFT', label: 'Ugift' }
 				]}
+			/>
+		</section>
+		<section>
+			<h3>Utflytting fra Norge</h3>
+			<FormikCheckbox
+				name="personinformasjon.utflytting.utfyttet"
+				label="Utflyttet"
+				checkboxMargin
+				size="medium"
+			/>
+		</section>
+		<section>
+			<h3>Innflytting til Norge</h3>
+			<FormikCheckbox
+				name="personinformasjon.innflytting.innflyttet"
+				label="Innflyttet"
+				checkboxMargin
+				size="medium"
 			/>
 		</section>
 		<section>

@@ -11,8 +11,15 @@ import { Person } from '~/service/services/personsearch/types'
 export default () => {
 	const [items, setItems] = useState<Person[]>([])
 	const [page, setPage] = useState(1)
-	const [pageSize] = useState(20)
+	const [pageSize] = useState(10)
 	const [numberOfItems, setNumberOfItems] = useState<number | null>(null)
+
+	const falseToNull = (value?: boolean) => {
+		if (value === false) {
+			return null
+		}
+		return value
+	}
 
 	const search = (page: number, values: any) =>
 		PersonSearch.search({
@@ -34,6 +41,12 @@ export default () => {
 			alder: {
 				fra: values?.personinformasjon?.alder?.fra,
 				til: values?.personinformasjon?.alder?.til
+			},
+			utflyttingFraNorge: {
+				utfyttet: falseToNull(values?.personinformasjon?.utflytting?.utfyttet)
+			},
+			innflyttingTilNorge: {
+				innflytting: falseToNull(values?.personinformasjon?.innflytting?.innflyttet)
 			},
 			tag: 'TESTNORGE'
 		}).then(response => {

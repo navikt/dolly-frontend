@@ -21,6 +21,7 @@ const Button = styled(NavButton)`
 
 const Options = styled.div`
 	overflow-y: scroll;
+	padding-left: 3px;
 	height: 700px;
 `
 

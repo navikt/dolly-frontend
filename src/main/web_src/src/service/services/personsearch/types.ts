@@ -21,6 +21,12 @@ export type Search = {
 		fra?: number
 		til?: number
 	}
+	utflyttingFraNorge?: {
+		utfyttet?: boolean
+	}
+	innflyttingTilNorge?: {
+		innflytting?: boolean
+	}
 }
 
 export type Person = {
@@ -39,5 +45,14 @@ export type Person = {
 	}
 	statsborgerskap?: {
 		land?: string
+	}
+	innfyttingTilNorge?: {
+		fraflyttingsland?: string
+		fraflyttingsstedIUtlandet?: string
+	}
+	utfyttingFraNorge?: {
+		tilflyttingsland?: string
+		tilflyttingsstedIUtlandet?: string
+		utflyttingsdato?: string
 	}
 }

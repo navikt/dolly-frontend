@@ -4,6 +4,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Person } from '~/service/services/personsearch/types'
 import Formatters from '~/utils/DataFormatter'
+import { AdresseKodeverk, GtKodeverk } from '~/config/kodeverk'
 
 type Props = {
 	person: Person
@@ -40,8 +41,48 @@ export default ({ person }: Props) => (
 		<section>
 			<SubOverskrift label="Nasjonalitet" iconKind="nasjonalitet" />
 			<Group>
-				<Title title="Statsborgerskap" value={person.statsborgerskap?.land} />
+				<TitleValue
+					title="Statsborgerskap"
+					value={person.statsborgerskap?.land}
+					kodeverk={GtKodeverk.LAND}
+				/>
 			</Group>
 		</section>
+		{!!person.innfyttingTilNorge ? (
+			<section>
+				<SubOverskrift label="Innfytting til Norge" />
+				<Group>
+					<TitleValue
+						title="Fraflyttingsland"
+						value={person.innfyttingTilNorge?.fraflyttingsland}
+						kodeverk={GtKodeverk.LAND}
+					/>
+					<Title
+						title="fraflyttingssted i utlandet"
+						value={person.innfyttingTilNorge?.fraflyttingsstedIUtlandet}
+					/>
+				</Group>
+			</section>
+		) : null}
+		{!!person.utfyttingFraNorge ? (
+			<section>
+				<SubOverskrift label="Utfytting fra Norge" />
+				<Group>
+					<TitleValue
+						title="Tilflyttingsland"
+						value={person.utfyttingFraNorge?.tilflyttingsland}
+						kodeverk={GtKodeverk.LAND}
+					/>
+					<Title
+						title="Tilflyttingsland i utlandet"
+						value={person.utfyttingFraNorge?.tilflyttingsstedIUtlandet}
+					/>
+					<Title
+						title="Utflyttingsdato"
+						value={Formatters.formatStringDates(person.utfyttingFraNorge?.utflyttingsdato)}
+					/>
+				</Group>
+			</section>
+		) : null}
 	</>
 )
