@@ -1,9 +1,9 @@
 import React from 'react'
 import * as Yup from 'yup'
-import { requiredString, ifPresent } from '~/utils/YupValidations'
+import { ifPresent, requiredString } from '~/utils/YupValidations'
 import { Detaljer } from './partials/Detaljer'
 import { Vis } from '~/components/bestillingsveileder/VisAttributt'
-import { organisasjonPaths, kontaktPaths, adressePaths } from './paths'
+import { adressePaths, kontaktPaths, organisasjonPaths } from './paths'
 import Panel from '~/components/ui/panel/Panel'
 import { erForste, panelError } from '~/components/ui/form/formUtils'
 import { FormikProps } from 'formik'
@@ -15,37 +15,32 @@ type OrganisasjonForm = {
 
 const detaljerPaths = [organisasjonPaths, kontaktPaths, adressePaths].flat()
 
-export const OrganisasjonForm = ({ formikBag }: OrganisasjonForm) => {
-	return (
-		<>
-			{/* @ts-ignore */}
-			<Vis attributt={detaljerPaths}>
-				<Panel
-					heading="Detaljer"
-					hasErrors={panelError(formikBag, detaljerPaths)}
-					iconType={'personinformasjon'}
-					// @ts-ignore
-					startOpen={() => erForste(formikBag.values, detaljerPaths)}
-				>
-					<Detaljer formikBag={formikBag} path="organisasjon" level={0} />
-				</Panel>
-			</Vis>
-		</>
-	)
-}
+export const OrganisasjonForm = ({ formikBag }: OrganisasjonForm) => (
+	<>
+		{/* @ts-ignore */}
+		<Vis attributt={detaljerPaths}>
+			<Panel
+				heading="Detaljer"
+				hasErrors={panelError(formikBag, detaljerPaths)}
+				iconType={'personinformasjon'}
+				// @ts-ignore
+				startOpen={() => erForste(formikBag.values, detaljerPaths)}
+			>
+				<Detaljer formikBag={formikBag} path="organisasjon" level={0} />
+			</Panel>
+		</Vis>
+	</>
+)
 
-const testSektorkode = (schema: any) => {
-	return schema.test(
-		'sektorkode',
-		'Juridisk enhet må ha sektorkode hvis valgt',
-		function harSektorkode(value: string) {
-			if (value === undefined || value !== '') return true
-			return this.createError({
-				message: 'Feltet er påkrevd'
-			})
-		}
-	)
-}
+const testSektorkode = (schema: any) =>
+	schema.test('sektorkode', 'Juridisk enhet må ha sektorkode hvis valgt', function harSektorkode(
+		value: string
+	) {
+		if (value === undefined || value !== '') return true
+		return this.createError({
+			message: 'Feltet er påkrevd'
+		})
+	})
 
 const adresse = Yup.object({
 	adresselinje: Yup.array().of(Yup.string()),

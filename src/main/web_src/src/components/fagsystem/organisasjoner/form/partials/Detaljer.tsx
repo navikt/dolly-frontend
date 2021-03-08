@@ -37,10 +37,10 @@ export const Detaljer = ({ formikBag, path, level, number, maaHaUnderenhet = tru
 	const sektorkodeErValgt = formikBag.values.organisasjon.hasOwnProperty('sektorkode')
 
 	useEffect(() => {
-		if (level === 0 && !_get(formikBag, `values.${path}.underenheter`)) {
+		if (level === 0) {
 			formikBag.setFieldValue(`${path}.underenheter`, [initialValues])
 		}
-	})
+	}, [])
 
 	const [typeUnderenhet, setTypeUnderenhet] = useState(
 		level === 0 ||
@@ -126,11 +126,8 @@ export const Detaljer = ({ formikBag, path, level, number, maaHaUnderenhet = tru
 					visHvisAvhuket
 				/>
 			</Kategori>
-
 			<Kontaktdata path={path} />
-
 			<Adresser formikBag={formikBag} path={path} />
-
 			<FormikDollyFieldArray
 				name={`${path}.underenheter`}
 				header="Underenhet"
