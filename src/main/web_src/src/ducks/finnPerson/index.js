@@ -18,6 +18,7 @@ export default handleActions(
 			if (action.payload.action !== 'REPLACE') return initialState
 		},
 		[onSuccess(navigerTilPerson)](state, action) {
+			console.log(action.payload.data) // TODO: slett meg!
 			state.visPerson = action.payload.data.identHovedperson
 		}
 	},
