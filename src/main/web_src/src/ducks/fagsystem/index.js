@@ -144,7 +144,7 @@ export default handleActions(
 			return initialState
 		},
 		[onSuccess(actions.getTpsf)](state, action) {
-			action.payload.data.forEach(ident => {
+			action.payload.data.contents.forEach(ident => {
 				state.tpsf[ident.ident] = ident
 			})
 		},
@@ -209,7 +209,7 @@ export default handleActions(
 export const fetchTpsfPersoner = () => (dispatch, getState) => {
 	const state = getState()
 	const identer = Object.keys(state.gruppe.ident)
-	if (identer && identer.length >= 1) dispatch(actions.getTpsf(identer))
+	if (identer && identer.length >= 1) dispatch(actions.getTpsf(identer, 0, 11))
 }
 
 /**
