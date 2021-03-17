@@ -55,11 +55,6 @@ export default function Gruppe({
 	const startBestilling = values =>
 		history.push(`/gruppe/${match.params.gruppeId}/bestilling`, values)
 
-	const searchfieldPlaceholderSelector = () => {
-		if (visning === VISNING_BESTILLING) return 'Søk i bestillinger'
-		return 'Søk etter personer'
-	}
-
 	const erLaast = gruppe.erLaast
 
 	return (

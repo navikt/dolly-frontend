@@ -64,7 +64,6 @@ export default function FinnPerson({ naviger }: FinnPerson) {
 
 	const navigerTilIdent = async (ident: string) => {
 		naviger(ident).then((response: Respons) => {
-			console.log(response) // TODO: slett meg!
 			if (response.value.data.error) {
 				setFeilmelding(response.value.data.message)
 			} else {
@@ -88,7 +87,7 @@ export default function FinnPerson({ naviger }: FinnPerson) {
 					onChange={(e: Option) => (e ? navigerTilIdent(e.value) : null)}
 					cacheOptions={true}
 					label="Person"
-					placeholder="FNR/DNR/BOST eller navn"
+					placeholder="Navn eller FNR/DNR/BOST"
 				/>
 			</div>
 			{feilmelding && (

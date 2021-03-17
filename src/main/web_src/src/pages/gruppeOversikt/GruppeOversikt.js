@@ -39,10 +39,6 @@ export default function GruppeOversikt({
 
 	const items = visning === 'mine' ? gruppeListe.filter(v => mineIds.includes(v.id)) : gruppeListe
 
-	console.log(sideStoerrelse) // TODO: slett meg!
-	console.log(gruppeInfo) // TODO: slett meg!
-	console.log(items) // TODO: slett meg!
-
 	return (
 		<div className="oversikt-container">
 			<div className="toolbar">

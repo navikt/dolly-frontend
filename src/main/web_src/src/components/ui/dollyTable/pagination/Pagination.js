@@ -30,8 +30,6 @@ export default class Pagination extends Component {
 			: this.props.items.length
 		const renderPagination = itemCount > this.state.pageSize
 
-		console.log(this.props.gruppeDetaljer) // TODO: slett meg!
-
 		const paginationComponent = (
 			<div className="pagination-wrapper">
 				<ItemCountSelect value={this.state.pageSize} onChangeHandler={this._itemCountHandler} />
