@@ -40,7 +40,11 @@ export default function Gruppe({
 
 	if (isFetching) return <Loading label="Laster personer" panel />
 
-	if (!gruppe) return null
+	if (!gruppe) {
+		getGruppe()
+		getBestillinger()
+		return null
+	}
 
 	const byttVisning = event => setVisning(event.target.value)
 
@@ -96,7 +100,6 @@ export default function Gruppe({
 					</ToggleKnapp>
 				</ToggleGruppe>
 
-				{/*<SearchField placeholder={searchfieldPlaceholderSelector()} />*/}
 				<FinnPerson naviger={navigerTilPerson} />
 			</div>
 
