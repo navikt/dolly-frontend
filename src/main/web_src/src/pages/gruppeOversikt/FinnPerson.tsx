@@ -9,7 +9,6 @@ import { TpsfApi } from '~/service/Api'
 import useBoolean from '~/utils/hooks/useBoolean'
 import React, { useState } from 'react'
 import { Redirect } from 'react-router-dom'
-import { TextInput } from '~/components/ui/form/inputs/textInput/TextInput'
 import Icon from '~/components/ui/icon/Icon'
 
 type FinnPerson = {
@@ -77,7 +76,7 @@ export default function FinnPerson({ naviger }: FinnPerson) {
 		})
 	}
 
-	const DropdownIndicator = props => {
+	const DropdownIndicator = (props: JSX.IntrinsicAttributes) => {
 		return (
 			<components.DropdownIndicator {...props}>
 				<Icon kind={'search'} size={20} />
@@ -95,6 +94,7 @@ export default function FinnPerson({ naviger }: FinnPerson) {
 					loadOptions={fetchOptions}
 					onInputChange={handleChange}
 					components={{
+						// @ts-ignore
 						IndicatorSeparator() {
 							return null
 						},
