@@ -5,10 +5,9 @@ const getTpsfUrl = () => `${config.services.proxyBackend}/tpsf`
 const getKontaktinfoUrl = () => `${config.services.proxyBackend}/kontaktinfo`
 
 export default {
-	getPersoner(userArray, pageNo, pageSize) {
+	getPersoner(userArray) {
 		if (!userArray) return
-		const endpoint =
-			getTpsfUrl() + `/dolly/testdata/hentpersoner/page/${pageNo}?pageSize=${pageSize}`
+		const endpoint = getTpsfUrl() + `/dolly/testdata/hentpersoner`
 
 		// Må bruke post-request pga maxString-limit på en GET-request
 		return Request.post(endpoint, userArray)

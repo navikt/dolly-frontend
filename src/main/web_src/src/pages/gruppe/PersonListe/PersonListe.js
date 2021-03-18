@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Tooltip from 'rc-tooltip'
-import { useMount } from 'react-use'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import 'rc-tooltip/assets/bootstrap.css'
 import DollyTable from '~/components/ui/dollyTable/DollyTable'
@@ -26,15 +25,19 @@ const ikonTypeMap = {
 export default function PersonListe({
 	isFetching,
 	personListe,
-	searchActive,
+	antallIdenter,
 	visPerson,
 	iLaastGruppe,
 	fetchTpsfPersoner
 }) {
-	useMount(fetchTpsfPersoner)
-
 	const [isKommentarModalOpen, openKommentarModal, closeKommentarModal] = useBoolean(false)
 	const [selectedIdent, setSelectedIdent] = useState(null)
+	const [sidetall, setSidetall] = useState(0)
+	const [sideStoerrelse, setSideStoerrelse] = useState(10)
+
+	useEffect(() => {
+		fetchTpsfPersoner(sidetall, sideStoerrelse)
+	}, [sidetall, sideStoerrelse])
 
 	if (isFetching) return <Loading label="laster personer" panel />
 
@@ -44,10 +47,6 @@ export default function PersonListe({
 				Trykk på opprett personer-knappen for å starte en bestilling.
 			</ContentContainer>
 		)
-
-	if (personListe.length <= 0 && searchActive) {
-		return <ContentContainer>Søket gav ingen resultater.</ContentContainer>
-	}
 
 	const getKommentarTekst = tekst => {
 		const beskrivelse = tekst.length > 170 ? tekst.substring(0, 170) + '...' : tekst
@@ -59,8 +58,7 @@ export default function PersonListe({
 	}
 
 	const personIndex = personListe.findIndex(person => person.identNr === visPerson)
-	const personerPrSide = 10
-	const visSide = personIndex >= 0 ? Math.floor(personIndex / personerPrSide) : 0
+	const visSide = personIndex >= 0 ? Math.floor(personIndex / sideStoerrelse) : 0
 
 	const columns = [
 		{
@@ -177,9 +175,12 @@ export default function PersonListe({
 			<DollyTable
 				data={personListe}
 				columns={columns}
+				gruppeDetaljer={{ antallElementer: antallIdenter }}
 				pagination
 				iconItem={bruker => (bruker.kjonn === 'MANN' ? <ManIconItem /> : <WomanIconItem />)}
 				visSide={visSide}
+				setSidetall={setSidetall}
+				setSideStoerrelse={setSideStoerrelse}
 				visPerson={visPerson}
 				onExpand={bruker => (
 					<PersonVisningConnector

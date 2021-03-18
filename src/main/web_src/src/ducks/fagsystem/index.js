@@ -144,7 +144,7 @@ export default handleActions(
 			return initialState
 		},
 		[onSuccess(actions.getTpsf)](state, action) {
-			action.payload.data.contents.forEach(ident => {
+			action.payload.data.forEach(ident => {
 				state.tpsf[ident.ident] = ident
 			})
 		},
@@ -206,10 +206,12 @@ export default handleActions(
 )
 
 // Thunk
-export const fetchTpsfPersoner = () => (dispatch, getState) => {
+export const fetchTpsfPersoner = (pageNo, pageSize) => (dispatch, getState) => {
+	const no = pageNo ? pageNo : 0
+	const pz = pageSize ? pageSize : 10
 	const state = getState()
 	const identer = Object.keys(state.gruppe.ident)
-	if (identer && identer.length >= 1) dispatch(actions.getTpsf(identer, 0, 11))
+	if (identer && identer.length >= 1) dispatch(actions.getTpsf(identer.slice(no * pz, pz)))
 }
 
 /**
