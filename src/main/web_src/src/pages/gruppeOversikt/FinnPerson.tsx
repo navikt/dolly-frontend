@@ -3,10 +3,14 @@ import { AsyncFn } from 'react-use/lib/useAsync'
 import { useAsyncFn } from 'react-use'
 // @ts-ignore
 import AsyncSelect from 'react-select/async'
+// @ts-ignore
+import { components } from 'react-select'
 import { TpsfApi } from '~/service/Api'
 import useBoolean from '~/utils/hooks/useBoolean'
 import React, { useState } from 'react'
 import { Redirect } from 'react-router-dom'
+import { TextInput } from '~/components/ui/form/inputs/textInput/TextInput'
+import Icon from '~/components/ui/icon/Icon'
 
 type FinnPerson = {
 	naviger: Function
@@ -73,6 +77,14 @@ export default function FinnPerson({ naviger }: FinnPerson) {
 		})
 	}
 
+	const DropdownIndicator = props => {
+		return (
+			<components.DropdownIndicator {...props}>
+				<Icon kind={'search'} size={20} />
+			</components.DropdownIndicator>
+		)
+	}
+
 	if (redirectToGruppe) return <Redirect to={`/gruppe/${gruppe}`} />
 
 	return (
@@ -82,12 +94,18 @@ export default function FinnPerson({ naviger }: FinnPerson) {
 					defaultOptions={false}
 					loadOptions={fetchOptions}
 					onInputChange={handleChange}
+					components={{
+						IndicatorSeparator() {
+							return null
+						},
+						DropdownIndicator
+					}}
 					isClearable={true}
 					options={options}
 					onChange={(e: Option) => (e ? navigerTilIdent(e.value) : null)}
 					cacheOptions={true}
 					label="Person"
-					placeholder="Navn eller FNR/DNR/BOST"
+					placeholder="Søk etter navn eller FNR/DNR/BOST"
 				/>
 			</div>
 			{feilmelding && (

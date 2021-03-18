@@ -25,8 +25,8 @@ export default class Pagination extends Component {
 
 		const startIndex = this._calculateStartIndex() + 1
 		const lastIndex = this._calculateStartIndex() + this.state.pageSize
-		const itemCount = this.props.gruppeDetaljer?.antallGrupper
-			? this.props.gruppeDetaljer.antallGrupper
+		const itemCount = this.props.gruppeDetaljer?.antallElementer
+			? this.props.gruppeDetaljer.antallElementer
 			: this.props.items.length
 		const renderPagination = itemCount > this.state.pageSize
 
@@ -78,14 +78,14 @@ export default class Pagination extends Component {
 		if (this.props.gruppeDetaljer?.antallPages) {
 			return this.props.gruppeDetaljer.antallPages
 		}
-		const antallElementer = this.props.gruppeDetaljer?.antallGrupper
-			? this.props.gruppeDetaljer.antallGrupper
+		const antallElementer = this.props.gruppeDetaljer?.antallElementer
+			? this.props.gruppeDetaljer.antallElementer
 			: this.props.items.length
 		return Math.ceil(antallElementer / this.state.pageSize)
 	}
 
 	_calculateItemsToRender = () => {
-		if (this.props.gruppeDetaljer?.antallGrupper) {
+		if (this.props.gruppeDetaljer?.antallElementer) {
 			return this.props.items.slice(0, this.state.pageSize)
 		}
 		const startIndex = this._calculateStartIndex()
