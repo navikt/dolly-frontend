@@ -84,7 +84,10 @@ export default function FinnPerson({ naviger }: FinnPerson) {
 		)
 	}
 
-	if (redirectToGruppe) return <Redirect to={`/gruppe/${gruppe}`} />
+	const redirectUrl = window.location.pathname.includes(`/${gruppe}/`)
+		? `/gruppe/${gruppe}`
+		: `/gruppe/${gruppe}/`
+	if (redirectToGruppe) return <Redirect to={redirectUrl} />
 
 	return (
 		<div>
