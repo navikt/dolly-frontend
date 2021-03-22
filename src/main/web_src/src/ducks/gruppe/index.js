@@ -11,6 +11,7 @@ import { handleActions } from '~/ducks/utils/immerHandleActions'
 export const actions = createActions(
 	{
 		getById: DollyApi.getGruppeById,
+		getByIdPaginert: DollyApi.getGruppeByIdPaginert,
 		getAlle: DollyApi.getGrupperPaginert,
 		getByUserId: DollyApi.getGruppeByUserId,
 		create: DollyApi.createGruppe,

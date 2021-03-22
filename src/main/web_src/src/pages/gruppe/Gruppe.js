@@ -34,14 +34,14 @@ export default function Gruppe({
 	const [visning, setVisning] = useState(VISNING_PERSONER)
 	const [startBestillingAktiv, visStartBestilling, skjulStartBestilling] = useBoolean(false)
 	useMount(() => {
-		getGruppe()
+		getGruppe(0, 5)
 		getBestillinger()
 	})
 
 	if (isFetching) return <Loading label="Laster personer" panel />
 
 	if (!gruppe) {
-		getGruppe()
+		getGruppe(0, 5)
 		getBestillinger()
 		return null
 	}
