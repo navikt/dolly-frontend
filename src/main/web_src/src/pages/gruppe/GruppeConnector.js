@@ -5,7 +5,7 @@ import { navigerTilPerson } from '~/ducks/finnPerson'
 import { createLoadingSelector } from '~/ducks/loading'
 import Gruppe from './Gruppe'
 
-const loadingSelector = createLoadingSelector([actions.getByIdPaginert, getBestillinger])
+const loadingSelector = createLoadingSelector([actions.getById, getBestillinger])
 const loadingSelectorSlettGruppe = createLoadingSelector(actions.remove)
 const loadingSelectorLaasGruppe = createLoadingSelector(actions.laas)
 
@@ -22,7 +22,7 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch, ownProps) => {
 	const { gruppeId } = ownProps.match.params
 	return {
-		getGruppe: (pageNo, pageSize) => dispatch(actions.getByIdPaginert(gruppeId, pageNo, pageSize)),
+		getGruppe: (pageNo, pageSize) => dispatch(actions.getById(gruppeId)),
 		navigerTilPerson: ident => dispatch(navigerTilPerson(ident)),
 		deleteGruppe: () => dispatch(actions.remove(gruppeId)),
 		laasGruppe: () =>
