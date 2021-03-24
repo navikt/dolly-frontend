@@ -165,12 +165,11 @@ export const sivilstander = Yup.array().of(
 					// Da vi skal validere mot "forrige forhold" trenger vi ikke sjekke første
 					if (partnerIdx === 0 && sivilstandIdx === 0) return true
 
-					const getSivilstandRegdato = (pIdx, sIdx) => {
-						return _get(
+					const getSivilstandRegdato = (pIdx, sIdx) =>
+						_get(
 							values.tpsf.relasjoner.partnere,
 							`[${pIdx}].sivilstander[${sIdx}].sivilstandRegdato`
 						)
-					}
 
 					const sisteDato = _get(values.tpsf, 'sisteForholdDato')
 					let prevDato
@@ -181,7 +180,7 @@ export const sivilstander = Yup.array().of(
 							values.tpsf.relasjoner.partnere,
 							`[${partnerIdx - 1}].sivilstander`
 						)
-						prevDato = getSivilstandRegdato(partnerIdx - 1, prevPartnerSivilstandArr.length)
+						prevDato = getSivilstandRegdato(partnerIdx - 1, prevPartnerSivilstandArr.length - 1)
 					}
 					if (!prevDato) {
 						prevDato = sisteDato
