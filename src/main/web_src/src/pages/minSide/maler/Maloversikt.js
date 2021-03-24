@@ -78,7 +78,7 @@ export default ({ brukerId }) => {
 			<hr />
 			<div className="flexbox--space">
 				<h2>Mine maler</h2>
-				<SearchField placeholder={'Søk etter mal'} />
+				<SearchField placeholder={'Søk etter mal'} text={searchText} setText={setSearchText} />
 			</div>
 			{maler.length > 0 ? (
 				malerFiltrert(maler, searchText).length > 0 ? (
