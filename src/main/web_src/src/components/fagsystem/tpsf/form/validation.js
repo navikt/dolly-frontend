@@ -198,7 +198,7 @@ export const sivilstander = Yup.array().of(
 					}
 
 					// Selve testen
-					const dateValid = isAfter(new Date(dato), addDays(new Date(prevDato), 1))
+					const dateValid = isAfter(new Date(dato), addDays(new Date(prevDato), 2))
 					return (
 						dateValid ||
 						this.createError({
