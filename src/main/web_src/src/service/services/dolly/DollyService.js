@@ -12,8 +12,7 @@ export default {
 	},
 
 	getGruppeByIdPaginert(gruppeId, pageNo, pageSize) {
-		// return Request.get(Endpoints.gruppeByIdPaginert(gruppeId, pageNo, pageSize)) TODO: Endre tilbake
-		return Request.get(Endpoints.gruppeById(gruppeId))
+		return Request.get(Endpoints.gruppeByIdPaginert(gruppeId, pageNo, pageSize))
 	},
 
 	getGruppeById(gruppeId) {
