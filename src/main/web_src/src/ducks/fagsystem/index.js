@@ -211,6 +211,7 @@ export const fetchTpsfPersoner = (pageNo, pageSize) => (dispatch, getState) => {
 	const pz = pageSize ? pageSize : 10
 	const state = getState()
 	const identer = Object.keys(state.gruppe.ident)
+	console.log(identer) // TODO: slett meg!
 	if (identer && identer.length >= 1) dispatch(actions.getTpsf(identer.slice(no * pz, pz)))
 }
 
@@ -337,6 +338,8 @@ const hentPersonStatus = (ident, bestillingStatus) => {
 
 export const selectPersonListe = state => {
 	const { gruppe, fagsystem } = state
+	console.log(gruppe) // TODO: slett meg!
+	console.log(fagsystem) // TODO: slett meg!
 
 	if (_isEmpty(fagsystem.tpsf)) return null
 
@@ -345,6 +348,8 @@ export const selectPersonListe = state => {
 		.filter(gruppeIdent => gruppeIdent.bestillingId != null && gruppeIdent.bestillingId.length > 0)
 		.sort((a, b) => _last(b.bestillingId) - _last(a.bestillingId))
 		.filter(gruppeIdent => Object.keys(fagsystem.tpsf).includes(gruppeIdent.ident))
+
+	console.log(identer) // TODO: slett meg!
 
 	return identer
 		.filter(

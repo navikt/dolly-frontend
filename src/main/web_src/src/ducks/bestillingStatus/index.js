@@ -79,6 +79,7 @@ export const getBestillingById = (state, id) => state.bestillingStatuser.byId[id
 export const getBestillingsListe = (state, IDer) => {
 	const bestillingsListe = []
 	for (let i = 0; i < IDer.length; i++) {
+		console.log(state.bestillingStatuser) // TODO: slett meg!
 		const bestilling = {
 			data: state.bestillingStatuser.byId[IDer[i]].bestilling,
 			id: IDer[i],

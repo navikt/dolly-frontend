@@ -25,15 +25,17 @@ const ikonTypeMap = {
 export default function PersonListe({
 	isFetching,
 	personListe,
-	antallIdenter,
+	gruppeInfo,
+	sidetall,
+	setSidetall,
+	sideStoerrelse,
+	setSideStoerrelse,
 	visPerson,
 	iLaastGruppe,
 	fetchTpsfPersoner
 }) {
 	const [isKommentarModalOpen, openKommentarModal, closeKommentarModal] = useBoolean(false)
 	const [selectedIdent, setSelectedIdent] = useState(null)
-	const [sidetall, setSidetall] = useState(0)
-	const [sideStoerrelse, setSideStoerrelse] = useState(10)
 
 	useEffect(() => {
 		fetchTpsfPersoner(sidetall, sideStoerrelse)
@@ -41,6 +43,7 @@ export default function PersonListe({
 
 	if (isFetching) return <Loading label="laster personer" panel />
 
+	console.log(personListe) // TODO: slett meg!
 	if (!personListe || personListe.length === 0)
 		return (
 			<ContentContainer>
@@ -56,9 +59,6 @@ export default function PersonListe({
 			</div>
 		)
 	}
-
-	const personIndex = personListe.findIndex(person => person.identNr === visPerson)
-	const visSide = personIndex >= 0 ? Math.floor(personIndex / sideStoerrelse) : 0
 
 	const columns = [
 		{
@@ -175,10 +175,14 @@ export default function PersonListe({
 			<DollyTable
 				data={personListe}
 				columns={columns}
-				gruppeDetaljer={{ antallElementer: antallIdenter }}
+				gruppeDetaljer={{
+					antallElementer: gruppeInfo.antallIdenter,
+					pageSize: sideStoerrelse,
+					jaja: Math.random()
+				}}
 				pagination
 				iconItem={bruker => (bruker.kjonn === 'MANN' ? <ManIconItem /> : <WomanIconItem />)}
-				visSide={visSide}
+				visSide={sidetall}
 				setSidetall={setSidetall}
 				setSideStoerrelse={setSideStoerrelse}
 				visPerson={visPerson}

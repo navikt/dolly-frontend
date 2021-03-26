@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { useMount } from 'react-use'
+import React, { useEffect, useState } from 'react'
 import useBoolean from '~/utils/hooks/useBoolean'
 import StatusListeConnector from '~/components/bestilling/statusListe/StatusListeConnector'
 import Loading from '~/components/ui/loading/Loading'
@@ -33,15 +32,17 @@ export default function Gruppe({
 }) {
 	const [visning, setVisning] = useState(VISNING_PERSONER)
 	const [startBestillingAktiv, visStartBestilling, skjulStartBestilling] = useBoolean(false)
-	useMount(() => {
-		getGruppe(0, 5)
+	const [sidetall, setSidetall] = useState(0)
+	const [sideStoerrelse, setSideStoerrelse] = useState(10)
+	useEffect(() => {
+		getGruppe(sidetall, sideStoerrelse)
 		getBestillinger()
-	})
+	}, [sidetall, sideStoerrelse])
 
 	if (isFetching) return <Loading label="Laster personer" panel />
 
 	if (!gruppe) {
-		getGruppe(0, 5)
+		getGruppe(sidetall, sideStoerrelse)
 		getBestillinger()
 		return null
 	}
@@ -106,7 +107,15 @@ export default function Gruppe({
 				/>
 			)}
 
-			{visning === VISNING_PERSONER && <PersonListeConnector iLaastGruppe={erLaast} />}
+			{visning === VISNING_PERSONER && (
+				<PersonListeConnector
+					iLaastGruppe={erLaast}
+					sidetall={sidetall}
+					sideStoerrelse={sideStoerrelse}
+					setSidetall={setSidetall}
+					setSideStoerrelse={setSideStoerrelse}
+				/>
+			)}
 			{visning === VISNING_BESTILLING && <BestillingListeConnector iLaastGruppe={erLaast} />}
 		</div>
 	)

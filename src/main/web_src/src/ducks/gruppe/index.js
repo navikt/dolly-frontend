@@ -46,6 +46,7 @@ export default handleActions(
 		},
 		[onSuccess(actions.getById)](state, action) {
 			const gruppe = action.payload.data
+			state.gruppeInfo = action.payload.data
 			state.ident = gruppe.identer.reduce((acc, curr) => {
 				acc[curr.ident] = { ...curr, gruppeId: gruppe.id }
 				return acc
