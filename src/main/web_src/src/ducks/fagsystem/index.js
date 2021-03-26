@@ -206,13 +206,11 @@ export default handleActions(
 )
 
 // Thunk
-export const fetchTpsfPersoner = (pageNo, pageSize) => (dispatch, getState) => {
-	const no = pageNo ? pageNo : 0
-	const pz = pageSize ? pageSize : 10
+export const fetchTpsfPersoner = () => (dispatch, getState) => {
 	const state = getState()
 	const identer = Object.keys(state.gruppe.ident)
 	console.log(identer) // TODO: slett meg!
-	if (identer && identer.length >= 1) dispatch(actions.getTpsf(identer.slice(no * pz, pz)))
+	if (identer && identer.length >= 1) dispatch(actions.getTpsf(identer))
 }
 
 /**
