@@ -53,6 +53,7 @@ const InntektStub = ({ formikBag, inntektPath }) => {
 			formikBag.setFieldValue(inntektPath, nullstiltInntekt)
 		} else {
 			for (const [key, value] of Object.entries(values)) {
+				console.log(value) // TODO: slett meg!
 				if (key === 'tilleggsinformasjonstype') {
 					if (value === null) {
 						formikBag.setFieldValue(`${inntektPath}.tilleggsinformasjon`, undefined)
@@ -83,6 +84,7 @@ const InntektStub = ({ formikBag, inntektPath }) => {
 		<Formik
 			initialValues={inntektValues.inntektstype !== '' ? inntektValues : {}}
 			onSubmit={(values, { resetForm }) => {
+				console.log(values) // TODO: slett meg!
 				if (currentInntektstype && values.inntektstype !== currentInntektstype) {
 					resetForm({ values: { inntektstype: values.inntektstype } })
 					values = { inntektstype: values.inntektstype }
@@ -95,16 +97,19 @@ const InntektStub = ({ formikBag, inntektPath }) => {
 				api.validate(values).then(response => setFields(response))
 				setFormikBag(values)
 			}}
-			component={({ handleSubmit }) => (
-				<div>
-					<Inntekt
-						fields={fields}
-						onValidate={handleSubmit}
-						formikBag={formikBag}
-						path={inntektPath}
-					/>
-				</div>
-			)}
+			component={({ handleSubmit }) => {
+				console.log(fields) // TODO: slett meg!
+				return (
+					<div>
+						<Inntekt
+							fields={fields}
+							onValidate={handleSubmit}
+							formikBag={formikBag}
+							path={inntektPath}
+						/>
+					</div>
+				)
+			}}
 		/>
 	)
 }

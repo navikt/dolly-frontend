@@ -74,14 +74,14 @@ const fieldReslover = (field, options = [], handleChange, values, path, index) =
 				visHvisAvhuket={false}
 				name={field}
 				label={texts(field)}
-				onBlur={handleChange}
+				// onBlur={handleChange}
+				onKeyUp={handleChange}
 				size={numberFields.includes(field) ? 'medium' : 'large'}
 				feil={sjekkFelt(field, options, values, path)}
 				type={numberFields.includes(field) ? 'number' : 'text'}
 			/>
 		)
 	}
-
 	return (
 		<FormikSelect
 			key={index}
@@ -109,6 +109,7 @@ const Inntekt = ({ fields = {}, onValidate, formikBag, path }) => (
 			path
 		)}
 
+		{console.log(Object.keys(fields))}
 		{Object.keys(fields)
 			.filter(field => !(fields[field].length === 1 && fields[field][0] === '<TOM>'))
 			.map(field =>
