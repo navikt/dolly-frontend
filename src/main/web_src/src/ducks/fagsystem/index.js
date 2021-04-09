@@ -206,10 +206,21 @@ export default handleActions(
 )
 
 // Thunk
-export const fetchTpsfPersoner = () => (dispatch, getState) => {
+export const fetchTpsfPersoner = (pageNo, pageSize) => async (dispatch, getState) => {
 	const state = getState()
-	const identer = Object.keys(state.gruppe.ident)
+	console.log(state) // TODO: slett meg!
+	// const identer = Object.keys(state.gruppe.ident)
+	const gruppeId = state.gruppe.gruppeInfo.id
+
+	const identer = await DollyApi.getGruppeByIdPaginert(gruppeId, pageNo, pageSize).then(
+		response => {
+			let items = []
+			response.data?.identer.forEach(person => items.push(person.ident))
+			return items
+		}
+	)
 	console.log(identer) // TODO: slett meg!
+
 	if (identer && identer.length >= 1) dispatch(actions.getTpsf(identer))
 }
 
@@ -334,14 +345,23 @@ const hentPersonStatus = (ident, bestillingStatus) => {
 	return totalStatus
 }
 
-export const selectPersonListe = state => {
+export const selectPersonListe = async state => {
 	const { gruppe, fagsystem } = state
-	console.log(gruppe) // TODO: slett meg!
-	console.log(fagsystem) // TODO: slett meg!
 
 	if (_isEmpty(fagsystem.tpsf)) return null
 
+	console.log(fagsystem.tpsf) // TODO: slett meg!
+	console.log(gruppe.ident) // TODO: slett meg!
+
 	// Sortert etter bestillingsId
+
+	const identerr = await DollyApi.getGruppeByIdPaginert(95, 1, 10).then(response => {
+		let items = []
+		response.data?.identer.forEach(person => items.push(person.ident))
+		return items
+	})
+	console.log(identerr) // TODO: slett meg!
+
 	const identer = Object.values(gruppe.ident)
 		.filter(gruppeIdent => gruppeIdent.bestillingId != null && gruppeIdent.bestillingId.length > 0)
 		.sort((a, b) => _last(b.bestillingId) - _last(a.bestillingId))

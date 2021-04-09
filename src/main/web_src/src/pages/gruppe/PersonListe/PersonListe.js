@@ -43,7 +43,6 @@ export default function PersonListe({
 
 	if (isFetching) return <Loading label="laster personer" panel />
 
-	console.log(personListe) // TODO: slett meg!
 	if (!personListe || personListe.length === 0)
 		return (
 			<ContentContainer>

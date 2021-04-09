@@ -34,6 +34,7 @@ export default function Gruppe({
 	const [startBestillingAktiv, visStartBestilling, skjulStartBestilling] = useBoolean(false)
 	const [sidetall, setSidetall] = useState(0)
 	const [sideStoerrelse, setSideStoerrelse] = useState(10)
+
 	useEffect(() => {
 		getGruppe(sidetall, sideStoerrelse)
 		getBestillinger()
@@ -42,8 +43,6 @@ export default function Gruppe({
 	if (isFetching) return <Loading label="Laster personer" panel />
 
 	if (!gruppe) {
-		getGruppe(sidetall, sideStoerrelse)
-		getBestillinger()
 		return null
 	}
 
