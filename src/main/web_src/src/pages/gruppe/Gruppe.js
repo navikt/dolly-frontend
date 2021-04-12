@@ -38,7 +38,7 @@ export default function Gruppe({
 	useEffect(() => {
 		getGruppe(sidetall, sideStoerrelse)
 		getBestillinger()
-	}, [sidetall, sideStoerrelse])
+	}, [])
 
 	if (isFetching) return <Loading label="Laster personer" panel />
 

@@ -212,16 +212,13 @@ export const fetchTpsfPersoner = (pageNo, pageSize) => async (dispatch, getState
 	// const identer = Object.keys(state.gruppe.ident)
 	const gruppeId = state.gruppe.gruppeInfo.id
 
-	const identer = await DollyApi.getGruppeByIdPaginert(gruppeId, pageNo, pageSize).then(
-		response => {
-			let items = []
-			response.data?.identer.forEach(person => items.push(person.ident))
-			return items
-		}
-	)
-	console.log(identer) // TODO: slett meg!
+	const gruppe = await DollyApi.getGruppeByIdPaginert(gruppeId, pageNo, pageSize)
+	console.log(gruppe) // TODO: slett meg!
 
-	if (identer && identer.length >= 1) dispatch(actions.getTpsf(identer))
+	let identListe = []
+	gruppe?.data?.identer?.forEach(person => identListe.push(person.ident))
+
+	if (identListe && identListe.length >= 1) dispatch(actions.getTpsf(identListe))
 }
 
 /**
@@ -350,24 +347,16 @@ export const selectPersonListe = async state => {
 
 	if (_isEmpty(fagsystem.tpsf)) return null
 
-	console.log(fagsystem.tpsf) // TODO: slett meg!
-	console.log(gruppe.ident) // TODO: slett meg!
+	console.log(state) // TODO: slett meg!
 
 	// Sortert etter bestillingsId
 
-	const identerr = await DollyApi.getGruppeByIdPaginert(95, 1, 10).then(response => {
-		let items = []
-		response.data?.identer.forEach(person => items.push(person.ident))
-		return items
-	})
-	console.log(identerr) // TODO: slett meg!
+	const gruppePaginert = await DollyApi.getGruppeByIdPaginert(gruppe.gruppeInfo.id, 0, 10)
 
-	const identer = Object.values(gruppe.ident)
+	const identer = Object.values(gruppePaginert.data.identer)
 		.filter(gruppeIdent => gruppeIdent.bestillingId != null && gruppeIdent.bestillingId.length > 0)
 		.sort((a, b) => _last(b.bestillingId) - _last(a.bestillingId))
 		.filter(gruppeIdent => Object.keys(fagsystem.tpsf).includes(gruppeIdent.ident))
-
-	console.log(identer) // TODO: slett meg!
 
 	return identer
 		.filter(
@@ -377,7 +366,6 @@ export const selectPersonListe = async state => {
 		)
 		.map(ident => {
 			const tpsfIdent = fagsystem.tpsf[ident.ident]
-
 			const mellomnavn = tpsfIdent.mellomnavn ? `${tpsfIdent.mellomnavn.charAt(0)}.` : ''
 
 			return {

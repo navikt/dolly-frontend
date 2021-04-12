@@ -21,6 +21,7 @@ export default class Pagination extends Component {
 
 	render() {
 		console.log(this.props.items) // TODO: slett meg!
+		if (!this.props.items) return null
 
 		const pageCount = this._calculatePageCount()
 		const itemsToRender = this._calculateItemsToRender()
