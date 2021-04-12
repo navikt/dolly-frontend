@@ -21,7 +21,6 @@ import { selectIdentById } from '~/ducks/gruppe'
 import { getBestillingById, successMiljoSelector } from '~/ducks/bestillingStatus'
 import { handleActions } from '~/ducks/utils/immerHandleActions'
 import Formatters from '~/utils/DataFormatter'
-import { useState } from 'react'
 
 export const actions = createActions(
 	{
@@ -139,8 +138,6 @@ const initialState = {
 	brregstub: {}
 }
 
-const [pageNum, setPageNum] = useState(null)
-
 export default handleActions(
 	{
 		[LOCATION_CHANGE](state, action) {
@@ -212,10 +209,7 @@ export default handleActions(
 export const fetchTpsfPersoner = (pageNo, pageSize) => async (dispatch, getState) => {
 	const state = getState()
 
-	console.log(setPageNum(pageNo)) // TODO: slett meg!
 	console.log(state) // TODO: slett meg!
-	// state.gruppe.gruppeInfo.pageNo = pageNo
-	console.log(pageNum) // TODO: slett meg!
 	// state.gruppe.gruppeInfo.pageSize = pageSize
 
 	// const identer = Object.keys(state.gruppe.ident)
@@ -351,19 +345,22 @@ const hentPersonStatus = (ident, bestillingStatus) => {
 	return totalStatus
 }
 
-export const selectPersonListe = async state => {
+export const selectPersonListe = (pageNo, pageSize) => async state => {
 	const { gruppe, fagsystem } = state
 
 	if (_isEmpty(fagsystem.tpsf)) return null
 
 	console.log(state) // TODO: slett meg!
-	console.log(fagsystem.gruppeInfo) // TODO: slett meg!
 
 	// Sortert etter bestillingsId
 
-	const gruppePaginert = await DollyApi.getGruppeByIdPaginert(gruppe.gruppeInfo.id, pageNo, 10)
+	const gruppePaginert = await DollyApi.getGruppeByIdPaginert(
+		gruppe.gruppeInfo.id,
+		pageNo,
+		pageSize
+	)
 
-	const identer = Object.values(gruppePaginert.data.identer)
+	const identer = Object.values(gruppe.ident)
 		.filter(gruppeIdent => gruppeIdent.bestillingId != null && gruppeIdent.bestillingId.length > 0)
 		.sort((a, b) => _last(b.bestillingId) - _last(a.bestillingId))
 		.filter(gruppeIdent => Object.keys(fagsystem.tpsf).includes(gruppeIdent.ident))

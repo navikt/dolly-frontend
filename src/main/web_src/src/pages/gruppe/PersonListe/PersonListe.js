@@ -44,7 +44,7 @@ export default function PersonListe({
 
 	if (isFetching) return <Loading label="laster personer" panel />
 
-	personListe.then(response => {
+	personListe(sidetall, sideStoerrelse).then(response => {
 		setListe(response)
 	})
 	console.log(liste) // TODO: slett meg!
