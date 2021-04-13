@@ -26,6 +26,7 @@ export default function PersonListe({
 	isFetching,
 	personListe,
 	gruppeInfo,
+	identer,
 	sidetall,
 	setSidetall,
 	sideStoerrelse,
@@ -38,11 +39,16 @@ export default function PersonListe({
 	const [selectedIdent, setSelectedIdent] = useState(null)
 
 	useEffect(() => {
-		fetchTpsfPersoner(sidetall, sideStoerrelse)
-	}, [sidetall, sideStoerrelse])
-	console.log(personListe) // TODO: slett meg!
+		fetchTpsfPersoner()
+	}, [identer])
 
 	if (isFetching) return <Loading label="laster personer" panel />
+
+	if (visPerson && personListe && window.sessionStorage.getItem('sidetall')) {
+		setSidetall(parseInt(window.sessionStorage.getItem('sidetall')))
+		setSideStoerrelse(10)
+		window.sessionStorage.removeItem('sidetall')
+	}
 
 	if (!personListe || personListe.length === 0)
 		return (

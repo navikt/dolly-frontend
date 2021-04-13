@@ -36,12 +36,19 @@ export default function Gruppe({
 	const [sideStoerrelse, setSideStoerrelse] = useState(10)
 
 	useEffect(() => {
-		getGruppe(sidetall, sideStoerrelse)
 		getBestillinger()
+	}, [])
+
+	useEffect(() => {
+		getGruppe(sidetall, sideStoerrelse)
 	}, [sidetall, sideStoerrelse])
 
 	if (isFetching && !gruppe) return <Loading label="Laster personer" panel />
-	if (!gruppe) return null
+	if (!gruppe) {
+		getGruppe(sidetall, sideStoerrelse)
+		getBestillinger()
+		return null
+	}
 
 	const byttVisning = event => setVisning(event.target.value)
 
@@ -81,7 +88,7 @@ export default function Gruppe({
 				<ToggleGruppe onChange={byttVisning} name="toggler">
 					<ToggleKnapp value={VISNING_PERSONER} checked={visning === VISNING_PERSONER}>
 						<Icon size={13} kind={visning === VISNING_PERSONER ? 'manLight' : 'man'} />
-						{`Personer (${identArray.length})`}
+						{`Personer (${gruppe.antallIdenter})`}
 					</ToggleKnapp>
 					<ToggleKnapp value={VISNING_BESTILLING} checked={visning === VISNING_BESTILLING}>
 						<Icon

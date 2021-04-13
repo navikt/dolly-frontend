@@ -206,14 +206,11 @@ export default handleActions(
 )
 
 // Thunk
-export const fetchTpsfPersoner = (pageNo, pageSize) => async (dispatch, getState) => {
+export const fetchTpsfPersoner = () => async (dispatch, getState) => {
 	const state = getState()
 
-	const gruppeId = state.gruppe.gruppeInfo.id
-	const gruppe = await DollyApi.getGruppeByIdPaginert(gruppeId, pageNo, pageSize)
-
 	let identListe = []
-	gruppe?.data?.identer?.forEach(person => identListe.push(person.ident))
+	Object.values(state.gruppe?.ident)?.forEach(person => identListe.push(person.ident))
 
 	if (identListe && identListe.length >= 1) dispatch(actions.getTpsf(identListe))
 }
