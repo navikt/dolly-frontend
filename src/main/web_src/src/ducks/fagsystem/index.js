@@ -206,7 +206,7 @@ export default handleActions(
 )
 
 // Thunk
-export const fetchTpsfPersoner = () => async (dispatch, getState) => {
+export const fetchTpsfPersoner = () => (dispatch, getState) => {
 	const state = getState()
 
 	let identListe = []
