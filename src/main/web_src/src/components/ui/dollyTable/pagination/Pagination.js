@@ -15,12 +15,7 @@ export default class Pagination extends Component {
 			: ITEM_PER_PAGE
 	}
 
-	componentDidUpdate(prevProps) {
-		if (prevProps.items.length !== this.props.items.length) return this.setState({ currentPage: 0 })
-	}
-
 	render() {
-		console.log(this.props.items) // TODO: slett meg!
 		if (!this.props.items) return null
 
 		const pageCount = this._calculatePageCount()

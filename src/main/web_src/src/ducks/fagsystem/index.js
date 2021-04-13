@@ -209,14 +209,8 @@ export default handleActions(
 export const fetchTpsfPersoner = (pageNo, pageSize) => async (dispatch, getState) => {
 	const state = getState()
 
-	console.log(state) // TODO: slett meg!
-	// state.gruppe.gruppeInfo.pageSize = pageSize
-
-	// const identer = Object.keys(state.gruppe.ident)
 	const gruppeId = state.gruppe.gruppeInfo.id
-
 	const gruppe = await DollyApi.getGruppeByIdPaginert(gruppeId, pageNo, pageSize)
-	console.log(gruppe) // TODO: slett meg!
 
 	let identListe = []
 	gruppe?.data?.identer?.forEach(person => identListe.push(person.ident))
@@ -345,21 +339,12 @@ const hentPersonStatus = (ident, bestillingStatus) => {
 	return totalStatus
 }
 
-export const selectPersonListe = (pageNo, pageSize) => async state => {
+export const selectPersonListe = state => {
 	const { gruppe, fagsystem } = state
 
 	if (_isEmpty(fagsystem.tpsf)) return null
 
-	console.log(state) // TODO: slett meg!
-
 	// Sortert etter bestillingsId
-
-	const gruppePaginert = await DollyApi.getGruppeByIdPaginert(
-		gruppe.gruppeInfo.id,
-		pageNo,
-		pageSize
-	)
-
 	const identer = Object.values(gruppe.ident)
 		.filter(gruppeIdent => gruppeIdent.bestillingId != null && gruppeIdent.bestillingId.length > 0)
 		.sort((a, b) => _last(b.bestillingId) - _last(a.bestillingId))

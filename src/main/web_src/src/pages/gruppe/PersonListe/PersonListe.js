@@ -36,20 +36,15 @@ export default function PersonListe({
 }) {
 	const [isKommentarModalOpen, openKommentarModal, closeKommentarModal] = useBoolean(false)
 	const [selectedIdent, setSelectedIdent] = useState(null)
-	const [liste, setListe] = useState(null)
 
 	useEffect(() => {
 		fetchTpsfPersoner(sidetall, sideStoerrelse)
 	}, [sidetall, sideStoerrelse])
+	console.log(personListe) // TODO: slett meg!
 
 	if (isFetching) return <Loading label="laster personer" panel />
 
-	personListe(sidetall, sideStoerrelse).then(response => {
-		setListe(response)
-	})
-	console.log(liste) // TODO: slett meg!
-
-	if (!liste || liste.length === 0)
+	if (!personListe || personListe.length === 0)
 		return (
 			<ContentContainer>
 				Trykk på opprett personer-knappen for å starte en bestilling.
@@ -178,12 +173,11 @@ export default function PersonListe({
 	return (
 		<ErrorBoundary>
 			<DollyTable
-				data={liste}
+				data={personListe}
 				columns={columns}
 				gruppeDetaljer={{
 					antallElementer: gruppeInfo.antallIdenter,
-					pageSize: sideStoerrelse,
-					jaja: Math.random()
+					pageSize: sideStoerrelse
 				}}
 				pagination
 				iconItem={bruker => (bruker.kjonn === 'MANN' ? <ManIconItem /> : <WomanIconItem />)}

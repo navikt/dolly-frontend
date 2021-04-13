@@ -38,13 +38,10 @@ export default function Gruppe({
 	useEffect(() => {
 		getGruppe(sidetall, sideStoerrelse)
 		getBestillinger()
-	}, [])
+	}, [sidetall, sideStoerrelse])
 
-	if (isFetching) return <Loading label="Laster personer" panel />
-
-	if (!gruppe) {
-		return null
-	}
+	if (isFetching && !gruppe) return <Loading label="Laster personer" panel />
+	if (!gruppe) return null
 
 	const byttVisning = event => setVisning(event.target.value)
 

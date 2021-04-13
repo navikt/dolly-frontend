@@ -5,7 +5,7 @@ import personListe from './PersonListe'
 
 const loadingSelector = createLoadingSelector(actions.getTpsf)
 const mapStateToProps = (state, ownProps) => ({
-	personListe: sokSelector(selectPersonListe(pageNo, pageSize, state), state.search),
+	personListe: sokSelector(selectPersonListe(state), state.search),
 	gruppeInfo: state.gruppe.gruppeInfo,
 	isFetching: loadingSelector(state),
 	visPerson: state.finnPerson.visPerson
