@@ -116,11 +116,6 @@ export const SortKodeverkArray = data => {
 		}))
 	}
 
-	if (data.name === 'Tema') {
-		const ugyldigeKoder = ['BII', 'KLA', 'KNA', 'KOM', 'LGA', 'MOT', 'OVR']
-		return kodeverk.filter(kode => !ugyldigeKoder.includes(kode.value))
-	}
-
 	if (data.name === 'Vergemål_Mandattype') {
 		return kodeverk.filter(kode => kode.value !== '<Blank>' && kode.value !== 'ADP')
 	}
