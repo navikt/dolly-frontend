@@ -5,6 +5,7 @@ import Formatters from '~/utils/DataFormatter'
 import { ErrorBoundary } from '~/components/ui/appError/ErrorBoundary'
 import { DollyFieldArray } from '~/components/ui/form/fieldArray/DollyFieldArray'
 import { FullmaktKodeverk } from '~/config/kodeverk'
+import { Kategori } from '~/components/ui/form/kategori/Kategori'
 
 type Data = {
 	data: FullmaktData
@@ -39,15 +40,19 @@ export const Visning = ({ data }: Data) => {
 		<>
 			<div className="person-visning_content">
 				<ErrorBoundary>
-					<DollyFieldArray header={'Områder'} data={data.omraader} nested>
-						{(omraade: string) =>
-							omraade.includes('*') ? (
-								<TitleValue title="Tema" value={'Alle (*)'} />
-							) : (
-								<TitleValue title="Tema" kodeverk={FullmaktKodeverk.Tema} value={omraade} />
-							)
-						}
-					</DollyFieldArray>
+					<h4>Tema</h4>
+					{data.omraader.map((omraade: string) =>
+						omraade.includes('*') ? (
+							<TitleValue key={omraade} value={'Alle (*)'} size={'full-width'} />
+						) : (
+							<TitleValue
+								key={omraade}
+								kodeverk={FullmaktKodeverk.Tema}
+								value={omraade}
+								size={'full-width'}
+							/>
+						)
+					)}
 					<TitleValue title="Kilde" value={data.kilde} />
 					<TitleValue title="Gyldig fra og med" value={Formatters.formatDate(data.gyldigFom)} />
 					<TitleValue title="Gyldig til og med" value={Formatters.formatDate(data.gyldigTom)} />
