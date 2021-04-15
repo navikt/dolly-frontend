@@ -5,7 +5,7 @@ import Formatters from '~/utils/DataFormatter'
 import { ErrorBoundary } from '~/components/ui/appError/ErrorBoundary'
 import { DollyFieldArray } from '~/components/ui/form/fieldArray/DollyFieldArray'
 import { FullmaktKodeverk } from '~/config/kodeverk'
-import { Kategori } from '~/components/ui/form/kategori/Kategori'
+import styled from 'styled-components'
 
 type Data = {
 	data: FullmaktData
@@ -33,13 +33,29 @@ type Fullmektig = {
 	kjonn: string
 }
 
+const Tema = styled.div`
+	h4 {
+		width: 100%;
+		margin-bottom: 10px;
+		margin-top: 0px;
+	}
+	TitleValue {
+		margin-bottom: 5px;
+	}
+`
+
 export const Visning = ({ data }: Data) => {
 	const { etternavn, fornavn, ident, identtype, kjonn, mellomnavn } = data.fullmektig
 
 	return (
 		<>
-			<div className="person-visning_content">
-				<ErrorBoundary>
+			<ErrorBoundary>
+				<div className="person-visning_content">
+					<TitleValue title="Kilde" value={data.kilde} />
+					<TitleValue title="Gyldig fra og med" value={Formatters.formatDate(data.gyldigFom)} />
+					<TitleValue title="Gyldig til og med" value={Formatters.formatDate(data.gyldigTom)} />
+				</div>
+				<Tema>
 					<h4>Tema</h4>
 					{data.omraader.map((omraade: string) =>
 						omraade.includes('*') ? (
@@ -53,19 +69,16 @@ export const Visning = ({ data }: Data) => {
 							/>
 						)
 					)}
-					<TitleValue title="Kilde" value={data.kilde} />
-					<TitleValue title="Gyldig fra og med" value={Formatters.formatDate(data.gyldigFom)} />
-					<TitleValue title="Gyldig til og med" value={Formatters.formatDate(data.gyldigTom)} />
-				</ErrorBoundary>
-			</div>
-			<h4 style={{ marginTop: '0px' }}>Fullmektig</h4>
-			<div className="person-visning_content">
-				<TitleValue title={identtype} value={ident} />
-				<TitleValue title="Fornavn" value={fornavn} />
-				<TitleValue title="Mellomnavn" value={mellomnavn} />
-				<TitleValue title="Etternavn" value={etternavn} />
-				<TitleValue title="Kjønn" value={Formatters.kjonnToString(kjonn)} />
-			</div>
+				</Tema>
+				<div className="person-visning_content">
+					<h4 style={{ width: '100%' }}>Fullmektig</h4>
+					<TitleValue title={identtype} value={ident} />
+					<TitleValue title="Fornavn" value={fornavn} />
+					<TitleValue title="Mellomnavn" value={mellomnavn} />
+					<TitleValue title="Etternavn" value={etternavn} />
+					<TitleValue title="Kjønn" value={Formatters.kjonnToString(kjonn)} />
+				</div>
+			</ErrorBoundary>
 		</>
 	)
 }
