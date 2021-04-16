@@ -41,7 +41,7 @@ applications:
   testnorge-varslinger-api: a1dca941-bdd5-4705-a1a4-04cf76473040
   testnorge-tilbakemelding-api: 0f8c4430-19e4-4628-8e89-1dd89a1d613d
   organisasjon-forvalter: 80f07134-375b-4df8-be48-2ba877774c6c
-  testnav-miljoer-service: 4bfd397d-03e4-4db8-9213-0870e274d329
+  testnav-miljoer-service: dev-gcp.dolly.testnav-miljoer-service
 
 application:
   basepackage: no.nav.dolly.web
