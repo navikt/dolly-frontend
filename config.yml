@@ -50,8 +50,8 @@ spec:
       memory: 2048Mi
   image: {{ image }}
   env:
-    - name: TESTNORGE_MILJOER_SERVICE_CLIENT_ID
-      value: 30003084-1585-4629-a017-686b4387b12e
+    - name: TESTNAV_MILJOER_SERVICE_CLIENT_ID
+      value: 4bfd397d-03e4-4db8-9213-0870e274d329
     - name: TESTNORGE_PROFIL_API_CLIENT_ID
       value: e8e0772f-8204-4b88-88ad-233d62863f47
     - name: DOLLY_BACKEND_API_CLIENT_ID

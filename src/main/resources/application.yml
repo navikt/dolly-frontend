@@ -23,7 +23,7 @@ zuul:
       sensitiveHeaders: Cookie,Set-Cookie
     testnav-miljoer-service:
       path: /api/testnav-miljoer-service/**
-      url: https://miljoer-service.dev.intern.nav.no/api/v1
+      url: https://testnav-miljoer-service.dev.intern.nav.no/api/v1
       sensitiveHeaders: Cookie,Set-Cookie
     udi-stub:
       path: /api/udi-stub/**
@@ -48,7 +48,7 @@ application:
 
 consumers:
   testnorge-tilbakemelding-api.baseUrl: https://testnorge-tilbakemelding-api.dev.intern.nav.no
-  testnav-miljoer-service.baseUrl: https://miljoer-service.dev.intern.nav.no
+  testnav-miljoer-service.baseUrl: https://testnav-miljoer-service.dev.intern.nav.no
 
 spring:
   application:
