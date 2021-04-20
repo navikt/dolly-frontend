@@ -56,10 +56,16 @@ export const NyIdent = ({ onAvbryt, onSubmit, zBruker }) => {
 		}
 	}
 
+	const handleBrukerChange = (event, formikbag) => {
+		setZIdent(event.value)
+		formikbag.setFieldValue('mal', null)
+	}
+
 	const preSubmit = (values, formikBag) => {
 		if (values.mal) values.mal = malOptions.find(m => m.value === values.mal).data
 		return onSubmit(values, formikBag)
 	}
+
 	return (
 		<Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={preSubmit}>
 			{formikBag => (
@@ -93,7 +99,7 @@ export const NyIdent = ({ onAvbryt, onSubmit, zBruker }) => {
 								isLoading={state.loading}
 								options={zIdentOptions}
 								size="medium"
-								onChange={e => setZIdent(e.value)}
+								onChange={e => handleBrukerChange(e, formikBag)}
 								value={zIdent}
 								isClearable={false}
 								disabled={!malAktiv}
