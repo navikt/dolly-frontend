@@ -1,5 +1,5 @@
 import React from 'react'
-import { AdresseKodeverk, PersoninformasjonKodeverk } from '~/config/kodeverk'
+import { AdresseKodeverk } from '~/config/kodeverk'
 import { FormikSelect } from '~/components/ui/form/inputs/select/Select'
 import { FormikDatepicker } from '~/components/ui/form/inputs/datepicker/Datepicker'
 import { SelectOptionsManager as Options } from '~/service/SelectOptions'
@@ -8,14 +8,31 @@ import { Alder } from '~/components/fagsystem/tpsf/form/personinformasjon/partia
 import { Diskresjonskoder } from '~/components/fagsystem/tpsf/form/personinformasjon/partials/diskresjonskoder/Diskresjonskoder'
 import Formatters from '~/utils/DataFormatter'
 import _get from 'lodash/get'
+import { FormikProps } from 'formik'
+
+type Relasjon = {
+	personRelasjonMed: {
+		ident: string
+	}
+}
+
+type Ident = {
+	label: string
+	lowercaseLabel: string
+	value: string
+}
+
+type Foreldre = {
+	formikBag: FormikProps<{}>
+	personFoerLeggTil: {}
+}
 
 const initialValues = {
 	identtype: 'FNR',
 	kjonn: '',
 	foreldreType: '',
 	harFellesAdresse: false,
-	alder: Formatters.randomIntInRange(50, 80),
-	doedsdato: null,
+	alder: Formatters.randomIntInRange(65, 100),
 	spesreg: '',
 	utenFastBopel: false,
 	statsborgerskap: '',
@@ -23,32 +40,27 @@ const initialValues = {
 	statsborgerskapTildato: ''
 }
 
-export const Foreldre = ({ formikBag, personFoerLeggTil }) => {
-	const handleIdenttypeChange = (path, ident) => {
+export const Foreldre = ({ formikBag, personFoerLeggTil }: Foreldre) => {
+	const handleIdenttypeChange = (path: string, ident: Ident) => {
 		formikBag.setFieldValue(`${path}`, initialValues)
 		formikBag.setFieldValue(`${path}.identtype`, ident.value)
 	}
 
-	const handleFoedselsdatoChange = (path, dato) => {
-		formikBag.setFieldValue(`${path}.foedselsdato`, dato)
-		formikBag.setFieldValue(`${path}.doedsdato`, dato)
-		formikBag.setFieldValue(`${path}.foedtEtter`, dato)
-		formikBag.setFieldValue(`${path}.foedtFoer`, dato)
-	}
-
 	return (
+		// @ts-ignore
 		<FormikDollyFieldArray
 			name="tpsf.relasjoner.foreldre"
 			header="Foreldre"
 			newEntry={initialValues}
+			disabled={formikBag.values.tpsf?.relasjoner?.foreldre?.length === 2}
 		>
-			{(path, idx) => {
+			{(path: string, idx: number) => {
 				const eksisterendeForelder = _get(formikBag.values, `${path}.ident`)
 				const aktuellRelasjon =
 					personFoerLeggTil &&
 					eksisterendeForelder &&
 					_get(personFoerLeggTil, 'tpsf.relasjoner').filter(
-						relasjon => relasjon.personRelasjonMed.ident === eksisterendeForelder
+						(relasjon: Relasjon) => relasjon.personRelasjonMed.ident === eksisterendeForelder
 					)
 				const fornavn = aktuellRelasjon && aktuellRelasjon[0].personRelasjonMed.fornavn
 				const etternavn = aktuellRelasjon && aktuellRelasjon[0].personRelasjonMed.etternavn
@@ -59,18 +71,13 @@ export const Foreldre = ({ formikBag, personFoerLeggTil }) => {
 							name={`${path}.identtype`}
 							label="Identtype"
 							options={Options('identtype')}
-							onChange={ident => handleIdenttypeChange(path, ident)}
+							onChange={(ident: Ident) => handleIdenttypeChange(path, ident)}
 							isClearable={false}
 						/>
 						<FormikSelect
-							name={`${path}.kjonn`}
-							label="Kjønn"
-							kodeverk={PersoninformasjonKodeverk.Kjoennstyper}
-						/>
-						<FormikSelect
 							name={`${path}.foreldreType`}
-							label="Foreldre"
-							options={Options('barnType')}
+							label="ForeldreType"
+							options={Options('foreldreType')}
 							isClearable={false}
 						/>
 						<FormikSelect
@@ -81,12 +88,7 @@ export const Foreldre = ({ formikBag, personFoerLeggTil }) => {
 						<FormikDatepicker name={`${path}.statsborgerskapRegdato`} label="Statsborgerskap fra" />
 						<FormikDatepicker name={`${path}.statsborgerskapTildato`} label="Statsborgerskap til" />
 						<Diskresjonskoder basePath={path} formikBag={formikBag} />
-						<Alder basePath={path} formikBag={formikBag} title="Alder" />
-						<FormikDatepicker
-							name={`${path}.foedselsdato`}
-							label="Dato født"
-							onChange={dato => handleFoedselsdatoChange(path, dato)}
-						/>
+						<Alder basePath={path} formikBag={formikBag} title="Alder" handleDoed={null} />
 					</React.Fragment>
 				) : (
 					<>

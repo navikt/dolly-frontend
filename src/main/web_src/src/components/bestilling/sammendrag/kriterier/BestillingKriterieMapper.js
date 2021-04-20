@@ -295,6 +295,7 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 		if (relasjoner) {
 			const partnere = relasjoner.partner || relasjoner.partnere
 			const barn = relasjoner.barn
+			const foreldre = relasjoner.foreldre
 			if (partnere) {
 				const partner = {
 					header: 'Partner',

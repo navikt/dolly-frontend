@@ -5,6 +5,7 @@ import { DollyFieldArray } from '~/components/ui/form/fieldArray/DollyFieldArray
 import { Barn } from './Barn'
 import { Partner } from './Partner'
 import { ErrorBoundary } from '~/components/ui/appError/ErrorBoundary'
+import { Foreldre } from './Foreldre'
 
 type RelasjonerProps = {
 	relasjoner: Array<Relasjon>
@@ -52,6 +53,10 @@ export const Relasjoner = ({ relasjoner }: RelasjonerProps) => {
 		({ relasjonTypeNavn }) =>
 			relasjonTypeNavn === RelasjonType.EKTEFELLE || relasjonTypeNavn === RelasjonType.PARTNER
 	)
+	const foreldre = relasjoner.filter(
+		({ relasjonTypeNavn }) =>
+			relasjonTypeNavn === RelasjonType.MOR || relasjonTypeNavn === RelasjonType.FAR
+	)
 
 	return (
 		<React.Fragment>
@@ -78,6 +83,19 @@ export const Relasjoner = ({ relasjoner }: RelasjonerProps) => {
 				>
 					{(barnet: Relasjon, idx: number) => (
 						<Barn key={idx} data={barnet.personRelasjonMed} type={barnet.relasjonTypeNavn} />
+					)}
+				</DollyFieldArray>
+			</ErrorBoundary>
+
+			<ErrorBoundary>
+				<DollyFieldArray
+					data={foreldre}
+					getHeader={getHeader('Foreldre')}
+					header="Foreldre"
+					expandable={foreldre.length > 1}
+				>
+					{(forelder: Relasjon, idx: number) => (
+						<Foreldre key={idx} data={forelder.personRelasjonMed} />
 					)}
 				</DollyFieldArray>
 			</ErrorBoundary>

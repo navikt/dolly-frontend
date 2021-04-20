@@ -20,6 +20,9 @@ export const FamilierelasjonPanel = ({ stateModifier }) => {
 			<AttributtKategori title="Barn">
 				<Attributt attr={sm.attrs.barn} />
 			</AttributtKategori>
+			<AttributtKategori title="Foreldre">
+				<Attributt attr={sm.attrs.foreldre} />
+			</AttributtKategori>
 		</Panel>
 	)
 }
@@ -35,7 +38,7 @@ FamilierelasjonPanel.initialValues = ({ set, del, has, opts }) => ({
 		},
 		remove() {
 			del('tpsf.relasjoner.partnere')
-			!has('tpsf.relasjoner.barn') && del('tpsf.relasjoner')
+			!has('tpsf.relasjoner.barn') && !has('tpsf.relasjoner.foreldre') && del('tpsf.relasjoner')
 		}
 	},
 	barn: {
@@ -46,7 +49,18 @@ FamilierelasjonPanel.initialValues = ({ set, del, has, opts }) => ({
 		},
 		remove() {
 			del('tpsf.relasjoner.barn')
-			!has('tpsf.relasjoner.partnere') && del('tpsf.relasjoner')
+			!has('tpsf.relasjoner.partnere') && !has('tpsf.relasjoner.foreldre') && del('tpsf.relasjoner')
+		}
+	},
+	foreldre: {
+		label: 'Har foreldre',
+		checked: has('tpsf.relasjoner.foreldre'),
+		add() {
+			set('tpsf.relasjoner.foreldre', defaultForeldre(opts))
+		},
+		remove() {
+			del('tpsf.relasjoner.foreldre')
+			!has('tpsf.relasjoner.partnere') && !has('tpsf.relasjoner.barn') && del('tpsf.relasjoner')
 		}
 	}
 })
@@ -82,6 +96,40 @@ const defaultPartner = opts => {
 	)
 
 	return harEksisterendePartner ? eksisterendePartner : fullPartner
+}
+
+const defaultForeldre = opts => {
+	const fullForelder = [
+		{
+			identtype: 'FNR',
+			kjonn: '',
+			foreldreType: '',
+			sivilstander: [{ sivilstand: '', sivilstandRegdato: '' }],
+			harFellesAdresse: false,
+			alder: Formatters.randomIntInRange(65, 100),
+			doedsdato: null,
+			spesreg: '',
+			utenFastBopel: false,
+			statsborgerskap: '',
+			statsborgerskapRegdato: '',
+			statsborgerskapTildato: ''
+		}
+	]
+
+	const eksisterendeForelder = [
+		{
+			ident: _get(opts, 'personFoerLeggTil.tpsf.relasjoner[0].personRelasjonMed.ident'),
+			doedsdato:
+				_get(opts, 'personFoerLeggTil.tpsf.relasjoner[0].personRelasjonMed.doedsdato') || null,
+			sivilstander: []
+		}
+	]
+
+	const harEksisterendeForelder = _get(opts, 'personFoerLeggTil.tpsf.relasjoner', []).some(
+		relasjon => relasjon.relasjonTypeNavn === 'MOR' || relasjon.relasjonTypeNavn === 'FAR'
+	)
+
+	return harEksisterendeForelder ? eksisterendeForelder : fullForelder
 }
 
 const defaultBarn = opts => {
