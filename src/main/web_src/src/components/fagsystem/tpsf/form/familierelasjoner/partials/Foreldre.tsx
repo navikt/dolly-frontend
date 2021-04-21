@@ -1,5 +1,5 @@
 import React from 'react'
-import { AdresseKodeverk } from '~/config/kodeverk'
+import { AdresseKodeverk, PersoninformasjonKodeverk } from '~/config/kodeverk'
 import { FormikSelect } from '~/components/ui/form/inputs/select/Select'
 import { FormikDatepicker } from '~/components/ui/form/inputs/datepicker/Datepicker'
 import { SelectOptionsManager as Options } from '~/service/SelectOptions'
@@ -23,7 +23,13 @@ type Ident = {
 }
 
 type Foreldre = {
-	formikBag: FormikProps<{}>
+	formikBag: FormikProps<{
+		tpsf: {
+			relasjoner: {
+				foreldre: Array<Relasjon>
+			}
+		}
+	}>
 	personFoerLeggTil: {}
 }
 
@@ -50,7 +56,7 @@ export const Foreldre = ({ formikBag, personFoerLeggTil }: Foreldre) => {
 		// @ts-ignore
 		<FormikDollyFieldArray
 			name="tpsf.relasjoner.foreldre"
-			header="Foreldre"
+			header="Forelder"
 			newEntry={initialValues}
 			disabled={formikBag.values.tpsf?.relasjoner?.foreldre?.length === 2}
 		>
@@ -73,6 +79,11 @@ export const Foreldre = ({ formikBag, personFoerLeggTil }: Foreldre) => {
 							options={Options('identtype')}
 							onChange={(ident: Ident) => handleIdenttypeChange(path, ident)}
 							isClearable={false}
+						/>
+						<FormikSelect
+							name={`${path}.kjonn`}
+							label="Kjønn"
+							kodeverk={PersoninformasjonKodeverk.Kjoennstyper}
 						/>
 						<FormikSelect
 							name={`${path}.foreldreType`}

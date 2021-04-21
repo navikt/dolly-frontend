@@ -7,15 +7,48 @@ import { PostadresseVisning } from './Postadresse'
 import { Historikk } from '~/components/ui/historikk/Historikk'
 import { PersoninformasjonKodeverk } from '~/config/kodeverk'
 
-export const Foreldre = ({ data }) => {
-	if (!data) return null
+type Data = {
+	person: Person
+	type: string
+}
+
+type Relasjon = [
+	{
+		id: number
+		personRelasjonMed: {
+			ident: string
+			fornavn: string
+			etternavn: string
+		}
+		relasjonTypeNavn: string
+	}
+]
+
+type Person = {
+	ident: string
+	identtype: string
+	fornavn: string
+	mellomnavn?: string
+	etternavn: string
+	kjonn: string
+	alder: number
+	doedsdato: Date
+	foreldreType: string
+	spesreg: string
+	utenFastBopel: boolean
+	boadresse: string
+	postadresse: string
+}
+
+export const Foreldre = ({ person, type }: Data) => {
+	if (!person) return null
 	const [foreldreInfo, setForeldreInfo] = useState(null)
 	const [isLoading, setIsLoading] = useState(false)
 
 	useEffect(() => {
 		const fetchData = async () => {
 			setIsLoading(true)
-			const respons = await TpsfApi.getPersoner([data.ident])
+			const respons = await TpsfApi.getPersoner([person.ident])
 			setForeldreInfo(respons.data)
 			setIsLoading(false)
 		}
@@ -25,35 +58,39 @@ export const Foreldre = ({ data }) => {
 	return (
 		<>
 			<div className="person-visning_content">
-				<TitleValue title={data.identtype} value={data.ident} />
-				<TitleValue title="Fornavn" value={data.fornavn} />
-				<TitleValue title="Mellomnavn" value={data.mellomnavn} />
-				<TitleValue title="Etternavn" value={data.etternavn} />
-				<TitleValue title="Kjønn" value={Formatters.kjonn(data.kjonn, data.alder)} />
-				<TitleValue title="Alder" value={data.alder} />
-				<TitleValue title="Dødsdato" value={Formatters.formatDate(data.doedsdato)} />
-				<TitleValue title="Foreldretype" value={data.foreldreType} />
+				<TitleValue title={person.identtype} value={person.ident} />
+				<TitleValue title="Fornavn" value={person.fornavn} />
+				<TitleValue title="Mellomnavn" value={person.mellomnavn} />
+				<TitleValue title="Etternavn" value={person.etternavn} />
+				<TitleValue title="Kjønn" value={Formatters.kjonn(person.kjonn, person.alder)} />
+				<TitleValue title="Alder" value={person.alder} />
+				<TitleValue title="Dødsdato" value={Formatters.formatDate(person.doedsdato)} />
+				<TitleValue title="Foreldretype" value={type} />
 				<TitleValue
 					title="Diskresjonskode"
 					kodeverk={PersoninformasjonKodeverk.Diskresjonskoder}
-					value={data.spesreg}
+					value={person.spesreg}
 				/>
-				<TitleValue title="Uten fast bopel" value={data.utenFastBopel && 'Ja'} />
+				<TitleValue title="Uten fast bopel" value={person.utenFastBopel && 'Ja'} />
 				{foreldreInfo && !isLoading && foreldreInfo.length > 0 && (
 					<TitleValue title="Barn" value={finnBarn(foreldreInfo[0].relasjoner).join(', ')} />
 				)}
 			</div>
-			{data.boadresse.length > 0 && (
-				<Historikk component={Adressevisning} propName="boadresse" data={data.boadresse} />
+			{person.boadresse.length > 0 && (
+				<Historikk component={Adressevisning} propName="boadresse" data={person.boadresse} />
 			)}
-			{data.postadresse.length > 0 && (
-				<Historikk component={PostadresseVisning} propName="postadresse" data={data.postadresse} />
+			{person.postadresse.length > 0 && (
+				<Historikk
+					component={PostadresseVisning}
+					propName="postadresse"
+					data={person.postadresse}
+				/>
 			)}
 		</>
 	)
 }
 
-const finnBarn = relasjoner =>
+const finnBarn = (relasjoner: Relasjon) =>
 	relasjoner
 		.filter(relasjon => {
 			return relasjon.relasjonTypeNavn === 'BARN'

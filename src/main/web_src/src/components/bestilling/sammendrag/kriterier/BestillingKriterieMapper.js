@@ -356,6 +356,30 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 
 				data.push(barn)
 			}
+			if (foreldre && foreldre.length > 0) {
+				const foreldre = {
+					header: 'Foreldre',
+					itemRows: []
+				}
+
+				relasjoner.foreldre.forEach((item, i) => {
+					foreldre.itemRows.push([
+						{
+							label: '',
+							value: `#${i + 1}`,
+							width: 'x-small'
+						},
+						..._getTpsfBestillingData(item),
+						obj('Fnr/dnr/bost', item.ident),
+						obj('ForeldreType', Formatters.showLabel('foreldreType', item.foreldreType)), //Bruke samme funksjon som i bestillingsveileder
+						obj('Bor sammen', Formatters.oversettBoolean(item.harFellesAdresse)),
+						obj('Diskresjonskoder', item.spesreg !== 'UFB' && item.spesreg, 'Diskresjonskoder'),
+						obj('Fødselsdato', Formatters.formatDate(item.foedselsdato))
+					])
+				})
+
+				data.push(foreldre)
+			}
 		}
 
 		if (vergemaal) {

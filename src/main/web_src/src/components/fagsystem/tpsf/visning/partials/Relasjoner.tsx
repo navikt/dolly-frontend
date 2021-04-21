@@ -19,6 +19,17 @@ type Relasjon = {
 type Person = {
 	ident: string
 	identtype: string
+	fornavn: string
+	mellomnavn?: string
+	etternavn: string
+	kjonn: string
+	alder: number
+	doedsdato: Date
+	foreldreType: string
+	spesreg: string
+	utenFastBopel: boolean
+	boadresse: string
+	postadresse: string
 }
 
 enum RelasjonType {
@@ -90,12 +101,16 @@ export const Relasjoner = ({ relasjoner }: RelasjonerProps) => {
 			<ErrorBoundary>
 				<DollyFieldArray
 					data={foreldre}
-					getHeader={getHeader('Foreldre')}
-					header="Foreldre"
+					getHeader={getHeader('Forelder')}
+					header="Forelder"
 					expandable={foreldre.length > 1}
 				>
 					{(forelder: Relasjon, idx: number) => (
-						<Foreldre key={idx} data={forelder.personRelasjonMed} />
+						<Foreldre
+							key={idx}
+							person={forelder.personRelasjonMed}
+							type={forelder.relasjonTypeNavn}
+						/>
 					)}
 				</DollyFieldArray>
 			</ErrorBoundary>
