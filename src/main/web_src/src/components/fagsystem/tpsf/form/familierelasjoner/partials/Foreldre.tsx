@@ -70,8 +70,8 @@ export const Foreldre = ({ formikBag, personFoerLeggTil }: Foreldre) => {
 					_get(personFoerLeggTil, 'tpsf.relasjoner').filter(
 						(relasjon: Relasjon) => relasjon.personRelasjonMed.ident === eksisterendeForelder
 					)
-				const fornavn = aktuellRelasjon[0]?.personRelasjonMed?.fornavn
-				const etternavn = aktuellRelasjon[0]?.personRelasjonMed?.etternavn
+				const fornavn = aktuellRelasjon && aktuellRelasjon[0]?.personRelasjonMed?.fornavn
+				const etternavn = aktuellRelasjon && aktuellRelasjon[0]?.personRelasjonMed?.etternavn
 
 				return !eksisterendeForelder ? (
 					<React.Fragment key={idx}>
