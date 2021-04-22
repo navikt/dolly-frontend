@@ -56,7 +56,7 @@ FamilierelasjonPanel.initialValues = ({ set, del, has, opts }) => ({
 		label: 'Har foreldre',
 		checked: has('tpsf.relasjoner.foreldre'),
 		add() {
-			set('tpsf.relasjoner.foreldre', defaultForeldre(opts))
+			set('tpsf.relasjoner.foreldre', defaultForeldre())
 		},
 		remove() {
 			del('tpsf.relasjoner.foreldre')
@@ -98,14 +98,14 @@ const defaultPartner = opts => {
 	return harEksisterendePartner ? eksisterendePartner : fullPartner
 }
 
-const defaultForeldre = opts => {
+const defaultForeldre = () => {
 	const fullForelder = [
 		{
 			identtype: 'FNR',
 			kjonn: '',
 			foreldreType: '',
 			sivilstander: [{ sivilstand: '', sivilstandRegdato: '' }],
-			harFellesAdresse: false,
+			harFellesAdresse: true,
 			alder: Formatters.randomIntInRange(65, 100),
 			doedsdato: null,
 			spesreg: '',
@@ -116,20 +116,7 @@ const defaultForeldre = opts => {
 		}
 	]
 
-	const eksisterendeForelder = [
-		{
-			ident: _get(opts, 'personFoerLeggTil.tpsf.relasjoner[0].personRelasjonMed.ident'),
-			doedsdato:
-				_get(opts, 'personFoerLeggTil.tpsf.relasjoner[0].personRelasjonMed.doedsdato') || null,
-			sivilstander: []
-		}
-	]
-
-	const harEksisterendeForelder = _get(opts, 'personFoerLeggTil.tpsf.relasjoner', []).some(
-		relasjon => relasjon.relasjonTypeNavn === 'MOR' || relasjon.relasjonTypeNavn === 'FAR'
-	)
-
-	return harEksisterendeForelder ? eksisterendeForelder : fullForelder
+	return fullForelder
 }
 
 const defaultBarn = opts => {

@@ -9,6 +9,7 @@ import { Diskresjonskoder } from '~/components/fagsystem/tpsf/form/personinforma
 import Formatters from '~/utils/DataFormatter'
 import _get from 'lodash/get'
 import { FormikProps } from 'formik'
+import { FormikCheckbox } from '~/components/ui/form/inputs/checbox/Checkbox'
 
 type Relasjon = {
 	personRelasjonMed: {
@@ -37,7 +38,8 @@ const initialValues = {
 	identtype: 'FNR',
 	kjonn: '',
 	foreldreType: '',
-	harFellesAdresse: false,
+	sivilstander: [{ sivilstand: '', sivilstandRegdato: '' }],
+	harFellesAdresse: true,
 	alder: Formatters.randomIntInRange(65, 100),
 	spesreg: '',
 	utenFastBopel: false,
@@ -68,8 +70,8 @@ export const Foreldre = ({ formikBag, personFoerLeggTil }: Foreldre) => {
 					_get(personFoerLeggTil, 'tpsf.relasjoner').filter(
 						(relasjon: Relasjon) => relasjon.personRelasjonMed.ident === eksisterendeForelder
 					)
-				const fornavn = aktuellRelasjon && aktuellRelasjon[0].personRelasjonMed.fornavn
-				const etternavn = aktuellRelasjon && aktuellRelasjon[0].personRelasjonMed.etternavn
+				const fornavn = aktuellRelasjon[0]?.personRelasjonMed?.fornavn
+				const etternavn = aktuellRelasjon[0]?.personRelasjonMed?.etternavn
 
 				return !eksisterendeForelder ? (
 					<React.Fragment key={idx}>
@@ -84,6 +86,11 @@ export const Foreldre = ({ formikBag, personFoerLeggTil }: Foreldre) => {
 							name={`${path}.kjonn`}
 							label="Kjønn"
 							kodeverk={PersoninformasjonKodeverk.Kjoennstyper}
+						/>
+						<FormikCheckbox
+							name={`${path}.harFellesAdresse`}
+							label="Har felles adresse"
+							checkboxMargin
 						/>
 						<FormikSelect
 							name={`${path}.foreldreType`}
