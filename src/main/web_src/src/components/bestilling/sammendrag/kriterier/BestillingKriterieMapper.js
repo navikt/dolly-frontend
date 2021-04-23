@@ -372,7 +372,7 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 						..._getTpsfBestillingData(item),
 						obj('Fnr/dnr/bost', item.ident),
 						obj('ForeldreType', Formatters.showLabel('foreldreType', item.foreldreType)), //Bruke samme funksjon som i bestillingsveileder
-						obj('Bor sammen', Formatters.oversettBoolean(item.harFellesAdresse)),
+						obj('Foreldre bor sammen', Formatters.oversettBoolean(item.harFellesAdresse)),
 						obj('Diskresjonskoder', item.spesreg !== 'UFB' && item.spesreg, 'Diskresjonskoder'),
 						obj('Fødselsdato', Formatters.formatDate(item.foedselsdato))
 					])
