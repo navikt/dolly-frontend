@@ -89,7 +89,7 @@ export const Foreldre = ({ formikBag, personFoerLeggTil }: Foreldre) => {
 						/>
 						<FormikCheckbox
 							name={`${path}.harFellesAdresse`}
-							label="Foreldre har felles adresse"
+							label="Foreldre bor sammen"
 							checkboxMargin
 						/>
 						<FormikSelect
