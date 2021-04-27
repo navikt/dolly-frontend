@@ -7,6 +7,8 @@ import KjedeIcon from '~/components/dollyKjede/KjedeIcon'
 export interface DollyKjedeProps {
 	objectList: string[]
 	itemLimit: number
+	selectedIndex: number
+	setSelectedIndex: (index: number) => void
 }
 
 const Container = styled.div`
@@ -50,11 +52,8 @@ const getCenterIndices = (index: number, antallItems: number, itemLimit: number)
 	return indices
 }
 
-export default ({ objectList, itemLimit }: DollyKjedeProps) => {
+export default ({ objectList, itemLimit, selectedIndex, setSelectedIndex }: DollyKjedeProps) => {
 	const antallItems = objectList.length
-
-	const [selectedIndex, setSelectedIndex] = useState(0)
-	const handleClick = (index: number) => setSelectedIndex(index)
 
 	const [paginationIndex, setPaginationIndex] = useState(antallItems > 6 ? 5 : antallItems - 2)
 	const [centerIndices, setCenterIndices] = useState(
@@ -63,7 +62,7 @@ export default ({ objectList, itemLimit }: DollyKjedeProps) => {
 	const [locked, setLocked] = useState(true)
 
 	const handlePagination = (addValue: number) => {
-		if (centerIndices.length == 4 || centerIndices.length < 3) {
+		if (centerIndices.length == itemLimit - 3 || centerIndices.length < itemLimit - 4) {
 			if (addValue < 0) {
 				addValue -= 1
 			} else {
@@ -86,7 +85,7 @@ export default ({ objectList, itemLimit }: DollyKjedeProps) => {
 				centerIndices={centerIndices}
 				disabled={locked}
 				handlePagination={handlePagination}
-				handleClick={handleClick}
+				handleClick={setSelectedIndex}
 			/>
 			<KjedeIcon locked={locked} onClick={handleLocked} />
 		</Container>

@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import './DollyKjede.less'
 
 export interface KjedeItemProps {
 	index: number
@@ -12,14 +13,13 @@ export interface KjedeItemProps {
 const Button = styled.button`
 	background: transparent;
 	text-decoration: underline;
-	color: ${p => (p.disabled ? 'grey' : 'blue')};
 	cursor: ${p => (p.disabled ? 'auto' : 'pointer')};
 	border: none;
 `
 
 const SelectedButton = styled.button`
 	background: transparent;
-	color: ${p => (p.disabled ? 'grey' : 'black')};
+	color: black;
 	border: none;
 `
 
@@ -32,7 +32,11 @@ export default ({ index, selected, disabled, text, onClick }: KjedeItemProps) =>
 		)
 	} else {
 		return (
-			<Button disabled={disabled} onClick={() => onClick(index)}>
+			<Button
+				disabled={disabled}
+				onClick={() => onClick(index)}
+				className={disabled ? 'color-grey' : 'color-lightblue'}
+			>
 				{text}
 			</Button>
 		)

@@ -10,9 +10,9 @@ export interface Props {
 
 const ArrowButton = styled.button`
 	background: transparent;
-	color: ${p => (p.disabled ? 'grey' : 'black')};
 	cursor: ${p => (p.disabled ? 'auto' : 'pointer')};
 	border: none;
+	fill: ${p => (p.disabled ? 'grey' : 'black')};
 `
 
 export default ({ left, disabled, onClick }: Props) => {
@@ -20,20 +20,8 @@ export default ({ left, disabled, onClick }: Props) => {
 
 	return (
 		<ArrowButton disabled={disabled} onClick={() => onClick(paginationValue)}>
-			{left && (
-				<Icon
-					size={11}
-					kind={'arrow-left'}
-					style={disabled ? { fill: 'grey' } : { fill: 'black' }}
-				/>
-			)}
-			{!left && (
-				<Icon
-					size={11}
-					kind={'arrow-right'}
-					style={disabled ? { fill: 'grey' } : { fill: 'black' }}
-				/>
-			)}
+			{left && <Icon size={11} kind={'arrow-left'} />}
+			{!left && <Icon size={11} kind={'arrow-right'} />}
 		</ArrowButton>
 	)
 }

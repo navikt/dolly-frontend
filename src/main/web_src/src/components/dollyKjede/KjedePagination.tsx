@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import KjedeItem from '~/components/dollyKjede/KjedeItem'
 import ArrowButton from '~/components/dollyKjede/ArrowButton'
+import './DollyKjede.less'
 
 export interface Props {
 	selectedIndex: number
@@ -16,7 +17,6 @@ const PaginationContainer = styled.div`
 	border-radius: 2px;
 	margin: 2px;
 	padding: 7px 7px 5px 7px;
-	background-color: white;
 	width: 750px;
 `
 
@@ -28,6 +28,7 @@ const PaginationWrapper = styled.div`
 const Separator = styled.div`
 	font-weight: bold;
 	margin: 0 20px 0 20px;
+	color: ${props => props.color};
 `
 
 export default ({
@@ -39,7 +40,7 @@ export default ({
 	handleClick
 }: Props) => {
 	return (
-		<PaginationContainer>
+		<PaginationContainer className={'background-color-bg-divider'}>
 			<PaginationWrapper>
 				<ArrowButton
 					left={true}
@@ -50,12 +51,14 @@ export default ({
 					<KjedeItem
 						index={0}
 						selected={selectedIndex === 0}
-						disabled={false}
+						disabled={disabled}
 						text={objectList[0]}
 						onClick={handleClick}
 					/>
 				)}
-				{centerIndices.length != 0 && centerIndices[0] != 1 && <Separator>...</Separator>}
+				{centerIndices.length != 0 && centerIndices[0] != 1 && (
+					<Separator color={disabled ? 'grey' : 'black'}>...</Separator>
+				)}
 				{centerIndices.map((item, index) => {
 					return (
 						<KjedeItem
@@ -70,7 +73,7 @@ export default ({
 				})}
 				{centerIndices.length != 0 &&
 					centerIndices[centerIndices.length - 1] != objectList.length - 2 && (
-						<Separator>...</Separator>
+						<Separator color={disabled ? 'grey' : 'black'}>...</Separator>
 					)}
 				{objectList.length > 1 && (
 					<KjedeItem
