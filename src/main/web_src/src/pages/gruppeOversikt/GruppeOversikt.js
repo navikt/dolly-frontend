@@ -7,26 +7,6 @@ import { ToggleGruppe, ToggleKnapp } from '~/components/ui/toggle/Toggle'
 import Icon from '~/components/ui/icon/Icon'
 import Liste from './Liste'
 import FinnPerson from './FinnPerson'
-import DollyKjede from '~/components/dollyKjede/DollyKjede'
-
-const kjedeData = [
-	'2020-01',
-	'2020-02',
-	'2020-03',
-	'2020-04',
-	'2020-05',
-	'2020-06',
-	'2020-07',
-	'2020-08',
-	'2020-09',
-	'2020-10',
-	'2020-11',
-	'2020-12',
-	'2021-01',
-	'2021-02',
-	'2021-03',
-	'2021-04'
-]
 
 export default function GruppeOversikt({
 	getGrupper,
@@ -45,7 +25,6 @@ export default function GruppeOversikt({
 	const [sideStoerrelse, setSideStoerrelse] = useState(10)
 	const [importerte, setImporterte] = useState(importerteZIdenter)
 	const [visNyGruppeState, visNyGruppe, skjulNyGruppe] = useBoolean(false)
-	const [selectedIndex, setSelectedIndex] = useState(0)
 
 	useEffect(() => {
 		visning === 'mine' ? fetchMineGrupper() : getGrupper(sidetall, sideStoerrelse)
@@ -70,12 +49,6 @@ export default function GruppeOversikt({
 					</Hjelpetekst>
 				</div>
 			</div>
-			<DollyKjede
-				objectList={kjedeData}
-				itemLimit={10}
-				selectedIndex={selectedIndex}
-				setSelectedIndex={setSelectedIndex}
-			/>
 			<div className="toolbar">
 				<NavButton type="hoved" onClick={visNyGruppe}>
 					Ny gruppe
