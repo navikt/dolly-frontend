@@ -50,8 +50,6 @@ import Hierarchy3Light from '~/assets/icons/nav-ikoner/line/SVG/33-hierarchy/hie
 import Eraser from '~/assets/icons/nav-ikoner/filled/SVG/36-text/eraser.svg'
 import ArrowLeft from '~/assets/icons/nav-ikoner/filled/SVG/46-arrows/arrow-left-10.svg'
 import ArrowRight from '~/assets/icons/nav-ikoner/filled/SVG/46-arrows/arrow-right-10.svg'
-import ArrowLeftLined from '~/assets/icons/nav-ikoner/line/SVG/46-arrows/arrow-left-12.svg'
-import ArrowRightLined from '~/assets/icons/nav-ikoner/line/SVG/46-arrows/arrow-right-12.svg'
 import ChevronDown from '~/assets/icons/nav-ikoner/filled/SVG/46-arrows/arrow-down-8.svg'
 import ChevronUp from '~/assets/icons/nav-ikoner/filled/SVG/46-arrows/arrow-up-8.svg'
 import ChevronLeft from '~/assets/icons/nav-ikoner/filled/SVG/46-arrows/arrow-left-8.svg'
@@ -91,9 +89,7 @@ export const icons = {
 	calendar: Calendar,
 	'file-new-table': NewFileTable,
 	'arrow-left': ArrowLeft,
-	'arrow-left-lined': ArrowLeftLined,
 	'arrow-right': ArrowRight,
-	'arrow-right-lined': ArrowRightLined,
 	details: Details,
 	synchronize: Synchronize,
 	'report-problem-circle': ReportProblemCircle,
