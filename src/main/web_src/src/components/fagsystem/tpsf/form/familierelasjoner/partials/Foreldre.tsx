@@ -23,7 +23,7 @@ type Ident = {
 	value: string
 }
 
-type Foreldre = {
+type ForeldreType = {
 	formikBag: FormikProps<{
 		tpsf: {
 			relasjoner: {
@@ -48,7 +48,7 @@ const initialValues = {
 	statsborgerskapTildato: ''
 }
 
-export const Foreldre = ({ formikBag, personFoerLeggTil }: Foreldre) => {
+export const Foreldre = ({ formikBag, personFoerLeggTil }: ForeldreType) => {
 	const handleIdenttypeChange = (path: string, ident: Ident) => {
 		formikBag.setFieldValue(`${path}`, initialValues)
 		formikBag.setFieldValue(`${path}.identtype`, ident.value)

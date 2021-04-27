@@ -357,13 +357,13 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 				data.push(barn)
 			}
 			if (foreldre && foreldre.length > 0) {
-				const foreldre = {
+				const foreldreRows = {
 					header: 'Foreldre',
 					itemRows: []
 				}
 
 				relasjoner.foreldre.forEach((item, i) => {
-					foreldre.itemRows.push([
+					foreldreRows.itemRows.push([
 						{
 							label: '',
 							value: `#${i + 1}`,
@@ -378,7 +378,7 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 					])
 				})
 
-				data.push(foreldre)
+				data.push(foreldreRows)
 			}
 		}
 

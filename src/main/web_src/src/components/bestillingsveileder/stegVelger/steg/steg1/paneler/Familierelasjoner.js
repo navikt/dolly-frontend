@@ -99,7 +99,7 @@ const defaultPartner = opts => {
 }
 
 const defaultForeldre = () => {
-	const fullForelder = [
+	return [
 		{
 			identtype: 'FNR',
 			kjonn: '',
@@ -115,8 +115,6 @@ const defaultForeldre = () => {
 			statsborgerskapTildato: ''
 		}
 	]
-
-	return fullForelder
 }
 
 const defaultBarn = opts => {
