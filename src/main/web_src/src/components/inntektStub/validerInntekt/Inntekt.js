@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import _get from 'lodash/get'
 import { AdresseKodeverk } from '~/config/kodeverk'
 import { FormikSelect } from '~/components/ui/form/inputs/select/Select'
@@ -39,7 +39,8 @@ const booleanField = options => {
 	return options.length > 0 && typeof options[0] === 'boolean'
 }
 
-const fieldResolver = (field, options = [], handleChange, values, path, index) => {
+const fieldResolver = (field, options = [], handleChange, formik, path, index) => {
+	const values = formik.values
 	if (dateFields.includes(field)) {
 		return (
 			<FormikDatepicker
@@ -81,14 +82,22 @@ const fieldResolver = (field, options = [], handleChange, values, path, index) =
 			/>
 		)
 	}
+	if (options.length === 1 && _get(values, index) !== options[0]) {
+		useEffect(() => {
+			formik.setFieldValue(index, options[0])
+		})
+	}
+	const filteredOptions = options
+		.filter(option => option !== '<TOM>')
+		.map(option => ({ label: texts(option), value: option }))
+	console.log(filteredOptions) // TODO: slett meg!
 	return (
 		<FormikSelect
 			key={index}
 			name={field}
 			label={texts(field)}
-			options={options
-				.filter(option => option !== '<TOM>')
-				.map(option => ({ label: texts(option), value: option }))}
+			placeholder={filteredOptions.length === 1 ? filteredOptions[0].label : 'Velg..'}
+			options={filteredOptions}
 			fastfield={false}
 			afterChange={handleChange}
 			size={booleanField(options) ? 'small' : wideFields.includes(field) ? 'xxlarge' : 'large'}
@@ -104,14 +113,14 @@ const Inntekt = ({ fields = {}, onValidate, formikBag, path }) => (
 			'inntektstype',
 			['LOENNSINNTEKT', 'YTELSE_FRA_OFFENTLIGE', 'PENSJON_ELLER_TRYGD', 'NAERINGSINNTEKT'],
 			onValidate,
-			formikBag.values,
+			formikBag,
 			path
 		)}
 
 		{Object.keys(fields)
 			.filter(field => !(fields[field].length === 1 && fields[field][0] === '<TOM>'))
 			.map(field =>
-				fieldResolver(field, fields[field], onValidate, formikBag.values, path, `${path}.${field}`)
+				fieldResolver(field, fields[field], onValidate, formikBag, path, `${path}.${field}`)
 			)}
 	</div>
 )
