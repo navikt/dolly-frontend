@@ -15,12 +15,16 @@ const Button = styled.button`
 	text-decoration: underline;
 	cursor: ${p => (p.disabled ? 'auto' : 'pointer')};
 	border: none;
+	font-size: 15px;
+	padding: 0 9px 0 9px;
 `
 
 const SelectedButton = styled.button`
 	background: transparent;
 	color: black;
 	border: none;
+	font-size: 15px;
+	padding: 0 9px 0 9px;
 `
 
 export default ({ index, selected, disabled, text, onClick }: KjedeItemProps) => {

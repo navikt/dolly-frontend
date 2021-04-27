@@ -20,8 +20,8 @@ export default ({ left, disabled, onClick }: Props) => {
 
 	return (
 		<ArrowButton disabled={disabled} onClick={() => onClick(paginationValue)}>
-			{left && <Icon size={11} kind={'arrow-left'} />}
-			{!left && <Icon size={11} kind={'arrow-right'} />}
+			{left && <Icon size={14} kind={'arrow-left'} />}
+			{!left && <Icon size={14} kind={'arrow-right'} />}
 		</ArrowButton>
 	)
 }

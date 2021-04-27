@@ -12,7 +12,7 @@ const KjedeIcon = styled.div`
 	border-radius: 2px;
 	display: block;
 	margin: 2px 2px 2px 6px;
-	padding: 4px 4px 2px 4px;
+	padding: 5px 5px 3px 5px;
 	cursor: pointer;
 	fill: white;
 `
@@ -20,7 +20,7 @@ const KjedeIcon = styled.div`
 export default ({ locked, onClick }: KjedeIconProps) => {
 	return (
 		<KjedeIcon onClick={() => onClick()} className={'background-color-lightblue'}>
-			<Icon size={22} kind={locked ? 'link' : 'linkBroken'} />
+			<Icon size={24} kind={locked ? 'link' : 'linkBroken'} />
 		</KjedeIcon>
 	)
 }
