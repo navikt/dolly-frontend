@@ -19,12 +19,15 @@ const Container = styled.div`
 `
 
 const getCenterIndices = (index: number, antallItems: number, itemLimit: number) => {
-	itemLimit = itemLimit > 10 ? 10 : itemLimit < 5 ? 5 : itemLimit
 	if (antallItems < 3) {
 		return []
 	}
 
-	let indices = [index - 1, index, index + 1]
+	let indices = [index]
+
+	if (antallItems <= itemLimit) {
+		indices = Array.from(Array(antallItems).keys())
+	}
 
 	while (
 		indices.length < itemLimit - 3 &&
@@ -54,22 +57,25 @@ const getCenterIndices = (index: number, antallItems: number, itemLimit: number)
 
 export default ({ objectList, itemLimit, selectedIndex, setSelectedIndex }: DollyKjedeProps) => {
 	const antallItems = objectList.length
+	const maxShownItems = itemLimit > 10 ? 10 : itemLimit < 5 ? 5 : itemLimit
 
-	const [paginationIndex, setPaginationIndex] = useState(antallItems > 6 ? 5 : antallItems - 2)
+	const [paginationIndex, setPaginationIndex] = useState(
+		antallItems >= maxShownItems ? maxShownItems - 4 : antallItems - 2
+	)
 	const [centerIndices, setCenterIndices] = useState(
-		getCenterIndices(paginationIndex, antallItems, itemLimit)
+		getCenterIndices(paginationIndex, antallItems, maxShownItems)
 	)
 	const [locked, setLocked] = useState(true)
 
 	const handlePagination = (addValue: number) => {
-		if (centerIndices.length == itemLimit - 3 || centerIndices.length < itemLimit - 4) {
+		if (centerIndices.length == maxShownItems - 3) {
 			if (addValue < 0) {
 				addValue -= 1
 			} else {
 				addValue += 1
 			}
 		}
-		setCenterIndices(getCenterIndices(paginationIndex + addValue, antallItems, itemLimit))
+		setCenterIndices(getCenterIndices(paginationIndex + addValue, antallItems, maxShownItems))
 		setPaginationIndex(paginationIndex + addValue)
 	}
 

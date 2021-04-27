@@ -17,7 +17,7 @@ const PaginationContainer = styled.div`
 	border-radius: 2px;
 	margin: 2px;
 	padding: 7px 7px 5px 7px;
-	width: 750px;
+	width: 775px;
 `
 
 const PaginationWrapper = styled.div`
