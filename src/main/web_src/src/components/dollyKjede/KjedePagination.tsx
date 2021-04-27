@@ -12,7 +12,13 @@ export interface Props {
 	handleClick: (page: number) => void
 }
 
-const PaginationContainer = styled.div``
+const PaginationContainer = styled.div`
+	border-radius: 2px;
+	margin: 2px;
+	padding: 7px 7px 5px 7px;
+	background-color: white;
+	width: 750px;
+`
 
 const PaginationWrapper = styled.div`
 	display: flex;
@@ -20,8 +26,8 @@ const PaginationWrapper = styled.div`
 `
 
 const Separator = styled.div`
-	width: 1rem;
-	margin: 0 0.25rem;
+	font-weight: bold;
+	margin: 0 20px 0 20px;
 `
 
 export default ({
@@ -50,42 +56,18 @@ export default ({
 					/>
 				)}
 				{centerIndices.length != 0 && centerIndices[0] != 1 && <Separator>...</Separator>}
-				{centerIndices.length > 0 && (
-					<KjedeItem
-						index={centerIndices[0]}
-						selected={selectedIndex == centerIndices[0]}
-						disabled={disabled}
-						text={objectList[centerIndices[0]]}
-						onClick={handleClick}
-					/>
-				)}
-				{centerIndices.length > 1 && (
-					<KjedeItem
-						index={centerIndices[1]}
-						selected={selectedIndex == centerIndices[1]}
-						disabled={disabled}
-						text={objectList[centerIndices[1]]}
-						onClick={handleClick}
-					/>
-				)}
-				{centerIndices.length > 2 && (
-					<KjedeItem
-						index={centerIndices[2]}
-						selected={selectedIndex == centerIndices[2]}
-						disabled={disabled}
-						text={objectList[centerIndices[2]]}
-						onClick={handleClick}
-					/>
-				)}
-				{centerIndices.length > 3 && (
-					<KjedeItem
-						index={centerIndices[3]}
-						selected={selectedIndex == centerIndices[3]}
-						disabled={disabled}
-						text={objectList[centerIndices[3]]}
-						onClick={handleClick}
-					/>
-				)}
+				{centerIndices.map((item, index) => {
+					return (
+						<KjedeItem
+							key={index}
+							index={item}
+							selected={selectedIndex == item}
+							disabled={disabled}
+							text={objectList[item]}
+							onClick={handleClick}
+						/>
+					)
+				})}
 				{centerIndices.length != 0 &&
 					centerIndices[centerIndices.length - 1] != objectList.length - 2 && (
 						<Separator>...</Separator>

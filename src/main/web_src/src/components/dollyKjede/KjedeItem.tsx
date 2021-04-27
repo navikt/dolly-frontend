@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-export interface Props {
+export interface KjedeItemProps {
 	index: number
 	selected: boolean
 	disabled: boolean
@@ -23,7 +23,7 @@ const SelectedButton = styled.button`
 	border: none;
 `
 
-export default ({ index, selected, disabled, text, onClick }: Props) => {
+export default ({ index, selected, disabled, text, onClick }: KjedeItemProps) => {
 	if (selected) {
 		return (
 			<SelectedButton disabled={disabled} onClick={() => onClick(index)}>
