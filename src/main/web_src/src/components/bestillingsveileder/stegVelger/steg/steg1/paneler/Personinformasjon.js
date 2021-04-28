@@ -73,7 +73,6 @@ PersoninformasjonPanel.heading = 'Personinformasjon'
 PersoninformasjonPanel.initialValues = ({ set, setMulti, del, has }) => {
 	const opts = useContext(BestillingsveilederContext)
 	const { personFoerLeggTil } = opts
-	console.log(personFoerLeggTil) // TODO: slett meg!
 
 	return {
 		alder: {
