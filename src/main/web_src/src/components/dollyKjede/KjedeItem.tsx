@@ -13,36 +13,26 @@ export interface KjedeItemProps {
 const Button = styled.button`
 	background: transparent;
 	text-decoration: underline;
-	cursor: ${p => (p.disabled ? 'auto' : 'pointer')};
-	border: none;
-	font-size: 15px;
-	padding: 0 9px 0 9px;
-`
-
-const SelectedButton = styled.button`
-	background: transparent;
-	color: black;
+	cursor: ${p => p.style.cursor};
 	border: none;
 	font-size: 15px;
 	padding: 0 9px 0 9px;
 `
 
 export default ({ index, selected, disabled, text, onClick }: KjedeItemProps) => {
-	if (selected) {
-		return (
-			<SelectedButton disabled={disabled} onClick={() => onClick(index)}>
-				{text}
-			</SelectedButton>
-		)
-	} else {
-		return (
-			<Button
-				disabled={disabled}
-				onClick={() => onClick(index)}
-				className={disabled ? 'color-grey' : 'color-lightblue'}
-			>
-				{text}
-			</Button>
-		)
+	const style = {
+		cursor: selected || disabled ? 'auto' : 'pointer',
+		className: selected ? 'color-black' : disabled ? 'color-grey' : 'color-lightblue'
 	}
+
+	return (
+		<Button
+			disabled={disabled}
+			onClick={() => onClick(index)}
+			style={style}
+			className={style['className']}
+		>
+			{text}
+		</Button>
+	)
 }
