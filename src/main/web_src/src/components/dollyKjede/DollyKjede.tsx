@@ -83,6 +83,20 @@ export default ({ objectList, itemLimit, selectedIndex, setSelectedIndex }: Doll
 		setLocked(!locked)
 	}
 
+	const handleSelection = (index: number) => {
+		let newPaginationIndex
+		if (index == 0) {
+			newPaginationIndex = antallItems >= maxShownItems ? maxShownItems - 4 : antallItems - 2
+		} else if (index == antallItems - 1) {
+			newPaginationIndex = antallItems - 2
+		}
+		if (newPaginationIndex != null) {
+			setCenterIndices(getCenterIndices(newPaginationIndex, antallItems, maxShownItems))
+			setPaginationIndex(newPaginationIndex)
+		}
+		setSelectedIndex(index)
+	}
+
 	return (
 		<Container>
 			<KjedePagination
@@ -91,7 +105,7 @@ export default ({ objectList, itemLimit, selectedIndex, setSelectedIndex }: Doll
 				centerIndices={centerIndices}
 				disabled={locked}
 				handlePagination={handlePagination}
-				handleClick={setSelectedIndex}
+				handleClick={handleSelection}
 			/>
 			<KjedeIcon locked={locked} onClick={handleLocked} />
 		</Container>
