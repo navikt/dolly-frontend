@@ -39,7 +39,7 @@ const booleanField = options => {
 	return options.length > 0 && typeof options[0] === 'boolean'
 }
 
-const fieldResolver = (field, options = [], handleChange, formik, path, index) => {
+const fieldResolver = (field, options = [], handleChange, formik, path, index, resetForm) => {
 	const values = formik.values
 	if (dateFields.includes(field)) {
 		return (
@@ -82,33 +82,35 @@ const fieldResolver = (field, options = [], handleChange, formik, path, index) =
 			/>
 		)
 	}
-	if (options.length === 1 && _get(values, index) !== options[0]) {
-		useEffect(() => {
-			formik.setFieldValue(index, options[0])
-		})
-	}
 	const filteredOptions = options
 		.filter(option => option !== '<TOM>')
 		.map(option => ({ label: texts(option), value: option }))
-	console.log(index) // TODO: slett meg!
+	if (
+		!resetForm &&
+		filteredOptions.length === 1 &&
+		_get(values, index) !== filteredOptions[0].value
+	) {
+		useEffect(() => {
+			formik.setFieldValue(index, filteredOptions[0].value)
+		})
+	}
 	return (
 		<FormikSelect
-			id={index}
 			key={index}
 			name={field}
+			value={filteredOptions.length === 1 ? filteredOptions[0].value : _get(values, index)}
 			label={texts(field)}
-			placeholder={filteredOptions.length === 1 ? filteredOptions[0].label : 'Velg..'}
 			options={filteredOptions}
 			fastfield={false}
 			afterChange={handleChange}
 			size={booleanField(options) ? 'small' : wideFields.includes(field) ? 'xxlarge' : 'large'}
-			feil={sjekkFelt(field, options, values, path)}
+			feil={sjekkFelt(field, filteredOptions, values, path)}
 			isClearable={field !== 'inntektstype'}
 		/>
 	)
 }
 
-const Inntekt = ({ fields = {}, onValidate, formikBag, path }) => (
+const Inntekt = ({ fields = {}, onValidate, formikBag, path, resetForm }) => (
 	<div className="flexbox--flex-wrap">
 		{fieldResolver(
 			'inntektstype',
@@ -116,13 +118,22 @@ const Inntekt = ({ fields = {}, onValidate, formikBag, path }) => (
 			onValidate,
 			formikBag,
 			path,
-			`${path}.inntektstype`
+			`${path}.inntektstype`,
+			resetForm
 		)}
 
 		{Object.keys(fields)
 			.filter(field => !(fields[field].length === 1 && fields[field][0] === '<TOM>'))
 			.map(field =>
-				fieldResolver(field, fields[field], onValidate, formikBag, path, `${path}.${field}`)
+				fieldResolver(
+					field,
+					fields[field],
+					onValidate,
+					formikBag,
+					path,
+					`${path}.${field}`,
+					resetForm
+				)
 			)}
 	</div>
 )

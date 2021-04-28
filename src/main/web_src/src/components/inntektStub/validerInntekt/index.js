@@ -4,9 +4,11 @@ import Inntekt from './Inntekt'
 import { Formik } from 'formik'
 import * as api from '../api'
 import tilleggsinformasjonPaths from '../paths'
+import { useBoolean } from 'react-use'
 
 const InntektStub = ({ formikBag, inntektPath }) => {
 	const [fields, setFields] = useState({})
+	const [resetForm, setResetForm] = useBoolean(false)
 	const [inntektValues, setInntektValues] = useState(_get(formikBag.values, inntektPath))
 	const [currentInntektstype, setCurrentInntektstype] = useState(
 		_get(formikBag.values, `${inntektPath}.inntektstype`)
@@ -46,7 +48,9 @@ const InntektStub = ({ formikBag, inntektPath }) => {
 			beloep: _get(formikBag.values, `${inntektPath}.beloep`),
 			startOpptjeningsperiode: _get(formikBag.values, `${inntektPath}.startOpptjeningsperiode`),
 			sluttOpptjeningsperiode: _get(formikBag.values, `${inntektPath}.sluttOpptjeningsperiode`),
-			inntektstype: values.inntektstype
+			inntektstype: values.inntektstype,
+			tilleggsinformasjonstype: undefined,
+			tilleggsinformasjon: undefined
 		}
 
 		if (values.inntektstype !== currentInntektstype) {
@@ -79,6 +83,20 @@ const InntektStub = ({ formikBag, inntektPath }) => {
 		}
 	}
 
+	useEffect(() => {
+		Object.entries(fields).forEach(entry => {
+			const name = entry[0]
+			const valueArray = entry[1]
+			if (
+				valueArray.length === 1 &&
+				valueArray[0] === '<TOM>' &&
+				_get(formikBag.values, `${inntektPath}.${name}`)
+			) {
+				formikBag.setFieldValue(`${inntektPath}.${name}`, undefined)
+			}
+		})
+	})
+
 	return (
 		<Formik
 			initialValues={inntektValues.inntektstype !== '' ? inntektValues : {}}
@@ -86,10 +104,13 @@ const InntektStub = ({ formikBag, inntektPath }) => {
 				if (currentInntektstype && values.inntektstype !== currentInntektstype) {
 					resetForm({ values: { inntektstype: values.inntektstype } })
 					values = { inntektstype: values.inntektstype }
+					setResetForm(true)
+				} else {
+					setResetForm(false)
 				}
 				for (const [key, value] of Object.entries(values)) {
 					if (value === '') {
-						values[key] = null
+						values[key] = undefined
 					}
 				}
 				api.validate(values).then(response => setFields(response))
@@ -103,6 +124,7 @@ const InntektStub = ({ formikBag, inntektPath }) => {
 							onValidate={handleSubmit}
 							formikBag={formikBag}
 							path={inntektPath}
+							resetForm={resetForm}
 						/>
 					</div>
 				)
