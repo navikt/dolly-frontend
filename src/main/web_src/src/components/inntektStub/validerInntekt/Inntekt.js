@@ -90,9 +90,10 @@ const fieldResolver = (field, options = [], handleChange, formik, path, index) =
 	const filteredOptions = options
 		.filter(option => option !== '<TOM>')
 		.map(option => ({ label: texts(option), value: option }))
-	console.log(filteredOptions) // TODO: slett meg!
+	console.log(index) // TODO: slett meg!
 	return (
 		<FormikSelect
+			id={index}
 			key={index}
 			name={field}
 			label={texts(field)}
@@ -114,7 +115,8 @@ const Inntekt = ({ fields = {}, onValidate, formikBag, path }) => (
 			['LOENNSINNTEKT', 'YTELSE_FRA_OFFENTLIGE', 'PENSJON_ELLER_TRYGD', 'NAERINGSINNTEKT'],
 			onValidate,
 			formikBag,
-			path
+			path,
+			`${path}.inntektstype`
 		)}
 
 		{Object.keys(fields)
