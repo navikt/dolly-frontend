@@ -12,7 +12,7 @@ export interface KjedeItemProps {
 
 const Button = styled.button`
 	background: transparent;
-	text-decoration: underline;
+	text-decoration: ${p => p.style.textDecoration};
 	cursor: ${p => p.style.cursor};
 	border: none;
 	font-size: 15px;
@@ -22,7 +22,8 @@ const Button = styled.button`
 export default ({ index, selected, disabled, text, onClick }: KjedeItemProps) => {
 	const style = {
 		cursor: selected || disabled ? 'auto' : 'pointer',
-		className: selected ? 'color-black' : disabled ? 'color-grey' : 'color-lightblue'
+		className: selected ? 'color-black' : disabled ? 'color-grey' : 'color-lightblue',
+		textDecoration: selected ? 'none' : 'underline'
 	}
 
 	return (
