@@ -19,6 +19,8 @@ const Button = styled.button`
 	padding: 0 9px 0 9px;
 `
 
+const disabledText = 'Lås opp lenkede måneder for å gjøre endringer på spesifikk måned'
+
 export default ({ index, selected, disabled, text, onClick }: KjedeItemProps) => {
 	const textColor = () => {
 		if (selected) {
@@ -38,6 +40,7 @@ export default ({ index, selected, disabled, text, onClick }: KjedeItemProps) =>
 			onClick={() => onClick(index)}
 			style={style}
 			className={style['className']}
+			title={disabled ? disabledText : null}
 		>
 			{text}
 		</Button>
