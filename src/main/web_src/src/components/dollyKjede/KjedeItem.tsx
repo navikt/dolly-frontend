@@ -20,9 +20,15 @@ const Button = styled.button`
 `
 
 export default ({ index, selected, disabled, text, onClick }: KjedeItemProps) => {
+	const textColor = () => {
+		if (selected) {
+			return 'color-black'
+		} else return disabled ? 'color-grey' : 'color-lightblue'
+	}
+
 	const style = {
 		cursor: selected || disabled ? 'auto' : 'pointer',
-		className: selected ? 'color-black' : disabled ? 'color-grey' : 'color-lightblue',
+		className: textColor(),
 		textDecoration: selected ? 'none' : 'underline'
 	}
 
