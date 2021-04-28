@@ -481,7 +481,7 @@ export const validation = {
 				partnere: ifPresent('$tpsf.relasjoner.partnere', partnere),
 				barn: ifPresent('$tpsf.relasjoner.barn', barn)
 			}),
-			identtype: ifPresent('$tpsf.identtype', requiredString).required(messages.required)
+			identtype: ifPresent('$tpsf.identtype', requiredString)
 		})
 	)
 }

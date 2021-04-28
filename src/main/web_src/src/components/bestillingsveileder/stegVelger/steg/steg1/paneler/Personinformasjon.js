@@ -73,6 +73,7 @@ PersoninformasjonPanel.heading = 'Personinformasjon'
 PersoninformasjonPanel.initialValues = ({ set, setMulti, del, has }) => {
 	const opts = useContext(BestillingsveilederContext)
 	const { personFoerLeggTil } = opts
+	console.log(personFoerLeggTil) // TODO: slett meg!
 
 	return {
 		alder: {
@@ -221,8 +222,7 @@ PersoninformasjonPanel.initialValues = ({ set, setMulti, del, has }) => {
 		identtype: {
 			label: 'Identtype',
 			checked: has('tpsf.identtype'),
-			add: () =>
-				setMulti(['tpsf.identtype', ''], ['tpsf.alder', Formatters.randomIntInRange(30, 60)]),
+			add: () => setMulti(['tpsf.identtype', ''], ['tpsf.alder', personFoerLeggTil.tpsf.alder]),
 			remove: () => del(['tpsf.identtype', 'tpsf.alder', 'tpsf.foedtEtter', 'tpsf.foedtFoer'])
 		},
 		vergemaal: {
