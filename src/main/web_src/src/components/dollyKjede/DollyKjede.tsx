@@ -55,17 +55,29 @@ const getCenterIndices = (index: number, antallItems: number, itemLimit: number)
 	return indices
 }
 
+const getMaxShownItems = (itemLimit: number) => {
+	return itemLimit > 10 ? 10 : itemLimit < 5 ? 5 : itemLimit
+}
+
+const getInitialPaginationIndex = (antallItems: number, maxShownItems: number) => {
+	return antallItems >= maxShownItems ? maxShownItems - 4 : antallItems - 2
+}
+
 export default ({ objectList, itemLimit, selectedIndex, setSelectedIndex }: DollyKjedeProps) => {
 	const antallItems = objectList.length
-	const maxShownItems = itemLimit > 10 ? 10 : itemLimit < 5 ? 5 : itemLimit
+	const maxShownItems = getMaxShownItems(itemLimit)
 
+	const [locked, setLocked] = useState(true)
 	const [paginationIndex, setPaginationIndex] = useState(
-		antallItems >= maxShownItems ? maxShownItems - 4 : antallItems - 2
+		getInitialPaginationIndex(antallItems, maxShownItems)
 	)
 	const [centerIndices, setCenterIndices] = useState(
 		getCenterIndices(paginationIndex, antallItems, maxShownItems)
 	)
-	const [locked, setLocked] = useState(true)
+
+	const handleLocked = () => {
+		setLocked(!locked)
+	}
 
 	const handlePagination = (addValue: number) => {
 		if (centerIndices.length == maxShownItems - 3) {
@@ -79,14 +91,10 @@ export default ({ objectList, itemLimit, selectedIndex, setSelectedIndex }: Doll
 		setPaginationIndex(paginationIndex + addValue)
 	}
 
-	const handleLocked = () => {
-		setLocked(!locked)
-	}
-
 	const handleSelection = (index: number) => {
 		let newPaginationIndex
 		if (index == 0) {
-			newPaginationIndex = antallItems >= maxShownItems ? maxShownItems - 4 : antallItems - 2
+			newPaginationIndex = getInitialPaginationIndex(antallItems, maxShownItems)
 		} else if (index == antallItems - 1) {
 			newPaginationIndex = antallItems - 2
 		}
