@@ -63,9 +63,6 @@ export const Foreldre = ({ formikBag, personFoerLeggTil }: ForeldreType) => {
 
 	const antallForeldre = formikBag.values.tpsf?.relasjoner?.foreldre?.length
 
-	console.log(formikBag.values.tpsf) // TODO: slett meg!
-	console.log(personFoerLeggTil) // TODO: slett meg!
-
 	return (
 		<FormikDollyFieldArray
 			name="tpsf.relasjoner.foreldre"
@@ -75,7 +72,6 @@ export const Foreldre = ({ formikBag, personFoerLeggTil }: ForeldreType) => {
 			disabled={antallForeldre >= 2}
 		>
 			{(path: string, idx: number) => {
-				console.log(path) // TODO: slett meg!
 				const eksisterendeForelder = _get(formikBag.values, `${path}.ident`)
 				const aktuellRelasjon =
 					personFoerLeggTil &&

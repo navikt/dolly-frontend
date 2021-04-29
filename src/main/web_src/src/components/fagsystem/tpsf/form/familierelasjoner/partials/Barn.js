@@ -87,7 +87,6 @@ export const Barn = ({ formikBag, personFoerLeggTil }) => {
 	return (
 		<FormikDollyFieldArray name="tpsf.relasjoner.barn" header="Barn" newEntry={initialValues}>
 			{(path, idx) => {
-				console.log(path) // TODO: slett meg!
 				const isDoedfoedt = _get(formikBag.values, `${path}.identtype`) === 'FDAT'
 				const eksisterendeBarn = _get(formikBag.values, `${path}.ident`)
 				const aktuellRelasjon =
