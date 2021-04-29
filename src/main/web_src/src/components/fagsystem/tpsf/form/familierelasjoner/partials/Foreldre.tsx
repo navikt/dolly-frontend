@@ -124,7 +124,11 @@ export const Foreldre = ({ formikBag, personFoerLeggTil }: ForeldreType) => {
 							{gjeldendeForelder.personRelasjonMed.ident} ({gjeldendeForelder.relasjonTypeNavn})
 						</h4>
 						<div className="alder-component">
-							<FormikDatepicker name={`${path}.doedsdato`} label="Dødsdato" />
+							<FormikDatepicker
+								name={`${path}.doedsdato`}
+								label="Dødsdato"
+								disabled={gjeldendeForelder.personRelasjonMed.doedsdato}
+							/>
 						</div>
 					</>
 				)
