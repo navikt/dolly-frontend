@@ -7,13 +7,19 @@ import { FormikDollyFieldArray } from '~/components/ui/form/fieldArray/DollyFiel
 import { Alder } from '~/components/fagsystem/tpsf/form/personinformasjon/partials/alder/Alder'
 import { Diskresjonskoder } from '~/components/fagsystem/tpsf/form/personinformasjon/partials/diskresjonskoder/Diskresjonskoder'
 import Formatters from '~/utils/DataFormatter'
-import _get from 'lodash/get'
 import { FormikProps } from 'formik'
 import { FormikCheckbox } from '~/components/ui/form/inputs/checbox/Checkbox'
+import _get from 'lodash/get'
 
 type Relasjon = {
+	relasjonTypeNavn: string
 	personRelasjonMed: {
 		ident: string
+		fornavn: string
+		etternavn: string
+		identtype: string
+		kjonn: string
+		alder: number
 	}
 }
 
@@ -31,7 +37,7 @@ type ForeldreType = {
 			}
 		}
 	}>
-	personFoerLeggTil: {}
+	personFoerLeggTil: { tpsf: { relasjoner: [Relasjon] } }
 }
 
 const initialValues = {
@@ -40,6 +46,7 @@ const initialValues = {
 	foreldreType: '',
 	sivilstander: [{ sivilstand: '', sivilstandRegdato: '' }],
 	harFellesAdresse: true,
+	doedsdato: null,
 	alder: Formatters.randomIntInRange(65, 100),
 	spesreg: '',
 	utenFastBopel: false,
@@ -54,24 +61,29 @@ export const Foreldre = ({ formikBag, personFoerLeggTil }: ForeldreType) => {
 		formikBag.setFieldValue(`${path}.identtype`, ident.value)
 	}
 
+	const antallForeldre = formikBag.values.tpsf?.relasjoner?.foreldre?.length
+
+	console.log(formikBag.values.tpsf) // TODO: slett meg!
+	console.log(personFoerLeggTil) // TODO: slett meg!
+
 	return (
-		// @ts-ignore
 		<FormikDollyFieldArray
 			name="tpsf.relasjoner.foreldre"
 			header="Forelder"
-			newEntry={initialValues}
-			disabled={formikBag.values.tpsf?.relasjoner?.foreldre?.length === 2}
+			tag={null}
+			newEntry={antallForeldre < 2 ? initialValues : null}
+			disabled={antallForeldre >= 2}
 		>
 			{(path: string, idx: number) => {
+				console.log(path) // TODO: slett meg!
 				const eksisterendeForelder = _get(formikBag.values, `${path}.ident`)
 				const aktuellRelasjon =
 					personFoerLeggTil &&
 					eksisterendeForelder &&
 					_get(personFoerLeggTil, 'tpsf.relasjoner').filter(
-						(relasjon: Relasjon) => relasjon.personRelasjonMed.ident === eksisterendeForelder
+						relasjon => relasjon.personRelasjonMed.ident === eksisterendeForelder
 					)
-				const fornavn = aktuellRelasjon && aktuellRelasjon[0]?.personRelasjonMed?.fornavn
-				const etternavn = aktuellRelasjon && aktuellRelasjon[0]?.personRelasjonMed?.etternavn
+				const gjeldendeForelder = aktuellRelasjon && aktuellRelasjon[0]
 
 				return !eksisterendeForelder ? (
 					<React.Fragment key={idx}>
@@ -111,7 +123,9 @@ export const Foreldre = ({ formikBag, personFoerLeggTil }: ForeldreType) => {
 				) : (
 					<>
 						<h4>
-							{fornavn} {etternavn} ({eksisterendeForelder})
+							{gjeldendeForelder.personRelasjonMed.fornavn}{' '}
+							{gjeldendeForelder.personRelasjonMed.etternavn} -{' '}
+							{gjeldendeForelder.personRelasjonMed.ident} ({gjeldendeForelder.relasjonTypeNavn})
 						</h4>
 						<div className="alder-component">
 							<FormikDatepicker name={`${path}.doedsdato`} label="Dødsdato" />

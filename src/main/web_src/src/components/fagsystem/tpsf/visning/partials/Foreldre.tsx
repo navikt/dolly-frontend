@@ -19,6 +19,7 @@ type Relasjon = [
 			ident: string
 			fornavn: string
 			etternavn: string
+			kjonn: string
 		}
 		relasjonTypeNavn: string
 	}
@@ -63,7 +64,10 @@ export const Foreldre = ({ person, type }: Data) => {
 				<TitleValue title="Mellomnavn" value={person.mellomnavn} />
 				<TitleValue title="Etternavn" value={person.etternavn} />
 				<TitleValue title="Kjønn" value={Formatters.kjonn(person.kjonn, person.alder)} />
-				<TitleValue title="Alder" value={person.alder} />
+				<TitleValue
+					title="Alder"
+					value={person.doedsdato ? `${person.alder}(død)` : person.alder}
+				/>
 				<TitleValue title="Dødsdato" value={Formatters.formatDate(person.doedsdato)} />
 				<TitleValue title="Foreldretype" value={type} />
 				<TitleValue
@@ -101,6 +105,6 @@ const finnBarn = (relasjoner: Relasjon) =>
 				' ' +
 				relasjon.personRelasjonMed.etternavn +
 				' (' +
-				relasjon.personRelasjonMed.ident +
+				(relasjon.personRelasjonMed.kjonn.includes('K') ? 'DATTER' : 'SØNN') +
 				')'
 		)

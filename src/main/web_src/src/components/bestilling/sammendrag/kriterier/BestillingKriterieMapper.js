@@ -296,6 +296,7 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 			const partnere = relasjoner.partner || relasjoner.partnere
 			const barn = relasjoner.barn
 			const foreldre = relasjoner.foreldre
+
 			if (partnere) {
 				const partner = {
 					header: 'Partner',
@@ -371,7 +372,7 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 						},
 						..._getTpsfBestillingData(item),
 						obj('Fnr/dnr/bost', item.ident),
-						obj('ForeldreType', Formatters.showLabel('foreldreType', item.foreldreType)), //Bruke samme funksjon som i bestillingsveileder
+						obj('ForeldreType', Formatters.showLabel('foreldreType', item.foreldreType)),
 						obj('Foreldre bor sammen', Formatters.oversettBoolean(item.harFellesAdresse)),
 						obj('Diskresjonskoder', item.spesreg !== 'UFB' && item.spesreg, 'Diskresjonskoder'),
 						obj('Fødselsdato', Formatters.formatDate(item.foedselsdato))
