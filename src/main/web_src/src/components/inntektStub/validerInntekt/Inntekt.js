@@ -42,6 +42,7 @@ const booleanField = options => {
 const fieldResolver = (field, options = [], handleChange, formik, path, index, resetForm) => {
 	const values = formik.values
 	if (dateFields.includes(field)) {
+		console.log(index) // TODO: slett meg!
 		return (
 			<FormikDatepicker
 				key={index}

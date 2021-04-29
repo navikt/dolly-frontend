@@ -48,9 +48,7 @@ const InntektStub = ({ formikBag, inntektPath }) => {
 			beloep: _get(formikBag.values, `${inntektPath}.beloep`),
 			startOpptjeningsperiode: _get(formikBag.values, `${inntektPath}.startOpptjeningsperiode`),
 			sluttOpptjeningsperiode: _get(formikBag.values, `${inntektPath}.sluttOpptjeningsperiode`),
-			inntektstype: values.inntektstype,
-			tilleggsinformasjonstype: undefined,
-			tilleggsinformasjon: undefined
+			inntektstype: values.inntektstype
 		}
 
 		if (values.inntektstype !== currentInntektstype) {
