@@ -8,8 +8,8 @@ import { FormikTextInput } from '~/components/ui/form/inputs/textInput/TextInput
 import Panel from '~/components/ui/panel/Panel'
 import { erForste, panelError } from '~/components/ui/form/formUtils'
 import { FormikProps } from 'formik'
-import File from 'forhandsvisningsfil'
-import FileUpload from 'filopplasting'
+import { DollyImageInput } from '~/components/fagsystem/dokarkiv/form/DollyImageInput'
+import { DollyThumb } from '~/components/fagsystem/dokarkiv/form/DollyThumb'
 
 interface DokarkivForm {
 	formikBag: FormikProps<{}>
@@ -66,13 +66,8 @@ export const DokarkivForm = ({ formikBag }: DokarkivForm) => {
 						isClearable={false}
 					/>
 					<FormikTextInput name="dokarkiv.journalfoerendeEnhet" label="Journalførende enhet" />
-					<FileUpload
-						className={'flexbox--full-width'}
-						onFilesChanged={files => {
-							console.log(files)
-						}}
-					/>
-					{imageValue && <File file={imageValue} scale={1.5} />}
+					<DollyImageInput name="dokarkiv.vedlegg" label="Vedlegg" setImageValue={setImageValue} />
+					{imageValue && <DollyThumb file={imageValue.file} />}
 				</Kategori>
 			</Panel>
 		</Vis>
