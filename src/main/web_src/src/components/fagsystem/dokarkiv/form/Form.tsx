@@ -67,9 +67,9 @@ export const DokarkivForm = ({ formikBag }: DokarkivForm) => {
 					<FormikTextInput name="dokarkiv.journalfoerendeEnhet" label="Journalførende enhet" />
 					<FileUpload
 						className={'flexbox--full-width'}
-						// onFilesChanged={files => {
-						// 	console.log(files)
-						// }}
+						onFilesChanged={files => {
+							console.log(files)
+						}}
 					/>
 				</Kategori>
 			</Panel>
