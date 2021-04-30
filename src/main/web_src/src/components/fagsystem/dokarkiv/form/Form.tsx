@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import * as Yup from 'yup'
-import { requiredString, ifPresent } from '~/utils/YupValidations'
+import { ifPresent, requiredString } from '~/utils/YupValidations'
 import { Vis } from '~/components/bestillingsveileder/VisAttributt'
 import { Kategori } from '~/components/ui/form/kategori/Kategori'
 import { FormikSelect } from '~/components/ui/form/inputs/select/Select'
 import { FormikTextInput } from '~/components/ui/form/inputs/textInput/TextInput'
 import Panel from '~/components/ui/panel/Panel'
-import { panelError } from '~/components/ui/form/formUtils'
-import { erForste } from '~/components/ui/form/formUtils'
+import { erForste, panelError } from '~/components/ui/form/formUtils'
 import { FormikProps } from 'formik'
+import { DollyImageInput } from '~/components/fagsystem/dokarkiv/form/DollyImageInput'
+import { DollyThumb } from '~/components/fagsystem/dokarkiv/form/DollyThumb'
 
 interface DokarkivForm {
 	formikBag: FormikProps<{}>
@@ -32,8 +33,9 @@ export const DokarkivForm = ({ formikBag }: DokarkivForm) => {
 	const handleSkjemaChange = (skjema: Skjema) => {
 		formikBag.setFieldValue('dokarkiv.tittel', skjema.data)
 		formikBag.setFieldValue('dokarkiv.dokumenter[0].tittel', skjema.data)
+		console.log(imageValue) // TODO: slett meg!
 	}
-
+	const [imageValue, setImageValue] = useState()
 	return (
 		// @ts-ignore
 		<Vis attributt={dokarkivAttributt}>
@@ -64,6 +66,8 @@ export const DokarkivForm = ({ formikBag }: DokarkivForm) => {
 						isClearable={false}
 					/>
 					<FormikTextInput name="dokarkiv.journalfoerendeEnhet" label="Journalførende enhet" />
+					<DollyImageInput name="dokarkiv.vedlegg" label="Vedlegg" setImageValue={setImageValue} />
+					{imageValue && <DollyThumb file={imageValue.file} />}
 				</Kategori>
 			</Panel>
 		</Vis>
