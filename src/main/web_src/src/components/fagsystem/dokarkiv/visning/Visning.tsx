@@ -16,6 +16,8 @@ type Dokument = {
 	journalfoerendeEnhet?: string
 	journalpostId?: string
 	kanal?: string
+	fagsakSystem?: string
+	fagsakId?: string
 	miljoe?: string
 	tema?: string
 	tittel?: string
@@ -42,84 +44,88 @@ type Dokumentinfo = {
 				temanavn: string
 				journalfoerendeEnhet: string
 				journalpostId: string
+				sak: {
+					fagsaksystem: string
+					fagsakId: string
+				}
 			}
 		}
 		feil?: string
 	}
 }
 
-export const DokarkivVisning = ({ ident }: DokarkivVisning) => {
-	// Viser data fra Joark Dokumentinfo
-	return (
-		<div>
-			<ErrorBoundary>
-				<LoadableComponent
-					onFetch={() =>
-						DollyApi.getTransaksjonid('DOKARKIV', ident)
-							.then(({ data }: { data: Array<TransaksjonId> }) => {
-								return data.map((bestilling: TransaksjonId) => {
-									return DollyApi.getDokarkivDokumentinfo(
-										bestilling.transaksjonId.journalpostId,
-										bestilling.miljoe
-									)
-										.then((response: Dokumentinfo) => {
-											if (response) {
-												if (response.data.feil) {
-													return response.data
-												}
-												const journalpost = response.data.data.journalpost
-												return journalpost
-													? {
-															kanal: journalpost.kanalnavn,
-															brevkode: journalpost.dokumenter[0].brevkode,
-															tittel: journalpost.dokumenter[0].tittel,
-															tema: journalpost.temanavn,
-															journalfoerendeEnhet: journalpost.journalfoerendeEnhet,
-															journalpostId: journalpost.journalpostId,
-															dokumentInfoId: journalpost.dokumenter[0].dokumentInfoId,
-															miljoe: bestilling.miljoe
-													  }
-													: null
+// Viser data fra Joark Dokumentinfo
+export const DokarkivVisning = ({ ident }: DokarkivVisning) => (
+	<div>
+		<ErrorBoundary>
+			<LoadableComponent
+				onFetch={() =>
+					DollyApi.getTransaksjonid('DOKARKIV', ident)
+						.then(({ data }: { data: Array<TransaksjonId> }) => {
+							return data.map((bestilling: TransaksjonId) => {
+								return DollyApi.getDokarkivDokumentinfo(
+									bestilling.transaksjonId.journalpostId,
+									bestilling.miljoe
+								)
+									.then((response: Dokumentinfo) => {
+										if (response) {
+											if (response.data.feil) {
+												return response.data
 											}
-										})
-										.catch(error => console.error(error))
-								})
+											const journalpost = response.data.data.journalpost
+											return journalpost
+												? {
+														kanal: journalpost.kanalnavn,
+														brevkode: journalpost.dokumenter[0].brevkode,
+														tittel: journalpost.dokumenter[0].tittel,
+														tema: journalpost.temanavn,
+														fagsakSystem: journalpost.sak.fagsaksystem,
+														fagsakId: journalpost.sak.fagsakId,
+														journalfoerendeEnhet: journalpost.journalfoerendeEnhet,
+														journalpostId: journalpost.journalpostId,
+														dokumentInfoId: journalpost.dokumenter[0].dokumentInfoId,
+														miljoe: bestilling.miljoe
+												  }
+												: null
+										}
+									})
+									.catch(error => console.error(error))
 							})
-							.then((data: Array<Promise<any>>) => {
-								return Promise.all(data)
-							})
-					}
-					render={(data: Array<Dokument>) => {
-						const filteredData = data.filter(dokument => dokument.journalpostId != null)
-						return (
-							filteredData &&
-							filteredData.length > 0 && (
-								<ErrorBoundary>
-									<>
-										<SubOverskrift label="Dokumenter" iconKind="dokarkiv" />
-										{filteredData.length > 1 ? (
-											<DollyFieldArray data={filteredData} nested>
-												{(dokument: Dokument, idx: number) => (
-													<div key={idx} className="person-visning_content">
-														<EnkelDokarkivVisning dokument={dokument} />
-													</div>
-												)}
-											</DollyFieldArray>
-										) : (
-											<div className="person-visning_content">
-												<EnkelDokarkivVisning dokument={filteredData[0]} />
-											</div>
-										)}
-									</>
-								</ErrorBoundary>
-							)
+						})
+						.then((data: Array<Promise<any>>) => {
+							return Promise.all(data)
+						})
+				}
+				render={(data: Array<Dokument>) => {
+					const filteredData = data.filter(dokument => dokument.journalpostId != null)
+					return (
+						filteredData &&
+						filteredData.length > 0 && (
+							<ErrorBoundary>
+								<>
+									<SubOverskrift label="Dokumenter" iconKind="dokarkiv" />
+									{filteredData.length > 1 ? (
+										<DollyFieldArray data={filteredData} nested>
+											{(dokument: Dokument, idx: number) => (
+												<div key={idx} className="person-visning_content">
+													<EnkelDokarkivVisning dokument={dokument} />
+												</div>
+											)}
+										</DollyFieldArray>
+									) : (
+										<div className="person-visning_content">
+											<EnkelDokarkivVisning dokument={filteredData[0]} />
+										</div>
+									)}
+								</>
+							</ErrorBoundary>
 						)
-					}}
-				/>
-			</ErrorBoundary>
-		</div>
-	)
-}
+					)
+				}}
+			/>
+		</ErrorBoundary>
+	</div>
+)
 
 const EnkelDokarkivVisning = ({ dokument }: EnkeltDokument) => {
 	if (dokument) {
@@ -131,12 +137,14 @@ const EnkelDokarkivVisning = ({ dokument }: EnkeltDokument) => {
 				<>
 					<TitleValue title="Kanal" value={dokument.kanal} />
 					<TitleValue title="Brevkode" value={dokument.brevkode} />
-					<TitleValue title="Tittel" value={dokument.tittel} />
-					<TitleValue title="Tema" value={dokument.tema} />
+					<TitleValue title="Tittel" value={dokument.tittel} size={'medium'} />
+					<TitleValue title="Tema" value={dokument.tema} size={'small-plus'} />
+					<TitleValue title="Fagsak-system" value={dokument.fagsakSystem} />
+					<TitleValue title="Fagsak-ID" value={dokument.fagsakId} />
 					<TitleValue title="Journalførende enhet" value={dokument.journalfoerendeEnhet} />
 					<TitleValue title="Journalpost-ID" value={dokument.journalpostId} />
 					<TitleValue title="Dokumentinfo-ID" value={dokument.dokumentInfoId} />
-					<TitleValue title="Miljø" value={dokument.miljoe} />
+					<TitleValue title="Miljø" value={dokument.miljoe.toUpperCase()} />
 				</>
 			</ErrorBoundary>
 		)

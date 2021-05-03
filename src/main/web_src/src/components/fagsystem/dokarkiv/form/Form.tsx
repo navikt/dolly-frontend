@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import * as Yup from 'yup'
 import { ifPresent, requiredString } from '~/utils/YupValidations'
 import { Vis } from '~/components/bestillingsveileder/VisAttributt'
@@ -10,6 +10,11 @@ import { erForste, panelError } from '~/components/ui/form/formUtils'
 import { FormikProps } from 'formik'
 import FileUpload from 'filopplasting'
 import { Label } from '~/components/ui/form/inputs/label/Label'
+import { pdfjs } from 'react-pdf'
+// @ts-ignore
+import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.entry'
+
+pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker
 
 interface DokarkivForm {
 	formikBag: FormikProps<{}>
@@ -20,6 +25,14 @@ type Skjema = {
 	label: string
 	lowercaseLabel: string
 	value: string
+}
+
+type Vedlegg = {
+	id: string
+	name: string
+	content: {
+		base64: string
+	}
 }
 
 enum Kodeverk {
@@ -33,10 +46,21 @@ export const DokarkivForm = ({ formikBag }: DokarkivForm) => {
 	const handleSkjemaChange = (skjema: Skjema) => {
 		formikBag.setFieldValue('dokarkiv.tittel', skjema.data)
 		formikBag.setFieldValue('dokarkiv.dokumenter[0].tittel', skjema.data)
-		console.log(imageValue) // TODO: slett meg!
 	}
-	const [imageValue, setImageValue] = useState([])
-	console.log(imageValue) // TODO: slett meg!
+
+	const handleVedleggChange = (filer: [Vedlegg]) => {
+		const vedlegg = filer.map((fil: Vedlegg) => fil.content.base64)
+		const dokumentVarianter = vedlegg.map(vedlegg => ({
+			filtype: 'PDFA',
+			fysiskDokument: vedlegg,
+			variantformat: 'ARKIV'
+		}))
+		formikBag.setFieldValue(
+			'dokarkiv.dokumenter[0].dokumentVarianter',
+			dokumentVarianter.length > 0 ? dokumentVarianter : undefined
+		)
+	}
+
 	return (
 		// @ts-ignore
 		<Vis attributt={dokarkivAttributt}>
@@ -72,11 +96,8 @@ export const DokarkivForm = ({ formikBag }: DokarkivForm) => {
 						className={'flexbox--full-width'}
 						acceptedMimetypes={['application/pdf']}
 						maxFiles={5}
-						onFilesChanged={files => {
-							console.log(files)
-							const kapplah = files.map(file => file.content.base64)
-							setImageValue(kapplah)
-						}}
+						// @ts-ignore
+						onFilesChanged={handleVedleggChange}
 					/>
 				</Kategori>
 			</Panel>
