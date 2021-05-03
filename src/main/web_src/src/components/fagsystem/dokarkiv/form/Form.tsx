@@ -9,6 +9,7 @@ import Panel from '~/components/ui/panel/Panel'
 import { erForste, panelError } from '~/components/ui/form/formUtils'
 import { FormikProps } from 'formik'
 import FileUpload from 'filopplasting'
+import { Label } from '~/components/ui/form/inputs/label/Label'
 
 interface DokarkivForm {
 	formikBag: FormikProps<{}>
@@ -34,7 +35,8 @@ export const DokarkivForm = ({ formikBag }: DokarkivForm) => {
 		formikBag.setFieldValue('dokarkiv.dokumenter[0].tittel', skjema.data)
 		console.log(imageValue) // TODO: slett meg!
 	}
-	const [imageValue, setImageValue] = useState()
+	const [imageValue, setImageValue] = useState([])
+	console.log(imageValue) // TODO: slett meg!
 	return (
 		// @ts-ignore
 		<Vis attributt={dokarkivAttributt}>
@@ -65,10 +67,15 @@ export const DokarkivForm = ({ formikBag }: DokarkivForm) => {
 						isClearable={false}
 					/>
 					<FormikTextInput name="dokarkiv.journalfoerendeEnhet" label="Journalførende enhet" />
+					<Label label={'Vedlegg'} name={'Vedlegg'} containerClass={'flexbox--full-width'} />
 					<FileUpload
 						className={'flexbox--full-width'}
+						acceptedMimetypes={['application/pdf']}
+						maxFiles={5}
 						onFilesChanged={files => {
 							console.log(files)
+							const kapplah = files.map(file => file.content.base64)
+							setImageValue(kapplah)
 						}}
 					/>
 				</Kategori>
