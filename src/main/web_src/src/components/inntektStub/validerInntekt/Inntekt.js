@@ -82,30 +82,29 @@ const fieldResolver = (field, options = [], handleChange, formik, path, index, r
 			/>
 		)
 	}
-	const filteredOptions = options
-		.filter(option => option !== '<TOM>')
-		.map(option => ({ label: texts(option), value: option }))
+	const filteredOptions = options.map(option => ({ label: texts(option), value: option }))
+	const fieldPath = `${path}.${tilleggsinformasjonPaths(field)}`
 	if (
 		!resetForm &&
 		filteredOptions.length === 1 &&
-		_get(values, index) !== filteredOptions[0].value
+		_get(values, fieldPath) !== filteredOptions[0].value
 	) {
 		useEffect(() => {
-			formik.setFieldValue(index, filteredOptions[0].value)
+			formik.setFieldValue(fieldPath, filteredOptions[0].value)
 		})
 	}
 	return (
 		<FormikSelect
 			key={index}
 			name={field}
-			value={filteredOptions.length === 1 ? filteredOptions[0].value : _get(values, index)}
+			value={filteredOptions.length === 1 ? filteredOptions[0].value : _get(values, fieldPath)}
 			label={texts(field)}
-			options={filteredOptions}
+			options={filteredOptions.filter(option => option.value !== '<TOM>')}
 			fastfield={false}
 			afterChange={handleChange}
 			size={booleanField(options) ? 'small' : wideFields.includes(field) ? 'xxlarge' : 'large'}
 			feil={sjekkFelt(field, filteredOptions, values, path)}
-			isClearable={field !== 'inntektstype'}
+			isClearable={field !== 'inntektstype' || filteredOptions.length !== 1}
 		/>
 	)
 }
