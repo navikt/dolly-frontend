@@ -34,7 +34,7 @@ export const OrgnummerToggle = ({ formikBag, path, opplysningspliktigPath }) => 
 					formikBag.setFieldValue(`${opplysningspliktigPath}`, response.data.juridiskEnhet)
 				formikBag.setFieldValue(`${path}`, response.data.orgnummer)
 			})
-			.catch(error => setError(error))
+			.catch(err => setError(err))
 	}
 
 	return (
