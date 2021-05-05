@@ -104,7 +104,7 @@ const fieldResolver = (field, options = [], handleChange, formik, path, index, r
 			afterChange={handleChange}
 			size={booleanField(options) ? 'small' : wideFields.includes(field) ? 'xxlarge' : 'large'}
 			feil={sjekkFelt(field, filteredOptions, values, path)}
-			isClearable={field !== 'inntektstype' || filteredOptions.length !== 1}
+			isClearable={field !== 'inntektstype' && filteredOptions.length !== 1}
 		/>
 	)
 }
