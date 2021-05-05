@@ -39,7 +39,14 @@ const booleanField = options => {
 	return options.length > 0 && typeof options[0] === 'boolean'
 }
 
-const fieldResolver = (field, options = [], handleChange, formik, path, index, resetForm) => {
+function optionsUtfylt(options) {
+	return (
+		(options.length === 2 && options.includes('<TOM>') && options.includes('<UTFYLT>')) ||
+		(options.length === 1 && options[0] === '<UTFYLT>')
+	)
+}
+
+const fieldResolver = (field, handleChange, formik, path, index, resetForm, options = []) => {
 	const values = formik.values
 	if (dateFields.includes(field)) {
 		return (
@@ -65,10 +72,7 @@ const fieldResolver = (field, options = [], handleChange, formik, path, index, r
 				feil={sjekkFelt(field, options, values, path)}
 			/>
 		)
-	} else if (
-		(options.length === 2 && options.includes('<TOM>') && options.includes('<UTFYLT>')) ||
-		(options.length === 1 && options[0] === '<UTFYLT>')
-	) {
+	} else if (optionsUtfylt(options)) {
 		return (
 			<FormikTextInput
 				key={index}
@@ -111,27 +115,24 @@ const fieldResolver = (field, options = [], handleChange, formik, path, index, r
 
 const Inntekt = ({ fields = {}, onValidate, formikBag, path, resetForm }) => (
 	<div className="flexbox--flex-wrap">
-		{fieldResolver(
-			'inntektstype',
-			['LOENNSINNTEKT', 'YTELSE_FRA_OFFENTLIGE', 'PENSJON_ELLER_TRYGD', 'NAERINGSINNTEKT'],
-			onValidate,
-			formikBag,
-			path,
-			`${path}.inntektstype`,
-			resetForm
-		)}
+		{fieldResolver('inntektstype', onValidate, formikBag, path, `${path}.inntektstype`, resetForm, [
+			'LOENNSINNTEKT',
+			'YTELSE_FRA_OFFENTLIGE',
+			'PENSJON_ELLER_TRYGD',
+			'NAERINGSINNTEKT'
+		])}
 
 		{Object.keys(fields)
 			.filter(field => !(fields[field].length === 1 && fields[field][0] === '<TOM>'))
 			.map(field =>
 				fieldResolver(
 					field,
-					fields[field],
 					onValidate,
 					formikBag,
 					path,
 					`${path}.${field}`,
-					resetForm
+					resetForm,
+					fields[field]
 				)
 			)}
 	</div>

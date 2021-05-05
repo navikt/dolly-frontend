@@ -8,7 +8,7 @@ import { useBoolean } from 'react-use'
 
 const InntektStub = ({ formikBag, inntektPath }) => {
 	const [fields, setFields] = useState({})
-	const [resetForm, setResetForm] = useBoolean(false)
+	const [reset, setReset] = useBoolean(false)
 	const [inntektValues, setInntektValues] = useState(_get(formikBag.values, inntektPath))
 	const [currentInntektstype, setCurrentInntektstype] = useState(
 		_get(formikBag.values, `${inntektPath}.inntektstype`)
@@ -102,9 +102,9 @@ const InntektStub = ({ formikBag, inntektPath }) => {
 				if (currentInntektstype && values.inntektstype !== currentInntektstype) {
 					resetForm({ values: { inntektstype: values.inntektstype } })
 					values = { inntektstype: values.inntektstype }
-					setResetForm(true)
+					setReset(true)
 				} else {
-					setResetForm(false)
+					setReset(false)
 				}
 				for (const [key, value] of Object.entries(values)) {
 					if (value === '') {
@@ -122,7 +122,7 @@ const InntektStub = ({ formikBag, inntektPath }) => {
 							onValidate={handleSubmit}
 							formikBag={formikBag}
 							path={inntektPath}
-							resetForm={resetForm}
+							resetForm={reset}
 						/>
 					</div>
 				)
