@@ -56,7 +56,7 @@ export const DokarkivForm = ({ formikBag }: DokarkivForm) => {
 			variantformat: 'ARKIV'
 		}))
 		formikBag.setFieldValue(
-			'dokarkiv.dokumenter[0].dokumentVarianter',
+			'dokarkiv.dokumenter[0].dokumentvarianter',
 			dokumentVarianter.length > 0 ? dokumentVarianter : undefined
 		)
 	}
