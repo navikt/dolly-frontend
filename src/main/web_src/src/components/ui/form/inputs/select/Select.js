@@ -1,6 +1,5 @@
 import React from 'react'
-// import ReactSelect from 'react-select'
-import { Select as ReactSelect } from 'react-select-virtualized'
+import ReactSelect from 'react-select'
 import { FormikField } from '~/components/ui/form/FormikField'
 import cn from 'classnames'
 import { Vis } from '~/components/bestillingsveileder/VisAttributt'

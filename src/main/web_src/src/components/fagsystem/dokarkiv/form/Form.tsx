@@ -45,18 +45,22 @@ const dokarkivAttributt = 'dokarkiv'
 export const DokarkivForm = ({ formikBag }: DokarkivForm) => {
 	const handleSkjemaChange = (skjema: Skjema) => {
 		formikBag.setFieldValue('dokarkiv.tittel', skjema.data)
-		formikBag.setFieldValue('dokarkiv.dokumenter[0].tittel', skjema.data)
+		// formikBag.setFieldValue('dokarkiv.dokumenter[0].tittel', skjema.data)
 	}
 
 	const handleVedleggChange = (filer: [Vedlegg]) => {
 		const fysiskVedlegg = filer.map((fil: Vedlegg) => fil.content.base64)
 		const dokumentVarianter = fysiskVedlegg.map(vedlegg => ({
-			filtype: 'PDFA',
-			fysiskDokument: vedlegg,
-			variantformat: 'ARKIV'
+			tittel: '',
+			brevkode: 'Kapplah',
+			dokumentvarianter: {
+				filtype: 'PDFA',
+				fysiskDokument: 'testytest', //vedlegg,
+				variantformat: 'ARKIV'
+			}
 		}))
 		formikBag.setFieldValue(
-			'dokarkiv.dokumenter[0].dokumentvarianter',
+			'dokarkiv.dokumenter',
 			dokumentVarianter.length > 0 ? dokumentVarianter : undefined
 		)
 	}
@@ -92,13 +96,14 @@ export const DokarkivForm = ({ formikBag }: DokarkivForm) => {
 					/>
 					<FormikTextInput name="dokarkiv.journalfoerendeEnhet" label="Journalførende enhet" />
 					<Label label={'Vedlegg'} name={'Vedlegg'} containerClass={'flexbox--full-width'} />
-					<FileUpload
-						className={'flexbox--full-width'}
-						acceptedMimetypes={['application/pdf']}
-						maxFiles={5}
-						// @ts-ignore
-						onFilesChanged={handleVedleggChange}
-					/>
+					{/*<FileUpload*/}
+					{/*	highContrast={false}*/}
+					{/*	className={'flexbox--full-width'}*/}
+					{/*	acceptedMimetypes={['application/pdf']}*/}
+					{/*	maxFiles={5}*/}
+					{/*	// @ts-ignore*/}
+					{/*	onFilesChanged={handleVedleggChange}*/}
+					{/*/>*/}
 				</Kategori>
 			</Panel>
 		</Vis>
