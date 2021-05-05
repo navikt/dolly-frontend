@@ -49,8 +49,8 @@ export const DokarkivForm = ({ formikBag }: DokarkivForm) => {
 	}
 
 	const handleVedleggChange = (filer: [Vedlegg]) => {
-		const vedlegg = filer.map((fil: Vedlegg) => fil.content.base64)
-		const dokumentVarianter = vedlegg.map(vedlegg => ({
+		const fysiskVedlegg = filer.map((fil: Vedlegg) => fil.content.base64)
+		const dokumentVarianter = fysiskVedlegg.map(vedlegg => ({
 			filtype: 'PDFA',
 			fysiskDokument: vedlegg,
 			variantformat: 'ARKIV'
