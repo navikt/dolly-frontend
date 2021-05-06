@@ -55,7 +55,7 @@ export const DokarkivForm = ({ formikBag }: DokarkivForm) => {
 			brevkode: 'Kapplah',
 			dokumentvarianter: {
 				filtype: 'PDFA',
-				fysiskDokument: 'testytest', //vedlegg,
+				fysiskDokument: 'testytest', //vedlegg, TODO: BRUKE VEDLEGG
 				variantformat: 'ARKIV'
 			}
 		}))
@@ -96,14 +96,14 @@ export const DokarkivForm = ({ formikBag }: DokarkivForm) => {
 					/>
 					<FormikTextInput name="dokarkiv.journalfoerendeEnhet" label="Journalførende enhet" />
 					<Label label={'Vedlegg'} name={'Vedlegg'} containerClass={'flexbox--full-width'} />
-					{/*<FileUpload*/}
-					{/*	highContrast={false}*/}
-					{/*	className={'flexbox--full-width'}*/}
-					{/*	acceptedMimetypes={['application/pdf']}*/}
-					{/*	maxFiles={5}*/}
-					{/*	// @ts-ignore*/}
-					{/*	onFilesChanged={handleVedleggChange}*/}
-					{/*/>*/}
+					<FileUpload
+						highContrast={false}
+						className={'flexbox--full-width'}
+						acceptedMimetypes={['application/pdf']}
+						maxFiles={5}
+						// @ts-ignore
+						onFilesChanged={handleVedleggChange}
+					/>
 				</Kategori>
 			</Panel>
 		</Vis>
