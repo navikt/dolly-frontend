@@ -14,7 +14,7 @@ export const SearchField = ({ placeholder = 'Hva leter du etter?', setText }) =>
 			: dispatch(setSearchText(event.target.value.trim()))
 
 	return (
-		<div className="searchfield-container skjemaelement">
+		<div className="searchfield-container dolly-skjemaelement">
 			<TextInput
 				id="searchfield-inputfield"
 				type="text"

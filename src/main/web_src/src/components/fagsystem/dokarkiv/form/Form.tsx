@@ -11,7 +11,6 @@ import { FormikProps } from 'formik'
 import FileUpload from 'filopplasting'
 import { Label } from '~/components/ui/form/inputs/label/Label'
 import { pdfjs } from 'react-pdf'
-// @ts-ignore
 import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.entry'
 
 pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker

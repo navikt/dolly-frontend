@@ -52,7 +52,7 @@ export const ForbedringModal = ({ closeModal, brukerBilde }) => {
 										: null
 								}
 							/>
-							<div className="skjemaelement textarea__container">
+							<div className="dolly-skjemaelement textarea__container">
 								<DollyCheckbox label="Jeg ønsker å være anonym" onChange={toggleAnonym} />
 							</div>
 						</div>

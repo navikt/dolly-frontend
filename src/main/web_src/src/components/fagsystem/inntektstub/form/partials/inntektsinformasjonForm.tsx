@@ -44,7 +44,7 @@ export default ({ path, formikBag }: InntektsinformasjonForm) => {
 						feil={getFeilmelding(formikBag, `${path}.sisteAarMaaned`)}
 					>
 						<ReactDatepicker
-							className={'skjemaelement__input'}
+							className={'dolly-skjemaelement__input'}
 							locale="nb"
 							dateFormat="yyyy-MM"
 							selected={date}
