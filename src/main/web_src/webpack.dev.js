@@ -12,6 +12,9 @@ module.exports = env =>
 			port: 3000,
 			contentBase: path.join(__dirname, 'public'),
 			historyApiFallback: true,
+			stats: {
+				warnings: false
+			},
 			headers: {
 				'Access-Control-Allow-Origin': '*'
 			},
