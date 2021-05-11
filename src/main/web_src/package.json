@@ -17,6 +17,7 @@
 	"license": "ISC",
 	"dependencies": {
 		"@navikt/ds-icons": "^0.1.1",
+		"@navikt/fnrvalidator": "^1.1.4",
 		"classnames": "^2.3.1",
 		"connected-react-router": "^6.9.1",
 		"core-js": "^3.12.0",
