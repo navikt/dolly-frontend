@@ -83,7 +83,6 @@
 		"reselect": "^4.0.0",
 		"styled-components": "^5.2.1",
 		"uuid": "^7.0.3",
-		"webpack-cli": "^4.7.0",
 		"webpack-merge": "^4.2.2",
 		"whatwg-fetch": "^3.4.1",
 		"yup": "^0.29.3"
