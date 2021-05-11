@@ -37,14 +37,14 @@ export default ({ path, formikBag }: InntektsinformasjonForm) => {
 	return (
 		<div key={path}>
 			<div className="flexbox--flex-wrap">
-				<InputWrapper>
+				<InputWrapper size={'medium'}>
 					<Label
 						name={`${path}.sisteAarMaaned`}
 						label={'År/måned'}
 						feil={getFeilmelding(formikBag, `${path}.sisteAarMaaned`)}
 					>
 						<ReactDatepicker
-							className={'dolly-skjemaelement__input'}
+							className={'skjemaelement__input'}
 							locale="nb"
 							dateFormat="yyyy-MM"
 							selected={date}
@@ -53,6 +53,7 @@ export default ({ path, formikBag }: InntektsinformasjonForm) => {
 							showMonthYearPicker
 							customInput={
 								<TextInput
+									name={`${path}.sisteAarMaaned`}
 									icon="calendar"
 									feil={getFeilmelding(formikBag, `${path}.sisteAarMaaned`)}
 								/>

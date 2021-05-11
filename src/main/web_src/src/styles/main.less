@@ -32,8 +32,10 @@ h3 {
 }
 
 // NAV skjema override
-.dolly-skjemaelement {
-	.dolly-skjemaelement__input {
+.skjemaelement {
+	line-height: 1.375rem;
+	margin-bottom: 1rem;
+	.skjemaelement__input {
 		width: 100%;
 		padding: 7px 10px;
 		&:disabled,
@@ -43,9 +45,16 @@ h3 {
 			color: #99a4bd;
 		}
 	}
-	.dolly-skjemaelement__label {
+	.skjemaelement__label {
 		font-size: 0.75em;
 		text-transform: uppercase;
+	}
+
+	.skjemaelement__feilmelding {
+		font-style: italic;
+		color: #ba3a26;
+		margin-top: .5rem;
+		margin-bottom: 0;
 	}
 
 	.svg-icon {

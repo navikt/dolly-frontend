@@ -16,8 +16,8 @@ export const TextInput = React.forwardRef(
 		}: { name: string; className?: string; icon?: string; placeholder?: string; feil?: any },
 		ref
 	) => {
-		const css = cn('dolly-skjemaelement__input', className, {
-			'dolly-skjemaelement__input--harFeil': props.feil
+		const css = cn('skjemaelement__input', className, {
+			'skjemaelement__input--harFeil': props.feil
 		})
 
 		return (

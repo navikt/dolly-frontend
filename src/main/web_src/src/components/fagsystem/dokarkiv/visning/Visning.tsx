@@ -10,16 +10,18 @@ interface DokarkivVisning {
 	ident: string
 }
 
+type Dokumentvariant = {
+	filnavn: string
+	saksbehandlerHarTilgang: boolean
+	skjerming: string
+	variantformat: string
+}
+
 type Dokument = {
 	brevkode?: string
 	dokumentInfoId?: string
-	journalfoerendeEnhet?: string
-	journalpostId?: string
-	kanal?: string
-	fagsakSystem?: string
-	fagsakId?: string
-	miljoe?: string
-	tema?: string
+	dokumentvarianter: Array<Dokumentvariant>
+	originalJournalpostId?: string
 	tittel?: string
 	feil?: string
 }
@@ -35,20 +37,23 @@ type TransaksjonId = {
 	miljoe: string
 }
 
+type Journalpost = {
+	kanalnavn: string
+	behandlingstemanavn: string
+	dokumenter: Array<Dokument>
+	temanavn: string
+	journalfoerendeEnhet: string
+	journalpostId: string
+	tittel: string
+	sak: {
+		fagsaksystem: string
+		fagsakId: string
+	}
+}
 type Dokumentinfo = {
 	data: {
 		data?: {
-			journalpost: {
-				kanalnavn: string
-				dokumenter: Array<Dokument>
-				temanavn: string
-				journalfoerendeEnhet: string
-				journalpostId: string
-				sak: {
-					fagsaksystem: string
-					fagsakId: string
-				}
-			}
+			journalpost: Journalpost
 		}
 		feil?: string
 	}
@@ -72,21 +77,7 @@ export const DokarkivVisning = ({ ident }: DokarkivVisning) => (
 											if (response.data.feil) {
 												return response.data
 											}
-											const journalpost = response.data.data.journalpost
-											return journalpost
-												? {
-														kanal: journalpost.kanalnavn,
-														brevkode: journalpost.dokumenter[0].brevkode,
-														tittel: journalpost.dokumenter[0].tittel,
-														tema: journalpost.temanavn,
-														fagsakSystem: journalpost.sak.fagsaksystem,
-														fagsakId: journalpost.sak.fagsakId,
-														journalfoerendeEnhet: journalpost.journalfoerendeEnhet,
-														journalpostId: journalpost.journalpostId,
-														dokumentInfoId: journalpost.dokumenter[0].dokumentInfoId,
-														miljoe: bestilling.miljoe
-												  }
-												: null
+											return response.data.data.journalpost
 										}
 									})
 									.catch(error => console.error(error))
@@ -96,7 +87,7 @@ export const DokarkivVisning = ({ ident }: DokarkivVisning) => (
 							return Promise.all(data)
 						})
 				}
-				render={(data: Array<Dokument>) => {
+				render={(data: Array<Journalpost>) => {
 					const filteredData = data.filter(dokument => dokument.journalpostId != null)
 					return (
 						filteredData &&
@@ -127,24 +118,23 @@ export const DokarkivVisning = ({ ident }: DokarkivVisning) => (
 	</div>
 )
 
-const EnkelDokarkivVisning = ({ dokument }: EnkeltDokument) => {
-	if (dokument) {
-		if (dokument.feil) {
-			return <p style={{ margin: 0 }}>{dokument.feil}</p>
+const EnkelDokarkivVisning = (journalpost: Journalpost) => {
+	if (journalpost) {
+		if (journalpost.feil) {
+			return <p style={{ margin: 0 }}>{journalpost.feil}</p>
 		}
 		return (
 			<ErrorBoundary>
 				<>
-					<TitleValue title="Kanal" value={dokument.kanal} />
-					<TitleValue title="Brevkode" value={dokument.brevkode} />
-					<TitleValue title="Tittel" value={dokument.tittel} size={'medium'} />
-					<TitleValue title="Tema" value={dokument.tema} size={'small-plus'} />
-					<TitleValue title="Fagsak-system" value={dokument.fagsakSystem} />
-					<TitleValue title="Fagsak-ID" value={dokument.fagsakId} />
-					<TitleValue title="Journalførende enhet" value={dokument.journalfoerendeEnhet} />
-					<TitleValue title="Journalpost-ID" value={dokument.journalpostId} />
-					<TitleValue title="Dokumentinfo-ID" value={dokument.dokumentInfoId} />
-					<TitleValue title="Miljø" value={dokument.miljoe.toUpperCase()} />
+					<TitleValue title="Kanal" value={journalpost.kanalnavn} />
+					<TitleValue title="Brevkode" value={journalpost.dokumenter[0].brevkode} />
+					<TitleValue title="Tittel" value={journalpost.tittel} size={'medium'} />
+					<TitleValue title="Tema" value={journalpost.temanavn} size={'small-plus'} />
+					<TitleValue title="Fagsak-system" value={journalpost.sak?.fagsaksystem} />
+					<TitleValue title="Fagsak-ID" value={journalpost.sak?.fagsakId} />
+					<TitleValue title="Journalførende enhet" value={journalpost.journalfoerendeEnhet} />
+					<TitleValue title="Journalpost-ID" value={journalpost.journalpostId} />
+					{/*<TitleValue title="Dokumentinfo-ID" value={journalpost.dokumentInfoId} />*/}
 				</>
 			</ErrorBoundary>
 		)

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import * as Yup from 'yup'
 import { ifPresent, requiredString } from '~/utils/YupValidations'
 import { Vis } from '~/components/bestillingsveileder/VisAttributt'
@@ -42,26 +42,38 @@ enum Kodeverk {
 const dokarkivAttributt = 'dokarkiv'
 
 export const DokarkivForm = ({ formikBag }: DokarkivForm) => {
+	const [files, setFiles] = useState([])
+	const [skjemaValues, setSkjemaValues] = useState(null)
+
+	useEffect(() => {
+		handleSkjemaChange(skjemaValues)
+	}, [files, skjemaValues])
+
 	const handleSkjemaChange = (skjema: Skjema) => {
+		if (!skjema) {
+			return
+		}
+		setSkjemaValues(skjema)
 		formikBag.setFieldValue('dokarkiv.tittel', skjema.data)
-		// formikBag.setFieldValue('dokarkiv.dokumenter[0].tittel', skjema.data)
+		formikBag.setFieldValue('dokarkiv.dokumenter[0].tittel', skjema.data)
+		const dokumentVarianter = files.map((vedl, index) => ({
+			tittel: (index === 0 && skjema.data) || vedl.name,
+			brevkode: (index === 0 && skjema?.value) || undefined,
+			dokumentvarianter: [
+				{
+					filtype: 'PDFA',
+					fysiskDokument: vedl.content.base64,
+					variantformat: 'ARKIV'
+				}
+			]
+		}))
+		dokumentVarianter.length > 0 &&
+			formikBag.setFieldValue('dokarkiv.dokumenter', dokumentVarianter)
 	}
 
 	const handleVedleggChange = (filer: [Vedlegg]) => {
-		const fysiskVedlegg = filer.map((fil: Vedlegg) => fil.content.base64)
-		const dokumentVarianter = fysiskVedlegg.map(vedlegg => ({
-			tittel: '',
-			brevkode: 'Kapplah',
-			dokumentvarianter: {
-				filtype: 'PDFA',
-				fysiskDokument: 'testytest', //vedlegg, TODO: BRUKE VEDLEGG
-				variantformat: 'ARKIV'
-			}
-		}))
-		formikBag.setFieldValue(
-			'dokarkiv.dokumenter',
-			dokumentVarianter.length > 0 ? dokumentVarianter : undefined
-		)
+		setFiles(filer)
+		// handleSkjemaChange(skjemaValues)
 	}
 
 	return (
@@ -94,15 +106,20 @@ export const DokarkivForm = ({ formikBag }: DokarkivForm) => {
 						isClearable={false}
 					/>
 					<FormikTextInput name="dokarkiv.journalfoerendeEnhet" label="Journalførende enhet" />
-					<Label label={'Vedlegg'} name={'Vedlegg'} containerClass={'flexbox--full-width'} />
-					<FileUpload
-						highContrast={false}
-						className={'flexbox--full-width'}
-						acceptedMimetypes={['application/pdf']}
-						maxFiles={5}
-						// @ts-ignore
-						onFilesChanged={handleVedleggChange}
-					/>
+					<Label
+						label={'Vedlegg'}
+						name={'Vedlegg'}
+						containerClass={'flexbox--full-width'}
+						feil={null}
+					>
+						<FileUpload
+							className={'flexbox--full-width'}
+							acceptedMimetypes={['application/pdf']}
+							maxFiles={5}
+							// @ts-ignore
+							onFilesChanged={handleVedleggChange}
+						/>
+					</Label>
 				</Kategori>
 			</Panel>
 		</Vis>
@@ -119,7 +136,7 @@ DokarkivForm.validation = {
 			dokumenter: Yup.array().of(
 				Yup.object({
 					tittel: requiredString,
-					brevkode: requiredString
+					brevkode: Yup.string()
 				})
 			)
 		})

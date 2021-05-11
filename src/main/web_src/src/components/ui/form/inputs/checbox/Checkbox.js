@@ -5,10 +5,35 @@ import { FormikField } from '~/components/ui/form/FormikField'
 import { SyntEvent } from '~/components/ui/form/formUtils'
 
 import './Checkbox.less'
+import styled from 'styled-components'
 
-export const Checkbox = ({ id, ...restProps }) => {
-	return <NavCheckbox id={id || restProps.name} className="dolly-checkbox" {...restProps} />
-}
+const StyledAttributeCheckbox = styled(NavCheckbox)`
+	.skjemaelement__label {
+		font-family: 'Source Sans Pro', Arial, sans-serif;
+		position: relative;
+		display: inline-block;
+		cursor: pointer;
+		text-transform: none;
+		font-size: 1em;
+	}
+`
+const StyledCheckbox = styled(NavCheckbox)`
+	.skjemaelement__label {
+		font-family: 'Source Sans Pro', Arial, sans-serif;
+		position: relative;
+		display: inline-block;
+		cursor: pointer;
+		text-transform: uppercase;
+		font-size: 0.75em;
+	}
+`
+
+export const Checkbox = ({ id, attributtCheckbox, ...restProps }) =>
+	attributtCheckbox ? (
+		<StyledAttributeCheckbox id={id || restProps.name} {...restProps} />
+	) : (
+		<StyledCheckbox id={id || restProps.name} {...restProps} />
+	)
 
 export const Switch = ({ id, ...restProps }) => {
 	return <input id={id || restProps.name} {...restProps} className="dolly-switch" type="checkbox" />

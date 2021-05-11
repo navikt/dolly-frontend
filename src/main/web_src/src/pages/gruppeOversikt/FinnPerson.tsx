@@ -93,7 +93,7 @@ export default function FinnPerson({ naviger }: FinnPerson) {
 
 	return (
 		<div>
-			<div className="finnperson-container dolly-skjemaelement">
+			<div className="finnperson-container skjemaelement">
 				<AsyncSelect
 					defaultOptions={false}
 					loadOptions={fetchOptions}

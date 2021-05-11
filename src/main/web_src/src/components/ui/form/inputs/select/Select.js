@@ -35,9 +35,9 @@ export const Select = ({
 	 * react-select-virtualized støtter foreløpig ikke multi-select
 	 * så denne biten må gjøres litt manuelt
 	 */
-	if (isMulti) {
-		_value = Array.isArray(value) ? options.filter(o => value.includes(o.value)) : []
-	}
+	// if (isMulti) {
+	// 	_value = Array.isArray(value) ? options.filter(o => value.includes(o.value)) : []
+	// }
 
 	return (
 		<ReactSelect
