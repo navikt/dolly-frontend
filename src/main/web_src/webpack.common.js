@@ -33,7 +33,7 @@ module.exports = {
 			title: 'Dolly',
 			favicon: 'src/assets/favicon.ico',
 			inject: false,
-			template: require('html-webpack-template'),
+			// template: require('html-webpack-template'),
 			appMountIds: ['root', 'react-select-root'],
 			lang: 'nb'
 		}),
