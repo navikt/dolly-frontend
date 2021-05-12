@@ -12,6 +12,7 @@ import FileUpload from 'filopplasting'
 import { Label } from '~/components/ui/form/inputs/label/Label'
 import { pdfjs } from 'react-pdf'
 import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.entry'
+import styled from 'styled-components'
 
 pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker
 
@@ -33,6 +34,15 @@ type Vedlegg = {
 		base64: string
 	}
 }
+
+const FilOpplaster = styled(FileUpload)`
+	@import (reference) '~lessVars';
+	background-color: unset;
+
+	&:hover {
+		background-color: #f1f1f1;
+	}
+`
 
 enum Kodeverk {
 	TEMA = 'Tema',
@@ -73,7 +83,6 @@ export const DokarkivForm = ({ formikBag }: DokarkivForm) => {
 
 	const handleVedleggChange = (filer: [Vedlegg]) => {
 		setFiles(filer)
-		// handleSkjemaChange(skjemaValues)
 	}
 
 	return (
@@ -112,7 +121,7 @@ export const DokarkivForm = ({ formikBag }: DokarkivForm) => {
 						containerClass={'flexbox--full-width'}
 						feil={null}
 					>
-						<FileUpload
+						<FilOpplaster
 							className={'flexbox--full-width'}
 							acceptedMimetypes={['application/pdf']}
 							maxFiles={5}

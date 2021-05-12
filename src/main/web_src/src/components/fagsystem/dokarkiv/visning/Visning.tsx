@@ -5,6 +5,7 @@ import { DollyApi } from '~/service/Api'
 import LoadableComponent from '~/components/ui/loading/LoadableComponent'
 import { DollyFieldArray } from '~/components/ui/form/fieldArray/DollyFieldArray'
 import { ErrorBoundary } from '~/components/ui/appError/ErrorBoundary'
+import Formatters from '~/utils/DataFormatter'
 
 interface DokarkivVisning {
 	ident: string
@@ -49,6 +50,7 @@ type Journalpost = {
 		fagsaksystem: string
 		fagsakId: string
 	}
+	feil?: string
 }
 type Dokumentinfo = {
 	data: {
@@ -99,13 +101,13 @@ export const DokarkivVisning = ({ ident }: DokarkivVisning) => (
 										<DollyFieldArray data={filteredData} nested>
 											{(dokument: Dokument, idx: number) => (
 												<div key={idx} className="person-visning_content">
-													<EnkelDokarkivVisning dokument={dokument} />
+													<EnkelDokarkivVisning journalpost={dokument} />
 												</div>
 											)}
 										</DollyFieldArray>
 									) : (
 										<div className="person-visning_content">
-											<EnkelDokarkivVisning dokument={filteredData[0]} />
+											<EnkelDokarkivVisning journalpost={filteredData[0]} />
 										</div>
 									)}
 								</>
@@ -126,15 +128,35 @@ const EnkelDokarkivVisning = (journalpost: Journalpost) => {
 		return (
 			<ErrorBoundary>
 				<>
-					<TitleValue title="Kanal" value={journalpost.kanalnavn} />
+					<TitleValue title="Tittel" value={journalpost.tittel} size={'small-plus'} />
+					<TitleValue title="Kanal" value={journalpost.kanalnavn} size={'small-plus'} />
 					<TitleValue title="Brevkode" value={journalpost.dokumenter[0].brevkode} />
-					<TitleValue title="Tittel" value={journalpost.tittel} size={'medium'} />
 					<TitleValue title="Tema" value={journalpost.temanavn} size={'small-plus'} />
 					<TitleValue title="Fagsak-system" value={journalpost.sak?.fagsaksystem} />
 					<TitleValue title="Fagsak-ID" value={journalpost.sak?.fagsakId} />
 					<TitleValue title="Journalførende enhet" value={journalpost.journalfoerendeEnhet} />
 					<TitleValue title="Journalpost-ID" value={journalpost.journalpostId} />
-					{/*<TitleValue title="Dokumentinfo-ID" value={journalpost.dokumentInfoId} />*/}
+					<DollyFieldArray header={'Vedlegg'} data={journalpost.dokumenter} nested>
+						{(dokument: Dokument, idx: number) => (
+							<div key={idx} className="person-visning_content">
+								<TitleValue title="Tittel" value={dokument.tittel} size={'small-plus'} />
+								<TitleValue title="Dokumentinfo-ID" value={dokument.dokumentInfoId} />
+								<TitleValue title="Brevkode" value={dokument.brevkode} />
+								<TitleValue title="Filnavn" value={dokument.dokumentvarianter[0].filnavn} />
+								<TitleValue
+									title="Saksbehandler har tilgang"
+									value={Formatters.oversettBoolean(
+										dokument.dokumentvarianter[0].saksbehandlerHarTilgang
+									)}
+								/>
+								<TitleValue title="Skjerming" value={dokument.dokumentvarianter[0].skjerming} />
+								<TitleValue
+									title="Variantformat"
+									value={dokument.dokumentvarianter[0].variantformat}
+								/>
+							</div>
+						)}
+					</DollyFieldArray>
 				</>
 			</ErrorBoundary>
 		)

@@ -4,7 +4,7 @@ import Logger from '../../logger'
 import { Rating } from '../../logger/types'
 // @ts-ignore
 import Icon from '~/components/ui/icon/Icon'
-import NavButton from '../../components/ui/button/NavButton/NavButton'
+import NavButton from '../ui/button/NavButton/NavButton'
 import './ThumbsRating.less'
 
 interface ThumbsRatingProps {

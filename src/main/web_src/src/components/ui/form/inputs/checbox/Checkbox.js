@@ -8,27 +8,21 @@ import './Checkbox.less'
 import styled from 'styled-components'
 
 const StyledAttributeCheckbox = styled(NavCheckbox)`
-	.skjemaelement__label {
-		font-family: 'Source Sans Pro', Arial, sans-serif;
-		position: relative;
-		display: inline-block;
-		cursor: pointer;
-		text-transform: none;
-		font-size: 1em;
+	&&& {
+		.skjemaelement__label {
+			text-transform: none;
+		}
 	}
 `
 const StyledCheckbox = styled(NavCheckbox)`
-	.skjemaelement__label {
-		font-family: 'Source Sans Pro', Arial, sans-serif;
-		position: relative;
-		display: inline-block;
-		cursor: pointer;
-		text-transform: uppercase;
-		font-size: 0.75em;
+	&&& {
+		.skjemaelement__label {
+			font-size: 0.75em;
+		}
 	}
 `
 
-export const Checkbox = ({ id, attributtCheckbox, ...restProps }) =>
+export const Checkbox = ({ id, attributtCheckbox = false, ...restProps }) =>
 	attributtCheckbox ? (
 		<StyledAttributeCheckbox id={id || restProps.name} {...restProps} />
 	) : (
