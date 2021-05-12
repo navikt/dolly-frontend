@@ -39,16 +39,18 @@ type TransaksjonId = {
 }
 
 type Journalpost = {
-	kanalnavn: string
-	behandlingstemanavn: string
-	dokumenter: Array<Dokument>
-	temanavn: string
-	journalfoerendeEnhet: string
-	journalpostId: string
-	tittel: string
-	sak: {
-		fagsaksystem: string
-		fagsakId: string
+	journalpost: {
+		kanalnavn: string
+		behandlingstemanavn: string
+		dokumenter: Array<Dokument>
+		temanavn: string
+		journalfoerendeEnhet: string
+		journalpostId: string
+		tittel: string
+		sak: {
+			fagsaksystem: string
+			fagsakId: string
+		}
 	}
 	feil?: string
 }
@@ -120,23 +122,24 @@ export const DokarkivVisning = ({ ident }: DokarkivVisning) => (
 	</div>
 )
 
-const EnkelDokarkivVisning = (journalpost: Journalpost) => {
+const EnkelDokarkivVisning = ({ journalpost }: Journalpost) => {
 	if (journalpost) {
 		if (journalpost.feil) {
 			return <p style={{ margin: 0 }}>{journalpost.feil}</p>
 		}
+		const dokumenter = journalpost.dokumenter
 		return (
 			<ErrorBoundary>
 				<>
 					<TitleValue title="Tittel" value={journalpost.tittel} size={'small-plus'} />
 					<TitleValue title="Kanal" value={journalpost.kanalnavn} size={'small-plus'} />
-					<TitleValue title="Brevkode" value={journalpost.dokumenter[0].brevkode} />
+					<TitleValue title="Brevkode" value={dokumenter[0].brevkode} />
 					<TitleValue title="Tema" value={journalpost.temanavn} size={'small-plus'} />
 					<TitleValue title="Fagsak-system" value={journalpost.sak?.fagsaksystem} />
 					<TitleValue title="Fagsak-ID" value={journalpost.sak?.fagsakId} />
 					<TitleValue title="Journalførende enhet" value={journalpost.journalfoerendeEnhet} />
 					<TitleValue title="Journalpost-ID" value={journalpost.journalpostId} />
-					<DollyFieldArray header={'Vedlegg'} data={journalpost.dokumenter} nested>
+					<DollyFieldArray header={'Vedlegg'} data={dokumenter} nested>
 						{(dokument: Dokument, idx: number) => (
 							<div key={idx} className="person-visning_content">
 								<TitleValue title="Tittel" value={dokument.tittel} size={'small-plus'} />
