@@ -7,7 +7,7 @@ import { DollyFieldArray } from '~/components/ui/form/fieldArray/DollyFieldArray
 import { ErrorBoundary } from '~/components/ui/appError/ErrorBoundary'
 import Formatters from '~/utils/DataFormatter'
 
-interface DokarkivVisning {
+interface Form {
 	ident: string
 }
 
@@ -22,13 +22,9 @@ type Dokument = {
 	brevkode?: string
 	dokumentInfoId?: string
 	dokumentvarianter: Array<Dokumentvariant>
-	originalJournalpostId?: string
+	journalpostId?: string
 	tittel?: string
 	feil?: string
-}
-
-type EnkeltDokument = {
-	dokument: Dokument
 }
 
 type TransaksjonId = {
@@ -39,20 +35,22 @@ type TransaksjonId = {
 }
 
 type Journalpost = {
-	journalpost: {
-		kanalnavn: string
-		behandlingstemanavn: string
-		dokumenter: Array<Dokument>
-		temanavn: string
-		journalfoerendeEnhet: string
-		journalpostId: string
-		tittel: string
-		sak: {
-			fagsaksystem: string
-			fagsakId: string
-		}
+	kanalnavn: string
+	behandlingstemanavn: string
+	dokumenter: Array<Dokument>
+	temanavn: string
+	journalfoerendeEnhet: string
+	journalpostId: string
+	tittel: string
+	sak: {
+		fagsaksystem: string
+		fagsakId: string
 	}
 	feil?: string
+}
+
+type Data = {
+	journalpost: Journalpost
 }
 type Dokumentinfo = {
 	data: {
@@ -64,7 +62,7 @@ type Dokumentinfo = {
 }
 
 // Viser data fra Joark Dokumentinfo
-export const DokarkivVisning = ({ ident }: DokarkivVisning) => (
+export const DokarkivVisning = ({ ident }: Form) => (
 	<div>
 		<ErrorBoundary>
 			<LoadableComponent
@@ -92,7 +90,9 @@ export const DokarkivVisning = ({ ident }: DokarkivVisning) => (
 						})
 				}
 				render={(data: Array<Journalpost>) => {
-					const filteredData = data.filter(dokument => dokument.journalpostId != null)
+					const filteredData = data.filter(dokument => {
+						return dokument.journalpostId != null
+					})
 					return (
 						filteredData &&
 						filteredData.length > 0 && (
@@ -122,7 +122,7 @@ export const DokarkivVisning = ({ ident }: DokarkivVisning) => (
 	</div>
 )
 
-const EnkelDokarkivVisning = ({ journalpost }: Journalpost) => {
+const EnkelDokarkivVisning = ({ journalpost }: Data) => {
 	if (journalpost) {
 		if (journalpost.feil) {
 			return <p style={{ margin: 0 }}>{journalpost.feil}</p>

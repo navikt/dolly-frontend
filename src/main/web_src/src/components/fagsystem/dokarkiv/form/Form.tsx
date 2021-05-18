@@ -11,12 +11,13 @@ import { FormikProps } from 'formik'
 import FileUpload from 'filopplasting'
 import { Label } from '~/components/ui/form/inputs/label/Label'
 import { pdfjs } from 'react-pdf'
+// @ts-ignore
 import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.entry'
 import styled from 'styled-components'
 
 pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker
 
-interface DokarkivForm {
+interface Form {
 	formikBag: FormikProps<{}>
 }
 
@@ -51,7 +52,7 @@ enum Kodeverk {
 
 const dokarkivAttributt = 'dokarkiv'
 
-export const DokarkivForm = ({ formikBag }: DokarkivForm) => {
+export const DokarkivForm = ({ formikBag }: Form) => {
 	const [files, setFiles] = useState([])
 	const [skjemaValues, setSkjemaValues] = useState(null)
 
@@ -65,9 +66,8 @@ export const DokarkivForm = ({ formikBag }: DokarkivForm) => {
 		}
 		setSkjemaValues(skjema)
 		formikBag.setFieldValue('dokarkiv.tittel', skjema.data)
-		formikBag.setFieldValue('dokarkiv.dokumenter[0].tittel', skjema.data)
 		const dokumentVarianter = files.map((vedl, index) => ({
-			tittel: (index === 0 && skjema.data) || vedl.name,
+			tittel: vedl.name,
 			brevkode: (index === 0 && skjema?.value) || undefined,
 			dokumentvarianter: [
 				{
@@ -77,8 +77,9 @@ export const DokarkivForm = ({ formikBag }: DokarkivForm) => {
 				}
 			]
 		}))
-		dokumentVarianter.length > 0 &&
-			formikBag.setFieldValue('dokarkiv.dokumenter', dokumentVarianter)
+		dokumentVarianter.length > 0
+			? formikBag.setFieldValue('dokarkiv.dokumenter', dokumentVarianter)
+			: formikBag.setFieldValue('dokarkiv.dokumenter[0].tittel', skjema.data)
 	}
 
 	const handleVedleggChange = (filer: [Vedlegg]) => {
