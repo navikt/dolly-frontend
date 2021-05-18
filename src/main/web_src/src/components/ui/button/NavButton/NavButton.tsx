@@ -8,12 +8,10 @@ const StyledNavKnapp = styled(Knapp)`
 	}
 `
 
-const NavButton = ({ type = 'standard', children, ...restProps }) => {
-	return (
-		<StyledNavKnapp type={type} {...restProps}>
-			{children}
-		</StyledNavKnapp>
-	)
-}
+const NavButton = ({ type = 'standard', children, ...restProps }) => (
+	<StyledNavKnapp type={type} {...restProps}>
+		{children}
+	</StyledNavKnapp>
+)
 
 export default NavButton

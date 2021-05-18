@@ -56,9 +56,7 @@ export const DokarkivForm = ({ formikBag }: Form) => {
 	const [files, setFiles] = useState([])
 	const [skjemaValues, setSkjemaValues] = useState(null)
 
-	useEffect(() => {
-		handleSkjemaChange(skjemaValues)
-	}, [files, skjemaValues])
+	useEffect(() => handleSkjemaChange(skjemaValues), [files, skjemaValues])
 
 	const handleSkjemaChange = (skjema: Skjema) => {
 		if (!skjema) {
@@ -82,9 +80,7 @@ export const DokarkivForm = ({ formikBag }: Form) => {
 			: formikBag.setFieldValue('dokarkiv.dokumenter[0].tittel', skjema.data)
 	}
 
-	const handleVedleggChange = (filer: [Vedlegg]) => {
-		setFiles(filer)
-	}
+	const handleVedleggChange = (filer: [Vedlegg]) => setFiles(filer)
 
 	return (
 		// @ts-ignore
