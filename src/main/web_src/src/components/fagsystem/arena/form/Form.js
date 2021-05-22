@@ -1,15 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import * as Yup from 'yup'
 import _get from 'lodash/get'
 import { isAfter } from 'date-fns'
-import { requiredDate, ifPresent, requiredString, messages } from '~/utils/YupValidations'
+import { ifPresent, messages, requiredDate, requiredString } from '~/utils/YupValidations'
 import { Vis } from '~/components/bestillingsveileder/VisAttributt'
 import Panel from '~/components/ui/panel/Panel'
-import { panelError } from '~/components/ui/form/formUtils'
-import { erForste } from '~/components/ui/form/formUtils'
+import { erForste, panelError } from '~/components/ui/form/formUtils'
 import { FormikDatepicker } from '~/components/ui/form/inputs/datepicker/Datepicker'
-import { FormikSelect } from '~/components/ui/form/inputs/select/Select'
-import { SelectOptionsManager as Options } from '~/service/SelectOptions'
 import { MedServicebehov } from './partials/MedServicebehov'
 
 const arenaAttributt = 'arenaforvalter'
@@ -18,34 +15,18 @@ export const ArenaForm = ({ formikBag }) => {
 	const servicebehovAktiv =
 		_get(formikBag, 'values.arenaforvalter.arenaBrukertype') === 'MED_SERVICEBEHOV'
 
-	// Bytter struktur på hele skjema
-	const handleAfterChange = val => {
-		if (val.value === 'MED_SERVICEBEHOV') {
-			formikBag.setFieldValue('arenaforvalter.inaktiveringDato', null)
-		} else {
-			formikBag.setFieldValue('arenaforvalter', {
-				arenaBrukertype: 'UTEN_SERVICEBEHOV',
-				inaktiveringDato: null,
-				kvalifiseringsgruppe: null
-			})
-		}
-	}
+	useEffect(() => {
+		servicebehovAktiv && formikBag.setFieldValue('arenaforvalter.kvalifiseringsgruppe', null)
+	}, [])
 
 	return (
 		<Vis attributt={arenaAttributt}>
 			<Panel
-				heading="Arena"
+				heading="Arbeidsytelser"
 				hasErrors={panelError(formikBag, arenaAttributt)}
 				iconType="arena"
 				startOpen={() => erForste(formikBag.values, [arenaAttributt])}
 			>
-				<FormikSelect
-					name="arenaforvalter.arenaBrukertype"
-					label="Brukertype"
-					afterChange={handleAfterChange}
-					options={Options('arenaBrukertype')}
-					isClearable={false}
-				/>
 				{!servicebehovAktiv && (
 					<FormikDatepicker
 						name="arenaforvalter.inaktiveringDato"
@@ -59,19 +40,24 @@ export const ArenaForm = ({ formikBag }) => {
 	)
 }
 
+function tilDatoValidation(erDagpenger) {
+	return Yup.string()
+		.test('etter-fradato', 'Til-dato må være etter fra-dato', function validDate(tildato) {
+			const values = this.options.context
+			const fradato = erDagpenger
+				? values.arenaforvalter.dagpenger[0].fraDato
+				: values.arenaforvalter.aap[0].fraDato
+			if (!fradato || !tildato) return true
+			return isAfter(new Date(tildato), new Date(fradato))
+		})
+		.nullable()
+}
+
 const validation = Yup.object({
 	aap: Yup.array().of(
 		Yup.object({
 			fraDato: requiredDate,
-			tilDato: Yup.string()
-				.test('etter-fradato', 'Til-dato må være etter fra-dato', function validDate(tildato) {
-					const values = this.options.context
-					const fradato = values.arenaforvalter.aap[0].fraDato
-					if (!fradato || !tildato) return true
-					return isAfter(new Date(tildato), new Date(fradato))
-				})
-				.required(messages.required)
-				.nullable()
+			tilDato: tilDatoValidation(false)
 		})
 	),
 	aap115: Yup.array().of(
@@ -91,7 +77,15 @@ const validation = Yup.object({
 		.when('arenaBrukertype', {
 			is: 'MED_SERVICEBEHOV',
 			then: requiredString
+		}),
+	dagpenger: Yup.array().of(
+		Yup.object({
+			rettighetKode: Yup.string().required(messages.required),
+			fraDato: requiredDate,
+			tilDato: tilDatoValidation(true),
+			mottattDato: Yup.date().nullable()
 		})
+	)
 })
 
 ArenaForm.validation = {

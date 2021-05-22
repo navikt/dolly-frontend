@@ -12,28 +12,96 @@ export const ArenaPanel = ({ stateModifier }) => {
 			uncheckAttributeArray={sm.batchRemove}
 			iconType="arena"
 		>
-			<AttributtKategori>
-				<Attributt attr={sm.attrs.arenaforvalter} />
+			<AttributtKategori title={'Aktiv bruker'}>
+				<Attributt attr={sm.attrs.aap115} />
+				<Attributt attr={sm.attrs.aap} />
+				<Attributt attr={sm.attrs.dagpenger} />
+			</AttributtKategori>
+
+			<AttributtKategori title={'Inaktiv bruker'}>
+				<Attributt attr={sm.attrs.ikkeServicebehov} />
 			</AttributtKategori>
 		</Panel>
 	)
 }
 
-ArenaPanel.heading = 'Arena'
+ArenaPanel.heading = 'Arbeidsytelser'
 
-ArenaPanel.initialValues = ({ set, del, has }) => ({
-	arenaforvalter: {
-		label: 'Aktiver/inaktiver bruker',
-		checked: has('arenaforvalter'),
+ArenaPanel.initialValues = ({ setMulti, del, has }) => ({
+	aap115: {
+		label: '11.5-vedtak',
+		checked: has('arenaforvalter.aap115'),
 		add() {
-			set('arenaforvalter', {
-				arenaBrukertype: 'UTEN_SERVICEBEHOV',
-				inaktiveringDato: null,
-				kvalifiseringsgruppe: null
-			})
+			setMulti(
+				[
+					'arenaforvalter.aap115[0]',
+					{
+						fraDato: null,
+						tilDato: null
+					}
+				],
+				['arenaforvalter.arenaBrukertype', 'MED_SERVICEBEHOV']
+			)
 		},
 		remove() {
-			del('arenaforvalter')
+			del('arenaforvalter.aap115')
+		}
+	},
+
+	aap: {
+		label: 'AAP-vedtak',
+		checked: has('arenaforvalter.aap'),
+		add() {
+			setMulti(
+				[
+					'arenaforvalter.aap[0]',
+					{
+						fraDato: null,
+						tilDato: null
+					}
+				],
+				['arenaforvalter.arenaBrukertype', 'MED_SERVICEBEHOV']
+			)
+		},
+		remove() {
+			del('arenaforvalter.aap')
+		}
+	},
+
+	dagpenger: {
+		label: 'Dagpengevedtak',
+		checked: has('arenaforvalter.dagpenger'),
+		add() {
+			setMulti(
+				[
+					'arenaforvalter.dagpenger[0]',
+					{
+						vedtakstype: 'O',
+						rettighetKode: '',
+						fraDato: null,
+						tilDato: null,
+						mottattDato: null
+					}
+				],
+				['arenaforvalter.arenaBrukertype', 'MED_SERVICEBEHOV']
+			)
+		},
+		remove() {
+			del('arenaforvalter.dagpenger')
+		}
+	},
+
+	ikkeServicebehov: {
+		label: 'Har ikke servicebehov',
+		checked: has('arenaforvalter.inaktiveringDato'),
+		add() {
+			setMulti(
+				['arenaforvalter.arenaBrukertype', 'UTEN_SERVICEBEHOV'],
+				['arenaforvalter.inaktiveringDato', null]
+			)
+		},
+		remove() {
+			del(['arenaforvalter.arenaBrukertype', 'arenaforvalter.inaktiveringDato'])
 		}
 	}
 })
