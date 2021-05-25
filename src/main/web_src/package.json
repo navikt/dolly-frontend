@@ -148,22 +148,6 @@
 		"webpack-serve": "^4.0.0",
 		"worker-loader": "^3.0.8"
 	},
-	"rules": {
-		"@typescript-eslint/explicit-module-boundary-types": "off"
-	},
-	"overrides": [
-		{
-			"files": [
-				"*.ts",
-				"*.tsx"
-			],
-			"rules": {
-				"@typescript-eslint/explicit-module-boundary-types": [
-					"error"
-				]
-			}
-		}
-	],
 	"prettier": {
 		"singleQuote": true,
 		"semi": false,
