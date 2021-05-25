@@ -131,10 +131,10 @@ const EnkelDokarkivVisning = ({ journalpost }: Data) => {
 		return (
 			<ErrorBoundary>
 				<>
-					<TitleValue title="Tittel" value={journalpost.tittel} size={'small-plus'} />
-					<TitleValue title="Kanal" value={journalpost.kanalnavn} size={'small-plus'} />
+					<TitleValue title="Tittel" value={journalpost.tittel} />
+					<TitleValue title="Kanal" value={journalpost.kanalnavn} />
 					<TitleValue title="Brevkode" value={dokumenter[0].brevkode} />
-					<TitleValue title="Tema" value={journalpost.temanavn} size={'small-plus'} />
+					<TitleValue title="Tema" value={journalpost.temanavn} />
 					<TitleValue title="Fagsak-system" value={journalpost.sak?.fagsaksystem} />
 					<TitleValue title="Fagsak-ID" value={journalpost.sak?.fagsakId} />
 					<TitleValue title="Journalførende enhet" value={journalpost.journalfoerendeEnhet} />
@@ -142,7 +142,7 @@ const EnkelDokarkivVisning = ({ journalpost }: Data) => {
 					<DollyFieldArray header={'Vedlegg'} data={dokumenter} nested>
 						{(dokument: Dokument, idx: number) => (
 							<div key={idx} className="person-visning_content">
-								<TitleValue title="Tittel" value={dokument.tittel} size={'small-plus'} />
+								<TitleValue title="Tittel" value={dokument.tittel} />
 								<TitleValue title="Dokumentinfo-ID" value={dokument.dokumentInfoId} />
 								<TitleValue title="Brevkode" value={dokument.brevkode} />
 								<TitleValue title="Filnavn" value={dokument.dokumentvarianter[0].filnavn} />

@@ -52,7 +52,8 @@ enum Kodeverk {
 const dokarkivAttributt = 'dokarkiv'
 
 export const DokarkivForm = ({ formikBag }: Form) => {
-	const [files, setFiles] = useState([])
+	const gjeldendeFiler = JSON.parse(sessionStorage.getItem('dokarkiv_vedlegg'))
+	const [files, setFiles] = useState(gjeldendeFiler ? gjeldendeFiler : [])
 	const [skjemaValues, setSkjemaValues] = useState(null)
 
 	useEffect(() => handleSkjemaChange(skjemaValues), [files, skjemaValues])
@@ -79,7 +80,10 @@ export const DokarkivForm = ({ formikBag }: Form) => {
 			: formikBag.setFieldValue('dokarkiv.dokumenter[0].tittel', skjema.data)
 	}
 
-	const handleVedleggChange = (filer: [Vedlegg]) => setFiles(filer)
+	const handleVedleggChange = (filer: [Vedlegg]) => {
+		sessionStorage.setItem('dokarkiv_vedlegg', JSON.stringify(files))
+		setFiles(filer)
+	}
 
 	return (
 		// @ts-ignore
@@ -121,6 +125,7 @@ export const DokarkivForm = ({ formikBag }: Form) => {
 							className={'flexbox--full-width'}
 							acceptedMimetypes={['application/pdf']}
 							maxFiles={5}
+							files={files}
 							// @ts-ignore
 							onFilesChanged={handleVedleggChange}
 						/>
@@ -141,7 +146,7 @@ DokarkivForm.validation = {
 			dokumenter: Yup.array().of(
 				Yup.object({
 					tittel: requiredString,
-					brevkode: Yup.string()
+					brevkode: Yup.string().required('Feltet er påkrevd')
 				})
 			)
 		})
