@@ -37,7 +37,6 @@ type Vedlegg = {
 }
 
 const FilOpplaster = styled(FileUpload)`
-	@import (reference) '~lessVars';
 	background-color: unset;
 
 	&:hover {
