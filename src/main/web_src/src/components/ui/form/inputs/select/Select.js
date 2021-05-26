@@ -28,7 +28,9 @@ export const Select = ({
 	isMulti = false,
 	styles
 }) => {
-	let _value = options.filter(o => o.value === value)
+	let _value = isMulti
+		? options.filter(o => value.some(el => el === o.value))
+		: options.filter(o => o.value === value)
 
 	return (
 		<ReactSelect
@@ -80,10 +82,10 @@ const P_FormikSelect = ({ fastfield, feil, ...props }) => (
 			const handleChange = (selected, meta) => {
 				let value
 				if (props.isMulti) {
-					if (meta.action === 'set-value') {
+					if (meta.action === 'select-option') {
 						value = Array.isArray(field.value)
-							? field.value.concat(selected.value)
-							: [selected.value]
+							? field.value.concat(meta.option.value)
+							: [meta.option.value]
 					}
 					if (meta.action === 'remove-value') {
 						// When removing last value, value is null
