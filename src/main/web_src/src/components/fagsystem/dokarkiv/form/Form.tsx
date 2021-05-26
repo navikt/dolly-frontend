@@ -14,6 +14,8 @@ import { pdfjs } from 'react-pdf'
 // @ts-ignore
 import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.entry'
 import styled from 'styled-components'
+import { isAfter } from 'date-fns'
+import _get from 'lodash/get'
 
 pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker
 
@@ -70,7 +72,7 @@ export const DokarkivForm = ({ formikBag }: Form) => {
 			dokumentvarianter: [
 				{
 					filtype: 'PDFA',
-					fysiskDokument: vedl.content.base64,
+					fysiskDokument: 'kapplah', //vedl.content.base64,
 					variantformat: 'ARKIV'
 				}
 			]
@@ -81,8 +83,8 @@ export const DokarkivForm = ({ formikBag }: Form) => {
 	}
 
 	const handleVedleggChange = (filer: [Vedlegg]) => {
-		sessionStorage.setItem('dokarkiv_vedlegg', JSON.stringify(files))
 		setFiles(filer)
+		sessionStorage.setItem('dokarkiv_vedlegg', JSON.stringify(filer))
 	}
 
 	return (
@@ -124,7 +126,6 @@ export const DokarkivForm = ({ formikBag }: Form) => {
 						<FilOpplaster
 							className={'flexbox--full-width'}
 							acceptedMimetypes={['application/pdf']}
-							maxFiles={5}
 							files={files}
 							// @ts-ignore
 							onFilesChanged={handleVedleggChange}
@@ -146,7 +147,15 @@ DokarkivForm.validation = {
 			dokumenter: Yup.array().of(
 				Yup.object({
 					tittel: requiredString,
-					brevkode: Yup.string().required('Feltet er påkrevd')
+					brevkode: Yup.string().test(
+						'is-valid-brevkode',
+						'Feltet er påkrevd',
+						function validBrevkode() {
+							const values = this.options.context
+							const brevkode = _get(values, 'dokarkiv.dokumenter[0].brevkode')
+							return brevkode !== ''
+						}
+					)
 				})
 			)
 		})
