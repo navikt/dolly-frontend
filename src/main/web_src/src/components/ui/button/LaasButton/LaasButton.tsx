@@ -33,9 +33,7 @@ export const LaasButton = ({ action, loading, children }: LaasButton) => {
 						<h4>{children}</h4>
 					</div>
 					<div className="laasModal-actions">
-						<NavButton type={'fare'} onClick={closeModal}>
-							NEI
-						</NavButton>
+						<NavButton onClick={closeModal}>NEI</NavButton>
 						<NavButton
 							onClick={() => {
 								closeModal()
