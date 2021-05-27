@@ -53,6 +53,24 @@ function tilDatoValidation(erDagpenger) {
 		.nullable()
 }
 
+function harGjeldendeVedtakValidation() {
+	return Yup.string()
+		.test('har-gjeldende-vedtak', 'To vedtak kan ikke overlappe hverandre', function validVedtak(
+			tildato
+		) {
+			const values = this.options.context
+			const dagpengerFra = values.arenaforvalter.dagpenger?.[0].fraDato
+			const dagpengerTil = values.arenaforvalter.dagpenger?.[0].tilDato
+			const aapFra = values.arenaforvalter.aap?.[0].fraDato
+			const aap115Fra = values.arenaforvalter.aap115?.[0].fraDato
+			const aap115Til = values.arenaforvalter.aap115?.[0].tilDato
+			if ((!dagpengerFra && !aapFra) || (!dagpengerFra && !aap115Fra) || (!aapFra && !aap115Fra))
+				return true
+			return isBefore(new Date(tildato), new Date(fradato))
+		})
+		.nullable()
+}
+
 const validation = Yup.object({
 	aap: Yup.array().of(
 		Yup.object({
