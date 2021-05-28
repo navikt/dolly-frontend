@@ -1,22 +1,26 @@
 import React, { useEffect } from 'react'
 import * as Yup from 'yup'
 import _get from 'lodash/get'
-import { isAfter } from 'date-fns'
+import { isAfter, isBefore } from 'date-fns'
 import { ifPresent, messages, requiredDate, requiredString } from '~/utils/YupValidations'
 import { Vis } from '~/components/bestillingsveileder/VisAttributt'
 import Panel from '~/components/ui/panel/Panel'
 import { erForste, panelError } from '~/components/ui/form/formUtils'
 import { FormikDatepicker } from '~/components/ui/form/inputs/datepicker/Datepicker'
 import { MedServicebehov } from './partials/MedServicebehov'
+import { AlertInntektskomponentenRequired } from '~/components/ui/brukerAlert/AlertInntektskomponentenRequired'
 
 const arenaAttributt = 'arenaforvalter'
 
 export const ArenaForm = ({ formikBag }) => {
 	const servicebehovAktiv =
 		_get(formikBag, 'values.arenaforvalter.arenaBrukertype') === 'MED_SERVICEBEHOV'
+	const dagpengerAktiv = _get(formikBag, 'values.arenaforvalter.dagpenger[0]')
 
 	useEffect(() => {
-		servicebehovAktiv && formikBag.setFieldValue('arenaforvalter.kvalifiseringsgruppe', null)
+		servicebehovAktiv &&
+			!_get(formikBag, 'values.arenaforvalter.kvalifiseringsgruppe') &&
+			formikBag.setFieldValue('arenaforvalter.kvalifiseringsgruppe', null)
 	}, [])
 
 	return (
@@ -27,6 +31,9 @@ export const ArenaForm = ({ formikBag }) => {
 				iconType="arena"
 				startOpen={() => erForste(formikBag.values, [arenaAttributt])}
 			>
+				{!formikBag.values.hasOwnProperty('inntektstub') && dagpengerAktiv && (
+					<AlertInntektskomponentenRequired vedtak={'dagpengevedtak'} />
+				)}
 				{!servicebehovAktiv && (
 					<FormikDatepicker
 						name="arenaforvalter.inaktiveringDato"
@@ -37,6 +44,14 @@ export const ArenaForm = ({ formikBag }) => {
 				{servicebehovAktiv && <MedServicebehov formikBag={formikBag} />}
 			</Panel>
 		</Vis>
+	)
+}
+
+const datoIkkeMellom = (nyDatoFra, gjeldendeDatoFra, gjeldendeDatoTil) => {
+	if (!gjeldendeDatoFra || !gjeldendeDatoTil) return true
+	return (
+		isAfter(new Date(nyDatoFra), new Date(gjeldendeDatoTil)) ||
+		isBefore(new Date(nyDatoFra), new Date(gjeldendeDatoFra))
 	)
 }
 
@@ -53,28 +68,32 @@ function tilDatoValidation(erDagpenger) {
 		.nullable()
 }
 
-function harGjeldendeVedtakValidation() {
+function harGjeldendeVedtakValidation(vedtakType) {
 	return Yup.string()
-		.test('har-gjeldende-vedtak', 'To vedtak kan ikke overlappe hverandre', function validVedtak(
-			tildato
-		) {
+		.test('har-gjeldende-vedtak', 'To vedtak kan ikke overlappe hverandre', function validVedtak() {
 			const values = this.options.context
 			const dagpengerFra = values.arenaforvalter.dagpenger?.[0].fraDato
 			const dagpengerTil = values.arenaforvalter.dagpenger?.[0].tilDato
+
 			const aapFra = values.arenaforvalter.aap?.[0].fraDato
-			const aap115Fra = values.arenaforvalter.aap115?.[0].fraDato
-			const aap115Til = values.arenaforvalter.aap115?.[0].tilDato
-			if ((!dagpengerFra && !aapFra) || (!dagpengerFra && !aap115Fra) || (!aapFra && !aap115Fra))
-				return true
-			return isBefore(new Date(tildato), new Date(fradato))
+			const aapTil = values.arenaforvalter.aap?.[0].tilDato
+
+			// Hvis det bare er en type vedtak trengs det ikke å sjekkes videre
+			if (!dagpengerFra && !aapFra) return true
+			if (vedtakType === 'aap') {
+				return datoIkkeMellom(aapFra, dagpengerFra, dagpengerTil)
+			} else if (vedtakType === 'dagpenger') {
+				return datoIkkeMellom(dagpengerFra, aapFra, aapTil)
+			}
 		})
 		.nullable()
+		.required('Feltet er påkrevd')
 }
 
 const validation = Yup.object({
 	aap: Yup.array().of(
 		Yup.object({
-			fraDato: requiredDate,
+			fraDato: harGjeldendeVedtakValidation('aap'),
 			tilDato: tilDatoValidation(false)
 		})
 	),
@@ -99,7 +118,7 @@ const validation = Yup.object({
 	dagpenger: Yup.array().of(
 		Yup.object({
 			rettighetKode: Yup.string().required(messages.required),
-			fraDato: requiredDate,
+			fraDato: harGjeldendeVedtakValidation('dagpenger'),
 			tilDato: tilDatoValidation(true),
 			mottattDato: Yup.date().nullable()
 		})

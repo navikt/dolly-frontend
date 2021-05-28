@@ -13,13 +13,16 @@ export const ArenaPanel = ({ stateModifier }) => {
 			iconType="arena"
 		>
 			<AttributtKategori title={'Aktiv bruker'}>
-				<Attributt attr={sm.attrs.aap115} />
-				<Attributt attr={sm.attrs.aap} />
-				<Attributt attr={sm.attrs.dagpenger} />
+				<Attributt disabled={sm.attrs.ikkeServicebehov.checked} attr={sm.attrs.aap115} />
+				<Attributt disabled={sm.attrs.ikkeServicebehov.checked} attr={sm.attrs.aap} />
+				<Attributt disabled={sm.attrs.ikkeServicebehov.checked} attr={sm.attrs.dagpenger} />
 			</AttributtKategori>
 
 			<AttributtKategori title={'Inaktiv bruker'}>
-				<Attributt attr={sm.attrs.ikkeServicebehov} />
+				<Attributt
+					disabled={sm.attrs.aap.checked || sm.attrs.aap115.checked || sm.attrs.dagpenger.checked}
+					attr={sm.attrs.ikkeServicebehov}
+				/>
 			</AttributtKategori>
 		</Panel>
 	)

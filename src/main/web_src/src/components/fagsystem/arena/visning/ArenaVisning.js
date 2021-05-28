@@ -14,15 +14,15 @@ export const Visning = ({ data }) => {
 			<TitleValue title="Servicebehov" value={data.servicebehov} />
 			<TitleValue title="Inaktiv fra dato" value={data.inaktiveringDato} />
 			<TitleValue title="Har 11-5-vedtak" value={data.harAap115} />
-			<TitleValue title="Fra dato" value={data.aap115FraDato} />
+			<TitleValue title="11-5 fra dato" value={data.aap115FraDato} />
 			<TitleValue title="Har AAP vedtak UA - positivt utfall" value={data.harAap} />
-			<TitleValue title="Fra dato" value={data.aapFraDato} />
-			<TitleValue title="Til dato" value={data.aapTilDato} />
+			<TitleValue title="Aap fra dato" value={data.aapFraDato} />
+			<TitleValue title="Aap til dato" value={data.aapTilDato} />
 			<TitleValue title="Har dagpengevedtak" value={data.harDagpenger} />
 			<TitleValue title="RettighetKode" value={data.dagpengerRettighetKode} />
-			<TitleValue title="Fra dato" value={data.dagpengerFraDato} />
-			<TitleValue title="Til dato" value={data.dagpengerTilDato} />
-			<TitleValue title="Mottatt dato" value={data.dagpengerMottattDato} />
+			<TitleValue title="Dagpenger fra dato" value={data.dagpengerFraDato} />
+			<TitleValue title="Dagpenger til dato" value={data.dagpengerTilDato} />
+			<TitleValue title="Dagpenger mottatt dato" value={data.dagpengerMottattDato} />
 		</>
 	)
 }
