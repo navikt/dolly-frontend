@@ -29,10 +29,15 @@ export const MedServicebehov = ({ formikBag }) => {
 			)}
 
 			{arenaforvalter.dagpenger && (
-				<Kategori title="Dagpengevedtak">
+				<Kategori
+					hjelpetekst={'Foreløpig er kun ordinære dagpenger støttet'}
+					title="Dagpengevedtak"
+				>
 					<FormikSelect
 						name="arenaforvalter.dagpenger[0].rettighetKode"
 						options={Options('rettighetKode')}
+						disabled={true}
+						value={'DAGO'} // Endre disabled og denne når flere koder blir støttet
 						label="Rettighetskode"
 						size={'xlarge'}
 					/>

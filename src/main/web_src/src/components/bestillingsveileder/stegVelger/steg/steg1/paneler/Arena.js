@@ -80,7 +80,7 @@ ArenaPanel.initialValues = ({ setMulti, del, has }) => ({
 					'arenaforvalter.dagpenger[0]',
 					{
 						vedtakstype: 'O',
-						rettighetKode: '',
+						rettighetKode: 'DAGO',
 						fraDato: null,
 						tilDato: null,
 						mottattDato: null
