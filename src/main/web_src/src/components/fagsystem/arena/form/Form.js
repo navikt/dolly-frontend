@@ -66,6 +66,7 @@ function tilDatoValidation(erDagpenger) {
 			return isAfter(new Date(tildato), new Date(fradato))
 		})
 		.nullable()
+		.required('Feltet er påkrevd')
 }
 
 function harGjeldendeVedtakValidation(vedtakType) {
