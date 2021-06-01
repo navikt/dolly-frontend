@@ -71,22 +71,26 @@ function tilDatoValidation(erDagpenger) {
 
 function harGjeldendeVedtakValidation(vedtakType) {
 	return Yup.string()
-		.test('har-gjeldende-vedtak', 'To vedtak kan ikke overlappe hverandre', function validVedtak() {
-			const values = this.options.context
-			const dagpengerFra = values.arenaforvalter.dagpenger?.[0].fraDato
-			const dagpengerTil = values.arenaforvalter.dagpenger?.[0].tilDato
+		.test(
+			'har-gjeldende-vedtak',
+			'AAP- og Dagpenger-vedtak kan ikke overlappe hverandre',
+			function validVedtak() {
+				const values = this.options.context
+				const dagpengerFra = values.arenaforvalter.dagpenger?.[0].fraDato
+				const dagpengerTil = values.arenaforvalter.dagpenger?.[0].tilDato
 
-			const aapFra = values.arenaforvalter.aap?.[0].fraDato
-			const aapTil = values.arenaforvalter.aap?.[0].tilDato
+				const aapFra = values.arenaforvalter.aap?.[0].fraDato
+				const aapTil = values.arenaforvalter.aap?.[0].tilDato
 
-			// Hvis det bare er en type vedtak trengs det ikke å sjekkes videre
-			if (!dagpengerFra && !aapFra) return true
-			if (vedtakType === 'aap') {
-				return datoIkkeMellom(aapFra, dagpengerFra, dagpengerTil)
-			} else if (vedtakType === 'dagpenger') {
-				return datoIkkeMellom(dagpengerFra, aapFra, aapTil)
+				// Hvis det bare er en type vedtak trengs det ikke å sjekkes videre
+				if (!dagpengerFra && !aapFra) return true
+				if (vedtakType === 'aap') {
+					return datoIkkeMellom(aapFra, dagpengerFra, dagpengerTil)
+				} else if (vedtakType === 'dagpenger') {
+					return datoIkkeMellom(dagpengerFra, aapFra, aapTil)
+				}
 			}
-		})
+		)
 		.nullable()
 		.required('Feltet er påkrevd')
 }

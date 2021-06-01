@@ -30,7 +30,7 @@ export const ArenaPanel = ({ stateModifier }) => {
 
 ArenaPanel.heading = 'Arbeidsytelser'
 
-ArenaPanel.initialValues = ({ setMulti, del, has }) => ({
+ArenaPanel.initialValues = ({ setMulti, del, delMulti, has }) => ({
 	aap115: {
 		label: '11.5-vedtak',
 		checked: has('arenaforvalter.aap115'),
@@ -48,6 +48,7 @@ ArenaPanel.initialValues = ({ setMulti, del, has }) => ({
 		},
 		remove() {
 			del('arenaforvalter.aap115')
+			!has('arenaforvalter.aap') && !has('arenaforvalter.dagpenger') && del('arenaforvalter')
 		}
 	},
 
@@ -68,6 +69,7 @@ ArenaPanel.initialValues = ({ setMulti, del, has }) => ({
 		},
 		remove() {
 			del('arenaforvalter.aap')
+			!has('arenaforvalter.aap115') && !has('arenaforvalter.dagpenger') && del('arenaforvalter')
 		}
 	},
 
@@ -91,6 +93,7 @@ ArenaPanel.initialValues = ({ setMulti, del, has }) => ({
 		},
 		remove() {
 			del('arenaforvalter.dagpenger')
+			!has('arenaforvalter.aap115') && !has('arenaforvalter.aap') && del('arenaforvalter')
 		}
 	},
 

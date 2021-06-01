@@ -850,39 +850,36 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 				),
 				obj('Servicebehov', arenaKriterier.kvalifiseringsgruppe),
 				obj('Inaktiv fra dato', Formatters.formatDate(arenaKriterier.inaktiveringDato)),
-				obj('Har 11-5 vedtak', Formatters.oversettBoolean(arenaKriterier.aap115?.[0] && true)),
+				obj('Har 11-5 vedtak', Formatters.oversettBoolean(arenaKriterier.aap115?.[0])),
 				obj(
-					'Fra dato',
+					'AAP 11-5 fra dato',
 					arenaKriterier.aap115?.[0] && Formatters.formatDate(arenaKriterier.aap115[0].fraDato)
 				),
 				obj(
 					'Har AAP vedtak UA - positivt utfall',
-					Formatters.oversettBoolean(arenaKriterier.aap?.[0] && true)
+					Formatters.oversettBoolean(arenaKriterier.aap?.[0])
 				),
 				obj(
-					'Fra dato',
+					'AAP fra dato',
 					arenaKriterier.aap?.[0] && Formatters.formatDate(arenaKriterier.aap[0].fraDato)
 				),
 				obj(
-					'Til dato',
+					'AAP til dato',
 					arenaKriterier.aap?.[0] && Formatters.formatDate(arenaKriterier.aap[0].tilDato)
 				),
-				obj(
-					'Har dagpengevedtak',
-					Formatters.oversettBoolean(arenaKriterier.dagpenger?.[0] && true)
-				),
+				obj('Har dagpengevedtak', Formatters.oversettBoolean(arenaKriterier.dagpenger?.[0])),
 				obj(
 					'RettighetKode',
 					arenaKriterier.dagpenger?.[0] &&
 						Formatters.showLabel('rettighetKode', arenaKriterier.dagpenger[0].rettighetKode)
 				),
 				obj(
-					'Fra dato',
+					'Dagpenger fra dato',
 					arenaKriterier.dagpenger?.[0] &&
 						Formatters.formatDate(arenaKriterier.dagpenger[0].fraDato)
 				),
 				obj(
-					'Til dato',
+					'Dagpenger til dato',
 					arenaKriterier.dagpenger?.[0] &&
 						Formatters.formatDate(arenaKriterier.dagpenger[0].tilDato)
 				)
