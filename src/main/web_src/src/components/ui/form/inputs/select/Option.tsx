@@ -3,7 +3,7 @@ import cx from 'classnames'
 import styled from 'styled-components'
 
 const StyledOption = styled.div`
-	&.react-select {
+	&.dolly-select {
 		&__option {
 			display: block;
 			font-size: 16px;
@@ -31,8 +31,8 @@ const StyledOption = styled.div`
 
 const Option = ({ children, isSelected, innerProps }) => (
 	<StyledOption
-		className={cx('react-select__option', {
-			'react-select__option_selected': isSelected
+		className={cx('dolly-select__option', {
+			'dolly-select__option_selected': isSelected
 		})}
 		id={innerProps.id}
 		tabIndex={innerProps.tabIndex}
