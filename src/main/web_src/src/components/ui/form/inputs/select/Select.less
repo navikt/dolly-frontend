@@ -1,19 +1,44 @@
 @import (reference) '~lessVars';
 
 .dollyselect.error {
-	.select__control {
-		border-color: hsl(8deg 66% 44%);
-		box-shadow: 0 0 0 1px #ba3a26;
-	}
+  .select__control {
+    border-color: hsl(8deg 66% 44%);
+    box-shadow: 0 0 0 1px #ba3a26;
+  }
 }
 
 .flat-virtualized-item > div,
 .grouped-virtualized-list-item > div {
-	display: table;
+  display: table;
 }
 
 .fast-option {
-	line-height: 1.7em !important;
-	vertical-align: middle;
-	display: table-cell;
+  line-height: 1.7em !important;
+  vertical-align: middle;
+  display: table-cell;
+}
+
+.react-select {
+  &__option {
+    display: block;
+    font-size: 16px;
+    color: rgb(36, 36, 36);
+    padding: 11px 12px;
+    width: 100%;
+    user-select: none;
+    box-sizing: border-box;
+
+    &:hover {
+      background-color: #CDE1F3
+    }
+
+    &_selected {
+      background-color: #2684FFFF;
+      color: #FFFFFF;
+
+      &:hover {
+        background-color: #2684FFFF;
+      }
+    }
+  }
 }
