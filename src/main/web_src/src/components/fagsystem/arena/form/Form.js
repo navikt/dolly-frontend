@@ -9,6 +9,7 @@ import { erForste, panelError } from '~/components/ui/form/formUtils'
 import { FormikDatepicker } from '~/components/ui/form/inputs/datepicker/Datepicker'
 import { MedServicebehov } from './partials/MedServicebehov'
 import { AlertInntektskomponentenRequired } from '~/components/ui/brukerAlert/AlertInntektskomponentenRequired'
+import { AlertStripeInfo } from 'nav-frontend-alertstriper'
 
 const arenaAttributt = 'arenaforvalter'
 
@@ -31,8 +32,17 @@ export const ArenaForm = ({ formikBag }) => {
 				iconType="arena"
 				startOpen={() => erForste(formikBag.values, [arenaAttributt])}
 			>
-				{!formikBag.values.hasOwnProperty('inntektstub') && dagpengerAktiv && (
-					<AlertInntektskomponentenRequired vedtak={'dagpengevedtak'} />
+				{dagpengerAktiv && (
+					<>
+						{!formikBag.values.hasOwnProperty('inntektstub') && (
+							<AlertInntektskomponentenRequired vedtak={'dagpengevedtak'} />
+						)}
+						<AlertStripeInfo style={{ marginBottom: '20px' }}>
+							For å kunne få gyldig dagpengevedtak må det være knyttet inntektsmelding for 12
+							måneder før vedtakets fra dato. Dette kan enkelt gjøres i innteksinformasjon ved å
+							benytte "Generer antall måneder" feltet.
+						</AlertStripeInfo>
+					</>
 				)}
 				{!servicebehovAktiv && (
 					<FormikDatepicker
