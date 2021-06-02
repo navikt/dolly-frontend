@@ -87,9 +87,7 @@ const P_FormikSelect = ({ fastfield, feil, ...props }) => (
 	<FormikField name={props.name} fastfield={fastfield}>
 		{({ field, meta }) => {
 			const handleChange = (selected, metaData) => {
-				const value = props.isMulti
-					? handleMultiValue(metaData, selected)
-					: selected?.value
+				const value = props.isMulti ? handleMultiValue(metaData, selected) : selected?.value
 
 				field.onChange(SyntEvent(field.name, value))
 
