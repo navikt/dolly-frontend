@@ -17,6 +17,16 @@ const InntektStub = ({ formikBag, inntektPath }) => {
 		_get(formikBag.values, `${inntektPath}.tilleggsinformasjonstype`)
 	)
 
+	const tilleggsinformasjonAttributter = {
+		BilOgBaat: 'bilOgBaat',
+		DagmammaIEgenBolig: 'dagmammaIEgenBolig',
+		NorskKontinentalsokkel: 'inntektPaaNorskKontinentalsokkel',
+		Livrente: 'livrente',
+		LottOgPartInnenFiske: 'lottOgPart',
+		Nettoloennsordning: 'nettoloenn',
+		UtenlandskArtist: 'utenlandskArtist'
+	}
+
 	useEffect(() => {
 		setCurrentInntektstype(_get(formikBag.values, `${inntektPath}.inntektstype`))
 	})
@@ -34,16 +44,6 @@ const InntektStub = ({ formikBag, inntektPath }) => {
 	}, [])
 
 	const setFormikBag = values => {
-		const tilleggsinformasjonAttributter = {
-			BilOgBaat: 'bilOgBaat',
-			DagmammaIEgenBolig: 'dagmammaIEgenBolig',
-			NorskKontinentalsokkel: 'inntektPaaNorskKontinentalsokkel',
-			Livrente: 'livrente',
-			LottOgPartInnenFiske: 'lottOgPart',
-			Nettoloennsordning: 'nettoloenn',
-			UtenlandskArtist: 'utenlandskArtist'
-		}
-
 		const nullstiltInntekt = {
 			beloep: _get(formikBag.values, `${inntektPath}.beloep`),
 			startOpptjeningsperiode: _get(formikBag.values, `${inntektPath}.startOpptjeningsperiode`),
@@ -123,6 +123,7 @@ const InntektStub = ({ formikBag, inntektPath }) => {
 							formikBag={formikBag}
 							path={inntektPath}
 							resetForm={reset}
+							tilleggsinformasjonAttributter={tilleggsinformasjonAttributter}
 						/>
 					</div>
 				)
