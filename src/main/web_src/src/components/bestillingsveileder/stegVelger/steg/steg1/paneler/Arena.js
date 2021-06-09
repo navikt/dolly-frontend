@@ -32,7 +32,7 @@ ArenaPanel.heading = 'Arbeidsytelser'
 
 const MED_SERVICEBEHOV = ['arenaforvalter.arenaBrukertype', 'MED_SERVICEBEHOV']
 const AUTOMATISK_INNSENDING_MELDEKORT = ['arenaforvalter.automatiskInnsendingAvMeldekort', true]
-ArenaPanel.initialValues = ({ setMulti, del, has }) => ({
+ArenaPanel.initialValues = ({ set, setMulti, del, has }) => ({
 	aap115: {
 		label: '11.5-vedtak',
 		checked: has('arenaforvalter.aap115'),
