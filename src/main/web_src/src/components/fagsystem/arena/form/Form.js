@@ -57,7 +57,6 @@ export const ArenaForm = ({ formikBag }) => {
 					name="arenaforvalter.automatiskInnsendingAvMeldekort"
 					label="Automatisk innsending av meldekort"
 					size="large"
-					checkboxMargin
 				/>
 			</Panel>
 		</Vis>
