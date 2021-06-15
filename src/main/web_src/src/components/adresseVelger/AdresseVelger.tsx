@@ -45,6 +45,7 @@ export default ({ onSelect }: Props) => {
 		setLoading(true)
 		setNotFound(false)
 		setError(false)
+		setAdresser(null)
 		return AdresseService.hentAdresser(search, 10)
 			.then(adresser => {
 				setAdresser(adresser)
