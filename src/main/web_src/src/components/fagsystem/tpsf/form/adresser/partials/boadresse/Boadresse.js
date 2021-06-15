@@ -22,7 +22,8 @@ export const Boadresse = ({ formikBag }) => {
 			poststed: adresse.poststed,
 			gateadresse: adresse.adressenavn,
 			gatekode: adresse.adressekode,
-			husnummer: adresse.husnummer
+			husnummer: adresse.husnummer,
+			kommunenr: adresse.kommunenummer
 		})
 	}
 

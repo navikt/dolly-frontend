@@ -72,8 +72,8 @@ export default ({ onSelect }: Props) => {
 				<>
 					<h4>Velg adresse</h4>
 					<DollySelect
-						name="kommunenummer"
-						label="Kommunenummer"
+						name="adresse"
+						label="Adresse"
 						size="grow"
 						isClearable={false}
 						options={adresser.map(value => ({
