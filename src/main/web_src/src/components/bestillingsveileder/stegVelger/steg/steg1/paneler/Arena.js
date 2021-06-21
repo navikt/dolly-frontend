@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Panel from '~/components/ui/panel/Panel'
 import { Attributt, AttributtKategori } from '../Attributt'
+import { BestillingsveilederContext } from '~/components/bestillingsveileder/Bestillingsveileder'
 
 export const ArenaPanel = ({ stateModifier }) => {
 	const sm = stateModifier(ArenaPanel.initialValues)
+	const opts = useContext(BestillingsveilederContext)
+
+	const { personFoerLeggTil } = opts
 
 	return (
 		<Panel
@@ -13,8 +17,20 @@ export const ArenaPanel = ({ stateModifier }) => {
 			iconType="arena"
 		>
 			<AttributtKategori title={'Aktiv bruker'}>
-				<Attributt disabled={sm.attrs.ikkeServicebehov.checked} attr={sm.attrs.aap115} />
-				<Attributt disabled={sm.attrs.ikkeServicebehov.checked} attr={sm.attrs.aap} />
+				<Attributt
+					disabled={
+						sm.attrs.ikkeServicebehov.checked ||
+						(personFoerLeggTil && personFoerLeggTil.arenaforvalteren)
+					}
+					attr={sm.attrs.aap115}
+				/>
+				<Attributt
+					disabled={
+						sm.attrs.ikkeServicebehov.checked ||
+						(personFoerLeggTil && personFoerLeggTil.arenaforvalteren)
+					}
+					attr={sm.attrs.aap}
+				/>
 				<Attributt disabled={sm.attrs.ikkeServicebehov.checked} attr={sm.attrs.dagpenger} />
 			</AttributtKategori>
 
