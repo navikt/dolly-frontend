@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import _get from 'lodash/get'
 import { ifPresent } from '~/utils/YupValidations'
 import { Vis } from '~/components/bestillingsveileder/VisAttributt'
@@ -9,6 +9,8 @@ import { MedServicebehov } from './partials/MedServicebehov'
 import { AlertInntektskomponentenRequired } from '~/components/ui/brukerAlert/AlertInntektskomponentenRequired'
 import { AlertStripeInfo } from 'nav-frontend-alertstriper'
 import { validation } from '~/components/fagsystem/arena/form/validation'
+import { ArenaVisning } from '~/components/fagsystem/arena/visning/ArenaVisning'
+import { BestillingsveilederContext } from '~/components/bestillingsveileder/Bestillingsveileder'
 
 const arenaAttributt = 'arenaforvalter'
 
@@ -23,6 +25,10 @@ export const ArenaForm = ({ formikBag }) => {
 			formikBag.setFieldValue('arenaforvalter.kvalifiseringsgruppe', null)
 	}, [])
 
+	const opts = useContext(BestillingsveilederContext)
+
+	const { personFoerLeggTil, tidligereBestillinger } = opts
+
 	return (
 		<Vis attributt={arenaAttributt}>
 			<Panel
@@ -31,6 +37,12 @@ export const ArenaForm = ({ formikBag }) => {
 				iconType="arena"
 				startOpen={() => erForste(formikBag.values, [arenaAttributt])}
 			>
+				{personFoerLeggTil && (
+					<ArenaVisning
+						data={personFoerLeggTil.arenaforvalteren}
+						bestillinger={tidligereBestillinger}
+					/>
+				)}
 				{dagpengerAktiv && (
 					<>
 						{!formikBag.values.hasOwnProperty('inntektstub') && (
