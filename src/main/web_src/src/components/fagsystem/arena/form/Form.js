@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react'
-import * as Yup from 'yup'
 import _get from 'lodash/get'
-import { isAfter, isBefore } from 'date-fns'
-import { ifPresent, messages, requiredDate, requiredString } from '~/utils/YupValidations'
+import { ifPresent } from '~/utils/YupValidations'
 import { Vis } from '~/components/bestillingsveileder/VisAttributt'
 import Panel from '~/components/ui/panel/Panel'
 import { erForste, panelError } from '~/components/ui/form/formUtils'
@@ -10,6 +8,7 @@ import { FormikDatepicker } from '~/components/ui/form/inputs/datepicker/Datepic
 import { MedServicebehov } from './partials/MedServicebehov'
 import { AlertInntektskomponentenRequired } from '~/components/ui/brukerAlert/AlertInntektskomponentenRequired'
 import { AlertStripeInfo } from 'nav-frontend-alertstriper'
+import { validation } from '~/components/fagsystem/arena/form/validation'
 
 const arenaAttributt = 'arenaforvalter'
 
@@ -56,91 +55,6 @@ export const ArenaForm = ({ formikBag }) => {
 		</Vis>
 	)
 }
-
-const datoIkkeMellom = (nyDatoFra, gjeldendeDatoFra, gjeldendeDatoTil) => {
-	if (!gjeldendeDatoFra || !gjeldendeDatoTil) return true
-	return (
-		isAfter(new Date(nyDatoFra), new Date(gjeldendeDatoTil)) ||
-		isBefore(new Date(nyDatoFra), new Date(gjeldendeDatoFra))
-	)
-}
-
-function validTildato(fradato, tildato) {
-	if (!fradato || !tildato) return true
-	return isAfter(new Date(tildato), new Date(fradato))
-}
-
-function harGjeldendeVedtakValidation(vedtakType) {
-	return Yup.string()
-		.test(
-			'har-gjeldende-vedtak',
-			'AAP- og Dagpenger-vedtak kan ikke overlappe hverandre',
-			function validVedtak() {
-				const values = this.options.context
-				const dagpengerFra = values.arenaforvalter.dagpenger?.[0].fraDato
-				const dagpengerTil = values.arenaforvalter.dagpenger?.[0].tilDato
-
-				const aapFra = values.arenaforvalter.aap?.[0].fraDato
-				const aapTil = values.arenaforvalter.aap?.[0].tilDato
-
-				// Hvis det bare er en type vedtak trengs det ikke å sjekkes videre
-				if (!dagpengerFra && !aapFra) return true
-				if (vedtakType === 'aap') {
-					return datoIkkeMellom(aapFra, dagpengerFra, dagpengerTil)
-				} else if (vedtakType === 'dagpenger') {
-					return datoIkkeMellom(dagpengerFra, aapFra, aapTil)
-				}
-			}
-		)
-		.nullable()
-		.required(messages.required)
-}
-
-const validation = Yup.object({
-	aap: Yup.array().of(
-		Yup.object({
-			fraDato: harGjeldendeVedtakValidation('aap'),
-			tilDato: Yup.string()
-				.test('etter-fradato', 'Til-dato må være etter fra-dato', function validDate(tildato) {
-					const fradato = this.options.context.arenaforvalter.aap[0].fraDato
-					return validTildato(fradato, tildato)
-				})
-				.nullable()
-				.required(messages.required)
-		})
-	),
-	aap115: Yup.array().of(
-		Yup.object({
-			fraDato: requiredDate
-		})
-	),
-	arenaBrukertype: requiredString,
-	inaktiveringDato: Yup.mixed()
-		.nullable()
-		.when('arenaBrukertype', {
-			is: 'UTEN_SERVICEBEHOV',
-			then: requiredDate
-		}),
-	kvalifiseringsgruppe: Yup.string()
-		.nullable()
-		.when('arenaBrukertype', {
-			is: 'MED_SERVICEBEHOV',
-			then: requiredString
-		}),
-	dagpenger: Yup.array().of(
-		Yup.object({
-			rettighetKode: Yup.string().required(messages.required),
-			fraDato: harGjeldendeVedtakValidation('dagpenger'),
-			tilDato: Yup.string()
-				.test('etter-fradato', 'Til-dato må være etter fra-dato', function validDate(tildato) {
-					const fradato = this.options.context.arenaforvalter.dagpenger[0].fraDato
-					return validTildato(fradato, tildato)
-				})
-				.nullable(),
-			mottattDato: Yup.date().nullable()
-		})
-	)
-})
 
 ArenaForm.validation = {
 	arenaforvalter: ifPresent('$arenaforvalter', validation)
