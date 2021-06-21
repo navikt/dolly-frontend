@@ -11,6 +11,7 @@ import { AlertStripeInfo } from 'nav-frontend-alertstriper'
 import { validation } from '~/components/fagsystem/arena/form/validation'
 import { ArenaVisning } from '~/components/fagsystem/arena/visning/ArenaVisning'
 import { BestillingsveilederContext } from '~/components/bestillingsveileder/Bestillingsveileder'
+import { FormikCheckbox } from '~/components/ui/form/inputs/checbox/Checkbox'
 
 const arenaAttributt = 'arenaforvalter'
 
@@ -63,6 +64,11 @@ export const ArenaForm = ({ formikBag }) => {
 					/>
 				)}
 				{servicebehovAktiv && <MedServicebehov formikBag={formikBag} />}
+				<FormikCheckbox
+					name="arenaforvalter.automatiskInnsendingAvMeldekort"
+					label="Automatisk innsending av meldekort"
+					size="large"
+				/>
 			</Panel>
 		</Vis>
 	)

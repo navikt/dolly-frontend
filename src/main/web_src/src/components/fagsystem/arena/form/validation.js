@@ -116,6 +116,7 @@ export const validation = Yup.object({
 			is: 'UTEN_SERVICEBEHOV',
 			then: requiredDate
 		}),
+	automatiskInnsendingAvMeldekort: Yup.boolean(),
 	kvalifiseringsgruppe: Yup.string()
 		.nullable()
 		.when('arenaBrukertype', {
