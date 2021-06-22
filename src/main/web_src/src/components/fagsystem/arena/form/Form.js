@@ -29,6 +29,7 @@ export const ArenaForm = ({ formikBag }) => {
 	const opts = useContext(BestillingsveilederContext)
 
 	const { personFoerLeggTil, tidligereBestillinger } = opts
+	const uregistert = !(personFoerLeggTil && personFoerLeggTil.arenaforvalteren)
 
 	return (
 		<Vis attributt={arenaAttributt}>
@@ -64,11 +65,13 @@ export const ArenaForm = ({ formikBag }) => {
 					/>
 				)}
 				{servicebehovAktiv && <MedServicebehov formikBag={formikBag} />}
-				<FormikCheckbox
-					name="arenaforvalter.automatiskInnsendingAvMeldekort"
-					label="Automatisk innsending av meldekort"
-					size="large"
-				/>
+				{(!servicebehovAktiv || uregistert) && (
+					<FormikCheckbox
+						name="arenaforvalter.automatiskInnsendingAvMeldekort"
+						label="Automatisk innsending av meldekort"
+						size="large"
+					/>
+				)}
 			</Panel>
 		</Vis>
 	)

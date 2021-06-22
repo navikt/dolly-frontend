@@ -4,7 +4,7 @@ import SubOverskrift from '~/components/ui/subOverskrift/SubOverskrift'
 import { TitleValue } from '~/components/ui/titleValue/TitleValue'
 import Formatters from '~/utils/DataFormatter'
 import Loading from '~/components/ui/loading/Loading'
-import { Historikk } from '~/components/ui/historikk/Historikk'
+import { DollyFieldArray } from '~/components/ui/form/fieldArray/DollyFieldArray'
 
 export const Visning = ({ data }) => {
 	if (!data) return null
@@ -17,16 +17,40 @@ export const Visning = ({ data }) => {
 				title="Automatisk innsending av meldekort"
 				value={data.automatiskInnsendingAvMeldekort}
 			/>
-			<TitleValue title="Har 11-5-vedtak" value={data.harAap115} />
-			<TitleValue title="11-5 fra dato" value={data.aap115FraDato} />
-			<TitleValue title="Har AAP vedtak UA - positivt utfall" value={data.harAap} />
-			<TitleValue title="Aap fra dato" value={data.aapFraDato} />
-			<TitleValue title="Aap til dato" value={data.aapTilDato} />
-			<TitleValue title="Har dagpengevedtak" value={data.harDagpenger} />
-			<TitleValue title="RettighetKode" value={data.dagpengerRettighetKode} />
-			<TitleValue title="Dagpenger fra dato" value={data.dagpengerFraDato} />
-			<TitleValue title="Dagpenger til dato" value={data.dagpengerTilDato} />
-			<TitleValue title="Dagpenger mottatt dato" value={data.dagpengerMottattDato} />
+
+			{data.aap115?.[0] && (
+				<DollyFieldArray header="11.5 vedtak" data={data.aap115} nested>
+					{(vedtak, idx) => (
+						<React.Fragment key={idx}>
+							<TitleValue title="Fra dato" value={Formatters.formatDate(vedtak.fraDato)} />
+						</React.Fragment>
+					)}
+				</DollyFieldArray>
+			)}
+
+			{data.aap?.[0] && (
+				<DollyFieldArray header="AAP-UA vedtak" data={data.aap} nested>
+					{(vedtak, idx) => (
+						<React.Fragment key={idx}>
+							<TitleValue title="Fra dato" value={Formatters.formatDate(vedtak.fraDato)} />
+							<TitleValue title="Til dato" value={Formatters.formatDate(vedtak.tilDato)} />
+						</React.Fragment>
+					)}
+				</DollyFieldArray>
+			)}
+
+			{data.dagpenger?.[0] && (
+				<DollyFieldArray header="Dagpenger vedtak" data={data.dagpenger} nested>
+					{(vedtak, idx) => (
+						<React.Fragment key={idx}>
+							<TitleValue title="Rettighet kode" value={vedtak.rettighetKode} />
+							<TitleValue title="Fra dato" value={Formatters.formatDate(vedtak.fraDato)} />
+							<TitleValue title="Til dato" value={Formatters.formatDate(vedtak.tilDato)} />
+							<TitleValue title="Mottatt dato" value={Formatters.formatDate(vedtak.mottattDato)} />
+						</React.Fragment>
+					)}
+				</DollyFieldArray>
+			)}
 		</>
 	)
 }
@@ -43,7 +67,15 @@ export const ArenaVisning = ({ data, bestillinger, loading }) => {
 		bestilling.data.hasOwnProperty('arenaforvalter')
 	)
 
-	const visningData = []
+	const visningData = {
+		brukertype: undefined,
+		servicebehov: undefined,
+		inaktiveringDato: undefined,
+		automatiskInnsendingAvMeldekort: undefined,
+		aap115: [],
+		aap: [],
+		dagpenger: []
+	}
 
 	const fyllVisningData = (idx, info) => {
 		const {
@@ -54,23 +86,18 @@ export const ArenaVisning = ({ data, bestillinger, loading }) => {
 			aap,
 			dagpenger
 		} = arenaBestillinger[idx].data.arenaforvalter
-		visningData.push({
-			brukertype: info.servicebehov ? 'Med servicebehov' : 'Uten servicebehov',
-			servicebehov: servicebehovKodeTilBeskrivelse(kvalifiseringsgruppe),
-			inaktiveringDato: Formatters.formatDate(inaktiveringDato),
-			automatiskInnsendingAvMeldekort: Formatters.oversettBoolean(automatiskInnsendingAvMeldekort),
-			harAap115: aap115?.[0] && 'Ja',
-			aap115FraDato: aap115?.[0] && Formatters.formatDate(aap115[0].fraDato),
-			harAap: aap?.[0] && 'Ja',
-			aapFraDato: aap?.[0] && Formatters.formatDate(aap[0].fraDato),
-			aapTilDato: aap?.[0] && Formatters.formatDate(aap[0].tilDato),
-			harDagpenger: dagpenger?.[0] && 'Ja',
-			dagpengerFraDato: dagpenger?.[0] && Formatters.formatDate(dagpenger[0].fraDato),
-			dagpengerTilDato: dagpenger?.[0] && Formatters.formatDate(dagpenger[0].tilDato),
-			dagpengerMottattDato: dagpenger?.[0] && Formatters.formatDate(dagpenger[0].mottattDato),
-			dagpengerRettighetKode:
-				dagpenger?.[0] && Formatters.showLabel('rettighetKode', dagpenger[0].rettighetKode)
-		})
+
+		if (visningData.brukertype === undefined) {
+			visningData.brukertype = info.servicebehov ? 'Med servicebehov' : 'Uten servicebehov'
+			visningData.servicebehov = servicebehovKodeTilBeskrivelse(kvalifiseringsgruppe)
+			visningData.inaktiveringDato = Formatters.formatDate(inaktiveringDato)
+			visningData.automatiskInnsendingAvMeldekort = Formatters.oversettBoolean(
+				automatiskInnsendingAvMeldekort
+			)
+		}
+		if (aap115) visningData.aap115 = visningData.aap115.concat(aap115)
+		if (aap) visningData.aap = visningData.aap.concat(aap)
+		if (dagpenger) visningData.dagpenger = visningData.dagpenger.concat(dagpenger)
 	}
 
 	// Arenaforvalternen returnerer veldig lite informasjon, bruker derfor data fra bestillingen i tillegg
@@ -84,7 +111,7 @@ export const ArenaVisning = ({ data, bestillinger, loading }) => {
 		<div>
 			<SubOverskrift label="Arbeidsytelser" iconKind="arena" />
 			<div className="person-visning_content">
-				<Historikk component={Visning} data={visningData} />
+				<Visning data={visningData} />
 			</div>
 		</div>
 	)

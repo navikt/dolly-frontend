@@ -116,13 +116,16 @@ export const validation = Yup.object({
 			is: 'UTEN_SERVICEBEHOV',
 			then: requiredDate
 		}),
-	automatiskInnsendingAvMeldekort: Yup.boolean(),
+	automatiskInnsendingAvMeldekort: Yup.boolean().nullable(),
 	kvalifiseringsgruppe: Yup.string()
-		.nullable()
-		.when('arenaBrukertype', {
-			is: 'MED_SERVICEBEHOV',
-			then: requiredString
-		}),
+		.test('har-verdi', messages.required, function validKvalifiseringsgruppe(gruppe) {
+			const values = this.options.context
+			if (values.arenaforvalter.arenaBrukertype === 'UTEN_SERVICEBEHOV') return true
+			if (values.personFoerLeggTil && values.personFoerLeggTil.arenaforvalteren) return true
+
+			return gruppe
+		})
+		.nullable(),
 	dagpenger: Yup.array().of(
 		Yup.object({
 			rettighetKode: Yup.string().required(messages.required),
