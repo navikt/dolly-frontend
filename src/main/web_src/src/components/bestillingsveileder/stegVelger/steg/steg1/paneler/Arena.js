@@ -20,6 +20,17 @@ export const ArenaPanel = ({ stateModifier }) => {
 				<Attributt
 					disabled={
 						sm.attrs.ikkeServicebehov.checked ||
+						sm.attrs.aap115.checked ||
+						sm.attrs.aap.checked ||
+						sm.attrs.dagpenger.checked ||
+						(personFoerLeggTil && personFoerLeggTil.arenaforvalteren)
+					}
+					attr={sm.attrs.ingenYtelser}
+				/>
+				<Attributt
+					disabled={
+						sm.attrs.ikkeServicebehov.checked ||
+						sm.attrs.ingenYtelser.checked ||
 						(personFoerLeggTil && personFoerLeggTil.arenaforvalteren)
 					}
 					attr={sm.attrs.aap115}
@@ -27,16 +38,25 @@ export const ArenaPanel = ({ stateModifier }) => {
 				<Attributt
 					disabled={
 						sm.attrs.ikkeServicebehov.checked ||
+						sm.attrs.ingenYtelser.checked ||
 						(personFoerLeggTil && personFoerLeggTil.arenaforvalteren)
 					}
 					attr={sm.attrs.aap}
 				/>
-				<Attributt disabled={sm.attrs.ikkeServicebehov.checked} attr={sm.attrs.dagpenger} />
+				<Attributt
+					disabled={sm.attrs.ikkeServicebehov.checked || sm.attrs.ingenYtelser.checked}
+					attr={sm.attrs.dagpenger}
+				/>
 			</AttributtKategori>
 
 			<AttributtKategori title={'Inaktiv bruker'}>
 				<Attributt
-					disabled={sm.attrs.aap.checked || sm.attrs.aap115.checked || sm.attrs.dagpenger.checked}
+					disabled={
+						sm.attrs.ingenYtelser.checked ||
+						sm.attrs.aap.checked ||
+						sm.attrs.aap115.checked ||
+						sm.attrs.dagpenger.checked
+					}
 					attr={sm.attrs.ikkeServicebehov}
 				/>
 			</AttributtKategori>
@@ -48,6 +68,7 @@ ArenaPanel.heading = 'Arbeidsytelser'
 
 const MED_SERVICEBEHOV = ['arenaforvalter.arenaBrukertype', 'MED_SERVICEBEHOV']
 const AUTOMATISK_INNSENDING_MELDEKORT = ['arenaforvalter.automatiskInnsendingAvMeldekort', true]
+
 ArenaPanel.initialValues = ({ set, setMulti, del, has }) => ({
 	aap115: {
 		label: '11.5-vedtak',
@@ -130,6 +151,22 @@ ArenaPanel.initialValues = ({ set, setMulti, del, has }) => ({
 		},
 		remove() {
 			del(['arenaforvalter.arenaBrukertype', 'arenaforvalter.inaktiveringDato'])
+		}
+	},
+
+	ingenYtelser: {
+		label: 'Ingen ytelser',
+		checked:
+			has('arenaforvalter.arenaBrukertype') &&
+			!has('arenaforvalter.aap115') &&
+			!has('arenaforvalter.aap') &&
+			!has('arenaforvalter.dagpenger') &&
+			!has('arenaforvalter.inaktiveringDato'),
+		add() {
+			setMulti(MED_SERVICEBEHOV, AUTOMATISK_INNSENDING_MELDEKORT)
+		},
+		remove() {
+			del('arenaforvalter')
 		}
 	}
 })
