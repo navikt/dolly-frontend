@@ -43,6 +43,7 @@ export const ArenaForm = ({ formikBag }) => {
 					<ArenaVisning
 						data={personFoerLeggTil.arenaforvalteren}
 						bestillinger={tidligereBestillinger}
+						personVisning={false}
 					/>
 				)}
 				{dagpengerAktiv && (

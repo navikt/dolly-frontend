@@ -5,8 +5,9 @@ import { TitleValue } from '~/components/ui/titleValue/TitleValue'
 import Formatters from '~/utils/DataFormatter'
 import Loading from '~/components/ui/loading/Loading'
 import { DollyFieldArray } from '~/components/ui/form/fieldArray/DollyFieldArray'
+import Panel from '~/components/ui/panel/Panel'
 
-export const Visning = ({ data }) => {
+const Visning = ({ data }) => {
 	if (!data) return null
 	return (
 		<>
@@ -55,7 +56,7 @@ export const Visning = ({ data }) => {
 	)
 }
 
-export const ArenaVisning = ({ data, bestillinger, loading }) => {
+export const ArenaVisning = ({ data, bestillinger, loading, personVisning = true }) => {
 	if (loading) return <Loading label="Laster arena-data" />
 	if (!data) return false
 
@@ -77,44 +78,56 @@ export const ArenaVisning = ({ data, bestillinger, loading }) => {
 		dagpenger: []
 	}
 
-	const fyllVisningData = (idx, info) => {
-		const {
-			kvalifiseringsgruppe,
-			inaktiveringDato,
-			automatiskInnsendingAvMeldekort,
-			aap115,
-			aap,
-			dagpenger
-		} = arenaBestillinger[idx].data.arenaforvalter
-
-		if (visningData.brukertype === undefined) {
-			visningData.brukertype = info.servicebehov ? 'Med servicebehov' : 'Uten servicebehov'
-			visningData.servicebehov = servicebehovKodeTilBeskrivelse(kvalifiseringsgruppe)
-			visningData.inaktiveringDato = Formatters.formatDate(inaktiveringDato)
-			visningData.automatiskInnsendingAvMeldekort = Formatters.oversettBoolean(
-				automatiskInnsendingAvMeldekort
-			)
-		}
-		if (aap115) visningData.aap115 = visningData.aap115.concat(aap115)
-		if (aap) visningData.aap = visningData.aap.concat(aap)
-		if (dagpenger) visningData.dagpenger = visningData.dagpenger.concat(dagpenger)
-	}
-
 	// Arenaforvalternen returnerer veldig lite informasjon, bruker derfor data fra bestillingen i tillegg
 	sortedData.forEach((info, idx) => {
 		if (_get(arenaBestillinger, `[${idx}].data.arenaforvalter`) !== undefined) {
-			fyllVisningData(idx, info)
+			fyllVisningData(idx, info, visningData, arenaBestillinger)
 		}
 	})
-
 	return (
 		<div>
-			<SubOverskrift label="Arbeidsytelser" iconKind="arena" />
-			<div className="person-visning_content">
-				<Visning data={visningData} />
-			</div>
+			{personVisning && (
+				<div>
+					<SubOverskrift label="Arbeidsytelser" iconKind="arena" />
+					<div className="person-visning_content">
+						<Visning data={visningData} />
+					</div>
+				</div>
+			)}
+			{!personVisning && (
+				<Panel heading="Registrerte arbeidsytelser" iconType="arena">
+					<div className="person-visning">
+						<div className="person-visning_content">
+							<Visning data={visningData} />
+						</div>
+					</div>
+				</Panel>
+			)}
 		</div>
 	)
+}
+
+function fyllVisningData(idx, info, visningData, arenaBestillinger) {
+	const {
+		kvalifiseringsgruppe,
+		inaktiveringDato,
+		automatiskInnsendingAvMeldekort,
+		aap115,
+		aap,
+		dagpenger
+	} = arenaBestillinger[idx].data.arenaforvalter
+
+	if (visningData.brukertype === undefined) {
+		visningData.brukertype = info.servicebehov ? 'Med servicebehov' : 'Uten servicebehov'
+		visningData.servicebehov = servicebehovKodeTilBeskrivelse(kvalifiseringsgruppe)
+		visningData.inaktiveringDato = Formatters.formatDate(inaktiveringDato)
+		visningData.automatiskInnsendingAvMeldekort = Formatters.oversettBoolean(
+			automatiskInnsendingAvMeldekort
+		)
+	}
+	if (aap115) visningData.aap115 = visningData.aap115.concat(aap115)
+	if (aap) visningData.aap = visningData.aap.concat(aap)
+	if (dagpenger) visningData.dagpenger = visningData.dagpenger.concat(dagpenger)
 }
 
 function servicebehovKodeTilBeskrivelse(value) {
