@@ -20,16 +20,20 @@ export const ArenaForm = ({ formikBag }) => {
 		_get(formikBag, 'values.arenaforvalter.arenaBrukertype') === 'MED_SERVICEBEHOV'
 	const dagpengerAktiv = _get(formikBag, 'values.arenaforvalter.dagpenger[0]')
 
+	const opts = useContext(BestillingsveilederContext)
+
+	const { personFoerLeggTil, tidligereBestillinger } = opts
+	const uregistrert = !(personFoerLeggTil && personFoerLeggTil.arenaforvalteren)
+
 	useEffect(() => {
 		servicebehovAktiv &&
 			!_get(formikBag, 'values.arenaforvalter.kvalifiseringsgruppe') &&
 			formikBag.setFieldValue('arenaforvalter.kvalifiseringsgruppe', null)
+
+		servicebehovAktiv &&
+			!uregistrert &&
+			formikBag.setFieldValue('arenaforvalter.automatiskInnsendingAvMeldekort', null)
 	}, [])
-
-	const opts = useContext(BestillingsveilederContext)
-
-	const { personFoerLeggTil, tidligereBestillinger } = opts
-	const uregistert = !(personFoerLeggTil && personFoerLeggTil.arenaforvalteren)
 
 	return (
 		<Vis attributt={arenaAttributt}>
@@ -43,7 +47,7 @@ export const ArenaForm = ({ formikBag }) => {
 					<ArenaVisning
 						data={personFoerLeggTil.arenaforvalteren}
 						bestillinger={tidligereBestillinger}
-						personVisning={false}
+						useStandard={false}
 					/>
 				)}
 				{dagpengerAktiv && (
@@ -67,7 +71,7 @@ export const ArenaForm = ({ formikBag }) => {
 					/>
 				)}
 				{servicebehovAktiv && <MedServicebehov formikBag={formikBag} />}
-				{(!servicebehovAktiv || uregistert) && (
+				{(!servicebehovAktiv || uregistrert) && (
 					<FormikCheckbox
 						name="arenaforvalter.automatiskInnsendingAvMeldekort"
 						label="Automatisk innsending av meldekort"

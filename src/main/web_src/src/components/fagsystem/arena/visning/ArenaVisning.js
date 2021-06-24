@@ -56,7 +56,7 @@ const Visning = ({ data }) => {
 	)
 }
 
-export const ArenaVisning = ({ data, bestillinger, loading, personVisning = true }) => {
+export const ArenaVisning = ({ data, bestillinger, loading, useStandard = true }) => {
 	if (loading) return <Loading label="Laster arena-data" />
 	if (!data) return false
 
@@ -86,7 +86,7 @@ export const ArenaVisning = ({ data, bestillinger, loading, personVisning = true
 	})
 	return (
 		<div>
-			{personVisning && (
+			{useStandard && (
 				<div>
 					<SubOverskrift label="Arbeidsytelser" iconKind="arena" />
 					<div className="person-visning_content">
@@ -94,7 +94,7 @@ export const ArenaVisning = ({ data, bestillinger, loading, personVisning = true
 					</div>
 				</div>
 			)}
-			{!personVisning && (
+			{!useStandard && (
 				<Panel heading="Registrerte arbeidsytelser" iconType="arena">
 					<div className="person-visning">
 						<div className="person-visning_content">
