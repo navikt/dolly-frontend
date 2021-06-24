@@ -2,6 +2,8 @@ import * as Yup from 'yup'
 import { messages, requiredDate, requiredString } from '~/utils/YupValidations'
 import { isAfter, isBefore } from 'date-fns'
 
+const ikkeOverlappendeVedtak = ['aap', 'dagpenger']
+
 const datoIkkeMellom = (nyDatoFra, gjeldendeDatoFra, gjeldendeDatoTil) => {
 	if (!gjeldendeDatoFra || !gjeldendeDatoTil) return true
 	return (
@@ -10,46 +12,37 @@ const datoIkkeMellom = (nyDatoFra, gjeldendeDatoFra, gjeldendeDatoTil) => {
 	)
 }
 
-function validTildato(fradato, tildato) {
+const validTildato = (fradato, tildato) => {
 	if (!fradato || !tildato) return true
 	return isAfter(new Date(tildato), new Date(fradato))
 }
 
-const datoOverlapperIkkeAndreVedtak = (vedtaktype, naeverendeVerdier, tidligereBestillinger) => {
-	const nyDatoFra = naeverendeVerdier[vedtaktype].fraDato
-	const nyDatoTil = naeverendeVerdier[vedtaktype].tilDato
+const ingenOverlappFraTildato = (tildato, values) => {
+	const fraDato = values.arenaforvalter.dagpenger?.[0].fraDato
+	const aapFraDato = values.arenaforvalter.aap?.[0].fraDato
 
-	const arenaBestillinger = tidligereBestillinger.filter(bestilling =>
-		bestilling.data.hasOwnProperty('arenaforvalter')
-	)
+	if (tildato || !fraDato) return true
 
-	for (const [key, value] of Object.entries(naeverendeVerdier)) {
-		if (key !== vedtaktype && !datoIkkeMellom(nyDatoFra, value.fraDato, value.tilDato)) {
-			return false
-		}
+	if (isBefore(new Date(fraDato), new Date(aapFraDato))) return false
 
+	if (values.tidligereBestillinger) {
+		const arenaBestillinger = values.tidligereBestillinger.filter(bestilling =>
+			bestilling.data.hasOwnProperty('arenaforvalter')
+		)
 		for (let bestilling of arenaBestillinger) {
 			let arenaInfo = bestilling.data.arenaforvalter
-
-			if (arenaInfo[key].length > 0) {
-				const fraDato = arenaInfo[key]?.[0].fraDato
-				const tilDato = arenaInfo[key]?.[0].tilDato
-
-				if (
-					fraDato &&
-					(!datoIkkeMellom(nyDatoFra, fraDato, tilDato) ||
-						!datoIkkeMellom(fraDato, nyDatoFra, nyDatoTil))
-				) {
-					return false
+			for (let key of ikkeOverlappendeVedtak) {
+				if (arenaInfo[key].length > 0) {
+					const fraDatoBestilling = arenaInfo[key]?.[0].fraDato
+					if (isBefore(new Date(fraDato), new Date(fraDatoBestilling))) return false
 				}
 			}
 		}
 	}
-
 	return true
 }
 
-function harGjeldendeVedtakValidation(vedtakType) {
+const validFradato = vedtakType => {
 	return Yup.string()
 		.test(
 			'har-gjeldende-vedtak',
@@ -57,14 +50,11 @@ function harGjeldendeVedtakValidation(vedtakType) {
 			function validVedtak() {
 				const values = this.options.context
 
-				const naavaerendeVerdier = {
-					dagpenger: {
-						fraDato: values.arenaforvalter.dagpenger?.[0].fraDato,
-						tilDato: values.arenaforvalter.dagpenger?.[0].tilDato
-					},
-					aap: {
-						fraDato: values.arenaforvalter.aap?.[0].fraDato,
-						tilDato: values.arenaforvalter.aap?.[0].tilDato
+				const naavaerendeVerdier = {}
+				for (let key of ikkeOverlappendeVedtak) {
+					naavaerendeVerdier[key] = {
+						fraDato: values.arenaforvalter[key]?.[0].fraDato,
+						tilDato: values.arenaforvalter[key]?.[0].tilDato
 					}
 				}
 
@@ -91,10 +81,53 @@ function harGjeldendeVedtakValidation(vedtakType) {
 		.required(messages.required)
 }
 
+const datoOverlapperIkkeAndreVedtak = (vedtaktype, naeverendeVerdier, tidligereBestillinger) => {
+	const nyDatoFra = naeverendeVerdier[vedtaktype].fraDato
+	const nyDatoTil = naeverendeVerdier[vedtaktype].tilDato
+
+	const arenaBestillinger = tidligereBestillinger.filter(bestilling =>
+		bestilling.data.hasOwnProperty('arenaforvalter')
+	)
+
+	for (const [key, value] of Object.entries(naeverendeVerdier)) {
+		if (key !== vedtaktype && !datoIkkeMellom(nyDatoFra, value.fraDato, value.tilDato)) {
+			return false
+		}
+
+		for (let bestilling of arenaBestillinger) {
+			let arenaInfo = bestilling.data.arenaforvalter
+			if (
+				key in arenaInfo &&
+				arenaInfo[key].length > 0 &&
+				overlapperMedliste(nyDatoFra, nyDatoTil, arenaInfo[key])
+			)
+				return false
+		}
+	}
+	return true
+}
+
+const overlapperMedliste = (originalFradato, orginialTildato, vedtakListe) => {
+	for (let vedtak of vedtakListe) {
+		const fraDato = vedtak.fraDato
+		const tilDato = vedtak.tilDato
+
+		if (
+			fraDato &&
+			(!datoIkkeMellom(originalFradato, fraDato, tilDato) ||
+				!datoIkkeMellom(fraDato, originalFradato, orginialTildato))
+		) {
+			return true
+		}
+		if (fraDato && !tilDato && isBefore(new Date(fraDato), new Date(originalFradato))) return true
+	}
+	return false
+}
+
 export const validation = Yup.object({
 	aap: Yup.array().of(
 		Yup.object({
-			fraDato: harGjeldendeVedtakValidation('aap'),
+			fraDato: validFradato('aap'),
 			tilDato: Yup.string()
 				.test('etter-fradato', 'Til-dato må være etter fra-dato', function validDate(tildato) {
 					const fradato = this.options.context.arenaforvalter.aap[0].fraDato
@@ -129,12 +162,19 @@ export const validation = Yup.object({
 	dagpenger: Yup.array().of(
 		Yup.object({
 			rettighetKode: Yup.string().required(messages.required),
-			fraDato: harGjeldendeVedtakValidation('dagpenger'),
+			fraDato: validFradato('dagpenger'),
 			tilDato: Yup.string()
-				.test('etter-fradato', 'Til-dato må være etter fra-dato', function validDate(tildato) {
+				.test('etter-fradato', 'Til-dato må være etter fra-dato.', function validDate(tildato) {
 					const fradato = this.options.context.arenaforvalter.dagpenger[0].fraDato
 					return validTildato(fradato, tildato)
 				})
+				.test(
+					'skaper-ikke-overlapp',
+					'Manglende til-dato skaper overlapp med annet vedtak.',
+					function validDate(tildato) {
+						return ingenOverlappFraTildato(tildato, this.options.context)
+					}
+				)
 				.nullable(),
 			mottattDato: Yup.date().nullable()
 		})
