@@ -6,14 +6,16 @@ import {
 	Bestilling,
 	BestillingData,
 	Inntekt,
-	Journalpost,
 	TransaksjonId
 } from '~/components/fagsystem/inntektsmelding/InntektsmeldingTypes'
 import { EnkelInntektsmeldingVisning } from './partials/enkelInntektsmeldingVisning'
 import { DollyApi } from '~/service/Api'
 import { erGyldig } from '~/components/transaksjonid/GyldigeBestillinger'
 import { ErrorBoundary } from '~/components/ui/appError/ErrorBoundary'
-import JoarkDokumentService, { Dokument } from '~/service/services/JoarkDokumentService'
+import JoarkDokumentService, {
+	Dokument,
+	Journalpost
+} from '~/service/services/JoarkDokumentService'
 import LoadableComponentWithRetry from '~/components/ui/loading/LoadableComponentWithRetry'
 
 interface InntektsmeldingVisning {
@@ -26,10 +28,25 @@ export const InntektsmeldingVisning = ({ liste, ident }: InntektsmeldingVisning)
 	if (!liste || liste.length < 1) return null
 
 	const getDokumenter = (bestilling: TransaksjonId): Promise<Dokument[]> => {
-		return JoarkDokumentService.hentDokumenter(
+		return JoarkDokumentService.hentJournalpost(
 			bestilling.transaksjonId.journalpostId,
 			bestilling.miljoe
-		)
+		).then((journalpost: Journalpost) => {
+			return Promise.all(
+				journalpost.dokumenter.map((document: Dokument) =>
+					JoarkDokumentService.hentDokument(
+						bestilling.transaksjonId.journalpostId,
+						document.dokumentInfoId,
+						bestilling.miljoe,
+						'ORIGINAL'
+					).then((dokument: string) => ({
+						journalpostId: bestilling.transaksjonId.journalpostId,
+						dokumentInfoId: document.dokumentInfoId,
+						dokument
+					}))
+				)
+			)
+		})
 	}
 
 	return (
