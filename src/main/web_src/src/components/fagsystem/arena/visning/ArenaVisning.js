@@ -1,5 +1,4 @@
 import React from 'react'
-import _get from 'lodash/get'
 import SubOverskrift from '~/components/ui/subOverskrift/SubOverskrift'
 import { TitleValue } from '~/components/ui/titleValue/TitleValue'
 import Formatters from '~/utils/DataFormatter'
