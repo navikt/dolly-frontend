@@ -60,10 +60,6 @@ export const ArenaVisning = ({ data, bestillinger, loading, useStandard = true }
 	if (loading) return <Loading label="Laster arena-data" />
 	if (!data) return false
 
-	const sortedData = Array.isArray(data.arbeidsokerList)
-		? data.arbeidsokerList.slice().reverse()
-		: data.arbeidsokerList
-
 	const arenaBestillinger = bestillinger.filter(bestilling =>
 		bestilling.data.hasOwnProperty('arenaforvalter')
 	)
@@ -79,11 +75,12 @@ export const ArenaVisning = ({ data, bestillinger, loading, useStandard = true }
 	}
 
 	// Arenaforvalternen returnerer veldig lite informasjon, bruker derfor data fra bestillingen i tillegg
-	sortedData.forEach((info, idx) => {
-		if (_get(arenaBestillinger, `[${idx}].data.arenaforvalter`) !== undefined) {
-			fyllVisningData(idx, info, visningData, arenaBestillinger)
+
+	for (let bestilling of arenaBestillinger) {
+		if (bestilling.data.arenaforvalter !== undefined) {
+			fyllVisningData(bestilling, visningData)
 		}
-	})
+	}
 	return (
 		<div>
 			{useStandard && (
@@ -107,24 +104,33 @@ export const ArenaVisning = ({ data, bestillinger, loading, useStandard = true }
 	)
 }
 
-function fyllVisningData(idx, info, visningData, arenaBestillinger) {
+function fyllVisningData(bestilling, visningData) {
 	const {
+		arenabrukerType,
 		kvalifiseringsgruppe,
 		inaktiveringDato,
 		automatiskInnsendingAvMeldekort,
 		aap115,
 		aap,
 		dagpenger
-	} = arenaBestillinger[idx].data.arenaforvalter
+	} = bestilling.data.arenaforvalter
 
-	if (visningData.brukertype === undefined) {
-		visningData.brukertype = info.servicebehov ? 'Med servicebehov' : 'Uten servicebehov'
+	if (!visningData.brukertype) {
+		visningData.brukertype =
+			arenabrukerType === 'MED_SERVICEBEHOV' ? 'Med servicebehov' : 'Uten servicebehov'
+	}
+	if (!visningData.servicebehov) {
 		visningData.servicebehov = servicebehovKodeTilBeskrivelse(kvalifiseringsgruppe)
+	}
+	if (!visningData.inaktiveringDato) {
 		visningData.inaktiveringDato = Formatters.formatDate(inaktiveringDato)
+	}
+	if (!visningData.automatiskInnsendingAvMeldekort) {
 		visningData.automatiskInnsendingAvMeldekort = Formatters.oversettBoolean(
 			automatiskInnsendingAvMeldekort
 		)
 	}
+
 	if (aap115) visningData.aap115 = visningData.aap115.concat(aap115)
 	if (aap) visningData.aap = visningData.aap.concat(aap)
 	if (dagpenger) visningData.dagpenger = visningData.dagpenger.concat(dagpenger)
