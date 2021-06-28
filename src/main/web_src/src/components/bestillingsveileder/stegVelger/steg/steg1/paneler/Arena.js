@@ -9,6 +9,7 @@ export const ArenaPanel = ({ stateModifier }) => {
 
 	const { personFoerLeggTil } = opts
 	const alleredeRegistrert = personFoerLeggTil && personFoerLeggTil.arenaforvalteren
+	const alleredeRegistertTitle = 'Bruker allerede registrert i Arena.'
 
 	return (
 		<Panel
@@ -27,21 +28,21 @@ export const ArenaPanel = ({ stateModifier }) => {
 						alleredeRegistrert
 					}
 					attr={sm.attrs.ingenYtelser}
-					title={alleredeRegistrert ? 'Bruker allerede registrert i Arena.' : null}
+					title={alleredeRegistrert ? alleredeRegistertTitle : null}
 				/>
 				<Attributt
 					disabled={
 						sm.attrs.ikkeServicebehov.checked || sm.attrs.ingenYtelser.checked || alleredeRegistrert
 					}
 					attr={sm.attrs.aap115}
-					title={alleredeRegistrert ? 'Bruker allerede registrert i Arena.' : null}
+					title={alleredeRegistrert ? alleredeRegistertTitle : null}
 				/>
 				<Attributt
 					disabled={
 						sm.attrs.ikkeServicebehov.checked || sm.attrs.ingenYtelser.checked || alleredeRegistrert
 					}
 					attr={sm.attrs.aap}
-					title={alleredeRegistrert ? 'Bruker allerede registrert i Arena.' : null}
+					title={alleredeRegistrert ? alleredeRegistertTitle : null}
 				/>
 				<Attributt
 					disabled={sm.attrs.ikkeServicebehov.checked || sm.attrs.ingenYtelser.checked}
@@ -59,7 +60,7 @@ export const ArenaPanel = ({ stateModifier }) => {
 						alleredeRegistrert
 					}
 					attr={sm.attrs.ikkeServicebehov}
-					title={alleredeRegistrert ? 'Bruker allerede registrert i Arena.' : null}
+					title={alleredeRegistrert ? alleredeRegistertTitle : null}
 				/>
 			</AttributtKategori>
 		</Panel>
