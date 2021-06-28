@@ -8,6 +8,7 @@ export const ArenaPanel = ({ stateModifier }) => {
 	const opts = useContext(BestillingsveilederContext)
 
 	const { personFoerLeggTil } = opts
+	const alleredeRegistrert = personFoerLeggTil && personFoerLeggTil.arenaforvalteren
 
 	return (
 		<Panel
@@ -23,25 +24,24 @@ export const ArenaPanel = ({ stateModifier }) => {
 						sm.attrs.aap115.checked ||
 						sm.attrs.aap.checked ||
 						sm.attrs.dagpenger.checked ||
-						(personFoerLeggTil && personFoerLeggTil.arenaforvalteren)
+						alleredeRegistrert
 					}
 					attr={sm.attrs.ingenYtelser}
+					title={alleredeRegistrert ? 'Bruker allerede registrert i Arena.' : null}
 				/>
 				<Attributt
 					disabled={
-						sm.attrs.ikkeServicebehov.checked ||
-						sm.attrs.ingenYtelser.checked ||
-						(personFoerLeggTil && personFoerLeggTil.arenaforvalteren)
+						sm.attrs.ikkeServicebehov.checked || sm.attrs.ingenYtelser.checked || alleredeRegistrert
 					}
 					attr={sm.attrs.aap115}
+					title={alleredeRegistrert ? 'Bruker allerede registrert i Arena.' : null}
 				/>
 				<Attributt
 					disabled={
-						sm.attrs.ikkeServicebehov.checked ||
-						sm.attrs.ingenYtelser.checked ||
-						(personFoerLeggTil && personFoerLeggTil.arenaforvalteren)
+						sm.attrs.ikkeServicebehov.checked || sm.attrs.ingenYtelser.checked || alleredeRegistrert
 					}
 					attr={sm.attrs.aap}
+					title={alleredeRegistrert ? 'Bruker allerede registrert i Arena.' : null}
 				/>
 				<Attributt
 					disabled={sm.attrs.ikkeServicebehov.checked || sm.attrs.ingenYtelser.checked}
@@ -55,9 +55,11 @@ export const ArenaPanel = ({ stateModifier }) => {
 						sm.attrs.ingenYtelser.checked ||
 						sm.attrs.aap.checked ||
 						sm.attrs.aap115.checked ||
-						sm.attrs.dagpenger.checked
+						sm.attrs.dagpenger.checked ||
+						alleredeRegistrert
 					}
 					attr={sm.attrs.ikkeServicebehov}
+					title={alleredeRegistrert ? 'Bruker allerede registrert i Arena.' : null}
 				/>
 			</AttributtKategori>
 		</Panel>
@@ -150,7 +152,7 @@ ArenaPanel.initialValues = ({ set, setMulti, del, has }) => ({
 			})
 		},
 		remove() {
-			del(['arenaforvalter.arenaBrukertype', 'arenaforvalter.inaktiveringDato'])
+			del('arenaforvalter')
 		}
 	},
 

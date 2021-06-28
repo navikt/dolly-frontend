@@ -105,7 +105,7 @@ export const ArenaVisning = ({ data, bestillinger, loading, useStandard = true }
 
 function fyllVisningData(bestilling, visningData) {
 	const {
-		arenabrukerType,
+		arenaBrukertype,
 		kvalifiseringsgruppe,
 		inaktiveringDato,
 		automatiskInnsendingAvMeldekort,
@@ -113,10 +113,9 @@ function fyllVisningData(bestilling, visningData) {
 		aap,
 		dagpenger
 	} = bestilling.data.arenaforvalter
-
 	if (!visningData.brukertype) {
 		visningData.brukertype =
-			arenabrukerType === 'MED_SERVICEBEHOV' ? 'Med servicebehov' : 'Uten servicebehov'
+			arenaBrukertype === 'MED_SERVICEBEHOV' ? 'Med servicebehov' : 'Uten servicebehov'
 	}
 	if (!visningData.servicebehov) {
 		visningData.servicebehov = servicebehovKodeTilBeskrivelse(kvalifiseringsgruppe)
