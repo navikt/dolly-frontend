@@ -56,6 +56,22 @@ const selectOptions: SelectOptions = {
 		{ value: 'UTAD', label: 'Utenlandsk adresse' }
 	],
 
+	dollyMiljoer: [
+		{ value: 'q1', label: 'Q1' },
+		{ value: 'q2', label: 'Q2' },
+		{ value: 'q4', label: 'Q4' },
+		{ value: 'q5', label: 'Q5' },
+		{ value: 'qx', label: 'QX' },
+		{ value: 't0', label: 'T0' },
+		{ value: 't1', label: 'T1' },
+		{ value: 't2', label: 'T2' },
+		{ value: 't3', label: 'T3' },
+		{ value: 't4', label: 'T4' },
+		{ value: 't5', label: 'T5' },
+		{ value: 't6', label: 'T6' },
+		{ value: 't13', label: 'T13' }
+	],
+
 	// SIGRUN
 	tjeneste: [
 		{ value: 'BEREGNET_SKATT', label: 'Beregnet skatt' },

@@ -5,6 +5,8 @@ import { OrganisasjonMedArbeidsforholdSelect } from '~/components/organisasjonSe
 import { OrgserviceApi } from '~/service/Api'
 import { useBoolean } from 'react-use'
 import Icon from '~/components/ui/icon/Icon'
+import { SelectOptionsManager as Options } from '~/service/SelectOptions'
+import { DollySelect } from '~/components/ui/form/inputs/select/Select'
 
 const inputValg = { fraListe: 'velg', skrivSelv: 'skriv' }
 
@@ -12,6 +14,8 @@ export const OrgnummerToggle = ({ formikBag, path, opplysningspliktigPath }) => 
 	const [inputType, setInputType] = useState(inputValg.fraListe)
 	const [error, setError] = useState(null)
 	const [success, setSuccess] = useBoolean(false)
+	const [environment, setEnvironment] = useState(null)
+	const [orgnummer, setOrgnummer] = useState(null)
 
 	const handleToggleChange = event => {
 		setInputType(event.target.value)
@@ -24,10 +28,11 @@ export const OrgnummerToggle = ({ formikBag, path, opplysningspliktigPath }) => 
 		formikBag.setFieldValue(`${path}`, value.orgnr)
 	}
 
-	const handleBlur = event => {
+	const handleManualOrgChange = (org, miljo) => {
+		if (!orgnummer) return
 		setError(null)
 		setSuccess(false)
-		OrgserviceApi.getOrganisasjonInfo(event.target.value)
+		OrgserviceApi.getOrganisasjonInfo(org, miljo)
 			.then(response => {
 				setSuccess(true)
 				opplysningspliktigPath &&
@@ -69,8 +74,29 @@ export const OrgnummerToggle = ({ formikBag, path, opplysningspliktigPath }) => 
 						type={'number'}
 						size="xlarge"
 						label={'Organisasjonsnummer'}
-						onBlur={handleBlur}
-						feil={error && { feilmelding: 'Fant ikke organisasjonen i Q1' }}
+						onBlur={event => {
+							const org = event.target.value
+							setOrgnummer(org)
+							handleManualOrgChange(org, environment)
+						}}
+						feil={
+							error && {
+								feilmelding: 'Fant ikke organisasjonen i ' + (environment ? environment : 'q1')
+							}
+						}
+					/>
+					<DollySelect
+						name={path}
+						size={'small'}
+						isClearable={false}
+						label={'Organisasjon Miljø'}
+						options={Options('dollyMiljoer')}
+						placeholder={'q1'}
+						value={environment}
+						onChange={event => {
+							setEnvironment(event.value)
+							handleManualOrgChange(orgnummer, event.value)
+						}}
 					/>
 					{success && (
 						<>
