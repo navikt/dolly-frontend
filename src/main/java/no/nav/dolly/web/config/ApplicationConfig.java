@@ -1,6 +1,7 @@
 package no.nav.dolly.web.config;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +18,7 @@ import no.nav.dolly.web.security.domain.AccessScopes;
 import no.nav.registre.testnorge.libs.dependencyanalysis.DependenciesOn;
 import no.nav.registre.testnorge.libs.dependencyanalysis.DependencyOn;
 
+@Slf4j
 @Configuration
 @RequiredArgsConstructor
 @DependenciesOn({
@@ -118,6 +120,7 @@ public class ApplicationConfig {
 
 
     private AddAuthorizationToRouteFilter createFilterFrom(NaisServerProperties serverProperties, String route) {
+        log.info("Setter opp proxy for route {} for {} med url {}.", route, serverProperties.getName(), serverProperties.getUrl());
         return new AddAuthorizationToRouteFilter(
                 () -> tokenService.getAccessToken(new AccessScopes(serverProperties)).getTokenValue(),
                 route
