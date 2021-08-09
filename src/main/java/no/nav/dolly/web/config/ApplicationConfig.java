@@ -62,10 +62,10 @@ public class ApplicationConfig {
         return createFilterFrom(testnavInntektstubProxyProperties);
     }
 
-    @Bean
-    public AddAuthorizationToRouteFilter tpsForvalterenProxyAddAuthorizationToRouteFilter() {
-        return createFilterFrom(tpsForvalterenProxyProperties, "tps-forvalteren-proxy");
-    }
+//    @Bean
+//    public AddAuthorizationToRouteFilter tpsForvalterenProxyAddAuthorizationToRouteFilter() {
+//        return createFilterFrom(tpsForvalterenProxyProperties, "tps-forvalteren-proxy");
+//    }
 
     @Bean
     public AddAuthorizationToRouteFilter dollyBackendAddAuthorizationToRouteFilter() {

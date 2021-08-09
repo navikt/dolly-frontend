@@ -55,7 +55,7 @@ zuul:
       sensitiveHeaders: Cookie,Set-Cookie
     tps-forvalteren-proxy:
       path: /tps-forvalteren-proxy/api/**
-      url: ${TPS_FORVALTERN_PROXY_URL}/api
+      url: https://tps-forvalteren.dev.adeo.no/api
 
 applications:
   testnorge-profil-api: ${TESTNORGE_PROFIL_API_CLIENT_ID}
