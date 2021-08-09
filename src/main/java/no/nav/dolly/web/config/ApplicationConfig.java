@@ -2,6 +2,7 @@ package no.nav.dolly.web.config;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,6 +38,9 @@ public class ApplicationConfig {
     private final TestnavJoarkDokumentServiceProperties testnavJoarkDokumentServiceProperties;
     private final TestnavInntektstubProxyProperties testnavInntektstubProxyProperties;
     private final TpsForvalterenProxyProperties tpsForvalterenProxyProperties;
+
+    @Value("${TPS_FORVALTERN_PROXY_URL}")
+    private String test;
 
     @Bean
     public RestTemplate restTemplate() {
@@ -120,6 +124,7 @@ public class ApplicationConfig {
 
 
     private AddAuthorizationToRouteFilter createFilterFrom(NaisServerProperties serverProperties, String route) {
+        log.info("Test: {}", test);
         log.info("Setter opp proxy for route {} for {}.", route, serverProperties.getName());
         return new AddAuthorizationToRouteFilter(
                 () -> tokenService.getAccessToken(new AccessScopes(serverProperties)).getTokenValue(),
