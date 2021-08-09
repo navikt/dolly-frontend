@@ -55,7 +55,7 @@ zuul:
       sensitiveHeaders: Cookie,Set-Cookie
     tps-forvalteren-proxy:
       path: /tps-forvalteren-proxy/api/**
-      url: https://tps-forvalteren.dev.adeo.no/api
+      url: https://tps-forvalteren-dev.dev.adeo.no/api
       sensitiveHeaders: Set-Cookie, Cookie
   debug:
     request: true
