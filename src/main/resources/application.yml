@@ -56,7 +56,6 @@ zuul:
     tps-forvalteren-proxy:
       path: /tps-forvalteren-proxy/api/**
       url: ${TPS_FORVALTERN_PROXY_URL}/api
-      sensitiveHeaders: Cookie,Set-Cookie
 
 applications:
   testnorge-profil-api: ${TESTNORGE_PROFIL_API_CLIENT_ID}
