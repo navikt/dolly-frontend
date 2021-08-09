@@ -120,7 +120,7 @@ public class ApplicationConfig {
 
 
     private AddAuthorizationToRouteFilter createFilterFrom(NaisServerProperties serverProperties, String route) {
-        log.info("Setter opp proxy for route {} for {} med url {}.", route, serverProperties.getName(), serverProperties.getUrl());
+        log.info("Setter opp proxy for route {} for {}.", route, serverProperties.getName());
         return new AddAuthorizationToRouteFilter(
                 () -> tokenService.getAccessToken(new AccessScopes(serverProperties)).getTokenValue(),
                 route

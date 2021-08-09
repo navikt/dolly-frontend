@@ -64,7 +64,7 @@ spec:
     - name: TPS_FORVALTERN_PROXY_NAME
       value: tps-forvalteren-dev-proxy
     - name: TPS_FORVALTERN_PROXY_URL
-      value: https://tps-forvalteren-dev-proxy.dev.intern.nav.no
+      value: https://tps-forvalteren-dev.dev.adeo.no
   vault:
     enabled: true
     paths:
