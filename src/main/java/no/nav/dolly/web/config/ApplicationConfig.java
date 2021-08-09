@@ -10,6 +10,7 @@ import no.nav.dolly.web.config.credentials.NaisServerProperties;
 import no.nav.dolly.web.config.credentials.TestnavInntektstubProxyProperties;
 import no.nav.dolly.web.config.credentials.TestnavJoarkDokumentServiceProperties;
 import no.nav.dolly.web.config.credentials.TestnavOrganisasjonFasteDataServiceProperties;
+import no.nav.dolly.web.config.credentials.TpsForvalterenProxyProperties;
 import no.nav.dolly.web.config.filters.AddAuthorizationToRouteFilter;
 import no.nav.dolly.web.security.TokenService;
 import no.nav.dolly.web.security.domain.AccessScopes;
@@ -33,6 +34,7 @@ public class ApplicationConfig {
     private final TestnavOrganisasjonFasteDataServiceProperties testnavOrganisasjonFasteDataServiceProperties;
     private final TestnavJoarkDokumentServiceProperties testnavJoarkDokumentServiceProperties;
     private final TestnavInntektstubProxyProperties testnavInntektstubProxyProperties;
+    private final TpsForvalterenProxyProperties tpsForvalterenProxyProperties;
 
     @Bean
     public RestTemplate restTemplate() {
@@ -52,6 +54,11 @@ public class ApplicationConfig {
     @Bean
     public AddAuthorizationToRouteFilter testnavInntektstubProxyAddAuthorizationToRouteFilter() {
         return createFilterFrom(testnavInntektstubProxyProperties);
+    }
+
+    @Bean
+    public AddAuthorizationToRouteFilter tpsForvalterenProxyAddAuthorizationToRouteFilter() {
+        return createFilterFrom(tpsForvalterenProxyProperties, "tps-forvalteren-proxy");
     }
 
     @Bean
@@ -109,11 +116,16 @@ public class ApplicationConfig {
         );
     }
 
-    private AddAuthorizationToRouteFilter createFilterFrom(NaisServerProperties serverProperties) {
+
+    private AddAuthorizationToRouteFilter createFilterFrom(NaisServerProperties serverProperties, String route) {
         return new AddAuthorizationToRouteFilter(
                 () -> tokenService.getAccessToken(new AccessScopes(serverProperties)).getTokenValue(),
-                serverProperties.getName()
+                route
         );
+    }
+
+    private AddAuthorizationToRouteFilter createFilterFrom(NaisServerProperties serverProperties) {
+        return createFilterFrom(serverProperties, serverProperties.getName());
     }
 
     @Bean
