@@ -1,5 +1,6 @@
 AAD_ISSUER_URI: https://login.microsoftonline.com/62366534-1ec3-4962-8869-9b5535279d0b
 zuul:
+  ignoredHeaders: Origin
   routes:
     controller:
       path: /api/dolly-logg/**
@@ -55,8 +56,8 @@ zuul:
       sensitiveHeaders: Cookie,Set-Cookie
     tps-forvalteren-proxy:
       path: /tps-forvalteren-proxy/api/**
-      url: https://tps-forvalteren.dev.adeo.no/api
-      sensitiveHeaders: Set-Cookie, Cookie
+      url: ${TPS_FORVALTERN_PROXY_URL}/api
+      sensitiveHeaders: Cookie,Set-Cookie
   debug:
     request: true
 

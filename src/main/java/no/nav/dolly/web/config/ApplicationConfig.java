@@ -39,9 +39,6 @@ public class ApplicationConfig {
     private final TestnavInntektstubProxyProperties testnavInntektstubProxyProperties;
     private final TpsForvalterenProxyProperties tpsForvalterenProxyProperties;
 
-    @Value("${TPS_FORVALTERN_PROXY_URL}")
-    private String test;
-
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
@@ -62,10 +59,10 @@ public class ApplicationConfig {
         return createFilterFrom(testnavInntektstubProxyProperties);
     }
 
-//    @Bean
-//    public AddAuthorizationToRouteFilter tpsForvalterenProxyAddAuthorizationToRouteFilter() {
-//        return createFilterFrom(tpsForvalterenProxyProperties, "tps-forvalteren-proxy");
-//    }
+    @Bean
+    public AddAuthorizationToRouteFilter tpsForvalterenProxyAddAuthorizationToRouteFilter() {
+        return createFilterFrom(tpsForvalterenProxyProperties, "tps-forvalteren-proxy");
+    }
 
     @Bean
     public AddAuthorizationToRouteFilter dollyBackendAddAuthorizationToRouteFilter() {
@@ -124,7 +121,6 @@ public class ApplicationConfig {
 
 
     private AddAuthorizationToRouteFilter createFilterFrom(NaisServerProperties serverProperties, String route) {
-        log.info("Test: {}", test);
         log.info("Setter opp proxy for route {} for {}.", route, serverProperties.getName());
         return new AddAuthorizationToRouteFilter(
                 () -> tokenService.getAccessToken(new AccessScopes(serverProperties)).getTokenValue(),
