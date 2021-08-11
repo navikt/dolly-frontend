@@ -5,12 +5,12 @@ const getInstUrl = () => `${config.services.proxyBackend}/inst/v1`
 
 export default {
 	getPerson(ident, env) {
-		const endpoint = `${getInstUrl()}/institusjonsopphold/person?environments=${env}`
-		return Request.get(endpoint, { norskident: ident })
+		const endpoint = `${getInstUrl()}/ident/identer=${ident}?miljoe=${env}`
+		return Request.get(endpoint)
 	},
 
 	getTilgjengeligeMiljoer() {
-		const endpoint = `${getInstUrl()}/environment`
+		const endpoint = `${getInstUrl()}/miljoe`
 		return Request.get(endpoint)
 	}
 }

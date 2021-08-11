@@ -7,7 +7,7 @@ export default function TilgjengeligeMiljoer({ endepunkt, dollyEnvironments }) {
 
 	const state = useAsync(async () => {
 		const response = await endepunkt()
-		return response?.institusjonsoppholdEnvironments
+		return response
 	}, [endepunkt])
 
 	let message = 'laster tilgjengelige miljøer..'
