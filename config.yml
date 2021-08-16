@@ -50,26 +50,14 @@ spec:
       memory: 2048Mi
   image: {{ image }}
   env:
-    - name: TESTNAV_MILJOER_SERVICE_CLIENT_ID
-      value: 4bfd397d-03e4-4db8-9213-0870e274d329
-    - name: TESTNAV_MILJOER_SERVICE_HOST
-      value: https://testnav-miljoer-service.dev.intern.nav.no
-    - name: TESTNORGE_PROFIL_API_CLIENT_ID
-      value: e8e0772f-8204-4b88-88ad-233d62863f47
     - name: DOLLY_BACKEND_NAME
       value: dolly-backend
     - name: DOLLY_BACKEND_URL
       value: https://dolly-backend.dev.adeo.no
-    - name: UDI_STUB_CLIENT_ID
-      value: f4620953-c7af-4e60-8cbb-03de57554b86
     - name: UDI_STUB_URL
       value: https://udi-stub.dev.adeo.no
     - name: UDI_STUB_NAME
       value: udi-stub
-    - name: TESTNORGE_PROFIL_API_HOST
-      value: https://testnorge-profil-api.dev.intern.nav.no
-    - name: ORGANISASJON_FORVALTER_HOST
-      value: https://testnav-organisasjon-forvalter.dev.intern.nav.no
     - name: TPS_FORVALTERN_PROXY_NAME
       value: tps-forvalteren-proxy
     - name: TPS_FORVALTERN_PROXY_URL
