@@ -53,15 +53,15 @@ spec:
     - name: DOLLY_BACKEND_NAME
       value: dolly-backend
     - name: DOLLY_BACKEND_URL
-      value: https://dolly-backend.dev.adeo.no
+      value: https://dolly-backend-dev.dev-fss-pub.nais.io
     - name: UDI_STUB_URL
-      value: https://udi-stub.dev.adeo.no
+      value: https://udi-stub.dev-fss-pub.nais.io
     - name: UDI_STUB_NAME
       value: udi-stub
     - name: TPS_FORVALTERN_PROXY_NAME
       value: tps-forvalteren-proxy
     - name: TPS_FORVALTERN_PROXY_URL
-      value: https://tps-forvalteren-proxy.dev.intern.nav.no
+      value: https://tps-forvalteren-proxy.dev-fss-pub.nais.io
   vault:
     enabled: true
     paths:

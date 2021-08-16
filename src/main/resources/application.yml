@@ -36,12 +36,12 @@ consumers:
     cluster: dev-fss
     namespace: dolly
     name: testnav-brregstub-proxy
-    url: https://testnav-brregstub-proxy.dev.intern.nav.no
+    url: https://testnav-brregstub-proxy.dev-fss-pub.nais.io
   testnav-inntektstub-proxy:
     cluster: dev-fss
     namespace: dolly
     name: testnav-inntektstub-proxy
-    url: https://testnav-inntektstub-proxy.dev.intern.nav.no
+    url: https://testnav-inntektstub-proxy.dev-fss-pub.nais.io
   tps-forvalteren-proxy:
     cluster: dev-fss
     namespace: dolly
@@ -51,22 +51,22 @@ consumers:
     cluster: dev-fss
     namespace: dolly
     name: testnav-hodejegeren-proxy
-    url: https://testnav-hodejegeren-proxy.dev.intern.nav.no
+    url: https://testnav-hodejegeren-proxy.dev-fss-pub.nais.io
   testnav-arena-forvalteren-proxy:
     cluster: dev-fss
     namespace: dolly
     name: testnav-arena-forvalteren-proxy
-    url: https://testnav-arena-forvalteren-proxy.dev.intern.nav.no
+    url: https://testnav-arena-forvalteren-proxy.dev-fss-pub.nais.io
   testnav-testnorge-aareg-proxy:
     cluster: dev-fss
     namespace: dolly
     name: testnav-testnorge-aareg-proxy
-    url: https://testnav-testnorge-aareg-proxy.dev.intern.nav.no
+    url: https://testnav-testnorge-aareg-proxy.dev-fss-pub.nais.io
   testnav-krrstub-proxy:
     cluster: dev-fss
     namespace: dolly
     name: testnav-krrstub-proxy
-    url: https://testnav-krrstub-proxy.dev.intern.nav.no
+    url: https://testnav-krrstub-proxy.dev-fss-pub.nais.io
   testnav-testnorge-inst-proxy:
     cluster: dev-fss
     namespace: dolly
@@ -76,12 +76,12 @@ consumers:
     cluster: dev-fss
     namespace: dolly
     name: testnav-sigrunstub-proxy
-    url: https://testnav-sigrunstub-proxy.dev.intern.nav.no
+    url: https://testnav-sigrunstub-proxy.dev-fss-pub.nais.io
   testnav-pensjon-testdata-facade-proxy:
     cluster: dev-fss
     namespace: dolly
     name: testnav-pensjon-testdata-facade-proxy
-    url: https://testnav-pensjon-testdata-facade-proxy.dev.intern.nav.no
+    url: https://testnav-pensjon-testdata-facade-proxy.dev-fss-pub.nais.io
   dolly-backend:
     cluster: dev-fss
     namespace: dolly
@@ -96,7 +96,7 @@ consumers:
     cluster: dev-fss
     namespace: dolly
     name: testnorge-varslinger-api
-    url: https://testnorge-varslinger-api.dev.adeo.no
+    url: https://testnorge-varslinger-api.dev-fss-pub.nais.io
   testnav-organisasjon-forvalter:
     cluster: dev-gcp
     namespace: dolly
@@ -121,7 +121,7 @@ consumers:
     cluster: dev-fss
     namespace: dolly
     name: person-search-service
-    url: https://person-search-service.dev.intern.nav.no
+    url: https://person-search-service.dev-fss-pub.nais.io
   testnav-adresse-service:
     cluster: dev-gcp
     namespace: dolly
