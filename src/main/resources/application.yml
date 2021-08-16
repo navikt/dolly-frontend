@@ -71,7 +71,7 @@ consumers:
     cluster: dev-fss
     namespace: dolly
     name: testnav-testnorge-inst-proxy
-    url: https://testnav-testnorge-inst-proxy.dev.intern.nav.no
+    url: https://testnav-testnorge-inst-proxy.dev-fss-pub.nais.io
   testnav-sigrunstub-proxy:
     cluster: dev-fss
     namespace: dolly
