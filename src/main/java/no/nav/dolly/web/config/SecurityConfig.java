@@ -18,23 +18,28 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.netty.http.client.HttpClient;
 import reactor.netty.tcp.ProxyProvider;
 
+import java.net.URI;
+
 @Slf4j
 @EnableWebFluxSecurity
 @EnableReactiveMethodSecurity
 public class SecurityConfig {
 
     public HttpClient proxyHttpClient() {
-        String proxyHost = System.getProperty("https.proxyHost");
-        String proxyPort = System.getProperty("https.proxyPort");
+        String httpProxy = System.getProperty("http.proxy");
 
-        if (proxyHost == null && proxyPort == null) {
+        if (httpProxy == null) {
             return HttpClient.create();
         }
-        log.info("Setter opp proxy {}:{}.", proxyHost, proxyPort);
+        log.info("Setter opp proxy {}.", httpProxy);
+
+
+        var uri = URI.create(httpProxy);
+
         return HttpClient.create()
                 .tcpConfiguration(tcpClient ->
                         tcpClient.proxy(proxy ->
-                                proxy.type(ProxyProvider.Proxy.HTTP).host(proxyHost).port(Integer.valueOf(proxyPort))
+                                proxy.type(ProxyProvider.Proxy.HTTP).host(uri.getHost()).port(uri.getPort())
                         )
                 );
     }
