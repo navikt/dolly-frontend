@@ -6,7 +6,6 @@ metadata:
   labels:
     team: dolly
 spec:
-  webproxy: true
   azure:
     application:
       enabled: true
@@ -28,6 +27,36 @@ spec:
     - https://dolly.nais.preprod.local
     - https://dolly.nais-dev-fss.adeo.no
     - https://dolly.dev.adeo.no
+  accessPolicy:
+    outbound:
+      rules:
+        - application: testnorge-tilbakemelding-api
+        - application: testnav-adresse-service
+        - application: testnav-miljoer-service
+        - application: testnav-organisasjon-service
+        - application: testnav-organisasjon-forvalter
+        - application: testnorge-profil-api
+        - application: testnav-joark-dokument-service
+        - application: testnav-organisasjon-faste-data-service
+      external:
+        - host: person-search-service.dev-fss-pub.nais.io
+        - host: udi-stub-dev.dev-fss-pub.nais.io
+        - host: udi-stub.dev-fss-pub.nais.io
+        - host: testnorge-varslinger-api.dev-fss-pub.nais.io
+        - host: testnav-pensjon-testdata-facade-proxy.dev-fss-pub.nais.io
+        - host: testnav-sigrunstub-proxy.dev-fss-pub.nais.io
+        - host: testnav-sigrunstub-proxy.dev-fss-pub.nais.io
+        - host: testnav-testnorge-inst-proxy.dev-fss-pub.nais.io
+        - host: testnav-krrstub-proxy.dev-fss-pub.nais.io
+        - host: testnav-testnorge-aareg-proxy.dev-fss-pub.nais.io
+        - host: testnav-arena-forvalteren-proxy.dev-fss-pub.nais.io
+        - host: testnav-hodejegeren-proxy.dev-fss-pub.nais.io
+        - host: tps-forvalteren-dev-proxy.dev-fss-pub.nais.io
+        - host: tps-forvalteren-proxy.dev-fss-pub.nais.io
+        - host: dolly-backend-dev.dev-fss-pub.nais.io
+        - host: dolly-backend.dev-fss-pub.nais.io
+        - host: testnav-inntektstub-proxy.dev-fss-pub.nais.io
+        - host: testnav-brregstub-proxy.dev-fss-pub.nais.io
   liveness:
     path: /internal/isAlive
     initialDelay: 20
@@ -53,7 +82,7 @@ spec:
     - name: DOLLY_BACKEND_NAME
       value: dolly-backend
     - name: DOLLY_BACKEND_URL
-      value: https://dolly-backend-dev.dev-fss-pub.nais.io
+      value: https://dolly-backend.dev-fss-pub.nais.io
     - name: UDI_STUB_URL
       value: https://udi-stub.dev-fss-pub.nais.io
     - name: UDI_STUB_NAME
