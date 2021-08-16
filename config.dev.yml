@@ -52,6 +52,7 @@ spec:
   port: 8080
   ingresses:
     - https://dolly-frontend-dev.ekstern.dev.nav.no
+    - https://dolly-frontend-gcp-dev.dev.intern.nav.no
   liveness:
     path: /internal/isAlive
     initialDelay: 20
