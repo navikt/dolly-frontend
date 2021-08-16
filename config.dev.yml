@@ -31,10 +31,8 @@ spec:
       external:
         - host: person-search-service.dev-fss-pub.nais.io
         - host: udi-stub-dev.dev-fss-pub.nais.io
-        - host: udi-stub.dev-fss-pub.nais.io
         - host: testnorge-varslinger-api.dev-fss-pub.nais.io
         - host: testnav-pensjon-testdata-facade-proxy.dev-fss-pub.nais.io
-        - host: testnav-sigrunstub-proxy.dev-fss-pub.nais.io
         - host: testnav-sigrunstub-proxy.dev-fss-pub.nais.io
         - host: testnav-testnorge-inst-proxy.dev-fss-pub.nais.io
         - host: testnav-krrstub-proxy.dev-fss-pub.nais.io
@@ -42,9 +40,7 @@ spec:
         - host: testnav-arena-forvalteren-proxy.dev-fss-pub.nais.io
         - host: testnav-hodejegeren-proxy.dev-fss-pub.nais.io
         - host: tps-forvalteren-dev-proxy.dev-fss-pub.nais.io
-        - host: tps-forvalteren-proxy.dev-fss-pub.nais.io
         - host: dolly-backend-dev.dev-fss-pub.nais.io
-        - host: dolly-backend.dev-fss-pub.nais.io
         - host: testnav-inntektstub-proxy.dev-fss-pub.nais.io
         - host: testnav-brregstub-proxy.dev-fss-pub.nais.io
   replicas:
