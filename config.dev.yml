@@ -13,8 +13,7 @@ spec:
       # enum of {trygdeetaten.no, nav.no}
       tenant: nav.no
       replyURLs:
-        - https://dolly-frontend-dev.ekstern.dev.nav.no/login/oauth2/code/aad
-        - https://dolly-frontend-gcp-dev.dev.intern.nav.no/login/oauth2/code/aad
+        - https://dolly-frontend-dev.dev.intern.nav.no/login/oauth2/code/aad
         - http://localhost:8080/login/oauth2/code/aad
         - http://localhost:3000/login/oauth2/code/aad
   accessPolicy:
@@ -48,8 +47,7 @@ spec:
     max: 2
   port: 8080
   ingresses:
-    - https://dolly-frontend-dev.ekstern.dev.nav.no
-    - https://dolly-frontend-gcp-dev.dev.intern.nav.no
+    - https://dolly-frontend-dev.dev.intern.nav.no
   liveness:
     path: /internal/isAlive
     initialDelay: 20
