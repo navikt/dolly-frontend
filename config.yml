@@ -9,7 +9,6 @@ spec:
   azure:
     application:
       enabled: true
-      # enum of {trygdeetaten.no, nav.no}
       tenant: nav.no
       replyURLs:
         - https://dolly.ekstern.dev.nav.no/login/oauth2/code/aad
