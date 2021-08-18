@@ -1,6 +1,4 @@
-import config from '~/config'
-
-const uri = `${config.services.dollyBackend}`
+const uri = `/dolly-backend/api/v1`
 
 const groupBase = `${uri}/gruppe`
 const identBase = `${uri}/ident`
@@ -108,13 +106,6 @@ export default class DollyEndpoints {
 
 	static kodeverkByNavn(kodeverkNavn) {
 		return `${kodeverkBase}/${kodeverkNavn}`
-	}
-
-	static inntektsmeldingDokumentinfo(journalpostId, dokumentinfoId, env) {
-		if (dokumentinfoId) {
-			return `${inntektsmeldingBase}/${journalpostId}/${env.toLowerCase()}?dokumentInfoId=${dokumentinfoId}&variantFormat=ORIGINAL`
-		} else
-			return `${inntektsmeldingBase}/${journalpostId}/${env.toLowerCase()}?variantFormat=ORIGINAL`
 	}
 
 	static dokarkivDokumentinfo(journalpostId, env) {

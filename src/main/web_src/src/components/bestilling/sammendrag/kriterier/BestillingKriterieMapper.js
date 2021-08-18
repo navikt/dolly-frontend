@@ -426,8 +426,20 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 				{
 					numberHeader: `Arbeidsforhold ${i + 1}`
 				},
-				obj('Startdato', Formatters.formatDate(arbeidsforhold.ansettelsesPeriode.fom)),
-				obj('Sluttdato', Formatters.formatDate(arbeidsforhold.ansettelsesPeriode.tom)),
+				obj(
+					'Startdato',
+					arbeidsforhold &&
+						arbeidsforhold.ansettelsesPeriode &&
+						arbeidsforhold.ansettelsesPeriode.fom &&
+						Formatters.formatDate(arbeidsforhold.ansettelsesPeriode.fom)
+				),
+				obj(
+					'Sluttdato',
+					arbeidsforhold &&
+						arbeidsforhold.ansettelsesPeriode &&
+						arbeidsforhold.ansettelsesPeriode.tom &&
+						Formatters.formatDate(arbeidsforhold.ansettelsesPeriode.tom)
+				),
 				{
 					label: 'Type arbeidsforhold',
 					value: arbeidsforhold.arbeidsforholdstype,
@@ -906,7 +918,7 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 				institusjonstype: i.institusjonstype,
 				varighet: i.varighet,
 				startdato: i.startdato,
-				faktiskSluttdato: i.faktiskSluttdato
+				sluttdato: i.sluttdato
 			})
 		})
 
@@ -923,7 +935,7 @@ export function mapBestillingData(bestillingData, bestillingsinformasjon) {
 				obj('Institusjonstype', Formatters.showLabel('institusjonstype', inst.institusjonstype)),
 				obj('Varighet', inst.varighet && Formatters.showLabel('varighet', inst.varighet)),
 				obj('Startdato', Formatters.formatDate(inst.startdato)),
-				obj('Sluttdato', Formatters.formatDate(inst.faktiskSluttdato))
+				obj('Sluttdato', Formatters.formatDate(inst.sluttdato))
 			])
 		})
 		data.push(instObj)
