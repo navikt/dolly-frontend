@@ -24,7 +24,7 @@
         <sonar.login>${SONAR_LOGIN}</sonar.login>
         <sonar.sources>src/main/web_src</sonar.sources>
         <sonar-maven-plugin.version>3.7.0.1746</sonar-maven-plugin.version>
-        <jsoup.version>1.11.3</jsoup.version>
+        <jsoup.version>1.14.2</jsoup.version>
         <logstash-logback-encoder.version>6.0</logstash-logback-encoder.version>
         <spring-cloud-dependencies.version>Hoxton.SR6</spring-cloud-dependencies.version>
         <commons-lang3.version>3.11</commons-lang3.version>
