@@ -78,6 +78,10 @@ spec:
       value: tps-forvalteren-proxy
     - name: TPS_FORVALTERN_PROXY_URL
       value: https://tps-forvalteren-proxy.dev-fss-pub.nais.io
+    - name: VARSLINGER_NAME
+      value: testnav-varslinger-service
+    - name: VARSLINGER_URL
+      value: https://testnav-varslinger-service.dev.intern.nav.no
   vault:
     enabled: true
     paths:
